@@ -52,6 +52,7 @@ export interface PacienteShort {
     nombre: string;
     apellidos: string;
     edad: number;
+    fecha_nacimiento: Date;
     genero: string;
     lugarNacimiento: string;
     calle: string;
@@ -64,3 +65,4 @@ export interface PacienteShort {
     fechaRegistro: Date;
     bloodType: string;
 }
+

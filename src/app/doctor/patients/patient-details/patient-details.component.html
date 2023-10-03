@@ -1,40 +1,63 @@
-<div class="row">
+<div class="col-xl-11 col-lg-11 col-md-12 col-sm-12 mx-auto mt-4" >
     <!-- <div *ngFor="let patient of patients" class="col-xs-12 col-sm-12 col-md-4 col-lg-4"> -->
       <div class="card py-3 py-md-3">
-        <div class=" d-flex justify-content-between px-5">
+        <div class=" d-flex justify-content-start px-5">
           <img src="assets/images/user/usrbig1.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-          <div class="">
-            <h6 class="col-green">{{'patient.nombre'}}</h6>
-            <p>Id Paciente : {{'patient.idPaciente'}}</p>
+          <div class="ms-3">
+            <h6 class="col-green">{{patientDetails.nombre + ' ' + patientDetails.apellidos}}</h6>
+            <p>Id Paciente : {{patientDetails.idPaciente}}</p>
           </div>
-          <div>
-            <h6 class="">10:00 - 10:30 AM</h6>
-            <p class="grey"> {{'patient.fechaNacimiento'}} </p>
-          </div>
+         
         </div>
         <hr class="light-hr">
         <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-          <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> {{ 'patient.calle patient.colonia'}}</div>
-          <div><i class="fas fa-phone pt-3 psr-3"></i>{{'patient.telefono'}}</div>
+          <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> {{patientDetails.municipio + ', ' + patientDetails.estado + ' ' + patientDetails.calle + ' ' + patientDetails.colonia}}</div>
+          <div><i class="fas fa-phone pt-3 psr-3"></i>{{patientDetails.telefono}}</div>
+          <div><mat-icon class="pt-1 me-2" style="margin-left: -0.25rem;">email</mat-icon>{{ patientDetails.correo}}</div>
         </div>
         <hr class="light-hr">
         <div class="d-flex justify-content-between px-3 px-md-4">
           <div>
             <div class="d-flex">
-              <p class="psr-2">Blood Group:</p>
-              <div class="font-weight-bold"> O+ </div>
+                <p class="psr-2"> <strong>Fecha Registro:</strong> </p>
+                <div class="font-weight-bold">{{patientDetails.fechaRegistro}} </div>
             </div>
             <div class="d-flex">
+                <p class="psr-2"> <strong>Edad:</strong></p>
+                <div class="font-weight-bold"> {{patientDetails.edad}} </div>
+              </div>
+            <div class="d-flex">
+                <p class="psr-2"> <strong> Genero:</strong></p>
+                <div class="font-weight-bold"> {{patientDetails.genero}} </div>
+            </div>
+            <div class="d-flex">
+                <p class="psr-2"> <strong>Lugar de Nacimiento:</strong></p>
+                <div class="font-weight-bold"> {{patientDetails.lugarNacimiento}} </div>
+            </div>
+            <div class="d-flex">
+                <p class="psr-2"> <strong>Tipo Sanguineo:</strong></p>
+                <div class="font-weight-bold"> {{patientDetails.bloodType}} </div>
+            </div>
+            <!-- <div class="d-flex">
               <p class="psr-2">Reports:</p>
               <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-            </div>
+            </div> -->
           </div>
         </div>
-        <hr class="light-hr">
-        <div class="d-flex justify-content-around px-4"> 
-          <button mat-stroked-button color="primary">
-            Read More
-          </button>
+        <div class="row align-self-end">
+            <div class="me-4 mb-3 gap-2" style="display: flex;">
+                <button (click)="openMedicalRecord()" mat-fab extended class="mat-success">
+                    <mat-icon>topic</mat-icon>
+                    Expediente Paciente
+                </button>
+                <button (click)="closeModal()" mat-fab extended color="primary">
+                    <mat-icon>arrow_back</mat-icon>
+                    Regresar
+                </button>
+            </div>
+            <!-- <div class="me-4 mb-3">
+                
+            </div> -->
         </div>
       </div>
     <!-- </div> -->

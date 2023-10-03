@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -20,7 +20,7 @@ import { MedicalRecordComponent } from 'app/doctor/patients/medical-record/medic
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.scss']
 })
-export class AppointmentComponent implements OnInit{
+export class AppointmentComponent implements OnInit, OnDestroy{
 
   // Form
   patientForm: UntypedFormGroup;
@@ -133,5 +133,11 @@ export class AppointmentComponent implements OnInit{
   
   campoEsValido(campo: string){
     return this.appointmentForm.controls[campo].errors && this.appointmentForm.controls[campo].touched;
+  }
+
+  ngOnDestroy(): void {
+    console.log('ng on destroy')
+    this.appointmentsService.currentAppointment = {};
+    
   }
 }

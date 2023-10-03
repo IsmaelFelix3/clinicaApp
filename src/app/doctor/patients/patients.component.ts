@@ -41,7 +41,8 @@ export class PatientsComponent implements OnInit{
             nombre: element.nombre,
             apellidos: element.apellidos,
             edad: this.calculate_age(new Date (element.fecha_nacimiento)),
-            genero: element.lugar_nacimiento,
+            fecha_nacimiento: element.fecha_nacimiento,
+            genero: element.genero,
             lugarNacimiento: element.lugar_nacimiento,
             calle: element.calle_y_numero,
             colonia: element.colonia,
@@ -68,9 +69,14 @@ export class PatientsComponent implements OnInit{
   }
 
   detailsCall(row: any){
+    console.log(row)
     this.dialog.open(PatientDetailsComponent, {
-      height: '71%',
-      width: '35%',
+      data: {
+        action: 'informacionPaciente',
+        details: row
+      },
+      height: '75%',
+      width: '40%',
     });
   }
 
