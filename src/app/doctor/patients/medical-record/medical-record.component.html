@@ -1,0 +1,352 @@
+<div class="addContainer">
+    <div *ngIf="true" class="contact-details">
+        <div class="modalHeader">
+            <div class="editRowModal">
+                <div class="modalHeader clearfix">
+                    <div class="modal-about contact-header">
+                    <div class="contact-details-img">
+                        <img src='' alt="avatar">
+                    </div>
+                    <div class="contact-details-heading">
+                        <div class="contact-details-name mb-3" style="overflow: unset;">{{patientDetail.nombre + ' ' + patientDetail.apellidos}}</div>
+                        <div class="badge col-green">Paciente</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-11 col-lg-11 col-md-12 col-sm-12 mx-auto">
+    <div class="card">
+      <div class="header">
+        <h2>Expediente Medico</h2>
+      </div>
+      <div class="body">
+        <div class="example-container">
+            <form [formGroup]="medicalRecordForm">
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                        General
+                        </mat-panel-title>
+                        <!-- <mat-panel-description>
+                        This is a summary of the content
+                        </mat-panel-description> -->
+                    </mat-expansion-panel-header>
+                        <div class="row mt-4">
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label>Expediente</mat-label>
+                                <input matInput formControlName="idExpediente">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label>Paciente</mat-label>
+                                <input matInput formControlName="idPaciente">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Fecha Expediente</mat-label>
+                                <input matInput formControlName="fechaCreacionExpediente">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label>Edad</mat-label>
+                                <input matInput formControlName="edadPaciente">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Tipo Sanguineo</mat-label>
+                                <input matInput formControlName="tipoSanguineo">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="row mt-4">
+                            <mat-form-field class="col-12" appearance="outline">
+                                <mat-label>Alergias</mat-label>
+                                <textarea style="height: 2.5rem;" matInput formControlName="alergias"></textarea>
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="true"
+                                        (closed)="false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                        Antecedentes Personales Patologicos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row mt-4">
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Enfermedades Infantiles</mat-label>
+                            <textarea style="height: 2.5rem;" matInput formControlName="enfermedadesInfantiles"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Secuelas</mat-label>
+                            <textarea style="height: 2.5rem;" matInput formControlName="secuelas"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Hospitalizaciones</mat-label>
+                            <textarea style="height: 2.5rem;" matInput formControlName="hospitalizacion"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Antecedentes Quirurgicos</mat-label>
+                            <textarea style="height: 2.5rem;" matInput formControlName="quirurgicos"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Otras Enfermedades</mat-label>
+                            <textarea style="height: 2.5rem;" matInput formControlName="otrasEnfermedades"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Antecedentes Personales No Patologicos
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                            This is a summary of the content
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                        <div class="row">
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="fumador">
+                                    Fumador
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="fumador">
+                                    Alcohol
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="fumador">
+                                    Drogas
+                                </mat-checkbox>
+                            </div>
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>Diabetes</mat-label>
+                                <input style="height: 2.5rem;" matInput formControlName="diabetes">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="row mt-4">
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>Otros</mat-label>
+                                <input style="height: 2.5rem;" matInput formControlName="otros">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>Inmunizacion</mat-label>
+                                <input style="height: 2.5rem;" matInput formControlName="inmunizacion">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                        <mat-panel-title>
+                        Antecedentes Andrologicos
+                        </mat-panel-title>
+                            <!-- <mat-panel-description>
+                            This is a summary of the content
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                         <div class="row">
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="circuncision">
+                                    Circuncision
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="criptorquidia">
+                                    Criptorquidia
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-2"></div>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label>VSA</mat-label>
+                                <input matTooltip="Vida Sexual Activa" matInput formControlName="vsa">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                            <div class="col-1"></div>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label># Parejas</mat-label>
+                                <input matInput formControlName="numeroParejas">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="row mt-4">
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>ETS</mat-label>
+                                <input matTooltip="Enfermedades Transmision Sexual" matInput formControlName="ets">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>Trastornos Ereccion</mat-label>
+                                <input matInput formControlName="transtornoEreccion">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>Andropausia</mat-label>
+                                <input matInput formControlName="andropausia">
+                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Antecedentes Gineco-Obstetricos
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                            This is a summary of the content
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                         <div class="row">
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label>Menarca</mat-label>
+                                <input matInput formControlName="menarca">
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Ciclo Menstrual</mat-label>
+                                <input matInput formControlName="cicloMenstrual">
+                            </mat-form-field>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label>VSA</mat-label>
+                                <input matTooltip="Vida Sexual Activa" matInput formControlName="vsaGO">
+                            </mat-form-field>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label># Parejas</mat-label>
+                                <input matInput formControlName="numeroParejasGO">
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Metodo Anticonceptivo</mat-label>
+                                <input matInput formControlName="metodoAnticonceptivo">
+                            </mat-form-field>
+                        </div>
+                        <div class="row mt-2">
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label># Embarazos</mat-label>
+                                <input matInput formControlName="numeroEmbarazos">
+                            </mat-form-field>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label># Partos</mat-label>
+                                <input matInput formControlName="numeroPartos">
+                            </mat-form-field>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label># Abortos</mat-label>
+                                <input matInput formControlName="abortos">
+                            </mat-form-field>
+                            <mat-form-field class="col-2" appearance="outline">
+                                <mat-label># Cesareas</mat-label>
+                                <input matInput formControlName="cesareas">
+                            </mat-form-field>
+                            <mat-form-field class="col-4" appearance="outline">
+                                <mat-label>Lactancia Materna</mat-label>
+                                <input matInput formControlName="lactanciaMaterna">
+                            </mat-form-field>
+                        </div>
+                        <div class="row mt-2">
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>FUM</mat-label>
+                                <input matTooltip="Fecha Ultima Menstruación" matInput formControlName="fechaUltimaMenstruacion">
+                            </mat-form-field>
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>Papanicolau</mat-label>
+                                <input matInput formControlName="papanicolau">
+                            </mat-form-field>
+                        </div>
+                        <div class="row mt-2">
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>ETS</mat-label>
+                                <input matTooltip="Enfermedad Transmision Sexual" matInput formControlName="etsGO">
+                            </mat-form-field>
+                            <mat-form-field class="col-6" appearance="outline">
+                                <mat-label>Menopausia</mat-label>
+                                <input matInput formControlName="menopausia">
+                            </mat-form-field>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Antecedentes Heredo Familiares
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                            This is a summary of the content
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                        <div class="row mt-2">
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="diabetesHF">
+                                    Diabetes
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="hipertensionArterial">
+                                    Diabetes
+                                </mat-checkbox>
+                            </div>
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="cancer">
+                                    Cancer
+                                </mat-checkbox>
+                            </div>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Tipo Cancer</mat-label>
+                                <input matInput formControlName="tipoCancer">
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Familiar Cancer</mat-label>
+                                <input matInput formControlName="familiarCancer">
+                            </mat-form-field>
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="cardiopatas">
+                                    Cardiopatas
+                                </mat-checkbox>
+                            </div>
+                            <mat-form-field class="col-4" appearance="outline">
+                                <mat-label>Familiar Cardiopatas</mat-label>
+                                <input matInput formControlName="familiarCardiopatas">
+                            </mat-form-field>
+                            <div class="col-2">
+                                <mat-checkbox color="primary" labelPosition="before" formControlName="nefropatas">
+                                    Nefropatas
+                                </mat-checkbox>
+                            </div>
+                            <mat-form-field class="col-4" appearance="outline">
+                                <mat-label>Familiar Nefropatas</mat-label>
+                                <input matInput formControlName="familiarNefropatas">
+                            </mat-form-field>
+                            <mat-form-field class="col-12" appearance="outline">
+                                <mat-label>Malformaciones</mat-label>
+                                <input matInput formControlName="descripcionMalformaciones">
+                            </mat-form-field>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </form>
+        </div>
+      </div>
+      <div class="row align-self-end">
+          <div class="me-4 mb-3">
+              <button mat-fab extended color="primary">
+                  <mat-icon>done</mat-icon>
+                  Guardar
+              </button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+  

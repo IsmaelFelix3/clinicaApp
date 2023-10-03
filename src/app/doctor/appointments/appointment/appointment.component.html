@@ -1,0 +1,184 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Citas'" [items]="['Cita']" [active_item]="'Actual'"></app-breadcrumb>
+      </div>
+      <!-- PATIENT DATA -->
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Paciente: {{ patientDetails.Paciente.nombre + ' ' + patientDetails.Paciente.apellidos}}</h2>
+              <p [ngClass]="{'col-green': estatus == true, 'col-red': estatus == false}" class="badge mt-1">{{patientDetails.estatus}}</p>
+              <!-- <p *ngIf="true" class="badge col-red">{{patientDetails.estatus}}</p> -->
+            </div>
+            <div class="body">
+              <div class="example-container">
+                <form [formGroup]="patientForm">
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-5">
+                      <mat-label>Direccion </mat-label>
+                        <mat-form-field class="col-12" appearance="fill">
+                          <input disable matInput type="text" formControlName="direccion">
+                          <!-- <app-file-upload formControlName="uploadFile"></app-file-upload> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-5">
+                        <mat-label>Correo </mat-label>
+                          <mat-form-field class="col-12" appearance="fill">
+                            <input disable matInput type="text" formControlName="correo">
+                            <!-- <app-file-upload formControlName="uploadFile"></app-file-upload> -->
+                          </mat-form-field>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-5">
+                        <mat-label>Telefono </mat-label>
+                          <mat-form-field class="col-12" appearance="fill">
+                            <input disable matInput type="text" formControlName="telefono">
+                            <!-- <app-file-upload formControlName="uploadFile"></app-file-upload> -->
+                          </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-5">
+                      <div class="contact-details-field" style="margin-bottom: -3rem;margin-top: -2rem;gap:1rem;">
+                        <button mat-fab extended class="mat-success" (click)="openMedicalRecord()">
+                            <mat-icon>topic</mat-icon>
+                            Expediente Paciente
+                        </button>
+                        <button mat-fab extended color="primary">
+                            <mat-icon>event_note</mat-icon>
+                            Ultima Cita
+                        </button>
+                        <button mat-fab extended color="primary">
+                            <mat-icon>history</mat-icon>
+                            Historial Cita
+                        </button>
+                        <button mat-fab extended color="basic">
+                            <mat-icon>description</mat-icon>
+                            Estudios
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- PATIENT DATA -->
+      <!-- EXAMEN FISICO -->
+      <form [formGroup]="appointmentForm">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Examen Fisico</h2>
+            </div>
+            <div class="body">
+              <div class="example-container">
+                <div class="row pb-3">
+                    <mat-form-field hideRequiredMarker class="col-6" appearance="fill">
+                        <mat-label>Pulso LPM</mat-label>
+                        <input matInput formControlName="pulso">
+                      </mat-form-field>
+                      <br>
+                      <mat-form-field hideRequiredMarker class="col-6" appearance="fill">
+                          <mat-label>Presion Arterial</mat-label>
+                          <input matInput formControlName="presion_arterial">
+                        </mat-form-field>
+                      <br>
+                </div>
+                <div class="row pb-3">
+                    <mat-form-field hideRequiredMarker class="col-6" appearance="fill">
+                        <mat-label>Temperatura C°</mat-label>
+                        <input matInput formControlName="temperatura">
+                      </mat-form-field>
+                    <br>
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>Peso Kg</mat-label>
+                        <input matInput formControlName="peso_paciente">
+                        <mat-error *ngIf="campoEsValido('peso_paciente')">{{'Debe agregar el peso del paciente'}}</mat-error>
+                      </mat-form-field>
+                    <br>
+                </div>
+                <div class="row pb-3">
+                    <mat-form-field hideRequiredMarker class="col-6" appearance="fill">
+                        <mat-label>Frec. Respiratoria</mat-label>
+                        <input matInput formControlName="frecuencia_respiratoria">
+                      </mat-form-field>
+                    <br>
+                    <mat-form-field hideRequiredMarker class="col-6" appearance="fill">
+                      <mat-label>Frec. Cardiaca</mat-label>
+                      <input matInput formControlName="frecuencia_cardiaca">
+                    </mat-form-field>
+                </div>
+                <div class="row pb-3" >
+                    <mat-form-field hideRequiredMarker class="col-12" appearance="fill">
+                        <mat-label>Inspeccion General</mat-label>
+                        <textarea style="height: 10rem;" matInput formControlName="inspeccion_general" ></textarea>
+                      </mat-form-field>
+                    <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- EXAMEN FISICO -->
+        <!-- CITA ACTUAL -->
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Cita Actual</h2>
+            </div>
+            <div class="body">
+              <div class="example-container">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Motivo Consulta</mat-label>
+                  <input matInput formControlName="motivo_consulta">
+                  <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Sintomas</mat-label>
+                  <textarea style="height: 5rem;" matInput formControlName="sintoma_principal"></textarea>
+                  <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Diagnostico</mat-label>
+                    <textarea matInput formControlName="diagnostico"></textarea>
+                     <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un diagnostico'}}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Tratamiento</mat-label>
+                  <textarea style="height: 5rem;" matInput formControlName="tratamiento"></textarea>
+                   <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar tratamiento'}}</mat-error>
+                </mat-form-field>
+                
+              </div>
+            </div>
+            <div class="row align-self-end">
+                <div class="col-6 mb-3">
+                    <button mat-fab extended color="primary">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        Generar Receta
+                    </button>
+                </div>
+                <div class="col-6 mb-3">
+                    <button (click)="finalizarCita()" mat-fab extended color="warn">
+                        <mat-icon>done</mat-icon>
+                        Finalizar Cita
+                    </button>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- CITA ACTUAL -->
+      </div>
+    </form>
+    </div>
+  </section>
+  
