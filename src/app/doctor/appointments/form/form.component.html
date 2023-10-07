@@ -45,10 +45,14 @@
           <div class="contact-detail-info"> {{appointments.motivo_consulta}}
           </div>
         </div>
-        <div class="contact-details-field">
+        <div class="contact-details-field gap-4">
           <button mat-fab extended color="primary" (click)="navigateToAppointment()">
             <mat-icon>arrow_right_alt</mat-icon>
             Ir a cita
+          </button>
+          <button mat-fab extended color="warn">
+            <mat-icon>notifications_active</mat-icon>
+            Llamar Paciente
           </button>
         </div>
       </mat-card-content>

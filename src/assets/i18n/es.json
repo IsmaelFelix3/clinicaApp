@@ -101,10 +101,13 @@
     "DOCTOR": {    
         "DASHBOARD": "Tablero",
         "APPOINTMENTS": "Citas",
+        "APPOINTMENTSTODAY": "Citas Del Dia",
         "DOCTORS": "Doctoras",
+        "MEDICALRECORDS": "Expedientes",
         "PATIENTS": "Pacientes",
         "SETTINGS": "Configuraciones",
-        "CHAT": "Charla"
+        "CHAT": "Charla",
+        "NEWAPPOINTMENT": "Nueva Cita"
     },
     "PATIENT": {    
       "TEXT": "Paciente",

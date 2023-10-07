@@ -1,0 +1,87 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Citas'" [items]="[]" [active_item]="'Nueva Cita'"></app-breadcrumb>
+      </div>
+      <form [formGroup]="newAppoinmentForm">
+      <div class="row">
+        <!-- Nueva Cita -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Cita Actual</h2>
+            </div>
+            <div class="body">
+              <div class="example-container">
+                <div class="row">
+                    <mat-form-field class="col-5" appearance="outline">
+                      <mat-label>Paciente</mat-label>
+                      <mat-select formControlName="paciente">
+                        <mat-option *ngFor="let patient of patients" [value]="patient">
+                          {{patient.nombre + ' ' + patient.apellidos}}
+                        </mat-option>
+                      </mat-select>
+                   <mat-error *ngIf="campoEsValido('paciente')">{{'Debe seleccionar un paciente'}}</mat-error>
+                    </mat-form-field>
+                    <!-- <mat-form-field class="example-full-width" appearance="outline"> -->
+                    <div class="col-6">
+                        <!-- <h6>Fecha Cita</h6> -->
+                        <!-- <p>Prevent Saturday and Sunday from being selected</p> -->
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Fecha Cita</mat-label>
+                            <input matInput [matDatepickerFilter]="myFilter" (dateInput)="onDateChange($event)" formControlName="fechaCita" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="campoEsValido('fechaCita')">{{'Debe seleccionar una fecha'}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <label>Horario de la Cita:</label>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <mat-button-toggle-group name="horario" aria-label="Horario"
+                        formControlName="horario">
+                        <mat-button-toggle value="8" [disabled]="true">8:00-9:00</mat-button-toggle>
+                        <mat-button-toggle value="9" [disabled]="true">9:00-10:00</mat-button-toggle>
+                        <mat-button-toggle value="10" [disabled]="true">10:00-11:00</mat-button-toggle>
+                        <mat-button-toggle value="11">11:00-12:00</mat-button-toggle>
+                        <mat-button-toggle value="12">12:00-01:00</mat-button-toggle>
+                        <mat-button-toggle value="13">01:00-02:00</mat-button-toggle>
+                        <mat-button-toggle value="14">02:00-03:00</mat-button-toggle>
+                        <mat-button-toggle value="15">03:00-04:00</mat-button-toggle>
+                        <mat-button-toggle value="16">04:00-05:00</mat-button-toggle>
+                        <mat-button-toggle value="17">05:00-06:00</mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <mat-error *ngIf="campoEsValido('horario')">{{'Seleccionar un horario'}}</mat-error>
+                    </div>
+                  </div>
+                <!-- </mat-form-field> -->
+                <mat-form-field class="col-4" appearance="outline">
+                    <mat-label>Motivo Consulta</mat-label>
+                    <mat-select formControlName="motivoConsulta">
+                      <mat-option *ngFor="let motivo of motivos" [value]="motivo">
+                        {{motivo}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="campoEsValido('motivoConsulta')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
+                  </mat-form-field>
+              </div>
+            </div>
+            <div class="row align-self-end">
+                <div class="mb-3 me-3">
+                    <button (click)="saveAppoinment()" type="button" mat-fab extended color="primary">
+                        <mat-icon>done</mat-icon>
+                        Agendar Cita
+                    </button>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- CITA ACTUAL -->
+      </div>
+    </form>
+    </div>
+  </section>
+  

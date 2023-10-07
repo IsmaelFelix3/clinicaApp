@@ -7,6 +7,8 @@ import { DoctorsComponent } from './doctors/doctors.component';
 import { PatientsComponent } from './patients/patients.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AppointmentComponent } from './appointments/appointment/appointment.component';
+import { MedicalRecordsComponent } from "../doctor/medical-records/medical-records.component";
+import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -29,8 +31,20 @@ const routes: Routes = [
     component: SettingsComponent,
   },
   {
+    path: 'appointments',
+    component: AppointmentsComponent
+  },
+  {
     path: 'appointment',
     component: AppointmentComponent
+  },
+  {
+    path: 'medicalRecords',
+    component: MedicalRecordsComponent
+  },
+  {
+    path: 'newAppointment',
+    component: NewAppoinmentComponent
   },
   { path: '**', component: Page404Component },
 ];

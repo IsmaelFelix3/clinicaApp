@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Expediente } from 'app/interfaces/Expediente.interface';
 import { Pacientes } from 'app/interfaces/Paciente.interface';
+import { NuevaCita } from 'app/interfaces/Cita.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class PatientsService {
 
   saveMedicalRecord(medicalRecord: Expediente){
     return this.http.post(`http://localhost:8000/api/expedientes/`,medicalRecord);
+  }
+
+  addAppoinment(newAppoinment: NuevaCita){
+    return this.http.post(`http://localhost:8000/api/citas/`, newAppoinment);
   }
 }

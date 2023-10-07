@@ -152,6 +152,7 @@ export class MedicalRecordComponent implements OnInit {
       let idExpediente = this.appoinmentService.currentAppointment.Paciente.id_expediente;
       this.patientService.getMedicalRecordById(idExpediente).subscribe( (data: Expediente) => {
           console.log(data);
+          console.log(data.expediente.Antecedentes_Personales_No_Patologico.tipo_sanguineo)
           // General
           this.medicalRecordForm.get('idExpediente')?.setValue(data.expediente.id_expediente);
           this.medicalRecordForm.get('idPaciente')?.setValue(data.expediente.id_paciente);

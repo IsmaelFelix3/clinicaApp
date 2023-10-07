@@ -138,6 +138,6 @@ export class AppointmentComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     console.log('ng on destroy')
     this.appointmentsService.currentAppointment = {};
-    
+    console.log(this.appointmentsService.currentAppointment)
   }
 }

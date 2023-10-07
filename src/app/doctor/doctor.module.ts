@@ -20,6 +20,8 @@ import { AppointmentComponent } from './appointments/appointment/appointment.com
 import { CustomDateTablePipe } from '../helpers/custom-date-table.pipe';
 import { MedicalRecordComponent } from './patients/medical-record/medical-record.component';
 import { PatientDetailsComponent } from './patients/patient-details/patient-details.component';
+import { MedicalRecordsComponent } from './medical-records/medical-records.component';
+import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { PatientDetailsComponent } from './patients/patient-details/patient-deta
     AppointmentComponent,
     CustomDateTablePipe,
     MedicalRecordComponent,
-    PatientDetailsComponent
+    PatientDetailsComponent,
+    MedicalRecordsComponent,
+    NewAppoinmentComponent
   ],
   imports: [
     CommonModule,

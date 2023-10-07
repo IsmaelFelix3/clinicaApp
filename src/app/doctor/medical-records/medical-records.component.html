@@ -1,0 +1,32 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Expedientes'" [items]="[]" [active_item]="'Expedientes Medicos'"></app-breadcrumb>
+      </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Number</mat-label>
+                          <input type="text"
+                                 placeholder="Pick one"
+                                 aria-label="Number"
+                                 matInput
+                                 [formControl]="myControl"
+                                 [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                      </form>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+  </section>
+  
