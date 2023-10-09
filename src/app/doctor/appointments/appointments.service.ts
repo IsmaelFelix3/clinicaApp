@@ -41,6 +41,10 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
     // });
     return this.httpClient.get<Appointments[]>('http://localhost:8000/api/citas');
   }
+
+  getTakenSlots(selectedDate: string){
+    return this.httpClient.get(`http://localhost:8000/api/citas/takenSlots/${selectedDate}`);
+  }
   addAppointments(appointments: Appointments): void {
     this.dialogData = appointments;
 
