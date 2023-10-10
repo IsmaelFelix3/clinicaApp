@@ -51,6 +51,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
+    console.log(' interceptor fake')
+
     const { url, method, headers, body } = request;
     // wrap in delayed observable to simulate server api call
     return of(null).pipe(mergeMap(handleRoute));

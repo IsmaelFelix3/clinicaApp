@@ -10,7 +10,10 @@ import { AuthService } from '../service/auth.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthService) {}
+  constructor(private authenticationService: AuthService) {
+
+    console.log(' interceptor jwt')
+  }
 
   intercept(
     request: HttpRequest<any>,

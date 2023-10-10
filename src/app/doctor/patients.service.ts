@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Expediente } from 'app/interfaces/Expediente.interface';
 import { Pacientes } from 'app/interfaces/Paciente.interface';
 import { NuevaCita } from 'app/interfaces/Cita.interface';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,9 @@ export class PatientsService {
   addAppoinment(newAppoinment: NuevaCita){
     return this.http.post(`http://localhost:8000/api/citas/`, newAppoinment);
   }
+
+  errorHandler(error: HttpErrorResponse){
+    return throwError(() => new Error('test'));
+  }
+
 }

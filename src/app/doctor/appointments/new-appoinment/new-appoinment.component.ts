@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PatientsService } from 'app/doctor/patients.service';
-import { MyErrorStateMatcher } from 'app/forms/form-controls/form-controls.component';
 import { Paciente } from 'app/interfaces/Paciente.interface';
 import Swal from 'sweetalert2';
 import { AppointmentsService } from '../appointments.service';
 import { ScheduleServiceService } from '../../../services/schedule-service.service';
+
+import { z } from "zod";
 
 
 @Component({
@@ -45,9 +45,15 @@ export class NewAppoinmentComponent implements OnInit{
       this.newAppoinmentForm.markAllAsTouched();
       return;
     }
-
+    const dateSchema = z.coerce.date();
+    type DateSchema = z.infer<typeof dateSchema>;
 
     let fecha = new Date(this.newAppoinmentForm.get('fechaCita')?.value)
+    if(!dateSchema.safeParse(fecha).success){
+      Swal.fire({icon: 'error',title:'Error fecha invalida'});
+      return;
+    }
+
     let newFecha = fecha.setHours(this.newAppoinmentForm.get('horario')?.value);
 
     let date = new Date(new Date(newFecha).toISOString());
@@ -59,22 +65,23 @@ export class NewAppoinmentComponent implements OnInit{
     this.newAppoinmentForm.get('fechaCita')?.setValue(fechaFinal.toISOString());
     console.log(this.newAppoinmentForm.value);
 
-    // let object = {
-    //   fecha_cita: this.newAppoinmentForm.value.fechaCita,
-    //   id_medico: this.newAppoinmentForm.value.medico,
-    //   id_paciente: this.newAppoinmentForm.value.paciente.id_paciente,
-    //   motivo_consulta: this.newAppoinmentForm.value.motivoConsulta
-    // }
+    let object = {
+      fecha_cita: this.newAppoinmentForm.value.fechaCita,
+      id_medico: this.newAppoinmentForm.value.medico,
+      id_paciente: this.newAppoinmentForm.value.paciente.id_paciente,
+      motivo_consulta: this.newAppoinmentForm.value.motivoConsulta
+    }
 
-    // this.patientsService.addAppoinment(object).subscribe({
-    //   complete: () => {
-    //     this.newAppoinmentForm.reset();        
-    //     Swal.fire('Se agendo la cita con exito');
-    //   },
-    //   error(err) {
-    //     Swal.fire('Error al registrar la cita',err);
-    //   },
-    // });
+    this.patientsService.addAppoinment(object).subscribe({
+      complete: () => {
+        this.newAppoinmentForm.reset();        
+        Swal.fire('Se agendo la cita con exito');
+      },
+      error: (data) => {
+        console.log(data);
+        Swal.fire({icon: 'error',title:'Error al registrar la cita', text: data.msg});
+      },
+    });
   }
 
   onDateChange(event: any) {
