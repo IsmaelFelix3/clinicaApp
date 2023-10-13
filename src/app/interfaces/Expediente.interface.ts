@@ -78,7 +78,6 @@ export interface AntecedentesPersonalesNoPatologico {
     fumador:                                   boolean;
     alcohol:                                   boolean;
     drogas:                                    boolean;
-    tipo_sanguineo:                            string;
     diabetes:                                  string;
     id_inmunizacion:                           number;
     otros:                                     string;

@@ -30,8 +30,4 @@ export class PatientsService {
     return this.http.post(`http://localhost:8000/api/citas/`, newAppoinment);
   }
 
-  errorHandler(error: HttpErrorResponse){
-    return throwError(() => new Error('test'));
-  }
-
 }

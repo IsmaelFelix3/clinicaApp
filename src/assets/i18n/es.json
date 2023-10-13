@@ -100,7 +100,8 @@
     },
     "DOCTOR": {    
         "DASHBOARD": "Tablero",
-        "APPOINTMENTS": "Citas",
+        "APPOINTMENTS": "Agenda",
+        "ALLAPPOINTMENTS": "Todas las Citas",
         "APPOINTMENTSTODAY": "Citas Del Dia",
         "DOCTORS": "Doctoras",
         "MEDICALRECORDS": "Expedientes",
