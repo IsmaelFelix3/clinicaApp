@@ -26,6 +26,10 @@ export class PatientsService {
     return this.http.post(`http://localhost:8000/api/expedientes/`,medicalRecord);
   }
 
+  updateMedicalRecord(medicalRecord: Expediente, idExpediente: number){
+    return this.http.put(`http://localhost:8000/api/expedientes/${idExpediente}`,medicalRecord);
+  }
+
   addAppoinment(newAppoinment: NuevaCita){
     return this.http.post(`http://localhost:8000/api/citas/`, newAppoinment);
   }

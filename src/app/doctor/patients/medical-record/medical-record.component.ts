@@ -35,6 +35,7 @@ export class MedicalRecordComponent implements OnInit {
     idAntecedentesPersonalesNoPatologicos: [],
     idAntecedentesAndrologicos: [],
     idAntecedentesGinecoObstetrico: [],
+    genero: [],
     // Personales Patologicos 
     enfermedadesInfantiles: [],
     secuelas: [],
@@ -112,6 +113,9 @@ export class MedicalRecordComponent implements OnInit {
           this.medicalRecordForm.get('idAntecedentesPersonalesPatologicos')?.setValue(data.expediente.id_antecedentes_personales_patologicos);
           this.medicalRecordForm.get('idAntecedentesPersonalesNoPatologicos')?.setValue(data.expediente.id_antecedentes_personales_no_patologicos);
           this.medicalRecordForm.get('idAntecedentesHeredoFamiliares')?.setValue(data.expediente.id_antecedentes_heredo_familiares);
+          this.medicalRecordForm.get('genero')?.setValue(this.patientDetail.genero);
+          this.medicalRecordForm.get('tipoSanguineo')?.setValue(data.expediente.tipo_sanguineo);
+
           // Personales Patologicos 
           this.medicalRecordForm.get('enfermedadesInfantiles')?.setValue(data.expediente.Antecedentes_Personales_Patologico.enfermedades_infantiles);
           this.medicalRecordForm.get('secuelas')?.setValue(data.expediente.Antecedentes_Personales_Patologico.secuelas);
@@ -182,6 +186,8 @@ export class MedicalRecordComponent implements OnInit {
           this.medicalRecordForm.get('idAntecedentesPersonalesPatologicos')?.setValue(data.expediente.id_antecedentes_personales_patologicos);
           this.medicalRecordForm.get('idAntecedentesPersonalesNoPatologicos')?.setValue(data.expediente.id_antecedentes_personales_no_patologicos);
           this.medicalRecordForm.get('idAntecedentesHeredoFamiliares')?.setValue(data.expediente.id_antecedentes_heredo_familiares);
+          this.medicalRecordForm.get('genero')?.setValue(this.patientDetail.genero);
+          this.medicalRecordForm.get('tipoSanguineo')?.setValue(data.expediente.tipo_sanguineo);
           // Personales Patologicos 
           this.medicalRecordForm.get('enfermedadesInfantiles')?.setValue(data.expediente.Antecedentes_Personales_Patologico.enfermedades_infantiles);
           this.medicalRecordForm.get('secuelas')?.setValue(data.expediente.Antecedentes_Personales_Patologico.secuelas);
@@ -239,20 +245,21 @@ export class MedicalRecordComponent implements OnInit {
 
   saveMedicalRecord(){
     console.log(this.medicalRecordForm.value)
-    // this.dialog.closeAll();
+    // this.dialog.closeAll();}
+    let idExpediente = this.medicalRecordForm.get('idExpediente')?.value;
 
-    this.patientService.saveMedicalRecord(this.medicalRecordForm.value).subscribe({
+    this.patientService.updateMedicalRecord(this.medicalRecordForm.value, idExpediente).subscribe({
       complete: () => {
         this.dialog.closeAll();
+        
       },
       error: (data) => {
         console.log(data);
-        Swal.fire({icon: 'error',title:'Error al registrar la cita', text: data.msg});
+        Swal.fire({icon: 'error',title:'Error al actualizar el expediente medico', text: data.msg});
       },
-      next: (value) => {
-        Swal.fire('Guardado Exitoso');
+      next: (value: any) => {
+        Swal.fire({icon: 'success', title: 'Actualización Exitosa', text: value.msg});
       },
-
     })
   }
 
