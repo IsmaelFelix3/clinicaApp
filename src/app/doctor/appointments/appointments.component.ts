@@ -23,6 +23,7 @@ import {
   UnsubscribeOnDestroyAdapter,
 } from '@shared';
 import { formatDate } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-appointments',
@@ -32,7 +33,7 @@ import { formatDate } from '@angular/common';
 export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   filterToggle = false;
   displayedColumns = [
-    'select',
+    // 'select',
     // 'img',
     'name',
     'dateTime',
@@ -44,7 +45,10 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
   currentDate = new Date().toISOString();
   estatus: number = 1;
   exampleDatabase?: AppointmentsService;
-  dataSource!: ExampleDataSource;
+  // dataSource!: ExampleDataSource;
+  // dataSource: any;
+  dataSource = new MatTableDataSource<Appointments>();
+
   datosFuente: Appointments[] = [];
   selection = new SelectionModel<Appointments>(true, []);
   id?: number;
@@ -56,6 +60,7 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     private snackBar: MatSnackBar
   ) {
     super();
+    dataSource: new MatTableDataSource([]);
   }
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
@@ -69,6 +74,8 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
   ngOnInit() {
     this.loadData();
   }
+
+
   refresh() {
     this.loadData();
   }
@@ -127,38 +134,38 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     this.paginator._changePageSize(this.paginator.pageSize);
   }
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.renderedData.length;
-    return numSelected === numRows;
-  }
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.renderedData.length;
+  //   return numSelected === numRows;
+  // }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.renderedData.forEach((row) =>
-          this.selection.select(row)
-        );
-  }
-  removeSelectedRows() {
-    const totalSelect = this.selection.selected.length;
-    this.selection.selected.forEach((item) => {
-      const index: number = this.dataSource.renderedData.findIndex(
-        (d) => d === item
-      );
-      // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
-      this.exampleDatabase?.dataChange.value.splice(index, 1);
-      this.refreshTable();
-      this.selection = new SelectionModel<Appointments>(true, []);
-    });
-    this.showNotification(
-      'snackbar-danger',
-      totalSelect + ' Record Delete Successfully...!!!',
-      'bottom',
-      'center'
-    );
-  }
+  // masterToggle() {
+  //   this.isAllSelected()
+  //     ? this.selection.clear()
+  //     : this.dataSource.renderedData.forEach((row) =>
+  //         this.selection.select(row)
+  //       );
+  // }
+  // removeSelectedRows() {
+  //   const totalSelect = this.selection.selected.length;
+  //   this.selection.selected.forEach((item) => {
+  //     const index: number = this.dataSource.renderedData.findIndex(
+  //       (d) => d === item
+  //     );
+  //     // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
+  //     this.exampleDatabase?.dataChange.value.splice(index, 1);
+  //     this.refreshTable();
+  //     this.selection = new SelectionModel<Appointments>(true, []);
+  //   });
+  //   this.showNotification(
+  //     'snackbar-danger',
+  //     totalSelect + ' Record Delete Successfully...!!!',
+  //     'bottom',
+  //     'center'
+  //   );
+  // }
 
   getStatus(status: string){
     if(status == 'En espera' ){
@@ -182,11 +189,14 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     // );
     this.appointmentsService.getAllAppointmentss().subscribe( (data: any) => {
       this.datosFuente = data.citasActuales;
+      this.dataSource = new MatTableDataSource(this.datosFuente)
+
       this.datosFuente.forEach( cita => {
         cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
       })
       console.log(this.datosFuente, 'datosFuente')
     });
+    
     this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
       () => {
         if (!this.dataSource) {

@@ -3,6 +3,8 @@ import { PatientsService } from '../patients.service';
 import { PacienteShort } from 'app/interfaces/Paciente.interface';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-patients',
@@ -10,6 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit{
+
+  dataSource = new MatTableDataSource<PacienteShort>();
 
   displayedColumns = [
     // 'select',
@@ -22,10 +26,10 @@ export class PatientsComponent implements OnInit{
     // 'actions',
     'bloodType'
   ];
+  patients: PacienteShort[] = [];
 
   constructor(public patientService: PatientsService, public dialog: MatDialog,){}
 
-  patients: PacienteShort[] = [];
 
   ngOnInit(): void {
     this.patientService.getAllPatients().subscribe({
@@ -34,7 +38,7 @@ export class PatientsComponent implements OnInit{
       },
       next: (patients) => {
         this.patients = patients.paciente.map( element => {
-
+          
           console.log(new Date(element.fecha_nacimiento).toUTCString())
           return {
             idPaciente: element.id_paciente,
@@ -55,12 +59,21 @@ export class PatientsComponent implements OnInit{
             bloodType: element.Expediente!.tipo_sanguineo
           }
         });
+        this.dataSource = new MatTableDataSource(this.patients);
       },
       error(err) {
         
       },
     });
   }
+
+  applyFilter(event: Event): void {
+    const filter = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
+    this.dataSource.filter = filter;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  } 
 
   calculate_age(dob: Date) { 
     var diff_ms = Date.now() - dob.getTime();
