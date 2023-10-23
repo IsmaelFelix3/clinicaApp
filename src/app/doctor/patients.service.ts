@@ -14,8 +14,8 @@ export class PatientsService {
 
   constructor(public http: HttpClient) { }
 
-  getAllPatients(){
-    return this.http.get<Pacientes>(`http://localhost:8000/api/pacientes`);
+  getAllPatients(idMedico: number){
+    return this.http.get<Pacientes>(`http://localhost:8000/api/pacientes/${idMedico}`);
   }
 
   getMedicalRecordById(idExpediente: number){

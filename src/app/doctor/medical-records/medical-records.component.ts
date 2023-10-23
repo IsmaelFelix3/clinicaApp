@@ -24,7 +24,8 @@ export class MedicalRecordsComponent implements OnInit {
   filteredOptions: Observable<string[]> | undefined;
 
   ngOnInit() {
-    this.pacienteService.getAllPatients().subscribe( data => {
+    let idMedico = 1002;
+    this.pacienteService.getAllPatients(idMedico).subscribe( data => {
       
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),

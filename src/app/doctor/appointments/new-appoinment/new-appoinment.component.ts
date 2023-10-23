@@ -34,7 +34,8 @@ export class NewAppoinmentComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.patientsService.getAllPatients().subscribe(data => {
+    let idMedico = 1002
+    this.patientsService.getAllPatients(idMedico).subscribe(data => {
       this.patients = data.paciente;
     });
   }

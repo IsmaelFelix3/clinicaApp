@@ -24,7 +24,7 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   // getAllAppointmentss(): void {
-  getAllAppointmentss(){
+  getAllAppointmentss(idMedico: number){
 
     // this.httpClient.get('http://localhost:8000/api/citas').subscribe( data =>{
     //   console.log(data);
@@ -39,7 +39,7 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
     //     console.log(error.name + ' ' + error.message);
     //   },
     // });
-    return this.httpClient.get<Appointments[]>('http://localhost:8000/api/citas');
+    return this.httpClient.get<Appointments[]>(`http://localhost:8000/api/citas/${idMedico}`);
   }
 
   getTakenSlots(selectedDate: string){

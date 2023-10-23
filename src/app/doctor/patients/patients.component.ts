@@ -32,7 +32,8 @@ export class PatientsComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.patientService.getAllPatients().subscribe({
+    let idMedico = 1002;
+    this.patientService.getAllPatients(idMedico).subscribe({
       complete: () => {
         this.patientService.isTblLoading = false;
       },
@@ -65,6 +66,11 @@ export class PatientsComponent implements OnInit{
         
       },
     });
+
+    // this.filterTable();
+    this.dataSource.filterPredicate = (record,filter) => {
+      return record.nombre.toLocaleLowerCase() == filter.toLocaleLowerCase();
+    }
   }
 
   applyFilter(event: Event): void {
@@ -74,6 +80,14 @@ export class PatientsComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   } 
+
+  // filterTable() {
+  //   this.dataSource.filterPredicate = (data: PacienteShort, filter: string): boolean => {
+  //     return (
+  //       data.nombre.toLocaleLowerCase().includes(filter)
+  //     )
+  //   }
+  // }
 
   calculate_age(dob: Date) { 
     var diff_ms = Date.now() - dob.getTime();

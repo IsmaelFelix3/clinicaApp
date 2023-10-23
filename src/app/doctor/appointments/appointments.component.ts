@@ -187,7 +187,8 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     //   this.paginator,
     //   this.sort
     // );
-    this.appointmentsService.getAllAppointmentss().subscribe( (data: any) => {
+    let idMedico = 1001
+    this.appointmentsService.getAllAppointmentss(idMedico).subscribe( (data: any) => {
       this.datosFuente = data.citasActuales;
       this.dataSource = new MatTableDataSource(this.datosFuente)
 
@@ -264,7 +265,8 @@ export class ExampleDataSource extends DataSource<Appointments> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllAppointmentss();
+    // let idMedico = 1001
+    // this.exampleDatabase.getAllAppointmentss(idMedico);
     
     return merge(...displayDataChanges).pipe(
       map(() => {
