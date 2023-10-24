@@ -127,6 +127,8 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
       width: '35%',
     });
   }
+
+
   toggleStar(row: Appointments) {
     console.log(row);
   }

@@ -73,7 +73,7 @@ export class NewAppoinmentComponent implements OnInit{
       motivo_consulta: this.newAppoinmentForm.value.motivoConsulta
     }
 
-    this.patientsService.addAppoinment(object).subscribe({
+    this.appoinmentsService.addAppoinment(object).subscribe({
       complete: () => {
         this.newAppoinmentForm.reset();        
         Swal.fire('Se agendo la cita con exito');

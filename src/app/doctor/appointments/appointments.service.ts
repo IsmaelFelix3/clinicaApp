@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Appointments } from './appointments.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
+import { NuevaCita } from 'app/interfaces/Cita.interface';
 @Injectable()
 export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/doc-appointments.json';
@@ -57,6 +58,14 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
     //        // error code here
     //     },
     //   });
+  }
+
+  getLastAppoinment(idPaciente: number){
+    return this.httpClient.get(`http://localhost:8000/api/citas/lastAppoinment/${idPaciente}`);
+  }
+
+  addAppoinment(newAppoinment: NuevaCita){
+    return this.httpClient.post(`http://localhost:8000/api/citas/`, newAppoinment);
   }
   updateAppointment(appointment: Appointments, idCita: number){
     this.dialogData = appointment;

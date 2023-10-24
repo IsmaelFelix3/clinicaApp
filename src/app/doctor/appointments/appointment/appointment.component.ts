@@ -13,6 +13,7 @@ import { Appointments } from '../appointments.model';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicalRecordComponent } from 'app/doctor/patients/medical-record/medical-record.component';
+import { HistoricalAppoinmentComponent } from '../historical-appoinment/historical-appoinment.component';
 
 
 @Component({
@@ -81,7 +82,7 @@ export class AppointmentComponent implements OnInit, OnDestroy{
     this.appointmentForm.get('id_cita')?.setValue(this.patientDetails.id_cita);
     this.appointmentForm.get('id_medico')?.setValue(this.patientDetails.id_medico);
     this.appointmentForm.get('id_paciente')?.setValue(this.patientDetails.id_paciente);
-    // TODO: Cuando esta enn finalizada cehcar el texto
+
     if(this.patientDetails.estatus == 'Finalizada'){
       this.estatus = false;
       this.patientDetails.estatus = 'Finalizada';
@@ -129,6 +130,20 @@ export class AppointmentComponent implements OnInit, OnDestroy{
 
   generarReceta(){
 
+  }
+
+  lastAppoinment(){
+    const idPaciente = this.patientDetails.Paciente.id_paciente;
+    this.appointmentsService.getLastAppoinment(idPaciente).subscribe( data => {
+      let lastAppointment: any = data;
+      this.dialog.open(HistoricalAppoinmentComponent, {
+        data: {
+          lastAppointment
+        },
+        height: '90%',
+        width: '60%',
+      });
+    });
   }
   
   campoEsValido(campo: string){

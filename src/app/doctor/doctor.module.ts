@@ -22,6 +22,8 @@ import { MedicalRecordComponent } from './patients/medical-record/medical-record
 import { PatientDetailsComponent } from './patients/patient-details/patient-details.component';
 import { MedicalRecordsComponent } from './medical-records/medical-records.component';
 import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
+import { HistoricalAppoinmentComponent } from './appointments/historical-appoinment/historical-appoinment.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoin
     MedicalRecordComponent,
     PatientDetailsComponent,
     MedicalRecordsComponent,
-    NewAppoinmentComponent
+    NewAppoinmentComponent,
+    HistoricalAppoinmentComponent,
   ],
   imports: [
     CommonModule,
