@@ -200,14 +200,14 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
       console.log(this.datosFuente, 'datosFuente')
     });
     
-    this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter?.nativeElement.value;
-      }
-    );
+    // this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
+    //   () => {
+    //     if (!this.dataSource) {
+    //       return;
+    //     }
+    //     this.dataSource.filter = this.filter?.nativeElement.value;
+    //   }
+    // );
   }
   // export table data in excel file
   // exportExcel() {

@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicalRecordComponent } from 'app/doctor/patients/medical-record/medical-record.component';
 import { HistoricalAppoinmentComponent } from '../historical-appoinment/historical-appoinment.component';
+import { AppointmentsHistoryComponent } from '../appointments-history/appointments-history.component';
 
 
 @Component({
@@ -143,6 +144,17 @@ export class AppointmentComponent implements OnInit, OnDestroy{
         height: '90%',
         width: '60%',
       });
+    });
+  }
+
+  history(){
+    const idPaciente = this.patientDetails.Paciente.id_paciente;
+    this.dialog.open(AppointmentsHistoryComponent, {
+      data: {
+        idPaciente
+      },
+      height: '90%',
+      width: '55%',
     });
   }
   

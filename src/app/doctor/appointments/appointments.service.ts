@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Appointments } from './appointments.model';
+import { Appointment, Appointments, History } from './appointments.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { NuevaCita } from 'app/interfaces/Cita.interface';
@@ -43,6 +43,10 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.get<Appointments[]>(`http://localhost:8000/api/citas/${idMedico}`);
   }
 
+  getAppointmentById(idCita: number){
+    return this.httpClient.get<Appointment>(`http://localhost:8000/api/citas/getAppoinmentById/${idCita}`);
+  }
+
   getTakenSlots(selectedDate: string){
     return this.httpClient.get(`http://localhost:8000/api/citas/takenSlots/${selectedDate}`);
   }
@@ -62,6 +66,10 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
 
   getLastAppoinment(idPaciente: number){
     return this.httpClient.get(`http://localhost:8000/api/citas/lastAppoinment/${idPaciente}`);
+  }
+
+  getAppointmentsHistory(idPaciente: number){
+    return this.httpClient.get<History>(`http://localhost:8000/api/citas/appointmentsHistory/${idPaciente}`);
   }
 
   addAppoinment(newAppoinment: NuevaCita){

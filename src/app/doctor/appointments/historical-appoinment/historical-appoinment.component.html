@@ -60,7 +60,9 @@
     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
     <div class="card">
         <div class="header">
-        <h2>Seguimiento - Fecha {{data.lastAppointment.cita.fecha_cita}}</h2>
+        <h2 *ngIf="!isHistory">Seguimiento - Fecha {{data.lastAppointment.cita.fecha_cita | CustomDateTablePipe}}</h2>
+        <h2 *ngIf="isHistory">Seguimiento - Fecha {{data.cita.cita.fecha_cita | CustomDateTablePipe}}</h2>
+
         </div>
         <div class="body">
         <div class="example-container">

@@ -12,6 +12,7 @@ import { AppointmentsService } from '../appointments.service';
 export class HistoricalAppoinmentComponent implements OnInit {
 
   isEditable: boolean = false;
+  isHistory: boolean = false;
 
   appointmentForm: FormGroup = this.fb.group({
     id_cita: [, Validators.required],
@@ -40,23 +41,45 @@ export class HistoricalAppoinmentComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data)
     this.appointmentForm.disable();
-    this.appointmentForm.get('id_cita')?.setValue(this.data.lastAppointment.cita.id_cita)
-    this.appointmentForm.get('id_medico')?.setValue(this.data.lastAppointment.cita.id_medico)
-    this.appointmentForm.get('id_paciente')?.setValue(this.data.lastAppointment.cita.id_paciente)
-    this.appointmentForm.get('estatus')?.setValue(this.data.lastAppointment.cita.estatus)
-    this.appointmentForm.get('fecha_cita')?.setValue(this.data.lastAppointment.cita.fecha_cita)
-    this.appointmentForm.get('motivo_consulta')?.setValue(this.data.lastAppointment.cita.motivo_consulta)
-    this.appointmentForm.get('sintoma_principal')?.setValue(this.data.lastAppointment.cita.sintoma_principal)
-    this.appointmentForm.get('peso_paciente')?.setValue(this.data.lastAppointment.cita.peso_paciente)
-    this.appointmentForm.get('diagnostico')?.setValue(this.data.lastAppointment.cita.diagnostico)
-    this.appointmentForm.get('tratamiento')?.setValue(this.data.lastAppointment.cita.tratamiento)
-    this.appointmentForm.get('resultados_estudios_realizados')?.setValue(this.data.lastAppointment.cita.resultados_estudios_realizados)
-    this.appointmentForm.get('pulso')?.setValue(this.data.lastAppointment.cita.pulso)
-    this.appointmentForm.get('presion_arterial')?.setValue(this.data.lastAppointment.cita.presion_arterial)
-    this.appointmentForm.get('temperatura')?.setValue(this.data.lastAppointment.cita.temperatura)
-    this.appointmentForm.get('frecuencia_cardiaca')?.setValue(this.data.lastAppointment.cita.frecuencia_cardiaca)
-    this.appointmentForm.get('frecuencia_respiratoria')?.setValue(this.data.lastAppointment.cita.frecuencia_respiratoria)
-    this.appointmentForm.get('inspeccion_general')?.setValue(this.data.lastAppointment.cita.inspeccion_general)
+    if(this.data.action === 'history'){
+      this.isHistory = true;
+      this.appointmentForm.get('id_cita')?.setValue(this.data.cita.cita.id_cita)
+      this.appointmentForm.get('id_medico')?.setValue(this.data.cita.cita.id_medico)
+      this.appointmentForm.get('id_paciente')?.setValue(this.data.cita.cita.id_paciente)
+      this.appointmentForm.get('estatus')?.setValue(this.data.cita.cita.estatus)
+      this.appointmentForm.get('fecha_cita')?.setValue(this.data.cita.cita.fecha_cita)
+      this.appointmentForm.get('motivo_consulta')?.setValue(this.data.cita.cita.motivo_consulta)
+      this.appointmentForm.get('sintoma_principal')?.setValue(this.data.cita.cita.sintoma_principal)
+      this.appointmentForm.get('peso_paciente')?.setValue(this.data.cita.cita.peso_paciente)
+      this.appointmentForm.get('diagnostico')?.setValue(this.data.cita.cita.diagnostico)
+      this.appointmentForm.get('tratamiento')?.setValue(this.data.cita.cita.tratamiento)
+      this.appointmentForm.get('resultados_estudios_realizados')?.setValue(this.data.cita.cita.resultados_estudios_realizados)
+      this.appointmentForm.get('pulso')?.setValue(this.data.cita.cita.pulso)
+      this.appointmentForm.get('presion_arterial')?.setValue(this.data.cita.cita.presion_arterial)
+      this.appointmentForm.get('temperatura')?.setValue(this.data.cita.cita.temperatura)
+      this.appointmentForm.get('frecuencia_cardiaca')?.setValue(this.data.cita.cita.frecuencia_cardiaca)
+      this.appointmentForm.get('frecuencia_respiratoria')?.setValue(this.data.cita.cita.frecuencia_respiratoria)
+      this.appointmentForm.get('inspeccion_general')?.setValue(this.data.cita.cita.inspeccion_general)
+    }else{
+      this.isHistory = false;
+      this.appointmentForm.get('id_cita')?.setValue(this.data.lastAppointment.cita.id_cita)
+      this.appointmentForm.get('id_medico')?.setValue(this.data.lastAppointment.cita.id_medico)
+      this.appointmentForm.get('id_paciente')?.setValue(this.data.lastAppointment.cita.id_paciente)
+      this.appointmentForm.get('estatus')?.setValue(this.data.lastAppointment.cita.estatus)
+      this.appointmentForm.get('fecha_cita')?.setValue(this.data.lastAppointment.cita.fecha_cita)
+      this.appointmentForm.get('motivo_consulta')?.setValue(this.data.lastAppointment.cita.motivo_consulta)
+      this.appointmentForm.get('sintoma_principal')?.setValue(this.data.lastAppointment.cita.sintoma_principal)
+      this.appointmentForm.get('peso_paciente')?.setValue(this.data.lastAppointment.cita.peso_paciente)
+      this.appointmentForm.get('diagnostico')?.setValue(this.data.lastAppointment.cita.diagnostico)
+      this.appointmentForm.get('tratamiento')?.setValue(this.data.lastAppointment.cita.tratamiento)
+      this.appointmentForm.get('resultados_estudios_realizados')?.setValue(this.data.lastAppointment.cita.resultados_estudios_realizados)
+      this.appointmentForm.get('pulso')?.setValue(this.data.lastAppointment.cita.pulso)
+      this.appointmentForm.get('presion_arterial')?.setValue(this.data.lastAppointment.cita.presion_arterial)
+      this.appointmentForm.get('temperatura')?.setValue(this.data.lastAppointment.cita.temperatura)
+      this.appointmentForm.get('frecuencia_cardiaca')?.setValue(this.data.lastAppointment.cita.frecuencia_cardiaca)
+      this.appointmentForm.get('frecuencia_respiratoria')?.setValue(this.data.lastAppointment.cita.frecuencia_respiratoria)
+      this.appointmentForm.get('inspeccion_general')?.setValue(this.data.lastAppointment.cita.inspeccion_general)
+    }
   }
 
   editable(){
@@ -75,13 +98,24 @@ export class HistoricalAppoinmentComponent implements OnInit {
   }
 
   editAppointment(){
-    let idCita = this.data.lastAppointment.cita.id_cita;
-    this.appointmentsService.updateAppointment(this.appointmentForm.value, idCita).subscribe({
-      complete:() => { 
-        Swal.fire('Guardado con exito');
-        this.dialog.closeAll();
-      },
-      error: (err) => { Swal.fire({ icon: 'error', title: 'Error', text: `Hubo un error en el guardado, comuniquese con el administrador ${err.msg}` })}
-    })
+    if(this.data.action === 'history'){
+      let idCita = this.data.cita.cita.id_cita;
+      this.appointmentsService.updateAppointment(this.appointmentForm.value, idCita).subscribe({
+        complete:() => { 
+          Swal.fire('Guardado con exito');
+          this.dialog.closeAll();
+        },
+        error: (err) => { Swal.fire({ icon: 'error', title: 'Error', text: `Hubo un error en el guardado, comuniquese con el administrador ${err.msg}` })}
+      });
+    }else{
+      let idCita = this.data.lastAppointment.cita.id_cita;
+      this.appointmentsService.updateAppointment(this.appointmentForm.value, idCita).subscribe({
+        complete:() => { 
+          Swal.fire('Guardado con exito');
+          this.dialog.closeAll();
+        },
+        error: (err) => { Swal.fire({ icon: 'error', title: 'Error', text: `Hubo un error en el guardado, comuniquese con el administrador ${err.msg}` })}
+      });
+    }
   }
 }
