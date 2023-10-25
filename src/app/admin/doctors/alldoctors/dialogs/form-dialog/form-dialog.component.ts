@@ -78,6 +78,6 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
-    this.doctorsService.addDoctors(this.doctorsForm.getRawValue());
+    this.doctorsService.addDoctor(this.doctorsForm.getRawValue());
   }
 }

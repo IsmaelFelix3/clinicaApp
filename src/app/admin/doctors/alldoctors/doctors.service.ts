@@ -35,19 +35,13 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
     //   },
     // });
   }
-  addDoctors(doctors: Doctors): void {
-    this.dialogData = doctors;
-
-    // this.httpClient.post(this.API_URL, doctors)
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.dialogData = doctors;
-    //     },
-    //     error: (error: HttpErrorResponse) => {
-    //        // error code here
-    //     },
-    //   });
+  
+  addDoctor(doctor: Medico){
+    // this.dialogData = doctors;
+    console.log(doctor)
+    return this.httpClient.post(`http://localhost:8000/api/medicos`, doctor);
   }
+
   updateDoctors(doctors: Doctors): void {
     this.dialogData = doctors;
 

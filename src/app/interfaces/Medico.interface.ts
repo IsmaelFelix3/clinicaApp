@@ -16,6 +16,8 @@ export interface Medico {
     google:              boolean;
     rol:                 string;
     telefono:            string;
+    password:            string;
+    consultorio:         string;
     fecha_registro:      Date;
     createdAt:           Date;
     updatedAt:           Date;
