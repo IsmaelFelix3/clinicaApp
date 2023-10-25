@@ -21,10 +21,10 @@
       }
     },
     "DOCTORS": {
-      "TEXT": "Doctores",
+      "TEXT": "Medicos",
       "LIST": {
-        "ALL-DOCTOR": "Todas las doctores",
-        "ADD-DOCTOR": "Agregar doctora",
+        "ALL-DOCTOR": "Todas los medicos",
+        "ADD-DOCTOR": "Agregar medico",
         "EDIT-DOCTOR": "Editar doctora",
         "PROFILE": "Perfil médico"
       }

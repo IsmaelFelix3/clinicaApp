@@ -39,27 +39,16 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
   getDoctorById(idMedico: number){
     return this.httpClient.get<MedicoById>(`http://localhost:8000/api/medicos/${idMedico}`);
   }
-  
+
   addDoctor(doctor: Medico){
     return this.httpClient.post(`http://localhost:8000/api/medicos`, doctor);
   }
 
-
-
   updateDoctor(doctor: MedicoUpdate, idMedico: number){
     return this.httpClient.put(`http://localhost:8000/api/medicos/${idMedico}`, doctor);
   }
-  deleteDoctors(id: number): void {
-    console.log(id);
 
-    // this.httpClient.delete(this.API_URL + id)
-    //     .subscribe({
-    //       next: (data) => {
-    //         console.log(id);
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
+  deleteDoctor(idMedico: number){
+   return this.httpClient.delete(`http://localhost:8000/api/medicos/${idMedico}`);
   }
 }

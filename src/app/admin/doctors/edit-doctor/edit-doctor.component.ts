@@ -83,7 +83,31 @@ export class EditDoctorComponent implements OnInit {
         Swal.fire({icon: 'error',title:'Error al registrar el medico', text: error.msg});
       }
     })
+  }
 
+  deshabilitar(){
+    let nombreMedico = this.doctorForm.get('nombre')?.value + ' ' + this.doctorForm.get('apellidos')?.value
+    Swal.fire({
+      title: `¿Desea deshablitar al medico ${nombreMedico} ?`,
+      showDenyButton: true,
+      confirmButtonText: 'Continuar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.doctorService.deleteDoctor(this.idMedico).subscribe({
+          complete: () => {
+            this.router.navigateByUrl('admin/doctors/allDoctors');
+          },
+          next: (value) => {
+            Swal.fire({icon: 'success',title:'Se deshabilito al medico correctamente.'});
+          },
+          error: (error) => {
+            Swal.fire({icon: 'error',title:'Error al deshabiltar al medico', text: error.msg});
+          }
+        });
+      }
+    })
   }
   
 }

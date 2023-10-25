@@ -2,7 +2,7 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Doctores'" [items]="[]" [active_item]="'Editar Doctor'"></app-breadcrumb>
+      <app-breadcrumb [title]="'Medicos'" [items]="[]" [active_item]="'Editar Medico'"></app-breadcrumb>
     </div>
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -131,8 +131,8 @@
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                  <button class="btn-space" mat-raised-button color="primary" (click)="editarMedico()">Editar</button>
-                  <button type="button" class="btn-space" mat-raised-button color="warn">Deshabilitar</button>
+                  <button class="btn-space" mat-raised-button color="primary" (click)="editarMedico()">Guardar Cambios</button>
+                  <button type="button" class="btn-space" mat-raised-button color="warn" (click)="deshabilitar()">Deshabilitar</button>
                   <button type="button" mat-raised-button color="secondary">Cancel</button>
                 </div>
               </div>
