@@ -4,7 +4,7 @@
       "TEXT": "Principal"
     },
     "DASHBOARD": {
-      "TEXT": "Dashboard",
+      "TEXT": "Tablero",
       "LIST": {
         "DASHBOARD1": "Tablero 1",
         "DASHBOARD2": "Tablero 2",
@@ -21,7 +21,7 @@
       }
     },
     "DOCTORS": {
-      "TEXT": "Doctoras",
+      "TEXT": "Doctores",
       "LIST": {
         "ALL-DOCTOR": "Todas las doctores",
         "ADD-DOCTOR": "Agregar doctora",
