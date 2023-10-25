@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Doctors } from './doctors.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { Medico, Medicos } from 'app/interfaces/Medico.interface';
+import { Medico, MedicoById, MedicoUpdate, Medicos } from 'app/interfaces/Medico.interface';
 @Injectable()
 export class DoctorsService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/doctors.json';
@@ -35,25 +35,19 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
     //   },
     // });
   }
+
+  getDoctorById(idMedico: number){
+    return this.httpClient.get<MedicoById>(`http://localhost:8000/api/medicos/${idMedico}`);
+  }
   
   addDoctor(doctor: Medico){
-    // this.dialogData = doctors;
-    console.log(doctor)
     return this.httpClient.post(`http://localhost:8000/api/medicos`, doctor);
   }
 
-  updateDoctors(doctors: Doctors): void {
-    this.dialogData = doctors;
 
-    // this.httpClient.put(this.API_URL + doctors.id, doctors)
-    //     .subscribe({
-    //       next: (data) => {
-    //         this.dialogData = doctors;
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
+
+  updateDoctor(doctor: MedicoUpdate, idMedico: number){
+    return this.httpClient.put(`http://localhost:8000/api/medicos/${idMedico}`, doctor);
   }
   deleteDoctors(id: number): void {
     console.log(id);

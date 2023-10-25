@@ -25,6 +25,7 @@ import {
 import { formatDate } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { Medico, MedicoTable } from 'app/interfaces/Medico.interface';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-alldoctors',
   templateUrl: './alldoctors.component.html',
@@ -57,7 +58,8 @@ export class AlldoctorsComponent
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public doctorsService: DoctorsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     super();
   }
@@ -71,6 +73,10 @@ export class AlldoctorsComponent
   }
   refresh() {
     this.loadData();
+  }
+  redirect(idMedico: any){
+      console.log(event)
+      this.router.navigateByUrl('admin/doctors/edit-doctor',{state: {id: idMedico}});
   }
   // addNew() {
   //   let tempDirection: Direction;

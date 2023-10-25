@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { DoctorsService } from '../alldoctors/doctors.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, Event } from '@angular/router';
 @Component({
   selector: 'app-add-doctor',
   templateUrl: './add-doctor.component.html',
@@ -53,6 +53,7 @@ export class AddDoctorComponent {
     })
   }
 
+ 
   campoEsValido(campo: string){
     return (this.doctorForm.controls[campo].errors && this.doctorForm.controls[campo].touched);
   }

@@ -12,7 +12,7 @@
 
           </div>
           <div class="body">
-            <form class="mx-4" [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+            <form class="mx-4" [formGroup]="doctorForm">
               <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
@@ -46,26 +46,6 @@
                   </mat-form-field>
                 </div>
               </div>
-              <!-- <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Contraseña</mat-label>
-                    <input matInput formControlName="password" type="password" required>
-                    <mat-error *ngIf="doctorForm.get('password')?.hasError('required')">
-                      Contraseña es requerida
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Reingresar contraseña</mat-label>
-                    <input matInput formControlName="confirmPassword" type="password" required>
-                    <mat-error *ngIf="doctorForm.get('confirmPassword')?.hasError('required')">
-                      Confirmar contraseña
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div> -->
               <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
@@ -151,10 +131,9 @@
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                  <!-- <button class="btn-space" [disabled]="!doctorForm.valid " mat-raised-button -->
-                  <button class="btn-space" mat-raised-button
-                    color="primary">Submit</button>
-                  <button type="button" mat-raised-button color="warn">Cancel</button>
+                  <button class="btn-space" mat-raised-button color="primary" (click)="editarMedico()">Editar</button>
+                  <button type="button" class="btn-space" mat-raised-button color="warn">Deshabilitar</button>
+                  <button type="button" mat-raised-button color="secondary">Cancel</button>
                 </div>
               </div>
             </form>
