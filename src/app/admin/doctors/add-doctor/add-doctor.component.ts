@@ -52,8 +52,7 @@ export class AddDoctorComponent {
       },
     })
   }
-
- 
+  
   campoEsValido(campo: string){
     return (this.doctorForm.controls[campo].errors && this.doctorForm.controls[campo].touched);
   }

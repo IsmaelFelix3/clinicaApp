@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Expediente } from 'app/interfaces/Expediente.interface';
-import { Pacientes } from 'app/interfaces/Paciente.interface';
+import { Pacientes, PacientesByAdmin } from 'app/interfaces/Paciente.interface';
 import { NuevaCita } from 'app/interfaces/Cita.interface';
 import { catchError, throwError } from 'rxjs';
 
@@ -16,6 +16,14 @@ export class PatientsService {
 
   getAllPatients(idMedico: number){
     return this.http.get<Pacientes>(`http://localhost:8000/api/pacientes/${idMedico}`);
+  }
+
+  getAllPatientsAdmin(){
+    return this.http.get<PacientesByAdmin>(`http://localhost:8000/api/pacientes/allPatientsAdm/`);
+  }
+
+  addPatient(patient: any){
+    return this.http.post(`http://localhost:8000/api/pacientes`,patient);
   }
 
   getMedicalRecordById(idExpediente: number){

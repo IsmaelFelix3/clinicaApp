@@ -3,6 +3,11 @@ export interface Pacientes {
     paciente: Paciente[];
 }
 
+export interface PacientesByAdmin {
+    msg:      string;
+    pacientes: Paciente[];
+}
+
 export interface Paciente {
     id_paciente:      number;
     nombre:           string;
@@ -27,6 +32,8 @@ export interface Paciente {
     fecha_registro:   Date;
     createdAt:        Date;
     updatedAt:        Date;
+    password:         string;
+    estatus:          number;
     Expediente:       Expediente | null;
 }
 
@@ -64,5 +71,28 @@ export interface PacienteShort {
     idExpediente: number;
     fechaRegistro: Date;
     bloodType: string;
+}
+
+export interface PacienteTableAdmin {
+    idPaciente: number;
+    nombre: string;
+    apellidos: string;
+    edad: number;
+    correo: string;
+    telefono: string;
+    fechaRegistro: string;
+}
+
+export interface PacienteAltaAdmin {
+    nombre: string;
+    apellidos: string;
+    fecha_nacimiento: Date;
+    genero: string;
+    correo: string;
+    telefono: string;
+    google: boolean;
+    rol: string;
+    password: string;
+    estatus: number;
 }
 
