@@ -27,11 +27,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authenticationService.logout();
           location.reload();
         }
+        console.log(err)
 
-        // console.log(JSON.parse(err));
-
-        const error = JSON.parse(err.error) || err.error.message || err.statusText;
-        return throwError(error);
+        // const error =  err.error.message || err.statusText || err.error;
+        const error = err.error;
+        return throwError(() => error);
       })
     );
   }

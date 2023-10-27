@@ -39,9 +39,6 @@ export class AddPatientComponent {
       this.patientForm.markAllAsTouched();
       return;
     }
-    console.log('Form Value', this.patientForm.value);
-    console.log(new Date(this.patientForm.get('fecha_nacimiento')?.value).toISOString())
-
     this.patientService.addPatient(this.patientForm.value).subscribe({
       complete: () => {
         this.router.navigateByUrl('admin/patients/all-patients')
@@ -53,9 +50,6 @@ export class AddPatientComponent {
         Swal.fire({icon: 'error',title:'Error al registrar la cita', text: data.msg});
       },
     })
-
-
-
   }
 
   campoEsValido(campo: string){
