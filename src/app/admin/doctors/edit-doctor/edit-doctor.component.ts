@@ -86,7 +86,7 @@ export class EditDoctorComponent implements OnInit {
   }
 
    return(){
-    this.router.navigateByUrl('admin/patients/all-patients');
+    this.router.navigateByUrl('admin/doctors/allDoctors');
   }
 
   deshabilitar(){
