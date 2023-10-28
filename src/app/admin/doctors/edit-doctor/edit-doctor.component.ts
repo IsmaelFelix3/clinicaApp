@@ -85,6 +85,10 @@ export class EditDoctorComponent implements OnInit {
     })
   }
 
+   return(){
+    this.router.navigateByUrl('admin/patients/all-patients');
+  }
+
   deshabilitar(){
     let nombreMedico = this.doctorForm.get('nombre')?.value + ' ' + this.doctorForm.get('apellidos')?.value
     Swal.fire({
