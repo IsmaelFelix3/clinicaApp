@@ -2,151 +2,81 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Edit Patient'" [items]="['Patients']" [active_item]="'Edit Patient'"></app-breadcrumb>
+      <app-breadcrumb [title]="'Pacientes'" [items]="[]" [active_item]="'Editar Paciente'"></app-breadcrumb>
     </div>
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card">
           <div class="header">
-            <h2><strong> Patient Information</strong></h2>
+            <h2><strong> Informacion Paciente</strong></h2>
 
           </div>
           <div class="body">
-            <form class="m-4" [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+            <form class="m-4" [formGroup]="patientForm">
               <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>First name</mat-label>
-                    <input matInput formControlName="first" required>
-                    <mat-error *ngIf="patientForm.get('first')?.hasError('required')">
-                      First name is required
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" required>
+                    <mat-error *ngIf="patientForm.get('nombre')?.hasError('required')">
+                      Debe ingresar el nombre
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Last name</mat-label>
-                    <input matInput formControlName="last">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput formControlName="apellidos">
                   </mat-form-field>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Gender</mat-label>
-                    <mat-select formControlName="gender" required>
-                      <mat-option [value]="'Male'">
-                        Male
-                      </mat-option>
-                      <mat-option [value]="'Female'">
-                        Female
-                      </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="patientForm.get('gender')?.hasError('required')">
-                      Gender is required
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Mobile</mat-label>
-                    <input matInput formControlName="mobile" type="number">
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Date Of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dob" required>
+                    <mat-label>Fecha Nacimiento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="patientForm.get('dob')?.hasError('required')">
-                      Please select date
+                    <mat-error *ngIf="patientForm.get('fecha_nacimiento')?.hasError('required')">
+                      Favor de seleccionar la fecha de nacimiento
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Age</mat-label>
-                    <input matInput formControlName="age" type="number">
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="email" required>
-                    <mat-error *ngIf="patientForm.get('email')?.hasError('email') && patientForm.get('email')?.touched">
-                      Please enter a valid email address
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Marital Status</mat-label>
-                    <mat-select formControlName="maritalStatus" required>
-                      <mat-option [value]="'1'">
-                        Single
+                    <mat-label>Genero</mat-label>
+                    <mat-select formControlName="genero" required>
+                      <mat-option [value]="'Masculino'">
+                        Masculino
                       </mat-option>
-                      <mat-option [value]="'2'">
-                        Married
+                      <mat-option [value]="'Femenino'">
+                        Femenino
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="patientForm.get('maritalStatus')?.hasError('required')">
-                      Select Any
+                    <mat-error *ngIf="patientForm.get('genero')?.hasError('required')">
+                      Favor de seleccionar el genero
                     </mat-error>
                   </mat-form-field>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Address</mat-label>
-                    <textarea matInput formControlName="address"></textarea>
-                  </mat-form-field>
-                </div>
+
               </div>
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Blood Group</mat-label>
-                    <input matInput formControlName="bGroup">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="correo" type="text">
                   </mat-form-field>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Blood Presure</mat-label>
-                    <input matInput formControlName="bPresure">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono" maxlength="10" type="text">
                   </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Sugger</mat-label>
-                    <input matInput formControlName="sugger">
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Injury/Condition</mat-label>
-                    <input matInput formControlName="injury">
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
-                  <label>Upload</label>
-                  <app-file-upload formControlName="uploadFile"></app-file-upload>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button class="btn-space" [disabled]="!patientForm.valid " mat-raised-button
-                    color="primary">Submit</button>
-                  <button type="button" mat-raised-button color="warn">Cancel</button>
+                  <button class="btn-space" mat-raised-button color="primary" (click)="editarPaciente()">Editar Paciente</button>
+                  <button type="button" class="btn-space" mat-raised-button color="warn" (click)="deshabilitar()">Deshabilitar</button>
+                  <button type="button" mat-raised-button color="primary" (click)="return()">Cancelar</button>
                 </div>
               </div>
             </form>

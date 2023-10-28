@@ -96,3 +96,18 @@ export interface PacienteAltaAdmin {
     estatus: number;
 }
 
+export interface PacienteEditResponse {
+    msg:      string;
+    paciente: Paciente;
+}
+
+
+export interface PacienteEdit {
+    nombre: string;
+    apellidos: string;
+    fecha_nacimiento: Date;
+    genero: string;
+    correo: string;
+    telefono: string;
+}
+
