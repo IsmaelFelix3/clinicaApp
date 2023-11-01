@@ -17,7 +17,6 @@ import { AppointmentsService } from './appointments/appointments.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
 import { AppointmentComponent } from './appointments/appointment/appointment.component';
-import { CustomDateTablePipe } from '../helpers/custom-date-table.pipe';
 import { MedicalRecordComponent } from './patients/medical-record/medical-record.component';
 import { PatientDetailsComponent } from './patients/patient-details/patient-details.component';
 import { MedicalRecordsComponent } from './medical-records/medical-records.component';
@@ -35,7 +34,6 @@ import { AppointmentsHistoryComponent } from './appointments/appointments-histor
     PatientsComponent,
     SettingsComponent,
     AppointmentComponent,
-    CustomDateTablePipe,
     MedicalRecordComponent,
     PatientDetailsComponent,
     MedicalRecordsComponent,

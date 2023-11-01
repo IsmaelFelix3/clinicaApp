@@ -22,18 +22,7 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllDoctorss(){
-
     return this.httpClient.get<Medicos>(`http://localhost:8000/api/medicos`);
-    // this.subs.sink = this.httpClient.get<Medicos>(`http://localhost:8000/api/medicos`).subscribe({
-    //   next: (data) => {
-    //     this.isTblLoading = false;
-    //     this.dataChange.next(data.medicos);
-    //   },
-    //   error: (error: HttpErrorResponse) => {
-    //     this.isTblLoading = false;
-    //     console.log(error.name + ' ' + error.message);
-    //   },
-    // });
   }
 
   getDoctorById(idMedico: number){

@@ -13,9 +13,9 @@
       }
     },
     "APPOINTMENTS": {
-      "TEXT": "Equipo",
+      "TEXT": "Citas",
       "LIST": {
-        "VIEW-APPOINTMENT": "Ver cita",
+        "VIEW-APPOINTMENT": "Ver citas",
         "BOOK-APPOINTMENT": "Reservar una cita",
         "EDIT-APPOINTMENT": "Editar cita"
       }

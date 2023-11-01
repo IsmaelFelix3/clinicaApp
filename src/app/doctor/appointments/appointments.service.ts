@@ -27,20 +27,11 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   // getAllAppointmentss(): void {
   getAllAppointmentss(idMedico: number){
 
-    // this.httpClient.get('http://localhost:8000/api/citas').subscribe( data =>{
-    //   console.log(data);
-    // });
-    // this.subs.sink = this.httpClient.get<Appointments[]>('http://localhost:8000/api/citas').subscribe({
-    //   next: (data) => {
-    //     this.isTblLoading = false;
-    //     this.dataChange.next(data);
-    //   },
-    //   error: (error: HttpErrorResponse) => {
-    //     this.isTblLoading = false;
-    //     console.log(error.name + ' ' + error.message);
-    //   },
-    // });
     return this.httpClient.get<Appointments[]>(`http://localhost:8000/api/citas/${idMedico}`);
+  }
+
+  getAllAppoinmentsAdmin(){
+    return this.httpClient.get<Appointments[]>(`http://localhost:8000/api/citas/citasAdmin/`);
   }
 
   getAppointmentById(idCita: number){
@@ -52,16 +43,6 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   }
   addAppointments(appointments: Appointments): void {
     this.dialogData = appointments;
-
-    // this.httpClient.post(this.API_URL, appointments)
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.dialogData = appointments;
-    //     },
-    //     error: (error: HttpErrorResponse) => {
-    //        // error code here
-    //     },
-    //   });
   }
 
   getLastAppoinment(idPaciente: number){
@@ -79,28 +60,8 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = appointment;
     console.log(this.dialogData)
     return this.httpClient.put(`http://localhost:8000/api/citas/${idCita}` , this.dialogData);
-
-    // this.httpClient.put(this.API_URL + appointments.id, appointments)
-    //     .subscribe({
-    //       next: (data) => {
-    //         this.dialogData = appointments;
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
   }
   deleteAppointments(id: number): void {
     console.log(id);
-
-    // this.httpClient.delete(this.API_URL + id)
-    //     .subscribe({
-    //       next: (data) => {
-    //         console.log(id);
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
   }
 }
