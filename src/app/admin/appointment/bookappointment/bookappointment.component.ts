@@ -12,34 +12,53 @@ import { Paciente } from 'app/interfaces/Paciente.interface';
 import { ScheduleServiceService } from 'app/services/schedule-service.service';
 import Swal from 'sweetalert2';
 import { z } from 'zod';
+import { DoctorsService } from '../../doctors/alldoctors/doctors.service';
+import { Medico } from 'app/interfaces/Medico.interface';
+import { MatSelectChange } from '@angular/material/select';
 @Component({
   selector: 'app-bookappointment',
   templateUrl: './bookappointment.component.html',
   styleUrls: ['./bookappointment.component.scss'],
-  providers: [AppointmentsService]
+  providers: [AppointmentsService, DoctorsService]
 })
 export class BookappointmentComponent {
   patients: Paciente[] = [];
+  medics: Medico[] = [];
+  selectedMedicId: number = 0;
   horariosLibres: any[] = [];
 
   motivos = ['Consulta Medica','Seguimiento'];
 
   newAppoinmentForm:FormGroup = this.fb.group({
     paciente: [,Validators.required],
-    medico: [1001, Validators.required],
+    medico: [, Validators.required],
     fechaCita: [, Validators.required],
     horario: [,Validators.required], 
     motivoConsulta: [, Validators.required]
   });
 
-  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, public scheduleService:ScheduleServiceService){
+  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, public scheduleService:ScheduleServiceService, public doctorsService: DoctorsService){
   }
 
   ngOnInit(): void {
-    let idMedico = 1002
-    this.patientsService.getAllPatients(idMedico).subscribe(data => {
+
+    this.newAppoinmentForm.get('paciente')?.disable();
+    this.doctorsService.getAllDoctorss().subscribe( data => {
+      this.medics = data.medicos;
+    });
+    
+  }
+
+  findPatients(event: MatSelectChange){
+
+    this.selectedMedicId = event.value;
+
+    this.patientsService.getAllPatients(this.selectedMedicId).subscribe(data => {
+      console.log(data)
+      this.newAppoinmentForm.get('paciente')?.enable();
       this.patients = data.paciente;
     });
+
   }
 
   saveAppoinment(){

@@ -14,7 +14,16 @@
           <div class="body">
             <div class="example-container">
               <div class="row">
-                  <mat-form-field class="col-5" appearance="outline">
+                <mat-form-field class="col-4" appearance="outline">
+                  <mat-label>Medicos</mat-label>
+                  <mat-select (selectionChange)="findPatients($event)" formControlName="medico">
+                    <mat-option  *ngFor="let medic of medics" [value]="medic.id_medico">
+                      {{medic.nombre + ' ' + medic.apellidos}}
+                    </mat-option>
+                  </mat-select>
+               <mat-error *ngIf="campoEsValido('medico')">{{'Debe seleccionar un medico'}}</mat-error>
+                </mat-form-field>
+                  <mat-form-field class="col-4" appearance="outline">
                     <mat-label>Paciente</mat-label>
                     <mat-select formControlName="paciente">
                       <mat-option *ngFor="let patient of patients" [value]="patient">
@@ -24,7 +33,7 @@
                  <mat-error *ngIf="campoEsValido('paciente')">{{'Debe seleccionar un paciente'}}</mat-error>
                   </mat-form-field>
                   <!-- <mat-form-field class="example-full-width" appearance="outline"> -->
-                  <div class="col-6">
+                  <div class="col-4">
                       <!-- <h6>Fecha Cita</h6> -->
                       <!-- <p>Prevent Saturday and Sunday from being selected</p> -->
                       <mat-form-field class="example-full-width">
