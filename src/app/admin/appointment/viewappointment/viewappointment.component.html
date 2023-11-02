@@ -135,8 +135,7 @@
 
                 <mat-header-row *matHeaderRowDef="displayedColumns">
                 </mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="detailsCall(row)"
-                  [style.cursor]="'pointer'" matRipple>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row.id_cita)" [style.cursor]="'pointer'" matRipple>
                 </mat-row>
               </mat-table>
               <!-- Loading spinner -->

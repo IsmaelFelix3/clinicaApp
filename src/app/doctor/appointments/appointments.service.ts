@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Appointment, Appointments, History } from './appointments.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { NuevaCita } from 'app/interfaces/Cita.interface';
+import { AppoinmentByIdResponse, NuevaCita } from 'app/interfaces/Cita.interface';
 @Injectable()
 export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/doc-appointments.json';
@@ -35,7 +35,7 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   }
 
   getAppointmentById(idCita: number){
-    return this.httpClient.get<Appointment>(`http://localhost:8000/api/citas/getAppoinmentById/${idCita}`);
+    return this.httpClient.get<AppoinmentByIdResponse>(`http://localhost:8000/api/citas/getAppoinmentById/${idCita}`);
   }
 
   getTakenSlots(selectedDate: string){
@@ -60,6 +60,11 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = appointment;
     console.log(this.dialogData)
     return this.httpClient.put(`http://localhost:8000/api/citas/${idCita}` , this.dialogData);
+  }
+  updateAppointmentDate(appointment: NuevaCita, idCita: number){
+    // this.dialogData = appointment;
+    // console.log(this.dialogData)
+    return this.httpClient.put(`http://localhost:8000/api/citas/${idCita}` , appointment);
   }
   deleteAppointments(id: number): void {
     console.log(id);

@@ -14,7 +14,7 @@ const routes: Routes = [
     component: ViewappointmentComponent,
   },
   {
-    path: "edit-ppointment",
+    path: "edit-appointment",
     component: EditappointmentComponent,
   },
   { path: "**", component: Page404Component },

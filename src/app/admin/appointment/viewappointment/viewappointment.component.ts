@@ -29,6 +29,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormComponent } from 'app/contacts/form/form.component';
 import { Appointments } from 'app/doctor/appointments/appointments.model';
 import { AppointmentsService } from 'app/doctor/appointments/appointments.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewappointment',
@@ -61,7 +62,8 @@ export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implem
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public appointmentsService: AppointmentsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public router: Router
   ) {
     super();
     dataSource: new MatTableDataSource([]);
@@ -168,6 +170,10 @@ export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implem
       console.log(this.datosFuente, 'datosFuente')
     });
     
+  }
+
+  redirect(idCita: number){
+    this.router.navigateByUrl('admin/appointment/edit-appointment',{state: {idCita}});
   }
 
   showNotification(

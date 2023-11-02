@@ -15,6 +15,7 @@ import { z } from 'zod';
 import { DoctorsService } from '../../doctors/alldoctors/doctors.service';
 import { Medico } from 'app/interfaces/Medico.interface';
 import { MatSelectChange } from '@angular/material/select';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-bookappointment',
   templateUrl: './bookappointment.component.html',
@@ -37,8 +38,8 @@ export class BookappointmentComponent {
     motivoConsulta: [, Validators.required]
   });
 
-  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, public scheduleService:ScheduleServiceService, public doctorsService: DoctorsService){
-  }
+  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, public scheduleService:ScheduleServiceService, 
+              public doctorsService: DoctorsService, public router: Router ){}
 
   ngOnInit(): void {
 
@@ -98,6 +99,7 @@ export class BookappointmentComponent {
       complete: () => {
         this.newAppoinmentForm.reset();        
         Swal.fire('Se agendo la cita con exito');
+        this.router.navigateByUrl('admin/appointment/viewAppointment');
       },
       error: (data) => {
         console.log(data);
