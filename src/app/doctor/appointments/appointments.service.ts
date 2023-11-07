@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Appointment, Appointments, History } from './appointments.model';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { AppoinmentByIdResponse, NuevaCita } from 'app/interfaces/Cita.interface';
+import { AppoinmentByIdResponse, AppoinmentsByMedicAndDate, NuevaCita } from 'app/interfaces/Cita.interface';
 @Injectable()
 export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/doc-appointments.json';
@@ -68,5 +68,12 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   }
   deleteAppointments(id: number): void {
     console.log(id);
+  }
+  postAppoinmentsByDateAndMedic(idMedico: number, fecha: string){
+    const body = {
+      idMedico,
+      fecha
+    }
+    return this.httpClient.post<AppoinmentsByMedicAndDate>(`http://localhost:8000/api/citas/appoinmentsByMedicAndDate/`, body);
   }
 }

@@ -45,6 +45,10 @@ export class EditappointmentComponent implements OnInit {
       this.router.navigateByUrl('admin/appointment/viewAppointment');
       return;
     }
+
+    this.appoinmentForm.get('paciente')?.disable({ onlySelf: true });
+    this.appoinmentForm.get('medico')?.disable({ onlySelf: true });
+
     let idCita = this.state.idCita;
     this.appoinmentsService.getAppointmentById(idCita).subscribe( data => {
       console.log(data.cita);
@@ -89,7 +93,6 @@ export class EditappointmentComponent implements OnInit {
   }
 
   editAppoinment(){
-    console.log(this.appoinmentForm)
     if(!this.appoinmentForm.valid){
       this.appoinmentForm.markAllAsTouched();
       return;
@@ -99,6 +102,8 @@ export class EditappointmentComponent implements OnInit {
         Swal.fire('No hay cambios registrados');
         return;
     }
+    this.appoinmentForm.get('paciente')?.enable;
+    this.appoinmentForm.get('medico')?.enable;
     const dateSchema = z.coerce.date();
     type DateSchema = z.infer<typeof dateSchema>;
 
@@ -121,8 +126,8 @@ export class EditappointmentComponent implements OnInit {
 
     let object = {
       fecha_cita: this.appoinmentForm.value.fechaCita,
-      id_medico: this.appoinmentForm.value.medico,
-      id_paciente: this.appoinmentForm.value.paciente.id_paciente,
+      id_medico: this.appoinmentForm.getRawValue().medico,
+      id_paciente: this.appoinmentForm.getRawValue().paciente.id_paciente,
       motivo_consulta: this.appoinmentForm.value.motivoConsulta
     }
 

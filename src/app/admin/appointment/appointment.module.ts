@@ -10,6 +10,7 @@ import { FormDialogComponent } from './viewappointment/dialogs/form-dialog/form-
 import { AppointmentService } from './viewappointment/appointment.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
+import { AllAppoinmentsComponent } from './all-appoinments/all-appoinments.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from '@shared';
     ViewappointmentComponent,
     DeleteDialogComponent,
     FormDialogComponent,
+    AllAppoinmentsComponent,
   ],
   imports: [
     CommonModule,

@@ -4,6 +4,7 @@ import { BookappointmentComponent } from "./bookappointment/bookappointment.comp
 import { ViewappointmentComponent } from "./viewappointment/viewappointment.component";
 import { EditappointmentComponent } from "./editappointment/editappointment.component";
 import { Page404Component } from "./../../authentication/page404/page404.component";
+import { AllAppoinmentsComponent } from "./all-appoinments/all-appoinments.component";
 const routes: Routes = [
   {
     path: "bookAppointment",
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: "edit-appointment",
     component: EditappointmentComponent,
+  },
+  {
+    path: "all-appointments",
+    component: AllAppoinmentsComponent,
   },
   { path: "**", component: Page404Component },
 ];

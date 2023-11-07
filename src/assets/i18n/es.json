@@ -17,7 +17,8 @@
       "LIST": {
         "VIEW-APPOINTMENT": "Citas Actuales",
         "BOOK-APPOINTMENT": "Reservar una cita",
-        "EDIT-APPOINTMENT": "Editar cita"
+        "EDIT-APPOINTMENT": "Editar cita",
+        "ALL-APPOINMENTS": "Todas las citas"
       }
     },
     "DOCTORS": {
