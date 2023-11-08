@@ -6,7 +6,7 @@
     "DASHBOARD": {
       "TEXT": "Tablero",
       "LIST": {
-        "DASHBOARD1": "Tablero 1",
+        "DASHBOARD1": "Información General",
         "DASHBOARD2": "Tablero 2",
         "DOCTOR-DASHBOARD": "Tablero médico",
         "PATIENT-DASHBOARD": "Tablero Paciente"
