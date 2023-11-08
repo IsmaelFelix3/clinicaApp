@@ -9,6 +9,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { AppointmentComponent } from './appointments/appointment/appointment.component';
 import { MedicalRecordsComponent } from "../doctor/medical-records/medical-records.component";
 import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
+import { CalendarComponent } from './appointments/calendar/calendar.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'newAppointment',
     component: NewAppoinmentComponent
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent
   },
   { path: '**', component: Page404Component },
 ];

@@ -102,7 +102,7 @@
     "DOCTOR": {    
         "DASHBOARD": "Tablero",
         "APPOINTMENTS": "Agenda",
-        "ALLAPPOINTMENTS": "Todas las Citas",
+        "ALLAPPOINTMENTS": "Calendario",
         "APPOINTMENTSTODAY": "Citas Del Dia",
         "DOCTORS": "Doctoras",
         "MEDICALRECORDS": "Expedientes",

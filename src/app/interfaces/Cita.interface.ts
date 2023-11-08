@@ -41,6 +41,11 @@ export interface AppoinmentsByMedicAndDate {
     citasDelDia: CitaResponse[];
 }
 
+export interface AppoinmentsByDate {
+    msg:           string;
+    citas: CitaResponse[];
+}
+
 export interface CitaResponse {
     id_cita:                        number;
     id_medico:                      number;

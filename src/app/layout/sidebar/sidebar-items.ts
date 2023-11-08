@@ -641,7 +641,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/doctor/newAppointment',
+        path: '/doctor/calendar',
         title: 'MENUITEMS.DOCTOR.ALLAPPOINTMENTS',
         iconType: '',
         icon: 'add',

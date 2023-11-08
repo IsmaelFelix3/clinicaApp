@@ -23,6 +23,7 @@ import { MedicalRecordsComponent } from './medical-records/medical-records.compo
 import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
 import { HistoricalAppoinmentComponent } from './appointments/historical-appoinment/historical-appoinment.component';
 import { AppointmentsHistoryComponent } from './appointments/appointments-history/appointments-history.component';
+import { CalendarComponent } from './appointments/calendar/calendar.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AppointmentsHistoryComponent } from './appointments/appointments-histor
     NewAppoinmentComponent,
     HistoricalAppoinmentComponent,
     AppointmentsHistoryComponent,
+    CalendarComponent,
   ],
   imports: [
     CommonModule,
