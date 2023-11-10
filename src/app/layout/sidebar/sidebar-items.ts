@@ -724,7 +724,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: ['Paciente'],
     submenu: [],
   },
   {
@@ -736,7 +736,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: ['Paciente'],
     submenu: [
       {
         path: '/patient/appointments/book',
@@ -797,7 +797,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: ['Paciente'],
     submenu: [],
   },
   {
@@ -809,7 +809,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: ['Paciente'],
     submenu: [],
   },
   // {
@@ -845,7 +845,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Patient'],
+    role: ['Paciente'],
     submenu: [],
   },
 

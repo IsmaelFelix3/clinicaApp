@@ -116,16 +116,16 @@ export class HeaderComponent
   ];
   ngOnInit() {
     this.config = this.configService.configData;
-    const userRole = this.authService.currentUserValue.role;
-    this.userImg = this.authService.currentUserValue.img;
+    const userRole = this.authService.currentUserValue.rol;
+    // this.userImg = this.authService.currentUserValue.img;
 
     this.docElement = document.documentElement;
 
     if (userRole === 'Admin') {
       this.homePage = 'admin/dashboard/main';
-    } else if (userRole === 'Patient') {
+    } else if (userRole === 'Paciente') {
       this.homePage = 'patient/dashboard';
-    } else if (userRole === 'Doctor') {
+    } else if (userRole === 'Medico') {
       this.homePage = 'doctor/dashboard';
     } else {
       this.homePage = 'admin/dashboard/main';
