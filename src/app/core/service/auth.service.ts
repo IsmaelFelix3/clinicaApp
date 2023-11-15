@@ -23,7 +23,7 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): Administrador|Medico|Paciente {
+  public get currentUserValue(): Administrador | Medico | Paciente {
     return this.currentUserSubject.value;
   }
 

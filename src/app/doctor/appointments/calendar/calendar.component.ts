@@ -6,6 +6,7 @@ import { AppointmentsService } from '../appointments.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { CitaResponse } from 'app/interfaces/Cita.interface';
+import { AuthService } from '../../../core/service/auth.service';
 
 @Component({
   selector: 'app-calendar',
@@ -18,7 +19,7 @@ export class CalendarComponent {
     fecha: [,Validators.required]
   })
 
-  constructor(public fb: FormBuilder, public appoinmentsService: AppointmentsService){}
+  constructor(public fb: FormBuilder, public appoinmentsService: AppointmentsService, public authService: AuthService){}
 
   dataSource = new MatTableDataSource<CitaResponse>();
   exampleDatabase?: AppointmentsService;
@@ -37,8 +38,13 @@ export class CalendarComponent {
     this.showTable = true;
     console.log(new Date(event.value).toISOString())
     const date = new Date(event.value).toISOString();
+    
+    // Any because its not getting correct the type of auth current user value bc of the three interfaces
+    const user: any = this.authService.currentUserValue;
+    const idMedico = user.id_medico;
 
-    this.appoinmentsService.getAppointmentsByDate(date).subscribe(data => {
+
+    this.appoinmentsService.postAppoinmentsByDateAndMedic(idMedico,date).subscribe(data => {
       console.log(data);
       this.dataSource = new MatTableDataSource(data.citas);
       console.log(this.dataSource)

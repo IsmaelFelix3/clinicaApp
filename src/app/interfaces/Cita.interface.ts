@@ -38,7 +38,7 @@ export interface Cita {
 
 export interface AppoinmentsByMedicAndDate {
     msg:           string;
-    citasDelDia: CitaResponse[];
+    citas: CitaResponse[];
 }
 
 export interface AppoinmentsByDate {

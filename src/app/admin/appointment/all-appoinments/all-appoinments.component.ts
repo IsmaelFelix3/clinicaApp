@@ -161,10 +161,10 @@ export class AllAppoinmentsComponent {
     let fecha = new Date(this.allAppoinmentsForm.value.fecha).toISOString();
     let idMedico = this.allAppoinmentsForm.value.medico;
     this.appointmentsService.postAppoinmentsByDateAndMedic(idMedico, fecha).subscribe( data => {
-      console.log(data);
+      console.log(data,'click');
       this.isTableVisible = true;
 
-        this.datosFuente = data.citasDelDia;
+        this.datosFuente = data.citas;
         console.log(this.datosFuente)
         this.dataSource = new MatTableDataSource(this.datosFuente)
   
