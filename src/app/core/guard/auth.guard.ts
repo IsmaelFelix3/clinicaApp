@@ -13,6 +13,8 @@ export class AuthGuard  {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.authService.currentUserValue) {
       const userRole = this.authService.currentUserValue.rol;
+      console.log('guard', route.data)
+      console.log(userRole)
       if (route.data['role'] && route.data['role'].indexOf(userRole) === -1) {
         this.router.navigate(['/authentication/signin']);
         return false;

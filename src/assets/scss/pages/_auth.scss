@@ -14,13 +14,15 @@
   width: 100%;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 30px 15px;
   position: relative;
   z-index: 1;
+  border: solid;
+  border-color: green;
 }
 
 .left-content {

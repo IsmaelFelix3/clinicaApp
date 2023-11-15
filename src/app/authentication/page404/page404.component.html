@@ -1,7 +1,7 @@
 <div class="auth-container">
   <div class="row auth-main">
     <div class="col-sm-6 px-0 d-none d-sm-block">
-      <div class="left-img" style="background-image: url(assets/images/pages/bg-04.png);">
+      <div class="left-img" style="background-image: url(assets/images/clinics/SQ.JPG);border:solid;border-color: green;">
       </div>
     </div>
     <div class="col-sm-6 auth-form-section">
@@ -12,23 +12,23 @@
               404
             </span>
             <span class="error-subheader p-b-5">
-              Looks Like You're Lost
+              Parece que estas perdido.
             </span>
             <span class="error-subheader2 p-b-5">
-              The Page You Are Looking For Not Available!
+              La pagina que buscas no esta disponible!
             </span>
             <div class="container-auth-form-btn mt-5">
-              <button mat-raised-button color="primary" class="auth-form-btn" type="submit">
-                Go To Home Page
+              <button mat-raised-button color="primary" class="auth-form-btn" type="submit" (click)="redirect()">
+                Volver al inicio
               </button>
             </div>
-            <div class="w-full p-t-15 p-b-15 text-center">
+            <!-- <div class="w-full p-t-15 p-b-15 text-center">
               <div>
                 <a routerLink="/authentication/signin" class="txt1">
                   Need Help?
                 </a>
               </div>
-            </div>
+            </div> -->
           </form>
         </div>
       </div>
