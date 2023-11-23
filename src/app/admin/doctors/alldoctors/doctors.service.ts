@@ -25,6 +25,10 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.get<Medicos>(`http://localhost:8000/api/medicos`);
   }
 
+  getDoctorByEmail( correo: string ){
+    return this.httpClient.post<Medico>(`http://localhost:8000/api/medicos/getMedicoByEmail`,{correo});
+  }
+
   getDoctorById(idMedico: number){
     return this.httpClient.get<MedicoById>(`http://localhost:8000/api/medicos/${idMedico}`);
   }

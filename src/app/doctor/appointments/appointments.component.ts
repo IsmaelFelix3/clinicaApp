@@ -24,6 +24,7 @@ import {
 } from '@shared';
 import { formatDate } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../core/service/auth.service';
 
 @Component({
   selector: 'app-appointments',
@@ -57,7 +58,8 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public appointmentsService: AppointmentsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public authService: AuthService
   ) {
     super();
     dataSource: new MatTableDataSource([]);
@@ -189,7 +191,8 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     //   this.paginator,
     //   this.sort
     // );
-    let idMedico = 1001
+    const idMedico = /*this.authService.currentUserValue.id_medico*/ 1001;
+
     this.appointmentsService.getAllAppointmentss(idMedico).subscribe( (data: any) => {
       this.datosFuente = data.citasActuales;
       this.dataSource = new MatTableDataSource(this.datosFuente)

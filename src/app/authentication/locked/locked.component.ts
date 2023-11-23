@@ -29,10 +29,10 @@ export class LockedComponent implements OnInit {
       password: ['', Validators.required],
     });
     // this.userImg = this.authService.currentUserValue.img;
-    this.userFullName =
-      this.authService.currentUserValue.nombre +
-      ' ' +
-      this.authService.currentUserValue.apellidos;
+    // this.userFullName =
+    //   this.authService.currentUserValue.nombre +
+    //   ' ' +
+    //   this.authService.currentUserValue.apellidos;
   }
   get f() {
     return this.authForm.controls;

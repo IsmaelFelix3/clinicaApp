@@ -32,25 +32,14 @@ export class SigninComponent
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      correo: ['juan.perez@gmail.com', Validators.required],
+      correo: ['ismaelfelixfavela@gmail.com', Validators.required],
       password: ['Admin123', Validators.required],
     });
   }
-  get f() {
+  get loginForm() {
     return this.authForm.controls;
   }
-  adminSet() {
-    this.authForm.get('username')?.setValue('admin@hospital.org');
-    this.authForm.get('password')?.setValue('admin@123');
-  }
-  doctorSet() {
-    this.authForm.get('username')?.setValue('doctor@hospital.org');
-    this.authForm.get('password')?.setValue('doctor@123');
-  }
-  patientSet() {
-    this.authForm.get('username')?.setValue('patient@hospital.org');
-    this.authForm.get('password')?.setValue('patient@123');
-  }
+
   onSubmit() {
     this.submitted = true;
     this.loading = true;
@@ -60,7 +49,7 @@ export class SigninComponent
       return;
     } else {
       this.subs.sink = this.authService
-        .loginAdmin(this.f['correo'].value, this.f['password'].value)
+        .loginAdmin(this.loginForm['correo'].value, this.loginForm['password'].value)
         .subscribe({
           next: (res) => {
             console.log(res, 'Response')
@@ -79,6 +68,7 @@ export class SigninComponent
                 this.loading = false;
               }, 1000);
             } else {
+              console.log('else')
               this.error = 'Invalid Login';
             }
           },

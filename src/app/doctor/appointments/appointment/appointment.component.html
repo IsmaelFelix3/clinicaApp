@@ -161,13 +161,14 @@
               </div>
             </div>
             <div class="row align-self-end">
-                <!-- <div class="col-6 mb-3">
-                    <button mat-fab extended color="primary">
-                        <mat-icon>picture_as_pdf</mat-icon>
-                        Generar Receta
-                    </button>
+                <!-- <div class="mb-3">
+                    
                 </div> -->
-                <div class=" mb-3 me-3">
+                <div class="d-flex gap-3 mb-3 me-3">
+                    <button mat-fab extended color="primary" (click)="generarReceta()">
+                      <mat-icon>picture_as_pdf</mat-icon>
+                      Generar Receta
+                    </button>
                     <button (click)="finalizarCita()" mat-fab extended color="warn">
                         <mat-icon>done</mat-icon>
                         Finalizar Cita
@@ -181,4 +182,4 @@
     </form>
     </div>
   </section>
-  
+

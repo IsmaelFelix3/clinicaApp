@@ -16,6 +16,11 @@ import { MedicalRecordComponent } from 'app/doctor/patients/medical-record/medic
 import { HistoricalAppoinmentComponent } from '../historical-appoinment/historical-appoinment.component';
 import { AppointmentsHistoryComponent } from '../appointments-history/appointments-history.component';
 
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'app-appointment',
@@ -130,6 +135,73 @@ export class AppointmentComponent implements OnInit, OnDestroy{
   }
 
   generarReceta(){
+    if(!this.appointmentForm.valid){
+      this.appointmentForm.markAllAsTouched();
+      Swal.fire({ icon: 'info', title: 'Error al generar receta', text: 'Debe llenar todos los campos necesarios' })
+      return;
+    }
+
+    let cantidad = 1;
+    let fecha = '14-feb-2023';
+
+    let quincenas = 24;
+    let importe = '1140.00';
+    let prestamo = 10000;
+    let pagoQuincenal = 1140;
+    let cliente = 'RAYMUNDO ROBERTO AGUILASOCHO VILLANUEVA';
+
+    let docDefinition: any = {
+      content: []
+    };
+
+    console.log(docDefinition)
+
+      docDefinition.content.push(
+        {
+          style: 'header',
+          table: {
+            widths: [170, 230, 90],
+            heights: [20, 20, 50, 40, 40,],
+            headerRows: 4,
+            body: [
+              [
+                { text: `No.${quincenas}`, style: 'tableHeader', colSpan: 1, alignment: 'left' },
+                { text: `RECIBO No. /${quincenas}`, style: 'tableHeader', colSpan: 1, alignment: 'left' },
+                { text: `$ ${importe}`, style: 'tableHeader', colSpan: 1, alignment: 'left' },
+              ],
+              [
+                { text: `$ ${importe}`, style: 'tableHeader', alignment: 'left', colSpan: 1 },
+                { text: '', style: 'tableHeader', colSpan: 2 },
+                ''
+              ],
+              [
+                { text: `RECIBI DE:\n\n ${cliente}`, style: 'tableHeader', alignment: 'left' },
+                { text: `RECIBI DE:\n\n ${cliente}`, style: 'tableHeader', alignment: 'left', colSpan: 2 },
+              ],
+              [
+                { rowSpan: 1, text: `CONCEPTO\n\n PRESTAMO DE $ ${prestamo} A ${quincenas}\nQUINCENAS DE $ ${pagoQuincenal} C/U` },
+                { rowSpan: 1, text: `CONCEPTO\n\n PRESTAMO DE $ ${prestamo} A ${quincenas} QUINCENAS DE $ ${pagoQuincenal} C/U`, colSpan: 2 },
+              ],
+              [
+                { text: `\n\nFECHA: ${fecha}`, alignment: 'left' },
+                { text: `\n\nFECHA: ${fecha}`, alignment: 'left', colSpan: 2 }
+              ],
+            ]
+          },
+        },
+        {
+          style: 'header',
+          table: {
+            heights: [10],
+            body: [
+              ['']
+            ]
+          },
+          layout: 'noBorders'
+        }
+      )
+    console.log(docDefinition)
+    pdfMake.createPdf(docDefinition).open();
 
   }
 

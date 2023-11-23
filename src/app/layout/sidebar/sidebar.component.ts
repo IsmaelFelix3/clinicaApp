@@ -1,22 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import {
-  Component,
-  Inject,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  HostListener,
-  OnDestroy,
-} from '@angular/core';
+import { Component, Inject, ElementRef, OnInit, Renderer2, HostListener, OnDestroy } from '@angular/core';
 import { ROUTES } from './sidebar-items';
 import { RouteInfo } from './sidebar.metadata';
 import { AuthService, Role } from '@core';
+import { DoctorsService } from '../../admin/doctors/alldoctors/doctors.service';
+import { AdminService } from 'app/services/admin.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  providers: [DoctorsService]
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   public sidebarItems!: RouteInfo[];
@@ -36,7 +31,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     public elementRef: ElementRef,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public doctorService: DoctorsService,
+    public adminService: AdminService
   ) {
     this.elementRef.nativeElement.closest('body');
     this.routerObj = this.router.events.subscribe((event) => {
@@ -71,14 +68,34 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+    console.log(this.authService.currentUserValue, 'side bar')
     if (this.authService.currentUserValue) {
+
       const userRole = this.authService.currentUserValue.rol;
-      this.userFullName =
-        this.authService.currentUserValue.nombre +
-        ' ' +
-        this.authService.currentUserValue.apellidos;
-      // this.userImg = this.authService.currentUserValue.img;
-      this.userImg = '../../../assets/images/clinics/901-200x200.png';
+      const userEmail = this.authService.currentUserValue.correo;
+      let userInfo: any;
+
+      console.log(userRole, 'userRole')
+
+      switch ( userRole ) {
+        case 'Admin':
+          this.adminService.getAdminByEmail(userEmail).subscribe( admin => {
+            userInfo = admin; 
+            this.userFullName = userInfo.admin.nombre + ' ' + userInfo.admin.apellidos;
+            // this.userImg = this.authService.currentUserValue.img;
+            this.userImg = '../../../assets/images/clinics/901-200x200.png';
+          });
+          break;
+        case 'Doctor':
+          this.doctorService.getDoctorByEmail(userEmail).subscribe( doctor => {
+            userInfo = doctor; 
+            console.log(userInfo)
+            this.userFullName = userInfo.medico.nombre + ' ' + userInfo.medico.apellidos;
+            // this.userImg = this.authService.currentUserValue.img;
+            this.userImg = '../../../assets/images/clinics/901-200x200.png';
+          });
+          break;
+      }
 
       this.sidebarItems = ROUTES.filter(
         (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf('All') !== -1

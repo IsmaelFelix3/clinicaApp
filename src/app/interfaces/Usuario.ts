@@ -1,8 +1,17 @@
-import { Administrador } from "./Administrador";
-import { Medico } from './Medico.interface';
-import { Paciente } from 'app/interfaces/Paciente.interface';
 
-export interface UsuarioResponse {
-    msg:           string;
-    userLogin: Administrador | Medico | Paciente;
+export interface Usuario {
+    msg:       string;
+    userLogin: UserLogin;
+    token:     string;
+}
+
+export interface UserLogin {
+    id_usuario:     number;
+    correo:         string;
+    password:       string;
+    estatus:        number;
+    rol:            string;
+    fecha_registro: Date;
+    createdAt:      Date;
+    updatedAt:      Date;
 }

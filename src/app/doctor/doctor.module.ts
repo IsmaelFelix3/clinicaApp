@@ -24,6 +24,7 @@ import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoin
 import { HistoricalAppoinmentComponent } from './appointments/historical-appoinment/historical-appoinment.component';
 import { AppointmentsHistoryComponent } from './appointments/appointments-history/appointments-history.component';
 import { CalendarComponent } from './appointments/calendar/calendar.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { CalendarComponent } from './appointments/calendar/calendar.component';
     HistoricalAppoinmentComponent,
     AppointmentsHistoryComponent,
     CalendarComponent,
+    PrescriptionsComponent,
   ],
   imports: [
     CommonModule,
