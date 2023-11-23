@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Doctors } from './doctors.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { Medico, MedicoById, MedicoUpdate, Medicos } from 'app/interfaces/Medico.interface';
+import { Medico, MedicoByEmail, MedicoById, MedicoUpdate, Medicos } from 'app/interfaces/Medico.interface';
 @Injectable()
 export class DoctorsService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/doctors.json';
@@ -26,7 +26,7 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
   }
 
   getDoctorByEmail( correo: string ){
-    return this.httpClient.post<Medico>(`http://localhost:8000/api/medicos/getMedicoByEmail`,{correo});
+    return this.httpClient.post<MedicoByEmail>(`http://localhost:8000/api/medicos/getMedicoByEmail`,{correo});
   }
 
   getDoctorById(idMedico: number){

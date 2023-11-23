@@ -49,8 +49,7 @@ export class SigninComponent
       return;
     } else {
       this.subs.sink = this.authService
-        .loginAdmin(this.loginForm['correo'].value, this.loginForm['password'].value)
-        .subscribe({
+        .loginAdmin(this.loginForm['correo'].value, this.loginForm['password'].value).subscribe({
           next: (res) => {
             console.log(res, 'Response')
             if (res) {

@@ -8,6 +8,11 @@ export interface MedicoById {
     medico: Medico;
 }
 
+export interface MedicoByEmail {
+    msg:     string;
+    medico: Medico;
+}
+
 export interface Medico {
     id_medico:           number;
     nombre:              string;

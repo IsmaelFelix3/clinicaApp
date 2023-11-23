@@ -25,11 +25,13 @@ import {
 import { formatDate } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '../../core/service/auth.service';
+import { DoctorsService } from '../../admin/doctors/alldoctors/doctors.service';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.scss'],
+  providers: [DoctorsService]
 })
 export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   filterToggle = false;
@@ -59,7 +61,8 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     public dialog: MatDialog,
     public appointmentsService: AppointmentsService,
     private snackBar: MatSnackBar,
-    public authService: AuthService
+    public authService: AuthService,
+    public doctorService: DoctorsService
   ) {
     super();
     dataSource: new MatTableDataSource([]);
@@ -191,17 +194,23 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     //   this.paginator,
     //   this.sort
     // );
-    const idMedico = /*this.authService.currentUserValue.id_medico*/ 1001;
+    const EmailUser = this.authService.currentUserValue.correo;
+    let idMedico: number = 0;
 
-    this.appointmentsService.getAllAppointmentss(idMedico).subscribe( (data: any) => {
-      this.datosFuente = data.citasActuales;
-      this.dataSource = new MatTableDataSource(this.datosFuente)
-
-      this.datosFuente.forEach( cita => {
-        cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
-      })
-      console.log(this.datosFuente, 'datosFuente')
+    this.doctorService.getDoctorByEmail( EmailUser ).subscribe( doctor => {
+      idMedico = doctor.medico.id_medico;
+      this.appointmentsService.getAllAppointmentss(idMedico).subscribe( (data: any) => {
+        this.datosFuente = data.citasActuales;
+        this.dataSource = new MatTableDataSource(this.datosFuente)
+  
+        this.datosFuente.forEach( cita => {
+          cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
+        })
+        console.log(this.datosFuente, 'datosFuente')
+      });
     });
+
+    // const idMedico = this.authService.currentUserValue.id_medico;
     
     // this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
     //   () => {
