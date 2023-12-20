@@ -98,7 +98,7 @@
                     <br>
                     <mat-form-field class="col-6" appearance="fill">
                         <mat-label>Peso Kg</mat-label>
-                        <input matInput formControlName="peso_paciente">
+                        <input (keypress)="numberOnly($event)" matInput formControlName="peso_paciente">
                         <mat-error *ngIf="campoEsValido('peso_paciente')">{{'Debe agregar el peso del paciente'}}</mat-error>
                       </mat-form-field>
                     <br>
