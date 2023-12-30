@@ -46,6 +46,11 @@ export interface Appointments {
   }
 }
 
+export interface AppoinmentsCount{
+  msg: string;
+  citas: number;
+}
+
 export interface appointmentHistory {
   idCita: number;
   idPaciente: number;

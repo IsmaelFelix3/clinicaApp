@@ -4,12 +4,17 @@ import { PacienteShort } from 'app/interfaces/Paciente.interface';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../core/service/auth.service';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
+
+import Swal from 'sweetalert2';
 
 
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
-  styleUrls: ['./patients.component.scss']
+  styleUrls: ['./patients.component.scss'],
+  providers: [DoctorsService]
 })
 export class PatientsComponent implements OnInit{
 
@@ -28,44 +33,53 @@ export class PatientsComponent implements OnInit{
   ];
   patients: PacienteShort[] = [];
 
-  constructor(public patientService: PatientsService, public dialog: MatDialog,){}
+  constructor(public patientService: PatientsService, 
+              public dialog: MatDialog, 
+              public authService: AuthService,
+              public doctorService: DoctorsService){}
 
 
   ngOnInit(): void {
-    let idMedico = 1002;
-    this.patientService.getAllPatients(idMedico).subscribe({
-      complete: () => {
-        this.patientService.isTblLoading = false;
-      },
-      next: (patients) => {
-        this.patients = patients.paciente.map( element => {
-          
-          console.log(new Date(element.fecha_nacimiento).toUTCString())
-          return {
-            idPaciente: element.id_paciente,
-            nombre: element.nombre,
-            apellidos: element.apellidos,
-            edad: this.calculate_age(new Date (element.fecha_nacimiento)),
-            fecha_nacimiento: element.fecha_nacimiento,
-            genero: element.genero,
-            lugarNacimiento: element.lugar_nacimiento,
-            calle: element.calle_y_numero,
-            colonia: element.colonia,
-            municipio: element.municipio,
-            estado: element.estado,
-            correo: element.correo,
-            telefono: element.telefono,
-            idExpediente: element.id_expediente,
-            fechaRegistro: element.fecha_registro,
-            bloodType: element.Expediente!.tipo_sanguineo
-          }
-        });
-        this.dataSource = new MatTableDataSource(this.patients);
-      },
-      error(err) {
-        
-      },
+
+    const correoMedico = this.authService.currentUserValue.correo;
+
+    this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
+      const idMedico = doctor.medico.id_medico;
+      this.patientService.getAllPatients(idMedico).subscribe({
+        complete: () => {
+          this.patientService.isTblLoading = false;
+        },
+        next: (patients) => {
+          this.patients = patients.paciente.map( element => {
+            
+            return {
+              idPaciente: element.id_paciente,
+              nombre: element.nombre,
+              apellidos: element.apellidos,
+              edad: this.calculate_age(new Date (element.fecha_nacimiento)),
+              fecha_nacimiento: element.fecha_nacimiento,
+              genero: element.genero,
+              lugarNacimiento: element.lugar_nacimiento,
+              calle: element.calle_y_numero,
+              colonia: element.colonia,
+              municipio: element.municipio,
+              estado: element.estado,
+              correo: element.correo,
+              telefono: element.telefono,
+              idExpediente: element.id_expediente,
+              fechaRegistro: element.fecha_registro,
+              bloodType: element.Expediente!.tipo_sanguineo
+            }
+          });
+          this.dataSource = new MatTableDataSource(this.patients);
+        },
+        error(err) {
+          Swal.fire({ icon: 'error', title: 'Error', text: 'Error al obtener el listado de pacientes ' + err })
+        },
+      });
     });
+
+    
 
     // this.filterTable();
     this.dataSource.filterPredicate = (record,filter) => {
@@ -96,7 +110,6 @@ export class PatientsComponent implements OnInit{
   }
 
   detailsCall(row: any){
-    console.log(row)
     this.dialog.open(PatientDetailsComponent, {
       data: {
         action: 'informacionPaciente',

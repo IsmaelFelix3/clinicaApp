@@ -89,7 +89,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
         case 'Doctor':
           this.doctorService.getDoctorByEmail(userEmail).subscribe( doctor => {
             userInfo = doctor; 
-            console.log(userInfo)
             this.userFullName = userInfo.medico.nombre + ' ' + userInfo.medico.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
             this.userImg = '../../../assets/images/clinics/901-200x200.png';

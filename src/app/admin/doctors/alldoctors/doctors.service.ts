@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Doctors } from './doctors.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
@@ -15,6 +15,7 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
     super();
   }
   get data(): Medico[] {
+    console.log('entro',this.dataChange)
     return this.dataChange.value;
   }
   getDialogData() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Appointment, Appointments, History } from './appointments.model';
+import { AppoinmentsCount, Appointment, Appointments, History } from './appointments.model';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { AppoinmentByIdResponse, AppoinmentsByDate, AppoinmentsByMedicAndDate, NuevaCita } from 'app/interfaces/Cita.interface';
@@ -26,8 +26,12 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   /** CRUD METHODS */
   // getAllAppointmentss(): void {
   getAllAppointmentss(idMedico: number){
-
+    console.log('first')
     return this.httpClient.get<Appointments[]>(`http://localhost:8000/api/citas/${idMedico}`);
+  }
+
+  getAppoinmentsByMonth(idMedico: number){
+    return this.httpClient.get<AppoinmentsCount>(`http://localhost:8000/api/citas/appoinmentsByMonth/${idMedico}`)
   }
 
   getAllAppoinmentsAdmin(){

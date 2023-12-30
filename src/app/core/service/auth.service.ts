@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   // public get currentUserValue(): Administrador | Medico | Paciente {
-  public get currentUserValue(): UserLogin{
+  public get currentUserValue(): any{
     return this.currentUserSubject.value;
   }
 

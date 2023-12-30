@@ -196,11 +196,14 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     // );
     const EmailUser = this.authService.currentUserValue.correo;
     let idMedico: number = 0;
+    console.log(EmailUser)
 
     this.doctorService.getDoctorByEmail( EmailUser ).subscribe( doctor => {
       idMedico = doctor.medico.id_medico;
+      console.log(idMedico)
       this.appointmentsService.getAllAppointmentss(idMedico).subscribe( (data: any) => {
-        this.datosFuente = data.citasActuales;
+        console.log(data,' appoinmyasd')
+        this.datosFuente = data.citas;
         this.dataSource = new MatTableDataSource(this.datosFuente)
   
         this.datosFuente.forEach( cita => {

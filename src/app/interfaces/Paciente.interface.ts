@@ -1,6 +1,7 @@
 export interface Pacientes {
     msg:      string;
     paciente: Paciente[];
+    numPacientes : number;
 }
 
 export interface PacientesByAdmin {
