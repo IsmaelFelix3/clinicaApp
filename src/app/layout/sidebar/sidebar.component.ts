@@ -11,7 +11,6 @@ import { AdminService } from 'app/services/admin.service';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  providers: [DoctorsService]
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   public sidebarItems!: RouteInfo[];

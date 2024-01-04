@@ -23,9 +23,6 @@ export class AppointmentsHistoryComponent implements OnInit {
         
       },
       next: (value: History) => {
-
-        console.log(value)
-
         this.citas = value.history.rows.map( element => { 
           return {
             idCita: element.id_cita,

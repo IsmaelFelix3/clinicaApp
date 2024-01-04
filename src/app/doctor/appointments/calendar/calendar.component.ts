@@ -7,19 +7,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { CitaResponse } from 'app/interfaces/Cita.interface';
 import { AuthService } from '../../../core/service/auth.service';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
+  providers: [DoctorsService]
 })
 export class CalendarComponent {
+
+  idMedico: number = 0;
 
   calendarForm: FormGroup = this.fb.group({
     fecha: [,Validators.required]
   })
 
-  constructor(public fb: FormBuilder, public appoinmentsService: AppointmentsService, public authService: AuthService){}
+  constructor(public fb: FormBuilder, public appoinmentsService: AppointmentsService, public authService: AuthService,public doctorService: DoctorsService){}
 
   dataSource = new MatTableDataSource<CitaResponse>();
   exampleDatabase?: AppointmentsService;
@@ -34,20 +38,16 @@ export class CalendarComponent {
   
   };
 
-  onDateChange(event: any) {
+  onDateChange(event: any) { 
     this.showTable = true;
-    console.log(new Date(event.value).toISOString())
     const date = new Date(event.value).toISOString();
-    
-    // Any because its not getting correct the type of auth current user value bc of the three interfaces
-    const user: any = this.authService.currentUserValue;
-    const idMedico = user.id_medico;
+    const correoMedico = this.authService.currentUserValue.correo;
 
-
-    this.appoinmentsService.postAppoinmentsByDateAndMedic(idMedico,date).subscribe(data => {
-      console.log(data);
-      this.dataSource = new MatTableDataSource(data.citas);
-      console.log(this.dataSource)
+    this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
+      this.idMedico = doctor.medico.id_medico;
+      this.appoinmentsService.postAppoinmentsByDateAndMedic(this.idMedico,date).subscribe(data => {
+        this.dataSource = new MatTableDataSource(data.citas);
+      });
     });
   }
 

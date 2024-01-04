@@ -7,45 +7,69 @@ import { AppointmentsService } from '../appointments.service';
 import { ScheduleServiceService } from '../../../services/schedule-service.service';
 
 import { z } from "zod";
+import { ConfigurationService } from 'app/services/configuration.service';
+import { AuthService } from '../../../core/service/auth.service';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 
 
 @Component({
   selector: 'app-new-appoinment',
   templateUrl: './new-appoinment.component.html',
   styleUrls: ['./new-appoinment.component.scss'],
+  providers: [DoctorsService, AuthService]
 })
 export class NewAppoinmentComponent implements OnInit{
   
 
   patients: Paciente[] = [];
   horariosLibres: any[] = [];
-
-  motivos = ['Consulta Medica','Seguimiento'];
+  idMedico: number = 0;
+  motivos: string[] = [];
 
   newAppoinmentForm:FormGroup = this.fb.group({
     paciente: [,Validators.required],
-    medico: [1001, Validators.required],
+    medico: [, Validators.required],
     fechaCita: [, Validators.required],
     horario: [,Validators.required], 
     motivoConsulta: [, Validators.required]
   });
 
-  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, public scheduleService:ScheduleServiceService){
+  constructor(public fb: FormBuilder, public patientsService: PatientsService, 
+              public appoinmentsService: AppointmentsService, 
+              public scheduleService:ScheduleServiceService,
+              public configurationService: ConfigurationService,
+              public authService: AuthService,
+              public doctorService: DoctorsService){
   }
 
   ngOnInit(): void {
-    let idMedico = 1002
-    this.patientsService.getAllPatients(idMedico).subscribe(data => {
-      this.patients = data.paciente;
+
+    const correoMedico = this.authService.currentUserValue.userLogin.correo;
+
+    this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
+      this.idMedico = doctor.medico.id_medico;
+      this.newAppoinmentForm.get('medico')?.setValue(this.idMedico);
+      this.patientsService.getAllPatients(this.idMedico).subscribe(data => {
+        this.patients = data.paciente;
+      });
     });
+
+    this.configurationService.getMotivoConsulta().subscribe( data => {
+      this.motivos = data.motivoConsulta.map( element => element.motivo_consulta);
+    });
+
   }
 
   saveAppoinment(){
-
+    console.log('click')
+    console.log(this.newAppoinmentForm)
     if(!this.newAppoinmentForm.valid){
       this.newAppoinmentForm.markAllAsTouched();
+
       return;
     }
+    console.log('clickdespues')
+   
     const dateSchema = z.coerce.date();
     type DateSchema = z.infer<typeof dateSchema>;
 
@@ -68,7 +92,7 @@ export class NewAppoinmentComponent implements OnInit{
 
     let object = {
       fecha_cita: this.newAppoinmentForm.value.fechaCita,
-      id_medico: this.newAppoinmentForm.value.medico,
+      id_medico: this.idMedico,
       id_paciente: this.newAppoinmentForm.value.paciente.id_paciente,
       motivo_consulta: this.newAppoinmentForm.value.motivoConsulta
     }

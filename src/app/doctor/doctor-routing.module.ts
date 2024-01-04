@@ -10,6 +10,7 @@ import { AppointmentComponent } from './appointments/appointment/appointment.com
 import { MedicalRecordsComponent } from "../doctor/medical-records/medical-records.component";
 import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
 import { CalendarComponent } from './appointments/calendar/calendar.component';
+import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'calendar',
     component: CalendarComponent
+  },
+  {
+    path: 'cliqProcedures',
+    component: CliqProceduresComponent
   },
   { path: '**', component: Page404Component },
 ];

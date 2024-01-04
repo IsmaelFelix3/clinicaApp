@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     const correoMedico = this.authService.currentUserValue.userLogin.correo;
     this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
-      console.log(doctor)
       const idMedico = doctor.medico.id_medico;
       this.patientService.getAllPatients(idMedico).subscribe( pacientes => {
         this.numPacientes = pacientes.numPacientes;

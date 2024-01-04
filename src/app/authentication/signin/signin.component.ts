@@ -7,10 +7,12 @@ import {
 } from '@angular/forms';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { AuthService, Role } from '@core';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
+  providers: [DoctorsService]
 })
 export class SigninComponent
   extends UnsubscribeOnDestroyAdapter
@@ -25,7 +27,8 @@ export class SigninComponent
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private doctorService: DoctorsService
   ) {
     super();
   }
@@ -51,7 +54,6 @@ export class SigninComponent
       this.subs.sink = this.authService
         .loginAdmin(this.loginForm['correo'].value, this.loginForm['password'].value).subscribe({
           next: (res) => {
-            console.log(res, 'Response')
             if (res) {
               setTimeout(() => {
                 const role = this.authService.currentUserValue.rol;

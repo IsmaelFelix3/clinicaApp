@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Doctors } from './doctors.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Medico, MedicoByEmail, MedicoById, MedicoUpdate, Medicos } from 'app/interfaces/Medico.interface';
+import { AuthService } from '../../../core/service/auth.service';
 @Injectable()
 export class DoctorsService extends UnsubscribeOnDestroyAdapter {
+
+
   private readonly API_URL = 'assets/data/doctors.json';
   isTblLoading = true;
   dataChange: BehaviorSubject<Medico[]> = new BehaviorSubject<Medico[]>([]);
@@ -14,6 +17,7 @@ export class DoctorsService extends UnsubscribeOnDestroyAdapter {
   constructor(private httpClient: HttpClient) {
     super();
   }
+
   get data(): Medico[] {
     console.log('entro',this.dataChange)
     return this.dataChange.value;

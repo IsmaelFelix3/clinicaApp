@@ -109,7 +109,11 @@
         "PATIENTS": "Pacientes",
         "SETTINGS": "Configuraciones",
         "CHAT": "Charla",
-        "NEWAPPOINTMENT": "Nueva Cita"
+        "NEWAPPOINTMENT": "Nueva Cita",
+        "CLIQPROCEDURES": "Procedimientos CLIQ",
+        "TODAY-PROCEDURES": "Procedimientos de hoy",
+        "CALENDAR-PROCEDURES": "Calendario",
+        "NEW-PROCEDURE": "Agendar Quirofano"
     },
     "PATIENT": {    
       "TEXT": "Paciente",
