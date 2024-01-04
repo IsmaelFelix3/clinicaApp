@@ -26,6 +26,7 @@ import { AppointmentsHistoryComponent } from './appointments/appointments-histor
 import { CalendarComponent } from './appointments/calendar/calendar.component';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.component';
+import { CurrentProceduresComponent } from './cliq-procedures/current-procedures/current-procedures.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.compo
     CalendarComponent,
     PrescriptionsComponent,
     CliqProceduresComponent,
+    CurrentProceduresComponent,
   ],
   imports: [
     CommonModule,

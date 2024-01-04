@@ -11,6 +11,7 @@ import { MedicalRecordsComponent } from "../doctor/medical-records/medical-recor
 import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
 import { CalendarComponent } from './appointments/calendar/calendar.component';
 import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.component';
+import { CurrentProceduresComponent } from './cliq-procedures/current-procedures/current-procedures.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'cliqProcedures',
     component: CliqProceduresComponent
+  },
+  {
+    path: 'currentProcedures',
+    component: CurrentProceduresComponent
   },
   { path: '**', component: Page404Component },
 ];

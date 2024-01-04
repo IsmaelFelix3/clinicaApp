@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Procedimiento, ProcedimientoPost, ProcedimientosRequest } from 'app/interfaces/Procedimiento';
+import { GetProcedimientosRequest, GetProcedimientosTableRequest, ProcedimientoPost, ProcedimientosRequest } from 'app/interfaces/Procedimiento';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class CliqProceduresService {
 
   constructor(public http: HttpClient) { }
 
-  getProcedures(){
-
+  getCurrentProceduresDoctor(idMedico: number){
+    return this.http.get<GetProcedimientosTableRequest>(`${this.baseURL}${this.apiURL}/getCurrentProceduresDoctor/${idMedico}`);
   }
 
   getProceduresByDay(date: string, idQuirofano: number){
