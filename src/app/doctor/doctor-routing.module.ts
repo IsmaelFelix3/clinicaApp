@@ -13,6 +13,7 @@ import { CalendarComponent } from './appointments/calendar/calendar.component';
 import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.component';
 import { CurrentProceduresComponent } from './cliq-procedures/current-procedures/current-procedures.component';
 import { EditProcedureComponent } from './cliq-procedures/edit-procedure/edit-procedure.component';
+import { CalendarProceduresComponent } from './cliq-procedures/calendar-procedures/calendar-procedures.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -65,6 +66,10 @@ const routes: Routes = [
   {
     path: 'editProcedure',
     component: EditProcedureComponent
+  },
+  {
+    path: 'calendarProcedures',
+    component: CalendarProceduresComponent
   },
   { path: '**', component: Page404Component },
 ];

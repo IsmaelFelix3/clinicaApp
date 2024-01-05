@@ -20,6 +20,10 @@ export class CliqProceduresService {
     return this.http.get<ProcedimientosRequest>(`${this.baseURL}${this.apiURL}/getProceduresByDay/${date}&${idQuirofano}`);
   }
 
+  getProceduresCalendarDoctor(date: string, idQuirofano: number){
+    return this.http.get<GetProcedimientosTableRequest>(`${this.baseURL}${this.apiURL}/getProceduresCalendarDoctor/${date}&${idQuirofano}`);
+  }
+
   scheduleProcedure(body: ProcedimientoPost){
     return this.http.post(`${this.baseURL}${this.apiURL}/addProcedure`, body);
 

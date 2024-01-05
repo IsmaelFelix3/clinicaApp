@@ -1,0 +1,89 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Citas'" [items]="[]" [active_item]="'Calendario'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="card">
+            <div class="header">
+              <!-- <h2>Editar Cita</h2> -->
+            </div>
+            <div class="body">
+                <div class="example-container">
+                     <form [formGroup]="calendarForm">
+                        <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Fecha</mat-label>
+                            <input matInput (dateInput)="onDateChange($event)" [matDatepickerFilter]="myFilter" [min]="minDate" formControlName="fecha" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="campoEsValido('fecha')">{{'Debe seleccionar una fecha'}}</mat-error>
+                        </mat-form-field>
+                  </form>
+              </div>
+              <div *ngIf="showTable" class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card">
+                    <div class="materialTableHeader">
+                      <div class="left">
+                        <ul class="header-buttons-left ms-0">
+                          <li class="tbl-title">
+                            <h2>Citas</h2>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="body overflow-auto">
+                      <div class="responsive_table">
+                        <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                          
+                          <ng-container matColumnDef="patient">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Paciente
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"><span class="mobile-label">Patient Name:</span> {{ row.Paciente.nombre + ' ' + row.Paciente.apellidos }}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="dateTime">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <span class="mobile-label">Date & Time:</span> {{ row.fecha_procedimiento | CustomDateTablePipe }}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="quirofano">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>quirofano
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Mobile:</span> {{row.Quirofano.nombre_quirofano}}
+                            </mat-cell>
+                          </ng-container>
+                          <mat-header-row *matHeaderRowDef="displayedColumns">
+                          </mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row)" [style.cursor]="'pointer'" matRipple>
+                          </mat-row>
+                        </mat-table>
+                        <!-- Loading spinner -->
+                        <div *ngIf="exampleDatabase?.isTblLoading" class="tbl-spinner">
+                          <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                          </mat-progress-spinner>
+                        </div>
+                        <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+                          [style.display]="dataSource.filteredData.length === 0 ? '' : 'none'">
+                          Sin resultados
+                        </div>
+                        <!-- <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
+                          [pageSizeOptions]="[5, 10, 25, 100]">
+                        </mat-paginator> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  
+  
