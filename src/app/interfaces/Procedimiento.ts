@@ -8,6 +8,11 @@ export interface GetProcedimientosRequest {
     procedimientos: Procedimientos;
 }
 
+export interface GetProcedimientosRequestCount {
+    msg:            string;
+    procedimientos: number;
+}
+
 export interface Procedimientos {
     count: number;
     rows:  Procedimiento[];

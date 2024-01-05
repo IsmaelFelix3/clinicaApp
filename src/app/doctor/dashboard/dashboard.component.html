@@ -12,7 +12,7 @@
         <div class="body">
           <div class="row">
             <div class="col-lg-4 col-sm-6">
-              <div class="info-box7 l-bg-card1 order-info-box7">
+              <div class="info-box7 l-bg-card2 order-info-box7">
                 <div class="info-box7-block">
                   <h5 class="m-b-15">Total de pacientes</h5>
                   <h2 class="text-end"><i class="fas fa-user-injured float-start"></i><span class="font-30">{{ numPacientes }}</span></h2>
@@ -21,7 +21,7 @@
               </div>
             </div>
             <div class="col-lg-4 col-sm-6">
-              <div class="info-box7 l-bg-card2 order-info-box7">
+              <div class="info-box7 l-bg-card1 order-info-box7">
                 <div class="info-box7-block">
                   <h5 class="m-b-15">Citas para hoy</h5>
                   <h2 class="text-end"><i class="far fa-calendar-check float-start"></i><span class="font-30">{{ numCitasDia }}</span></h2>
@@ -30,10 +30,40 @@
               </div>
             </div>
             <div class="col-lg-4 col-sm-6">
-              <div class="info-box7 l-bg-card3 order-info-box7">
+              <div class="info-box7 l-bg-card1 order-info-box7">
                 <div class="info-box7-block">
                   <h5 class="m-b-15">Citas del mes</h5>
                   <h2 class="text-end"><i class="fas fa-cut float-start"></i><span class="font-30">{{ numCitasMes }}</span></h2>
+                  <!-- <p class="m-b-0">37% Higher Then Last Month</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-sm-6">
+              <div class="info-box7 l-bg-card3 order-info-box7">
+                <div class="info-box7-block">
+                  <h5 class="m-b-15">PROCEDIMIENTOS CLIQ de hoy</h5>
+                  <h2 class="text-end">
+                    <i class="fas fa-star-of-life float-start"></i>
+                      <span class="font-30">
+                        {{ numProcedimientosDia }}
+                      </span>
+                  </h2>
+                  <!-- <p class="m-b-0">37% Higher Then Last Month</p> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6">
+              <div class="info-box7 l-bg-card3 order-info-box7">
+                <div class="info-box7-block">
+                  <h5 class="m-b-15">PROCEDIMIENTOS CLIQ para el mes</h5>
+                  <h2 class="text-end">
+                    <i class="fas fa-star-of-life float-start"></i>
+                      <span class="font-30">
+                        {{ numProcedimientosMes }}
+                      </span>
+                  </h2>
                   <!-- <p class="m-b-0">37% Higher Then Last Month</p> -->
                 </div>
               </div>
