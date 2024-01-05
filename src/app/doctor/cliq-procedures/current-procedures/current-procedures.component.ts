@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarVerticalPosition, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { AuthService } from '@core';
 import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 import { FormComponent } from 'app/contacts/form/form.component';
@@ -14,6 +15,8 @@ import { Appointments } from 'app/doctor/appointments/appointments.model';
 import { AppointmentsService } from 'app/doctor/appointments/appointments.service';
 import { ProcedimientoTable } from 'app/interfaces/Procedimiento';
 import { CliqProceduresService } from 'app/services/cliq-procedures.service';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-current-procedures',
@@ -41,7 +44,8 @@ export class CurrentProceduresComponent  {
     public dialog: MatDialog,
     public cliqProceduresService: CliqProceduresService,
     public authService: AuthService,
-    public doctorService: DoctorsService
+    public doctorService: DoctorsService,
+    public router: Router
   ) {
     // super();
     dataSource: new MatTableDataSource([]);
@@ -93,6 +97,19 @@ export class CurrentProceduresComponent  {
     //     this.dataSource.filter = this.filter?.nativeElement.value;
     //   }
     // );
+  }
+
+  redirect(row: ProcedimientoTable){
+    Swal.fire({
+      title: `¿Desea editar la reserva de quirofano?`,
+      showDenyButton: true,
+      confirmButtonText: 'Continuar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('doctor/editProcedure',{state: row});
+      }
+    })
   }
 
   addNew() {

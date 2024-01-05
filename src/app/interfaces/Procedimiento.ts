@@ -42,11 +42,13 @@ export interface ProcedimientoTable {
 }
 
 export interface Paciente {
+    id_paciente: number;
     nombre:    string;
     apellidos: string;
 }
 
 export interface Quirofano {
+    id_quirofano: number;
     nombre_quirofano: string;
 }
 

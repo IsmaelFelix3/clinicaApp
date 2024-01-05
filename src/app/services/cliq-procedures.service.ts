@@ -25,8 +25,8 @@ export class CliqProceduresService {
 
   }
 
-  editProcedure(){
-
+  editProcedure(body: ProcedimientoPost, idReserva: number){
+    return this.http.put(`${this.baseURL}${this.apiURL}/editProcedure/${idReserva}`, body);
   }
 
   deleteProcedure(){
