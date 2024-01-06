@@ -24,7 +24,6 @@ import { AllAppoinmentsComponent } from './all-appoinments/all-appoinments.compo
   imports: [
     CommonModule,
     AppointmentRoutingModule,
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,

@@ -1,0 +1,102 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Procedimientos de hoy'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="materialTableHeader">
+              <div class="left">
+                <ul class="header-buttons-left ms-0">
+                  <li class="tbl-title">
+                    <h2>Citas</h2>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="right">
+                <ul class="tbl-export-btn">
+                  <li>
+                    <div class="export-button m-l-10" matTooltip="XLSX">
+                      <img src="assets/images/icons/xlsx.png" alt="" />
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="body overflow-auto">
+              <div class="responsive_table">
+                <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                 
+                  <ng-container style="display: none;" matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.id_reserva}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="quirofano">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Quirofano
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Quirofano:</span> 
+                        {{row.Quirofano.nombre_quirofano}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="doctor">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Doctor
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span class="mobile-label">Doctor:</span> 
+                        {{ row.Medico.nombre + ' ' + row.Medico.apellidos }}
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <ng-container matColumnDef="patient">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Paciente
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span class="mobile-label">Paciente:</span> 
+                        {{ row.Paciente.nombre + ' ' + row.Paciente.apellidos }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="dateTime">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <span class="mobile-label">Date & Time:</span> 
+                      {{ row.fecha_procedimiento | CustomDateTablePipe }}
+                    </mat-cell>
+                  </ng-container>
+                 
+  
+                  <mat-header-row *matHeaderRowDef="displayedColumns">
+                  </mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row)"
+                    [style.cursor]="'pointer'" matRipple>
+                  </mat-row>
+                </mat-table>
+                <!-- Loading spinner -->
+                <div *ngIf="exampleDatabase?.isTblLoading" class="tbl-spinner">
+                  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                  </mat-progress-spinner>
+                </div>
+                <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+                  [style.display]="datosFuente.length === 0 ? '' : 'none'">
+                  No results
+                </div>
+                <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  

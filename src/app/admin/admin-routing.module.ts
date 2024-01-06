@@ -65,6 +65,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pharmacy/pharmacy.module').then((m) => m.PharmacyModule),
   },
+  {
+    path: 'cliqProcedures',
+    loadChildren: () => import('./cliqProceduresAdmin/cliq-procedures.module').then((m) => m.CliqProceduresModule)
+  }
 ];
 
 @NgModule({

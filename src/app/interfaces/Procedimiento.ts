@@ -31,6 +31,16 @@ export interface GetProcedimientosTableRequest {
     procedimientos: ProcedimientosTable;
 }
 
+export interface GetProcedimientosTableRequestAdmin {
+    msg:            string;
+    procedimientos: ProcedimientosTableAdmin;
+}
+
+export interface ProcedimientosTableAdmin {
+    count: number;
+    rows:  ProcedimientoTableAdmin[];
+}
+
 export interface ProcedimientosTable {
     count: number;
     rows:  ProcedimientoTable[];
@@ -44,6 +54,23 @@ export interface ProcedimientoTable {
     fecha_procedimiento:          Date;
     Paciente:                     Paciente;
     Quirofano:                    Quirofano;
+}
+
+export interface ProcedimientoTableAdmin {
+    id_reserva:                   number;
+    id_medico:                    number;
+    id_paciente:                  number;
+    id_quirofano:                 number;
+    fecha_procedimiento:          Date;
+    Paciente:                     Paciente;
+    Quirofano:                    Quirofano;
+    Medico:                       Medico;
+}
+
+export interface Medico{
+    id_medico:                  number;
+    nombre:                     string;
+    apellidos:                  string;
 }
 
 export interface Paciente {
