@@ -46,7 +46,6 @@ export class CliqProceduresService {
       return this.http.get<GetProcedimientosTableRequestAdmin>(`${this.baseURL}${this.apiURL}/getProcedures/${date}`);
     }
     return this.http.get<GetProcedimientosTableRequestAdmin>(`${this.baseURL}${this.apiURL}/getProcedures/null`);
-    
   }
 
   deleteProcedure(){

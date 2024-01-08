@@ -71,3 +71,32 @@ export interface CitaResponse {
 }
 
 
+export interface CitaReportPost { 
+    idMedico: number,
+    startDate: string,
+    endDate: string,
+    type:string
+}
+
+export interface CitaReportRequest {
+     msg: string,
+     citas: CitasCount;
+}
+
+export interface CitasCount {
+     count : number,
+     rows: CitasReport[]
+}
+
+export interface CitasReport {
+    Paciente: PacienteReport,
+    motivo_consulta: string;
+    estatus: string;
+    fecha_cita: string;
+}
+
+export interface PacienteReport {
+    nombre: string;
+    apellidos: string;
+}
+

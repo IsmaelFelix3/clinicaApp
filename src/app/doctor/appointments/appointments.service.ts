@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AppoinmentsCount, Appointment, Appointments, History } from './appointments.model';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { AppoinmentByIdResponse, AppoinmentsByDate, AppoinmentsByMedicAndDate, NuevaCita } from 'app/interfaces/Cita.interface';
+import { AppoinmentByIdResponse, AppoinmentsByDate, AppoinmentsByMedicAndDate, CitaReportPost, CitaReportRequest, NuevaCita } from 'app/interfaces/Cita.interface';
 @Injectable()
 export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/doc-appointments.json';
@@ -83,5 +83,10 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
 
   getAppointmentsByDate(date: string){
     return this.httpClient.get<AppoinmentsByDate>(`http://localhost:8000/api/citas/appoinmentsByDate/${date}`);
+  }
+
+  getAppoinmentsByDateAndType(body: CitaReportPost){
+    return this.httpClient.post<CitaReportRequest>(`http://localhost:8000/api/citas/appoinmentsByDateAndType/`, body);
+
   }
 }

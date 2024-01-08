@@ -356,6 +356,18 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
+  {
+    path: 'admin/appointment/appointments-report',
+    title: 'MENUITEMS.DOCTOR.REPORTS',
+    iconType: 'material-icons-two-tone',
+    icon: 'description',
+    class: '',
+    groupTitle: false,
+    badge: '',
+    badgeClass: '',
+    role: ['Admin'],
+    submenu: []
+  },
   // {
   //   path: '',
   //   title: 'MENUITEMS.ROOMS.TEXT',

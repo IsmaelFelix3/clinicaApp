@@ -113,7 +113,8 @@
         "CLIQPROCEDURES": "Procedimientos CLIQ",
         "TODAY-PROCEDURES": "Procedimientos de hoy",
         "CALENDAR-PROCEDURES": "Calendario",
-        "NEW-PROCEDURE": "Agendar Quirofano"
+        "NEW-PROCEDURE": "Agendar Quirofano",
+        "REPORTS": "Reportes"
     },
     "PATIENT": {    
       "TEXT": "Paciente",
