@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GetProcedimientosRequestCount, GetProcedimientosTableRequest, GetProcedimientosTableRequestAdmin, ProcedimientoPost, ProcedimientosRequest } from 'app/interfaces/Procedimiento';
+import { DeleteProcedure, GetProcedimientosRequestCount, GetProcedimientosTableRequest, GetProcedimientosTableRequestAdmin, ProcedimientoPost, ProcedimientosRequest } from 'app/interfaces/Procedimiento';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +48,7 @@ export class CliqProceduresService {
     return this.http.get<GetProcedimientosTableRequestAdmin>(`${this.baseURL}${this.apiURL}/getProcedures/null`);
   }
 
-  deleteProcedure(){
-
+  deleteProcedure(idReserva: number){
+    return this.http.delete<DeleteProcedure>(`${this.baseURL}${this.apiURL}/deleteProcedure/${idReserva}`);
   }
 }

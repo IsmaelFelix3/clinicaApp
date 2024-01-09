@@ -90,3 +90,7 @@ export interface ProcedimientoPost {
     id_quirofano:        number;
     fecha_procedimiento: Date;
 }
+
+export interface DeleteProcedure {
+    msg: string;
+}

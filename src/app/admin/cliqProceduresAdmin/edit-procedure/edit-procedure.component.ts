@@ -214,4 +214,35 @@ export class EditProcedureComponent {
     return this.procedureForm.controls[campo].errors && this.procedureForm.controls[campo].touched;
   }
 
+  deleteProcedure(){
+    Swal.fire({
+      title: "¿Seguro que desea eliminar el procedimiento?",
+      text: "No podras revertir esto",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cliqProceduresService.deleteProcedure(this.idReserva).subscribe({
+          next: (value) => {
+            Swal.fire({ title: 'Eliminado', text: value.msg, icon: 'success'});
+            
+          },
+          complete: () => {
+            this.procedureForm.reset();      
+            this.isVisible = false;  
+            this.router.navigateByUrl('admin/cliqProcedures/calendarProcedures', {replaceUrl: true});
+          },
+          error: (data) => {
+            Swal.fire({icon: 'error',title:'Error al editar procedimiento', text: data.msg});
+            this.loadData();
+          },
+        })
+      }
+    });
+    
+  }
+
 }

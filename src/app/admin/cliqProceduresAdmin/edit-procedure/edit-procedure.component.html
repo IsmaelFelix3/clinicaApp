@@ -64,10 +64,14 @@
             </div>
             <div class="row align-self-end">
                 <div class="mb-3 me-3">
-                    <button (click)="editProcedure()" type="button" mat-fab extended color="primary">
+                    <button (click)="editProcedure()" class="btn-space" type="button" mat-fab extended color="primary">
                         <mat-icon>done</mat-icon>
                         Editar Procedimiento
                     </button>
+                    <button type="button" (click)="deleteProcedure()" mat-fab extended color="warn">
+                      <mat-icon>delete_outline</mat-icon>
+                      Eliminar Procedimiento
+                  </button>
                 </div>
             </div>
           </div>

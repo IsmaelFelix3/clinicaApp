@@ -47,10 +47,12 @@ export class SigninComponent
     this.submitted = true;
     this.loading = true;
     this.error = '';
+
     if (this.authForm.invalid) {
       this.error = 'Username and Password not valid !';
       return;
-    } else {
+    } 
+    else {
       this.subs.sink = this.authService
         .loginAdmin(this.loginForm['correo'].value, this.loginForm['password'].value).subscribe({
           next: (res) => {
@@ -74,7 +76,8 @@ export class SigninComponent
             }
           },
           error: (error) => {
-            this.error = error;
+            console.log(error)
+            this.error = error.msg;
             this.submitted = false;
             this.loading = false;
           },

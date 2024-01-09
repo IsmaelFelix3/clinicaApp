@@ -114,7 +114,7 @@ export class CurrentProceduresComponent {
       denyButtonText: `Cancelar`,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigateByUrl('doctor/editProcedure',{state: row});
+        this.router.navigateByUrl('admin/cliqProcedures/editProcedure',{state: row});
       }
     })
   }

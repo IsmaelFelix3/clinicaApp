@@ -37,7 +37,7 @@ export class AuthService {
       .pipe(
         map((admin) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          console.log(admin)
+          console.log(admin, 'auth service')
           localStorage.setItem('currentUser', JSON.stringify(admin));
           this.currentUserSubject.next(admin.userLogin);
           return admin;
