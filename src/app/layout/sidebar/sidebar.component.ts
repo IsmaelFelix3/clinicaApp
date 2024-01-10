@@ -70,8 +70,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     console.log(this.authService.currentUserValue, 'side bar')
     if (this.authService.currentUserValue) {
 
-      const userRole = this.authService.currentUserValue.rol;
-      const userEmail = this.authService.currentUserValue.correo;
+      const userRole = this.authService.currentUserValue.userLogin.rol;
+      const userEmail = this.authService.currentUserValue.userLogin.correo;
       let userInfo: any;
 
       console.log(userRole, 'userRole')

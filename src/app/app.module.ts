@@ -13,7 +13,7 @@ import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
 // import { fakeBackendProvider } from './core/interceptor/fake-backend';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
-import { JwtInterceptor } from './core/interceptor/jwt.interceptor';
+// import { JwtInterceptor } from './core/interceptor/jwt.interceptor';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -60,7 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     // fakeBackendProvider,
   ],

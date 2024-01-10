@@ -10,6 +10,12 @@ export class Page404Component {
   constructor(public router: Router) {}
 
   redirect(){
-    this.router.navigateByUrl('admin/dashboard/main');
+    if(localStorage.getItem('token')){
+      this.router.navigate(['./dashboard/']);
+    }
+    else{
+      this.router.navigateByUrl('/authentication/signin');
+    }
+    // this.router.navigateByUrl('admin/dashboard/main');
   }
 }
