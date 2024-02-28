@@ -41,7 +41,10 @@ export class CalendarComponent {
   onDateChange(event: any) { 
     this.showTable = true;
     const date = new Date(event.value).toISOString();
-    const correoMedico = this.authService.currentUserValue.correo;
+    console.log(this.authService.currentUserValue)
+    console.log(this.authService.currentUser)
+
+    const correoMedico = this.authService.currentUserValue.userLogin.correo;
 
     this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
       this.idMedico = doctor.medico.id_medico;

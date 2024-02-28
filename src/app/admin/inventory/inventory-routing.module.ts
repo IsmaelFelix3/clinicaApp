@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Page404Component } from 'app/authentication/page404/page404.component';
 import { IssuedItemsComponent } from './issued-items/issued-items.component';
 import { ItemStockListComponent } from './item-stock-list/item-stock-list.component';
+import { EditItemComponent } from './item-stock-list/edit-item/edit-item.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'issued-items',
     component: IssuedItemsComponent,
+  },
+  {
+    path: 'edit-item',
+    component: EditItemComponent
   },
   { path: '**', component: Page404Component },
 ];

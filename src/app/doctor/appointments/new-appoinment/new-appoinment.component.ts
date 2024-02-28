@@ -44,8 +44,10 @@ export class NewAppoinmentComponent implements OnInit{
 
   ngOnInit(): void {
 
-    const correoMedico = this.authService.currentUserValue.userLogin.correo;
-
+    console.log(this.authService.currentUserValue)
+    // const correoMedico = this.authService.currentUserValue.userLogin.correo;
+    const userLogin = JSON.parse(localStorage.getItem('currentUser')!)
+    const correoMedico = userLogin.correo;
     this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
       this.idMedico = doctor.medico.id_medico;
       this.newAppoinmentForm.get('medico')?.setValue(this.idMedico);

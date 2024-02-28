@@ -96,7 +96,9 @@
       "TEXT": "Inventario",
       "LIST": {
         "ITEM-STOCK-LIST": "Stock de artículos",
-        "ISSUED-ITEMS": "Artículos emitidos"
+        "SUPPLIES": "Insumos",
+        "ISSUED-ITEMS": "Artículos emitidos",
+        "ADD-SUPPLIES": "Agregar Insumos"
       }
     },
     "DOCTOR": {    

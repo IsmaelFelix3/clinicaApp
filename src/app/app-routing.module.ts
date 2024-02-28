@@ -5,17 +5,20 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { Role } from './core/models/role';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
+import { AdminGuard } from '@core/guard/admin.guard';
+import { DoctorGuard } from './core/guard/doctor.guard';
+
 const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
-    canMatch: [AuthGuard],
+    // canMatch: [AuthGuard],
     children: [
       { path: '', redirectTo: '/authentication/signin', pathMatch: 'full' },
       {
         path: 'admin',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminGuard],
         canMatch: [AuthGuard],
         data: {
           role: Role.Admin,
@@ -25,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: 'doctor',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, DoctorGuard],
         canMatch: [AuthGuard],
         data: {
           role: Role.Doctor,

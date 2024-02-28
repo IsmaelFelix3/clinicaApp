@@ -105,8 +105,8 @@
                 <ng-container matColumnDef="disease">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus
                   </mat-header-cell>
-                  <mat-cell *matCellDef="let row" class="column-nowrap"> <span
-                      class="mobile-label">Estatus:</span>
+                  <mat-cell *matCellDef="let row" class="column-nowrap">
+                    <span class="mobile-label">Estatus:</span>
                       <button mat-raised-button [ngClass]="getStatus(row.estatus)">
                         {{row.estatus}}
                       </button>

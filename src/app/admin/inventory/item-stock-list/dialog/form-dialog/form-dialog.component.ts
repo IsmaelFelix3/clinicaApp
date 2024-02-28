@@ -6,14 +6,18 @@ import {
   Validators,
   UntypedFormGroup,
   UntypedFormBuilder,
+  FormGroup,
+  FormBuilder,
 } from '@angular/forms';
 import { ItemStockList } from '../../item-stock-list.model';
 import { formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
+import { Insumo } from 'app/interfaces/Insumo';
 
 export interface DialogData {
   id: number;
   action: string;
-  itemStockList: ItemStockList;
+  item: Insumo;
 }
 
 @Component({
@@ -22,62 +26,98 @@ export interface DialogData {
   styleUrls: ['./form-dialog.component.scss'],
 })
 export class FormDialogComponent {
+
   action: string;
   dialogTitle: string;
-  itemStockListForm: UntypedFormGroup;
-  itemStockList: ItemStockList;
-  constructor(
-    public dialogRef: MatDialogRef<FormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public itemStockListService: ItemStockListService,
-    private fb: UntypedFormBuilder
-  ) {
+  // itemStockListForm: UntypedFormGroup;
+  // itemStockList: ItemStockList;
+
+  item!: Insumo;
+
+  itemForm: FormGroup = this.fb.group({
+    codigo: [, Validators.required],
+    descripcion: [, Validators.required],
+    estado: [true, Validators.required],
+    fechaAlta: [ new Date().toISOString(), Validators.required]
+  });
+
+  constructor( public dialogRef: MatDialogRef<FormDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
+               public itemStockListService: ItemStockListService, private fb: FormBuilder){
+    console.log(data)
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
-      this.dialogTitle = data.itemStockList.i_name;
-      this.itemStockList = data.itemStockList;
-    } else {
-      this.dialogTitle = 'New ItemStockList';
+      this.dialogTitle = data.item.codigo;
+      this.item = data.item;
+      this.itemForm = this.createContactForm();
+    } 
+    else {
+      this.dialogTitle = 'Nuevo Insumo';
       const blankObject = {} as ItemStockList;
-      this.itemStockList = new ItemStockList(blankObject);
+      // this.item = new ItemStockList(blankObject);
     }
-    this.itemStockListForm = this.createContactForm();
+    //  this.itemStockListForm = this.createContactForm();
+
   }
-  formControl = new UntypedFormControl('', [
-    Validators.required,
-    // Validators.email,
-  ]);
-  getErrorMessage() {
-    return this.formControl.hasError('required')
-      ? 'Required field'
-      : this.formControl.hasError('email')
-      ? 'Not a valid email'
-      : '';
-  }
-  createContactForm(): UntypedFormGroup {
+
+  createContactForm(): FormGroup {
     return this.fb.group({
-      id: [this.itemStockList.id],
-      i_name: [this.itemStockList.i_name],
-      category: [this.itemStockList.category],
-      qty: [this.itemStockList.qty],
-      date: [
-        formatDate(this.itemStockList.date, 'yyyy-MM-dd', 'en'),
-        [Validators.required],
-      ],
-      price: [this.itemStockList.price],
-      details: [this.itemStockList.details],
+      id_insumo: [this.item.id_insumo, Validators.required],
+      codigo: [this.item.codigo, Validators.required],
+      descripcion: [this.item.descripcion, Validators.required],
+      estado: [this.item.estado, Validators.required],
+      fechaAlta: [ this.item.createdAt, [Validators.required],],
     });
   }
-  submit() {
-    // emppty stuff
+
+  campoEsValido(campo: string){
+    return this.itemForm.controls[campo].errors && this.itemForm.controls[campo].touched;
   }
+  
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  confirmEdit(){
+    if(!this.itemForm.valid){
+      this.itemForm.markAllAsTouched();
+      return;
+    }
+
+    const codigo = this.itemForm.get('codigo')?.value.toUpperCase();
+    const descripcion = this.itemForm.get('descripcion')?.value.toUpperCase();
+    this.itemForm.get('codigo')?.setValue(codigo)
+    this.itemForm.get('descripcion')?.setValue(descripcion)
+
+    this.itemStockListService.updateItem(this.itemForm.getRawValue()).subscribe({
+      complete: () => {
+        Swal.fire('Insumo editado exitosamente.');
+      },
+      error: (err) => {
+        Swal.fire({icon: 'error',title:'Error al editar el insumo', text: err.msg});
+      },
+    });
+  }
+
   public confirmAdd(): void {
-    this.itemStockListService.addItemStockList(
-      this.itemStockListForm.getRawValue()
-    );
+
+    if(!this.itemForm.valid){
+      this.itemForm.markAllAsTouched();
+      return;
+    }
+
+    const codigo = this.itemForm.get('codigo')?.value.toUpperCase();
+    const descripcion = this.itemForm.get('descripcion')?.value.toUpperCase();
+    this.itemForm.get('codigo')?.setValue(codigo)
+    this.itemForm.get('descripcion')?.setValue(descripcion)
+
+    this.itemStockListService.addItem(this.itemForm.getRawValue()).subscribe({
+      complete: () => {
+        Swal.fire('Insumo creado exitosamente.');
+      },
+      error: (err) => {
+        Swal.fire({icon: 'error',title:'Error al registrar insumo', text: err.msg});
+      },
+    });
   }
 }

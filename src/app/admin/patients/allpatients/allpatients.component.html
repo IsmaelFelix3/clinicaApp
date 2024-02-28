@@ -69,7 +69,7 @@
                 </ng-container> 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple (click)="redirect(row.idPaciente)">
+                <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple (click)="redirect(row)">
                 </mat-row>
               </mat-table>
               <!-- Loading spinner -->

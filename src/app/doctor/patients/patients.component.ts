@@ -41,9 +41,7 @@ export class PatientsComponent implements OnInit{
 
   ngOnInit(): void {
 
-    const correoMedico = this.authService.currentUserValue.correo;
-
-    this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
+    this.doctorService.getDoctorByEmail(this.authService.currentUserValue.userLogin.correo).subscribe( doctor => {
       const idMedico = doctor.medico.id_medico;
       this.patientService.getAllPatients(idMedico).subscribe({
         complete: () => {

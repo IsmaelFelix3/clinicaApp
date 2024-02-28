@@ -60,48 +60,49 @@ export class NewProcedureComponent {
   }
 
   saveProcedure(){
-    if(!this.procedureForm.valid){
-      this.procedureForm.markAllAsTouched();
-      return;
-    }
+    console.log(this.procedureForm.value)
+    // if(!this.procedureForm.valid){
+    //   this.procedureForm.markAllAsTouched();
+    //   return;
+    // }
    
-    const dateSchema = z.coerce.date();
-    type DateSchema = z.infer<typeof dateSchema>;
+    // const dateSchema = z.coerce.date();
+    // type DateSchema = z.infer<typeof dateSchema>;
 
-    let fecha = new Date(this.procedureForm.get('fechaProcedimiento')?.value);
-    if(!dateSchema.safeParse(fecha).success){
-      Swal.fire({icon: 'error',title:'Error fecha invalida'});
-      return;
-    }
-    let horario = this.procedureForm.get('horario')?.value;
-    let hora = horario.split(':')[0];
-    let minutos = horario.split(':')[1];
-    let newFecha = fecha.setHours(parseInt(hora));
-    newFecha = fecha.setMinutes(parseInt(minutos))
+    // let fecha = new Date(this.procedureForm.get('fechaProcedimiento')?.value);
+    // if(!dateSchema.safeParse(fecha).success){
+    //   Swal.fire({icon: 'error',title:'Error fecha invalida'});
+    //   return;
+    // }
+    // let horario = this.procedureForm.get('horario')?.value;
+    // let hora = horario.split(':')[0];
+    // let minutos = horario.split(':')[1];
+    // let newFecha = fecha.setHours(parseInt(hora));
+    // newFecha = fecha.setMinutes(parseInt(minutos))
 
-    let date = new Date(new Date(newFecha).toISOString());
-    let userTimezoneOffset = date.getTimezoneOffset() * 60000;
-    let fechaFinal = new Date(date.getTime() - userTimezoneOffset);
+    // let date = new Date(new Date(newFecha).toISOString());
+    // let userTimezoneOffset = date.getTimezoneOffset() * 60000;
+    // let fechaFinal = new Date(date.getTime() - userTimezoneOffset);
 
-    this.procedureForm.get('fechaProcedimiento')?.setValue(fechaFinal.toISOString());
+    // this.procedureForm.get('fechaProcedimiento')?.setValue(fechaFinal.toISOString());
 
-    let object = {
-      fecha_procedimiento: this.procedureForm.value.fechaProcedimiento,
-      id_medico: this.idMedico,
-      id_paciente: this.procedureForm.value.paciente.id_paciente,
-      id_quirofano: this.procedureForm.value.quirofano
-    }
+    // let object = {
+    //   fecha_procedimiento: this.procedureForm.value.fechaProcedimiento,
+    //   id_medico: this.idMedico,
+    //   id_paciente: this.procedureForm.value.paciente.id_paciente,
+    //   id_quirofano: this.procedureForm.value.quirofano
+    // }
 
-    this.cliqProceduresService.scheduleProcedure(object).subscribe({
-      complete: () => {
-        this.procedureForm.reset();      
-        this.isVisible = false;  
-        Swal.fire('Se agendo procedimiento con exito');
-      },
-      error: (data) => {
-        Swal.fire({icon: 'error',title:'Error al registrar procedimiento', text: data.msg});
-      },
-    });
+    // this.cliqProceduresService.scheduleProcedure(object).subscribe({
+    //   complete: () => {
+    //     this.procedureForm.reset();      
+    //     this.isVisible = false;  
+    //     Swal.fire('Se agendo procedimiento con exito');
+    //   },
+    //   error: (data) => {
+    //     Swal.fire({icon: 'error',title:'Error al registrar procedimiento', text: data.msg});
+    //   },
+    // });
   }
 
   cleanDate(){

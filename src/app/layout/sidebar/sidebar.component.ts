@@ -83,6 +83,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
             this.userFullName = userInfo.admin.nombre + ' ' + userInfo.admin.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
             this.userImg = '../../../assets/images/clinics/901-200x200.png';
+            this.authService.currentUserSubject.next(this.authService.currentUserValue)
           });
           break;
         case 'Doctor':
@@ -91,6 +92,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
             this.userFullName = userInfo.medico.nombre + ' ' + userInfo.medico.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
             this.userImg = '../../../assets/images/clinics/901-200x200.png';
+            this.authService.currentUserSubject.next(this.authService.currentUserValue)
+
           });
           break;
       }

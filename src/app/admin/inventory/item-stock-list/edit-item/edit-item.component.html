@@ -1,0 +1,67 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Insumos'" [items]="[]" [active_item]="'Editar Insumo'"></app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2><strong> Insumo </strong></h2>
+            </div>
+            <div class="body">
+              <form class="m-2" [formGroup]="itemForm">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Codigo</mat-label>
+                      <input matInput formControlName="codigo" required>
+                      <mat-error *ngIf="itemForm.get('codigo')?.hasError('required')">
+                        Debe ingresar el codigo del insumo
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Descripción</mat-label>
+                      <input matInput formControlName="descripcion">
+                      <mat-error *ngIf="itemForm.get('descripcion')?.hasError('required')">
+                        Debe ingresar la descripcion
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-3">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Fecha Alta</mat-label>
+                          <input matInput formControlName="fechaAlta" required readonly="true">
+                          <!-- <mat-error *ngIf="itemForm.get('fecha_nacimiento')?.hasError('required')">
+                            Favor de seleccionar la fecha de nacimiento
+                          </mat-error> -->
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-radio-group color="primary" formControlName="estado" aria-label="Estado">
+                          <mat-radio-button  [value]="true">Activo</mat-radio-button>
+                          <mat-radio-button [value]="false">Desactivado</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-error *ngIf="campoEsValido('estado')">{{'Seleccione tipo de busqueda'}}</mat-error>
+                      </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button class="btn-space" mat-raised-button color="primary" (click)="editarItem()">Editar Insumo</button>
+                    <button type="button" class="btn-space" mat-raised-button color="warn" (click)="delete()">Eliminar</button>
+                    <button type="button" mat-raised-button color="primary" (click)="return()">Cancelar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

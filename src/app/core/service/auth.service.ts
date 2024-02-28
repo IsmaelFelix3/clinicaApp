@@ -14,10 +14,10 @@ import { AuthRenew } from 'app/interfaces/Auth';
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<UserLogin>;
+  public currentUserSubject: BehaviorSubject<UserLogin>;
   public currentUser: Observable<UserLogin>;
 
-  private user?: UserLogin;
+  public user?: UserLogin;
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<UserLogin>(
@@ -30,6 +30,7 @@ export class AuthService {
   public get currentUserValue(): any{
     return this.currentUserSubject.value;
   }
+
 
   loginAdmin(correo: string, password: string) {
     console.log('sing in')
@@ -45,6 +46,7 @@ export class AuthService {
           localStorage.setItem('token', admin.token);
           console.log(admin, 'admin admoin')
           this.currentUserSubject.next(admin.userLogin);
+          localStorage.setItem('currentUser', JSON.stringify(admin.userLogin))
           return admin;
         })
       );

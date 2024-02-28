@@ -52,7 +52,7 @@
                 <div *ngIf="isVisible" class="row">
                     <label>Horario del procedimiento:</label>
                     <div  class="col-xl-12 col-lg-12 col-md-8 col-sm-6 mb-3">
-                      <mat-button-toggle-group style="border: none;" formControlName="horario" name="horarios" aria-label="horarios" >
+                      <mat-button-toggle-group multiple="true" style="border: none;" formControlName="horario" name="horarios" aria-label="horarios" >
                         <mat-button-toggle style="width: 6.2rem; border: solid 1px #e0e0e0" *ngFor="let horario of horariosLibres" [value]="horario.value" [disabled]="horario.isDisable">
                           {{ horario.name }}
                         </mat-button-toggle>

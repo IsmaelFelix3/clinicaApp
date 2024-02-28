@@ -194,7 +194,7 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     //   this.paginator,
     //   this.sort
     // );
-    const EmailUser = this.authService.currentUserValue.correo;
+    const EmailUser = this.authService.currentUserValue.userLogin.correo;
     let idMedico: number = 0;
     console.log(EmailUser)
 

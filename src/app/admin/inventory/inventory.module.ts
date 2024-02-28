@@ -12,6 +12,7 @@ import { IssuedItemsService } from './issued-items/issued-items.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
 import { IssuedItemsComponent } from './issued-items/issued-items.component';
+import { EditItemComponent } from './item-stock-list/edit-item/edit-item.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { IssuedItemsComponent } from './issued-items/issued-items.component';
     IssuedItemsComponent,
     IssuedItemForm,
     IssuedItemDelete,
+    EditItemComponent,
   ],
   imports: [
     CommonModule,

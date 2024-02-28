@@ -47,10 +47,12 @@ export class FormDialogComponent {
 
     this.calendarForm = this.createContactForm();
   }
+
   formControl = new UntypedFormControl('', [
     Validators.required,
     // Validators.email,
   ]);
+
   getErrorMessage() {
     return this.formControl.hasError('required')
       ? 'Required field'
@@ -58,6 +60,7 @@ export class FormDialogComponent {
       ? 'Not a valid email'
       : '';
   }
+
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.calendar.id],
@@ -68,16 +71,20 @@ export class FormDialogComponent {
       details: [this.calendar.details],
     });
   }
+
   submit() {
     // emppty stuff
   }
+
   deleteEvent() {
     this.calendarService.deleteCalendar(this.calendarForm.getRawValue());
     this.dialogRef.close('delete');
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   public confirmAdd(): void {
     this.calendarService.addUpdateCalendar(this.calendarForm.getRawValue());
     this.dialogRef.close('submit');

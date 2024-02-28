@@ -1,10 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import {
-  CalendarOptions,
-  DateSelectArg,
-  EventClickArg,
-  EventApi,
-} from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -12,19 +7,11 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
 import { MatDialog } from '@angular/material/dialog';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Calendar } from './calendar.model';
 import { FormDialogComponent } from './dialogs/form-dialog/form-dialog.component';
 import { CalendarService } from './calendar.service';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { INITIAL_EVENTS } from './events-util';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UnsubscribeOnDestroyAdapter } from '../shared/UnsubscribeOnDestroyAdapter';
@@ -35,10 +22,7 @@ import { Direction } from '@angular/cdk/bidi';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent
-  extends UnsubscribeOnDestroyAdapter
-  implements OnInit
-{
+export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   @ViewChild('calendar', { static: false })
   calendar: Calendar | null;
   public addCusForm: UntypedFormGroup;
@@ -107,6 +91,7 @@ export class CalendarComponent
   }
 
   addNewEvent() {
+    console.log('entroooooo')
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -124,6 +109,7 @@ export class CalendarComponent
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 'submit') {
         this.calendarData = this.calendarService.getDialogData();
+        console.log('entro')
         console.log(this.calendarData.startDate);
         this.calendarEvents = this.calendarEvents?.concat({
           // add new event data. must create new array

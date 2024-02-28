@@ -28,7 +28,9 @@ export class DashboardComponent implements OnInit {
               public cliqProceduresService: CliqProceduresService){}
 
   ngOnInit() {
-    const correoMedico = this.authService.currentUserValue.userLogin.correo;
+    const userLogin = JSON.parse(localStorage.getItem('currentUser')!);
+    console.log(userLogin)
+    const correoMedico = userLogin.correo;
     const date = new Date();
     const day = new Date(date.getFullYear(), date.getMonth(), date.getDate(),0); 
     this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
