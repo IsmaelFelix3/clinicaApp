@@ -13,6 +13,13 @@ export interface Insumo {
     codigo:      string;
     descripcion: string;
     estado:      boolean;
+    facturaCompra: string;
+    perecedero:  boolean;
+    numeroLote:  string;
+    fechaCaducidad: string;
+    cantidadMinima: number;
+    cantidadMaxima: number;
+    cantidadActual: number;
     createdAt:   string;
 }
 
@@ -21,4 +28,11 @@ export interface InsumoPost {
     descripcion: string;
     estado:      boolean;
     fechaAlta:   string;
+    facturaCompra: string;
+    perecedero:  boolean;
+    numeroLote:  string;
+    fechaCaducidad: string;
+    cantidadMinima: number;
+    cantidadMaxima: number;
+    cantidadActual: number;
 }

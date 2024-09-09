@@ -31,6 +31,7 @@
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="campoEsValido('quirofano')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
+                        
                     </mat-form-field>
                     <mat-form-field  class="col-3" appearance="outline">
                         <mat-label>Fecha Procedimiento</mat-label>
@@ -39,6 +40,17 @@
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="campoEsValido('fechaProcedimiento')">{{'Debe seleccionar una fecha'}}</mat-error>
                     </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-form-field  class="col-3" appearance="outline">
+                    <mat-label>Procedimiento</mat-label>
+                          <mat-select  formControlName="tipoProcedimiento">
+                              <mat-option *ngFor="let procedimiento of tipoProcedimiento" [value]="procedimiento.id_tipo_procedimiento">
+                              {{procedimiento.nombre_procedimiento}}
+                              </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="campoEsValido('quirofano')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
+                  </mat-form-field>
                 </div>
                 <div *ngIf="isVisible" class="row">
                     <label>Horario del procedimiento:</label>
@@ -55,6 +67,12 @@
             </div>
             <div class="row align-self-end">
                 <div class="mb-3 me-3">
+                    <button class="m-1" (click)="openModal()" type="button" mat-fab extended color="basic">
+                      <mat-icon>download</mat-icon>Formato De Admisión Digital
+                    </button>
+                    <button class="m-1" (click)="download()" type="button" mat-fab extended color="basic">
+                      <mat-icon>download</mat-icon>Formato De Admisión
+                    </button>
                     <button (click)="saveProcedure()" type="button" mat-fab extended color="primary">
                         <mat-icon>done</mat-icon>
                         Agendar Procedimiento

@@ -13,6 +13,7 @@ import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
 import { IssuedItemsComponent } from './issued-items/issued-items.component';
 import { EditItemComponent } from './item-stock-list/edit-item/edit-item.component';
+import { AddSuppliesComponent } from './item-stock-list/add-supplies/add-supplies.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { EditItemComponent } from './item-stock-list/edit-item/edit-item.compone
     IssuedItemForm,
     IssuedItemDelete,
     EditItemComponent,
+    AddSuppliesComponent,
   ],
   imports: [
     CommonModule,

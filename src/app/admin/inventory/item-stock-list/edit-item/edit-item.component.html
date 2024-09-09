@@ -13,7 +13,7 @@
             <div class="body">
               <form class="m-2" [formGroup]="itemForm">
                 <div class="row">
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 mb-3">
                     <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label>Codigo</mat-label>
                       <input matInput formControlName="codigo" required>
@@ -22,7 +22,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 mb-3">
                     <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label>Descripción</mat-label>
                       <input matInput formControlName="descripcion">
@@ -31,24 +31,96 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Fecha Alta</mat-label>
+                      <input matInput formControlName="fechaAlta" required [readonly]="true">
+                      <!-- <mat-error *ngIf="itemForm.get('fecha_nacimiento')?.hasError('required')">
+                        Favor de seleccionar la fecha de nacimiento
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-3">
-                        <mat-form-field class="example-full-width" appearance="outline">
-                          <mat-label>Fecha Alta</mat-label>
-                          <input matInput formControlName="fechaAlta" required readonly="true">
-                          <!-- <mat-error *ngIf="itemForm.get('fecha_nacimiento')?.hasError('required')">
-                            Favor de seleccionar la fecha de nacimiento
-                          </mat-error> -->
-                        </mat-form-field>
-                      </div>
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Factura Compra</mat-label>
+                      <input matInput formControlName="facturaCompra" required >
+                      <!-- <mat-error *ngIf="itemForm.get('fecha_nacimiento')?.hasError('required')">
+                        Favor de seleccionar la fecha de nacimiento
+                      </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Fecha Factura</mat-label>
+                      <input matInput formControlName="facturaCompra" required >
+                      <!-- <mat-error *ngIf="itemForm.get('fecha_nacimiento')?.hasError('required')">
+                        Favor de seleccionar la fecha de nacimiento
+                      </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Laboratorio</mat-label>
+                      <input matInput formControlName="facturaCompra" required >
+                      <!-- <mat-error *ngIf="itemForm.get('fecha_nacimiento')?.hasError('required')">
+                        Favor de seleccionar la fecha de nacimiento
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Numero Lote</mat-label>
+                      <input matInput formControlName="numeroLote" required >
+                      <!-- <mat-error *ngIf="itemForm.get('fecha_nacimiento')?.hasError('required')">
+                        Favor de seleccionar la fecha de nacimiento
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
+                    <mat-label>Perecedero</mat-label>
+                    <mat-radio-group (change)="changePerecedero()" color="primary" formControlName="perecedero" aria-label="Estado">
+                      <mat-radio-button  [value]="true">Si</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="campoEsValido('perecedero')">{{'Debe Seleccionar una Opción'}}</mat-error>
+                  </div> -->
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Fecha Caducidad</mat-label>
+                      <input  matInput [matDatepicker]="picker" formControlName="fechaCaducidad">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="campoEsValido('codigo')">{{'Debe seleccionar una fecha'}}</mat-error>
+                    </mat-form-field>
+                  </div>
+                      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <mat-radio-group color="primary" formControlName="estado" aria-label="Estado">
                           <mat-radio-button  [value]="true">Activo</mat-radio-button>
                           <mat-radio-button [value]="false">Desactivado</mat-radio-button>
                         </mat-radio-group>
                         <mat-error *ngIf="campoEsValido('estado')">{{'Seleccione tipo de busqueda'}}</mat-error>
-                      </div>
+                      </div> -->
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Cantidad Minima</mat-label>
+                      <input type="number" matInput formControlName="cantidadMinima" style="text-transform: uppercase;" >
+                      <mat-error *ngIf="campoEsValido('cantidadMinima')">{{'Debe Ingresar Cant. Minima'}}</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Cantidad Maxima</mat-label>
+                      <input type="number" matInput formControlName="cantidadMaxima" style="text-transform: uppercase;" >
+                      <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe Ingresar Cant. Maxima'}}</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Cantidad Actual</mat-label>
+                      <input type="number" matInput formControlName="cantidadActual" style="text-transform: uppercase;" >
+                      <mat-error *ngIf="campoEsValido('cantidadActual')">{{'Debe Ingresar Cant. Actual'}}</mat-error>
+                    </mat-form-field>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">

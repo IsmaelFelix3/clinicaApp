@@ -1,26 +1,26 @@
 import { formatDate } from '@angular/common';
 export class Calendar {
-  id: string;
-  title: string;
-  category: string;
-  startDate: string;
-  endDate: string;
+  idBooking: number;
+  doctor: number;
+  patient: number;
+  operatingRoom: number;
+  startDate: Date;
+  endDate: Date;
+  procedure: number;
+  status: string;
   details: string;
 
   constructor(calendar: Calendar) {
     {
-      this.id = calendar.id || '';
-      this.title = calendar.title || '';
-      this.category = calendar.category || '';
-      this.startDate = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
-      this.endDate = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
+      this.idBooking = calendar.idBooking || 0;
+      this.procedure = calendar.procedure || 1;
+      this.patient = calendar.patient || 0;
+      this.doctor = calendar.doctor || 0;
+      this.operatingRoom = calendar.operatingRoom || 0;
+      this.startDate = new Date();
+      this.endDate = new Date();
+      this.status = calendar.status || 'Procedimiento Agendado';
       this.details = calendar.details || '';
     }
-  }
-  public getRandomID(): number {
-    const S4 = () => {
-      return ((1 + Math.random()) * 0x10000) | 0;
-    };
-    return S4() + S4();
   }
 }

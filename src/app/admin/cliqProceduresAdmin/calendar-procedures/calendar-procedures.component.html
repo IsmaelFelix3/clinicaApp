@@ -74,6 +74,18 @@
                             <mat-cell *matCellDef="let row"> <span class="mobile-label">Quirofano:</span> {{row.Quirofano.nombre_quirofano}}
                             </mat-cell>
                           </ng-container>
+                          <ng-container matColumnDef="typeProcedure">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Procedimiento
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Mobile:</span> {{row.Tipo_Procedimiento.nombre_procedimiento}}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="estatus">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Mobile:</span> {{row.estatus}}
+                            </mat-cell>
+                          </ng-container>
                           <mat-header-row *matHeaderRowDef="displayedColumns">
                           </mat-header-row>
                           <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row)" [style.cursor]="'pointer'" matRipple>

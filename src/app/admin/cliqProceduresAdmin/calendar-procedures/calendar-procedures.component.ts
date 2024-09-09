@@ -75,6 +75,8 @@ export class CalendarProceduresComponent implements OnInit {
     'patient',
     'quirofano',
     'dateTime',
+    'typeProcedure',
+    'estatus'
   ];
   dialog: any;
 
@@ -84,7 +86,7 @@ export class CalendarProceduresComponent implements OnInit {
 
   redirect(row: ProcedimientoTableAdmin){
     Swal.fire({
-      title: `¿Desea editar la reserva de quirofano?`,
+      title: `¿Desea abrir el procedimieto?`,
       showDenyButton: true,
       confirmButtonText: 'Continuar',
       denyButtonText: `Cancelar`,

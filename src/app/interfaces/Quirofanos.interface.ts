@@ -12,6 +12,7 @@ export interface Quirofano {
     id_quirofano:     number;
     nombre_quirofano: string;
     tiempo_uso:       string;
+    color:            string;
 }
 
 export interface SchedulesOperatingRoomsRequest {

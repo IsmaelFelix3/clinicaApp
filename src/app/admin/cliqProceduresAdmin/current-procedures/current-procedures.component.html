@@ -63,6 +63,22 @@
                         {{ row.Paciente.nombre + ' ' + row.Paciente.apellidos }}
                     </mat-cell>
                   </ng-container>
+                  <ng-container matColumnDef="typeProcedure">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Procedimiento
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span class="mobile-label">Procedimiento:</span> 
+                        {{ row.Tipo_Procedimiento.nombre_procedimiento }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="estatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span class="mobile-label">Estatus:</span> 
+                        {{ row.estatus }}
+                    </mat-cell>
+                  </ng-container>
                   <ng-container matColumnDef="dateTime">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
                     </mat-header-cell>
@@ -71,12 +87,24 @@
                       {{ row.fecha_procedimiento | CustomDateTablePipe }}
                     </mat-cell>
                   </ng-container>
-                 
-  
+                   <!-- actions -->
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>Acciones</mat-header-cell>
+                  <mat-cell *matCellDef="let row;" class="pr-0">
+                    <button mat-icon-button (click)="admission(row)" [matTooltip]="'Admisión'" class="tbl-action-btn">
+                      <app-feather-icons [icon]="'user'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>
+                    <button mat-icon-button (click)="redirect(row)" [matTooltip]="'Editar'" class="tbl-action-btn">
+                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>
+                    <button mat-icon-button (click)="addSupplies(row.id_reserva)" [matTooltip]="'Agregar Insumos'" class="tbl-action-btn">
+                      <app-feather-icons [icon]="'plus-circle'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>
+                  </mat-cell>
+                </ng-container>
                   <mat-header-row *matHeaderRowDef="displayedColumns">
                   </mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row)"
-                    [style.cursor]="'pointer'" matRipple>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
                   </mat-row>
                 </mat-table>
                 <!-- Loading spinner -->

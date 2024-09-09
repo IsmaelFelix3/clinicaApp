@@ -46,7 +46,7 @@ export class CalendarProceduresComponent {
   onDateChange(event: any) { 
     this.showTable = true;
     const date = new Date(event.value).toISOString();
-    const correoMedico = this.authService.currentUserValue.correo;
+    const correoMedico = this.authService.currentUserValue.userLogin.correo;
 
     this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
       this.idMedico = doctor.medico.id_medico;
@@ -61,6 +61,8 @@ export class CalendarProceduresComponent {
     'patient',
     'quirofano',
     'dateTime',
+    'typeProcedure',
+    'estatus'
   ];
   dialog: any;
 

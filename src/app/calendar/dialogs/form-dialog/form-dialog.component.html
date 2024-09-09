@@ -14,33 +14,45 @@
   <div mat-dialog-content>
     <form class="register-form m-4" [formGroup]="calendarForm">
       <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Title</mat-label>
-            <input matInput formControlName="title" required>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>turned_in_not</mat-icon>
+            <mat-label>Doctor</mat-label>
+            <mat-select (selectionChange)="getPatients()" formControlName="doctor" required>
+              <mat-option *ngFor="let doctor of doctors" [value]="doctor.id_medico">
+                {{doctor.nombre + ' ' + doctor.apellidos}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Paciente</mat-label>
+            <mat-select formControlName="patient" required>
+              <mat-option *ngFor="let patient of patients" [value]="patient.id_paciente">
+                {{patient.nombre + ' ' + patient.apellidos}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="category" required>
-              <mat-option [value]="'work'">
-                Work
+            
+            <mat-label>Quirofano</mat-label>
+            <mat-select (selectionChange)="getProceduresByOperatingRoom()" formControlName="operatingRoom" required>
+              <mat-option *ngFor="let room of operatingRooms" [value]="room.id_quirofano">
+                {{room.nombre_quirofano}}
               </mat-option>
-              <mat-option [value]="'personal'">
-                Personal
-              </mat-option>
-              <mat-option [value]="'important'">
-                Important
-              </mat-option>
-              <mat-option [value]="'travel'">
-                Travel
-              </mat-option>
-              <mat-option [value]="'friends'">
-                Friends
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Procedimiento</mat-label>
+            <mat-select  formControlName="procedure" required>
+              <mat-option *ngFor="let procedure of proceduresCatalog" [value]="procedure.id_procedimiento">
+                {{procedure.nombre_procedimiento}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -49,7 +61,7 @@
       <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Start date</mat-label>
+            <mat-label>Fecha Inicio</mat-label>
             <input matInput formControlName="startDate" [owlDateTimeTrigger]="startDate" [owlDateTime]="startDate"
               placeholder="Choose a date" required>
             <mat-icon matSuffix [owlDateTimeTrigger]="startDate" class="date-icon">today</mat-icon>
@@ -58,7 +70,7 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>End date</mat-label>
+            <mat-label>Fecha Fin</mat-label>
             <input matInput formControlName="endDate" [owlDateTimeTrigger]="endDate" [owlDateTime]="endDate"
               placeholder="Choose a date" required>
             <mat-icon matSuffix [owlDateTimeTrigger]="endDate" class="date-icon">today</mat-icon>
@@ -69,7 +81,7 @@
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <mat-form-field class="example-full-width mb-3" appearance="outline">
-            <mat-label>Event Details</mat-label>
+            <mat-label>Detalles</mat-label>
             <textarea matInput formControlName="details"></textarea>
           </mat-form-field>
         </div>
@@ -77,8 +89,10 @@
       <div class="row">
         <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
           <div class="example-button-row">
-            <button mat-raised-button color="primary" [type]="submit" [disabled]="!calendarForm.valid"
-              (click)="confirmAdd()">Save</button>
+            <button *ngIf="showSaveBtn" mat-raised-button color="primary" [type]="submit" [disabled]="!calendarForm.valid"
+              (click)="confirmAdd()">Guardar</button>
+              <button *ngIf="showEditBtn" mat-raised-button color="primary" [type]="submit" [disabled]="!calendarForm.valid"
+              (click)="editEvent()">Editar</button>
             <button mat-raised-button color="warn" (click)="dialogRef.close()" tabindex="-1">Cancel</button>
           </div>
         </div>

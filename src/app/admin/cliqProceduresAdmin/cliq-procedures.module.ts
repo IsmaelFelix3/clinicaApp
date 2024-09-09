@@ -8,13 +8,19 @@ import { SharedModule } from '@shared';
 import { CliqProceduresRoutingModule } from './cliq-procedures-routing.module';
 import { ComponentsModule } from '@shared/components/components.module';
 import { CalendarProceduresComponent } from './calendar-procedures/calendar-procedures.component';
+import { AddSuppliesComponent } from './add-supplies/add-supplies.component';
+import { FormatsComponent } from './formats/formats.component';
+import { AdmissionProcedureAdminComponent } from './admission-procedure-admin/admission-procedure-admin.component';
 
 @NgModule({
   declarations: [
     NewProcedureComponent,
     CurrentProceduresComponent,
     EditProcedureComponent,
-    CalendarProceduresComponent
+    CalendarProceduresComponent,
+    AddSuppliesComponent,
+    FormatsComponent,
+    AdmissionProcedureAdminComponent
   ],
   imports: [
     CommonModule,

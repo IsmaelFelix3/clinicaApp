@@ -45,11 +45,11 @@
                     </button>
                   </div>
                 </li>
-                <li>
+                <!-- <li>
                   <div class="export-button m-l-10" matTooltip="XLSX">
                     <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" />
                   </div>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -69,10 +69,10 @@
                   </mat-cell>
                 </ng-container> -->
                 <!-- ID Column -->
-                <!-- <ng-container [hidden]="" matColumnDef="id_insumo">
+                <ng-container matColumnDef="id_insumo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.id_insumo}}</mat-cell>
-                </ng-container> -->
+                </ng-container>
                 <ng-container matColumnDef="codigo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Codigo
                   </mat-header-cell>
@@ -83,8 +83,28 @@
                   <mat-cell *matCellDef="let row"> <span class="mobile-label">Descripcíon:</span>{{row.descripcion}}
                   </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="facturaCompra">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Factura Compra</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Factura Compra:</span>{{row.facturaCompra}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="numeroLote">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Numero Lote</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Numero Lote:</span>{{row.numeroLote}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaCaducidad">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Caducidad</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Fecha Caducidad:</span>{{row.fechaCaducidad | CustomDateTablePipe}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cantidadActual">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad Actual</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Cantidad Actual:</span>{{row.cantidadActual}}
+                  </mat-cell>
+                </ng-container>
                 
-                <ng-container matColumnDef="estado">
+                <!-- <ng-container matColumnDef="estado">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Estado
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row" class="column-nowrap">
@@ -93,7 +113,7 @@
                         {{row.estado == true ? 'Activado' : 'Desactivado'}}
                       </button>
                   </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="fechaAlta">
                   <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'tbl-col-width-per-100'">Fecha Alta

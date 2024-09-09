@@ -33,17 +33,24 @@ export class FormDialogComponent {
   // itemStockList: ItemStockList;
 
   item!: Insumo;
+  showFechaCaducidad: boolean = false;
 
   itemForm: FormGroup = this.fb.group({
-    codigo: [, Validators.required],
-    descripcion: [, Validators.required],
-    estado: [true, Validators.required],
-    fechaAlta: [ new Date().toISOString(), Validators.required]
+      codigo: [, Validators.required ],
+      descripcion: [, Validators.required ],
+      estado: [true, Validators.required ],
+      fechaAlta: [ new Date().toISOString(), Validators.required],
+      facturaCompra: [, Validators.required ],
+      perecedero: [, Validators.required ],
+      numeroLote: [, Validators.required ],
+      fechaCaducidad: [, Validators.required ],
+      cantidadMinima: [, Validators.required ],
+      cantidadMaxima: [, Validators.required ],
+      cantidadActual: [, Validators.required ]
   });
 
   constructor( public dialogRef: MatDialogRef<FormDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
                public itemStockListService: ItemStockListService, private fb: FormBuilder){
-    console.log(data)
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
@@ -62,12 +69,28 @@ export class FormDialogComponent {
 
   createContactForm(): FormGroup {
     return this.fb.group({
-      id_insumo: [this.item.id_insumo, Validators.required],
-      codigo: [this.item.codigo, Validators.required],
-      descripcion: [this.item.descripcion, Validators.required],
-      estado: [this.item.estado, Validators.required],
-      fechaAlta: [ this.item.createdAt, [Validators.required],],
+      id_insumo: [ this.item.id_insumo, Validators.required ],
+      codigo: [ this.item.codigo, Validators.required ],
+      descripcion: [ this.item.descripcion, Validators.required ],
+      estado: [ this.item.estado, Validators.required ],
+      fechaAlta: [ this.item.createdAt, Validators.required ],
+      facturaCompra: [ this.item.facturaCompra, Validators.required ],
+      perecedero: [ this.item.perecedero, Validators.required ],
+      numeroLote: [ this.item.numeroLote, Validators.required ],
+      fechaCaducidad: [ this.item.fechaCaducidad, Validators.required ],
+      cantidadMinima: [ this.item.cantidadMinima, Validators.required ],
+      cantidadMaxima: [ this.item.cantidadMaxima, Validators.required ],
+      cantidadActual: [ this.item.cantidadActual, Validators.required ]
     });
+  }
+
+  changePerecedero(){
+    if(this.itemForm.get('perecedero')?.value){
+      this.itemForm.get('fechaCaducidad')?.enable();
+    }
+    else{
+      this.itemForm.get('fechaCaducidad')?.disable();
+    }
   }
 
   campoEsValido(campo: string){
@@ -119,5 +142,6 @@ export class FormDialogComponent {
         Swal.fire({icon: 'error',title:'Error al registrar insumo', text: err.msg});
       },
     });
+
   }
 }

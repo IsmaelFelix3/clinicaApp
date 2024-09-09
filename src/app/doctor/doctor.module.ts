@@ -29,6 +29,7 @@ import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.compo
 import { CurrentProceduresComponent } from './cliq-procedures/current-procedures/current-procedures.component';
 import { EditProcedureComponent } from './cliq-procedures/edit-procedure/edit-procedure.component';
 import { CalendarProceduresComponent } from './cliq-procedures/calendar-procedures/calendar-procedures.component';
+import { AdmissionFormComponent } from './cliq-procedures/admission-form/admission-form.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { CalendarProceduresComponent } from './cliq-procedures/calendar-procedur
     CurrentProceduresComponent,
     EditProcedureComponent,
     CalendarProceduresComponent,
+    AdmissionFormComponent
   ],
   imports: [
     CommonModule,

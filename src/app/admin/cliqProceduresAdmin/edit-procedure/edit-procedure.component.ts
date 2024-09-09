@@ -49,7 +49,9 @@ export class EditProcedureComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.state)
+    if(this.state == undefined){
+      this.router.navigateByUrl('admin/dashboard/main', {replaceUrl: true});
+    }
     this.loadData();
   }
 

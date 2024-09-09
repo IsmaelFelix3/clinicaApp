@@ -25,7 +25,15 @@ export class EditItemComponent {
     codigo: [, Validators.required],
     descripcion: [, Validators.required],
     estado: [, Validators.required],
-    fechaAlta: [ new Date().toISOString(), Validators.required]
+    fechaAlta: [ , Validators.required],
+    facturaCompra: [, Validators.required ],
+    perecedero: [, Validators.required ],
+    numeroLote: [, Validators.required ],
+    fechaCaducidad: [, Validators.required ],
+    cantidadMinima: [, Validators.required ],
+    cantidadMaxima: [, Validators.required ],
+    cantidadActual: [, Validators.required ]
+
   });
 
 
@@ -41,8 +49,24 @@ export class EditItemComponent {
     console.log(this.state.row)
     this.itemForm.get('codigo')?.setValue(this.state.row.codigo);
     this.itemForm.get('descripcion')?.setValue(this.state.row.descripcion);
-    this.itemForm.get('estado')?.setValue(this.state.row.estado);
     this.itemForm.get('fechaAlta')?.setValue(new Date(this.state.row.createdAt).toLocaleDateString());
+    this.itemForm.get('facturaCompra')?.setValue(this.state.row.facturaCompra);
+    this.itemForm.get('numeroLote')?.setValue(this.state.row.numeroLote);
+    this.itemForm.get('perecedero')?.setValue(this.state.row.perecedero);
+    this.itemForm.get('fechaCaducidad')?.setValue(this.state.row.fechaCaducidad);
+    this.itemForm.get('cantidadMinima')?.setValue(this.state.row.cantidadMinima);
+    this.itemForm.get('cantidadMaxima')?.setValue(this.state.row.cantidadMaxima);
+    this.itemForm.get('cantidadActual')?.setValue(this.state.row.cantidadActual);
+    this.itemForm.get('estado')?.setValue(this.state.row.estado);
+  }
+
+  changePerecedero(){
+    if(this.itemForm.get('perecedero')?.value){
+      this.itemForm.get('fechaCaducidad')?.enable();
+    }
+    else{
+      this.itemForm.get('fechaCaducidad')?.disable();
+    }
   }
 
   campoEsValido(campo: string){
@@ -50,8 +74,26 @@ export class EditItemComponent {
   }
 
   editarItem(){
-    if(!this.itemForm.valid){
+    console.log('entro')
+    console.log(this.itemForm)
+    console.log(this.itemForm.valid)
+    if(this.itemForm.valid == false){
       this.itemForm.markAllAsTouched();
+      return;
+    }
+
+    if( this.itemForm.get('codigo')?.value == this.state.row.codigo &&
+    this.itemForm.get('descripcion')?.value == this.state.row.descripcion &&
+    this.itemForm.get('fechaAlta')?.value == new Date(this.state.row.createdAt).toLocaleDateString() &&
+    this.itemForm.get('facturaCompra')?.value == this.state.row.facturaCompra &&
+    this.itemForm.get('numeroLote')?.value == this.state.row.numeroLote &&
+    this.itemForm.get('perecedero')?.value == this.state.row.perecedero &&
+    this.itemForm.get('fechaCaducidad')?.value == this.state.row.fechaCaducidad &&
+    this.itemForm.get('cantidadMinima')?.value == this.state.row.cantidadMinima &&
+    this.itemForm.get('cantidadMaxima')?.value == this.state.row.cantidadMaxima &&
+    this.itemForm.get('cantidadActual')?.value == this.state.row.cantidadActual &&
+    this.itemForm.get('estado')?.value == this.state.row.estado){
+      Swal.fire({icon: 'info',title: 'Atencion', text: 'No de detectaron cambios'});
       return;
     }
 

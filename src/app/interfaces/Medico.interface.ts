@@ -59,3 +59,8 @@ export interface MedicoUpdate {
     telefono:            string;
     consultorio:         string;
 }
+
+export interface MedicoShort {
+    id_medico:           string;
+    nombre:              string;
+}

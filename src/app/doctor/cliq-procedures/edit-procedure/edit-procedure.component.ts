@@ -33,7 +33,8 @@ export class EditProcedureComponent implements OnInit {
     medico: [, Validators.required],
     fechaProcedimiento: [, Validators.required],
     horario: [,Validators.required], 
-    quirofano: [, Validators.required]
+    quirofano: [, Validators.required],
+    tipoProcedimiento: [, Validators.required] 
   });
 
   constructor(public fb: FormBuilder, public patientsService: PatientsService, 
@@ -64,13 +65,15 @@ export class EditProcedureComponent implements OnInit {
     this.procedureForm.get('quirofano')?.setValue(this.state.id_quirofano);
     this.procedureForm.get('fechaProcedimiento')?.setValue(this.state.fecha_procedimiento);
     this.procedureForm.get('horario')?.setValue(horario);
+    this.procedureForm.get('tipoProcedimiento')?.setValue(this.state.tipoProcedimiento);
     this.idReserva = this.state.id_reserva
 
     this.formBackup = {
       paciente: this.state.Paciente.id_paciente,
       quirofano: this.state.id_quirofano,
       fechaProcedimiento: this.state.fecha_procedimiento,
-      horario
+      horario,
+      id_tipo_procedimiento: this.state.tipoProcedimiento
     }
 
     let today = new Date(this.state.fecha_procedimiento)
@@ -124,7 +127,8 @@ export class EditProcedureComponent implements OnInit {
       fecha_procedimiento: this.procedureForm.value.fechaProcedimiento,
       id_medico: this.idMedico,
       id_paciente: this.procedureForm.value.paciente,
-      id_quirofano: this.procedureForm.value.quirofano
+      id_quirofano: this.procedureForm.value.quirofano,
+      id_tipo_procedimiento: this.procedureForm.value.tipoProcedimiento
     }
 
     console.log(horario + ' - ' + this.formBackup.horario)

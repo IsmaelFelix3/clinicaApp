@@ -9,6 +9,10 @@ import { PatientsService } from '../patients.service';
 import { QuirofanosService } from 'app/services/quirofanos.service';
 import { HorariosQuirofano, Quirofano,  } from 'app/interfaces/Quirofanos.interface';
 import { CliqProceduresService } from '../../services/cliq-procedures.service';
+import { AdmissionFormComponent } from './admission-form/admission-form.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ProceduresTypeService } from 'app/services/procedures-type.service';
+import { TipoProcedimiento, TipoProcedimientoElement } from 'app/interfaces/TipoProcedimiento';
 
 @Component({
   selector: 'app-cliq-procedures',
@@ -21,31 +25,43 @@ export class CliqProceduresComponent {
   horariosLibres: any[] = [];
   idMedico: number = 0;
   quirofanos: Quirofano[] = [];
+  tipoProcedimiento: TipoProcedimientoElement[] = [];
   horariosQuirofanos: HorariosQuirofano[] = [];
   isVisible = false;
 
   procedureForm:FormGroup = this.fb.group({
     paciente: [,Validators.required],
     medico: [, Validators.required],
-    fechaProcedimiento: [, Validators.required],
+    fechaProcedimiento: [, ],
     horario: [,Validators.required], 
-    quirofano: [, Validators.required]
+    quirofano: [, Validators.required],
+    tipoProcedimiento: [, Validators.required]
   });
 
   constructor(public fb: FormBuilder, public patientsService: PatientsService, 
               public authService: AuthService,
               public doctorService: DoctorsService,
               public quirofanosService: QuirofanosService,
-              public cliqProceduresService: CliqProceduresService){
+              public cliqProceduresService: CliqProceduresService,
+              public procedureType: ProceduresTypeService,
+              public dialog: MatDialog, ){
   }
 
   ngOnInit(): void {
     this.quirofanosService.getQuirofanos().subscribe(quirofanos => {
       this.quirofanos = quirofanos.quirofanos.rows;
+      console.log(quirofanos)
+    });
+
+    this.procedureType.getProcedure().subscribe( typeProcedure => {
+      this.tipoProcedimiento = typeProcedure.tipoProcedimiento;
     });
     console.log(this.authService.currentUserValue)
-    const correoMedico = this.authService.currentUserValue.correo;
-    this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
+    // const correoMedico = this.authService.currentUserValue.correo;
+    const correoMedico: any = localStorage.getItem('currentUser');
+    console.log(correoMedico)
+
+    this.doctorService.getDoctorByEmail(JSON.parse(correoMedico).correo).subscribe( doctor => {
       this.idMedico = doctor.medico.id_medico;
       this.procedureForm.get('medico')?.setValue(this.idMedico);
       this.patientsService.getAllPatients(this.idMedico).subscribe(data => {
@@ -53,6 +69,27 @@ export class CliqProceduresComponent {
       });
     });
 
+  }
+
+  download(){
+    let link = document.createElement('a');
+    link.setAttribute('type', 'hidden');
+    link.href = '/assets/formats/CLIQ-FTO-0000-NOTA-DE-ADMISION.pdf';
+    link.download = 'formatoAdmision.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+
+  openModal(){
+    this.dialog.open(AdmissionFormComponent, {
+      data: {
+        action: 'Formato de Admisión',
+      },
+      height: '85%',
+      width: '80%',
+    });
   }
 
   saveProcedure(){
@@ -86,8 +123,11 @@ export class CliqProceduresComponent {
       fecha_procedimiento: this.procedureForm.value.fechaProcedimiento,
       id_medico: this.idMedico,
       id_paciente: this.procedureForm.value.paciente.id_paciente,
-      id_quirofano: this.procedureForm.value.quirofano
+      id_quirofano: this.procedureForm.value.quirofano,
+      id_tipo_procedimiento: this.procedureForm.value.tipoProcedimiento
     }
+
+    console.log(object)
 
     this.cliqProceduresService.scheduleProcedure(object).subscribe({
       complete: () => {
@@ -117,8 +157,8 @@ export class CliqProceduresComponent {
 
       this.cliqProceduresService.getProceduresByDay(date, idQuirofano).subscribe( proceduresByDay => {
         let takenSlots = proceduresByDay.procedimientos.map( element => {
-          let minutes = new Date(element.fecha_procedimiento).getUTCMinutes() == 0 ? '00' : '30';
-          return { horario: new Date(element.fecha_procedimiento).getUTCHours() + ':' + minutes } 
+          let minutes = new Date(element.fecha_procedimiento_inicio).getUTCMinutes() == 0 ? '00' : '30';
+          return { horario: new Date(element.fecha_procedimiento_inicio).getUTCHours() + ':' + minutes } 
         });
         this.horariosQuirofanos.forEach( element => {
 

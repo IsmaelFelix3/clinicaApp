@@ -31,6 +31,9 @@ export class CurrentProceduresComponent {
     'patient',
     'quirofano',
     'dateTime',
+    'typeProcedure',
+    'estatus',
+    'actions'
   ];
   currentDate = new Date().toISOString();
   estatus: number = 1;
@@ -104,6 +107,19 @@ export class CurrentProceduresComponent {
     //     this.dataSource.filter = this.filter?.nativeElement.value;
     //   }
     // );
+  }
+
+  admission(row: ProcedimientoTable){
+    Swal.fire({
+      title: `¿Desea iniciar el proceso de admisión?`,
+      showDenyButton: true,
+      confirmButtonText: 'Continuar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('admin/cliqProcedures/admission',{state: row});
+      }
+    })
   }
 
   redirect(row: ProcedimientoTable){
@@ -200,6 +216,19 @@ export class CurrentProceduresComponent {
     else{
       return 'mat-finish';
     }
+  }
+
+  addSupplies(id: number){
+    Swal.fire({
+      title: `¿Desea agregar insumos al procedimiento?`,
+      showDenyButton: true,
+      confirmButtonText: 'Continuar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('admin/cliqProcedures/addSupplies',{ state: {id} });
+      }
+    })
   }
   
   // export table data in excel file

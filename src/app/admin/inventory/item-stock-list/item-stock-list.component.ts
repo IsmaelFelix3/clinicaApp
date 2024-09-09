@@ -41,8 +41,11 @@ export class ItemStockListComponent
     // 'id_insumo',
     'codigo',
     'descripcion',
-    'estado',
-    'fechaAlta',
+    // 'estado',
+    'facturaCompra',
+    'numeroLote',
+    'fechaCaducidad',
+    'cantidadActual'
     // 'actions',
   ];
   exampleDatabase?: ItemStockListService;
@@ -66,9 +69,11 @@ export class ItemStockListComponent
   @ViewChild(MatSort, { static: true })
   sort!: MatSort;
   @ViewChild('filter', { static: true }) filter?: ElementRef;
+
   ngOnInit() {
     this.loadData();
   }
+
   refresh() {
     console.log('entro')
     this.loadData();
@@ -108,7 +113,7 @@ export class ItemStockListComponent
   }
 
   getStatus(status: boolean){
-    console.log('entrooooooooooooooooo')
+    // console.log('entrooooooooooooooooo')
     if(status == true ){
       return 'mat-primary';
     }
@@ -229,7 +234,7 @@ export class ItemStockListComponent
   public loadData() {
     // this.exampleDatabase = new ItemStockListService(this.httpClient);
 
-    this.itemStockService.getAllItemStockLists() .subscribe({
+    this.itemStockService.getAllItemStockLists().subscribe({
           next: (data) => {
             console.log(data)
             this.itemStockService.isTblLoading = false;

@@ -98,6 +98,7 @@
         "ITEM-STOCK-LIST": "Stock de artículos",
         "SUPPLIES": "Insumos",
         "ISSUED-ITEMS": "Artículos emitidos",
+        "REQUEST-ITEMS": "Solicitud de Insumos",
         "ADD-SUPPLIES": "Agregar Insumos"
       }
     },
@@ -147,6 +148,9 @@
     },
     "CONTACTS": {
       "TEXT": "Contactos"
+    },
+    "FORMATS": {
+      "TEXT": "Formatos"
     }
   }
 }

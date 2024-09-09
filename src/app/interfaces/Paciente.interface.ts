@@ -112,3 +112,10 @@ export interface PacienteEdit {
     telefono: string;
 }
 
+export interface PacienteDropDown{
+    nombre: string;
+    quirofano: string;
+    fecha: string;
+    id_reserva: string;
+}
+
