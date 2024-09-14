@@ -68,7 +68,7 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span class="mobile-label">Procedimiento:</span> 
-                        {{ row.Tipo_Procedimiento.nombre_procedimiento }}
+                        {{ row.Catalogo_Procedimiento.nombre_procedimiento }}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="estatus">
@@ -84,7 +84,7 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                       <span class="mobile-label">Date & Time:</span> 
-                      {{ row.fecha_procedimiento | CustomDateTablePipe }}
+                      {{ row.fecha_procedimiento_inicio | CustomDateTablePipe }}
                     </mat-cell>
                   </ng-container>
                    <!-- actions -->
@@ -94,9 +94,9 @@
                     <button mat-icon-button (click)="admission(row)" [matTooltip]="'Admisión'" class="tbl-action-btn">
                       <app-feather-icons [icon]="'user'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
-                    <button mat-icon-button (click)="redirect(row)" [matTooltip]="'Editar'" class="tbl-action-btn">
+                    <!-- <button mat-icon-button (click)="redirect(row)" [matTooltip]="'Editar'" class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                    </button>
+                    </button> -->
                     <button mat-icon-button (click)="addSupplies(row.id_reserva)" [matTooltip]="'Agregar Insumos'" class="tbl-action-btn">
                       <app-feather-icons [icon]="'plus-circle'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>

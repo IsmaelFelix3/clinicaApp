@@ -2,10 +2,9 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Insumos del procedimiento'">
+        <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Asignacion de insumos'">
         </app-breadcrumb>
       </div>
-      <form [formGroup]="procedureForm">
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
@@ -15,42 +14,22 @@
               <div class="body">
                   <div class="example-container">
                     <div class="row">
-                      <mat-form-field class="col-3" appearance="outline">
-                          <mat-label>Medico</mat-label>
-                          <mat-select (selectionChange)="getPatients()" formControlName="medico">
-                            <mat-option *ngFor="let doctor of doctors" [value]="doctor.nombre">
-                            {{doctor.nombre}}
-                            </mat-option>
-                        </mat-select>
-                          <mat-error *ngIf="campoEsValido('medico')">{{'Debe seleccionar un Medico'}}</mat-error>
-                      </mat-form-field>
-                      <mat-form-field class="col-3" appearance="outline">
-                        <mat-label>Paciente</mat-label>
-                        <mat-select (selectionChange)="getProcedureInfo()" formControlName="paciente">
-                            <mat-option *ngFor="let patient of patients" [value]="patient">
-                            {{patient.nombre}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="campoEsValido('paciente')">{{'Debe seleccionar un paciente'}}</mat-error>
-                    </mat-form-field>
-                        <div *ngIf="quirofano != ''" class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                          <mat-label>Quirofano </mat-label>
-                          <h5 class="mt-1">{{ quirofano }}</h5>
-                        </div>
-                        <div *ngIf="fecha != ''" class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                          <mat-label>Fecha y Hora </mat-label>
-                            <h5 class="mt-1">{{ fecha | CustomDateTablePipe}}</h5>
-                        </div>
-                      </div>
+                      <div class="export-button m-l-10 image-upload" >
+                        <label for="uploadBtn">
+                           <img src="assets/images/icons/xlsx.png" matTooltip="Importar"/>
+                         </label>
+                        <input id="uploadBtn" accept=".xls, .xlsx" type="file" (change)="onFileChange($event)" 
+                        class="upload input-common"  required matTooltip="Importar" />
+                      </div>  
+                    </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </form>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="card">
+          <div *ngIf="showTable" class="card">
             <div class="materialTableHeader">
               <div class="left">
                 <ul class="header-buttons-left ms-0">
@@ -61,14 +40,14 @@
                     <label for="search-input">
                     </label>
                     <form>
-                      <mat-form-field class="example-full-width">
+                      <!-- <mat-form-field class="example-full-width">
                       <input placeholder="Insumo" type="text" aria-label="Search box" matInput [formControl]="myControl" [matAutocomplete]="auto">
                       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOption($event)">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                           {{option}}
                         </mat-option>
                       </mat-autocomplete>
-                      </mat-form-field>
+                      </mat-form-field> -->
                     </form>
                   </li>
                 </ul>
@@ -76,7 +55,7 @@
               <div class="right">
                 <ul class="tbl-export-btn">
                   <li>
-                    <div class="export-button m-l-10" matTooltip="XLSX">
+                    <div *ngIf="disableSave" class="export-button m-l-10" matTooltip="Guardar Listado Insumos">
                       <button (click)="saveData()" class="btn-space" type="button" mat-fab extended color="primary">
                         <mat-icon>task</mat-icon>
                         Guardar Listado Insumos
@@ -87,14 +66,40 @@
               </div>
             </div>
             <div class="body overflow-auto">
-              <div class="responsive_table">
+              <!-- <div class="responsive_table"> -->
+              <div class="table-responsive">
                 <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
-                  <ng-container matColumnDef="codigo">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Codigo
+                  <ng-container matColumnDef="procedimiento">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Procedimiento
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> 
-                        <span class="mobile-label">Codigo:</span> 
-                        {{row.codigo}}
+                        <span class="mobile-label">Procedimiento:</span> 
+                        {{row.procedimiento}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="numeroFacturaCompra">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Factura Compra
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Factura Compra:</span> 
+                        {{row.numeroFacturaCompra}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="sku">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sku
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Sku:</span> 
+                        {{row.sku}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombreProducto">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre producto
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Nombre producto:</span> 
+                        {{row.nombreProducto}}
                     </mat-cell>
                   </ng-container>
 
@@ -106,13 +111,49 @@
                         {{ row.descripcion }}
                     </mat-cell>
                   </ng-container>
+
+                  <ng-container matColumnDef="numeroLote">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Lote
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Lote:</span> 
+                        {{row.numeroLote}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="fechaCaducidad">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Caducidad
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Fecha Caducidad:</span> 
+                        {{row.fechaCaducidad}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dosis">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dosis
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Dosis:</span> 
+                        {{row.dosis}}
+                    </mat-cell>
+                  </ng-container>
                   
-                  <ng-container matColumnDef="cantidad">
+                  <ng-container matColumnDef="cantidadActual">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span class="mobile-label">Cantidad:</span> 
-                        <input type="number">
+                        {{ row.cantidadActual }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="unidadMedida">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Medida
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Unidad Medida:</span> 
+                        {{row.unidadMedida}}
                     </mat-cell>
                   </ng-container>
                   
@@ -125,10 +166,10 @@
                 <!-- <div *ngIf="dataSource" class="no-results"
                   [style.display]="dataSource.length === 0 ? '' : 'none'">
                   No results
-                </div>-->
-                <!-- <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="15"
-                  [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator>  -->
+                </div> -->
+                <mat-paginator #paginator [length]="dataLength" [pageIndex]="0"
+                  [pageSizeOptions]="[15, 25, 35, 50, 100]">
+                </mat-paginator> 
               </div>
             </div>
           </div>

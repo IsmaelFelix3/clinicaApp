@@ -1,16 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Insumo } from 'app/interfaces/Insumo';
-import { CliqProceduresService } from 'app/services/cliq-procedures.service';
-import { Observable, startWith, map } from 'rxjs';
+import { CargaMasivaReturn, InsumoExcel } from 'app/interfaces/Insumo';
 import { ItemStockListService } from '../item-stock-list.service';
 import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
-import { Medico, MedicoShort } from 'app/interfaces/Medico.interface';
-import { PacienteDropDown } from 'app/interfaces/Paciente.interface';
+
 import Swal from 'sweetalert2';
+import * as ExcelJS from 'exceljs';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-add-supplies',
@@ -19,222 +19,146 @@ import Swal from 'sweetalert2';
 })
 export class AddSuppliesComponent {
 
-  
-  doctors: MedicoShort[] = [];
-  patients: PacienteDropDown[] = [];
-  state: any;
-  medico: string = '';
-  paciente: string = '';
-  quirofano: string = '';
   fecha: string = '';
-
-  allDayProcedures: any = [];
-
-  suppliesList: Insumo[] = [];
-  myControl = new FormControl();
-  options: string[] = [];
-  selectedtableData: Insumo[] = [];
-  dataSource!: MatTableDataSource<Insumo>;
-  filteredOptions!: Observable<string[]>;
-  idMedico: any;
+  jsonData: any[] = [];
+  showTable: boolean = false;
+  showResults: boolean = false;
+  dataSource!: MatTableDataSource<InsumoExcel>;
+  dataLength: number = 0;
+  disableSave: boolean = true;
 
   displayedColumns = [
-    // 'id',
-    'codigo',
+    'procedimiento',
+    'numeroFacturaCompra',
+    'sku',
+    'nombreProducto',
     'descripcion',
-    'cantidad',
+    'numeroLote',
+    'fechaCaducidad',
+    'dosis',
+    'cantidadActual',
+    'unidadMedida'
   ];
 
-  insumosForm!: FormGroup;
 
-  procedureForm:FormGroup = this.fb.group({
-    id_reserva: [,Validators.required],
-    paciente: [,Validators.required],
-    medico: [, Validators.required],
-    fechaProcedimiento: [, Validators.required],
-    horario: [,Validators.required], 
-    quirofano: [, Validators.required],
-    insumos: this.fb.array([])
-  });
+  constructor(private router: Router, private insumosService: ItemStockListService,
+              public fb: FormBuilder, public doctorService: DoctorsService, 
+              private cdr: ChangeDetectorRef,
+              private snackBar: MatSnackBar, ){}
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private router: Router, private cliqProceduresService: CliqProceduresService, private insumosService: ItemStockListService,
-              public fb: FormBuilder, public doctorService: DoctorsService ){
-    this.state = this.router.getCurrentNavigation()?.extras.state;
+  onFileChange(event: any): void {
+    this.disableSave = true;
+    const file = event.target.files[0];
+    const fileReader = new FileReader();
 
-    this.insumosForm = this.fb.group({
-      tableRows: this.fb.array([],[Validators.required])
-    }); 
-    
+    fileReader.onload = (e: any) => {
+      const arrayBuffer = e.target.result;
+      this.parseExcel(arrayBuffer);
+    };
+    fileReader.readAsArrayBuffer(file);
   }
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  get insumos() {
-    return this.procedureForm.controls["insumos"] as FormArray
-  }
-
-  // addRow() {
-  //   const control =  this.insumosForm.get('tableRows') as FormArray;
-  //   control.push(this.createFormGroup());
-  // }
+  parseExcel(arrayBuffer: any): void {
+    this.jsonData = [];
+    const workbook = new ExcelJS.Workbook();
+    workbook.xlsx.load(arrayBuffer).then((workbook) => {
+      
+      workbook.eachSheet((worksheet, sheetId) => {
+        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+          const headers: any = worksheet.getRow(1).values;
+          if(row.number != 1){
+            let rowData: any = {};
+            row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+              rowData[`${headers[colNumber]}`] = cell.value;            
+            });
+            
+            this.jsonData.push(rowData);
+          }
+        });
+      });
   
-  // createFormGroup(): FormGroup {
-  //   return this.fb.group({
-  //     codigo: ['',[Validators.required]],
-  //     descripcion: ['',[Validators.required]],
-  //     cantidad:[, Validators.required]
-  //   });
-  // }
-
-  getProcedureInfo(){
-    console.log(this.procedureForm.value.paciente)  
-    this.quirofano = this.procedureForm.value.paciente.quirofano;
-    this.fecha = this.procedureForm.value.paciente.fecha;
+      this.showTable = true;
+      this.dataLength = this.jsonData.length;
+      this.dataSource = new MatTableDataSource(this.jsonData);
+      this.cdr.detectChanges();
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
-  getPatients(){
-    
-    this.quirofano = '';
-    this.fecha = '';
-    this.idMedico = this.procedureForm.value.medico;
-    
-    let filtered = this.allDayProcedures.filter( (item: any) => item.group.split('/')[0] == this.idMedico );
-    let procedures = filtered[0].data;
+  saveData(){
 
     let groups: any = {};
 
-    let rows = procedures;
-    for (let i = 0; i < rows.length; i++) {
-      let groupName = rows[i].Paciente.nombre + ' ' + rows[i].Paciente.apellidos + '/' + rows[i].Paciente.id_paciente;
-      if (!groups[groupName]) {
-        groups[groupName] = [];
-      }
-      groups[groupName].push(rows[i]);
-    }
-
-    let myArray = [];
-    for (let groupName in groups) {
-      myArray.push({ group: groupName, data: groups[groupName] });
-    }
-    console.log(myArray)
-
-    this.patients = myArray.map( (item: any) => {
-      return { nombre: item.group.split('/')[0], quirofano: item.data[0].Quirofano.nombre_quirofano, fecha: item.data[0].fecha_procedimiento , id_reserva: item.data[0].id_reserva }
-    })
-
-
-  }
-
-  campoEsValido(campo: string){
-    return this.procedureForm.controls[campo].errors && this.procedureForm.controls[campo].touched;
-  }
-
-
-  ngOnInit(): void {
-    // if(this.state == undefined){
-    //   this.router.navigateByUrl('admin/dashboard/main', {replaceUrl: true});
-    // }
-
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-
-    console.log(this.state)
-    // this.cliqProceduresService.getProcedure(this.state.id).subscribe( data => {
-    //   console.log(data);
-    //   this.medico = data.procedimiento['Medico.nombre'] + ' ' + data.procedimiento['Medico.apellidos'];
-    //   this.paciente = data.procedimiento['Paciente.nombre'] + ' ' + data.procedimiento['Paciente.apellidos'];
-    //   this.quirofano = data.procedimiento['Quirofano.nombre_quirofano'];
-    //   this.fecha = data.procedimiento.fecha_procedimiento.toString();
-    // });
-
-    this.insumosService.getAllItemStockLists().subscribe(data => {
-      this.suppliesList = data.insumos.rows;
-      this.options = data.insumos.rows.map( element => element.descripcion );
-    });
-
-    this.cliqProceduresService.getAllProceduresCurrentDay().subscribe( data => {
-      console.log(data)
-      let groups: any = {};
-
-      let rows = data.procedimientos.rows;
-      for (let i = 0; i < data.procedimientos.rows.length; i++) {
-        let groupName = rows[i].Medico.nombre + ' ' + rows[i].Medico.apellidos + '/' + rows[i].Medico.id_medico;
+    for (let i = 0; i < this.jsonData.length; i++) {
+        let groupName = this.jsonData[i].procedimiento;
         if (!groups[groupName]) {
           groups[groupName] = [];
         }
-        groups[groupName].push(rows[i]);
-      }
+          groups[groupName].push(this.jsonData[i]);
+    }
+      let myArray = [];
 
-      for (let groupName in groups) {
-        this.allDayProcedures.push({ group: groupName, data: groups[groupName] });
-      }
-      
-      this.doctors = this.allDayProcedures.map( (item: any) => {
-        return { nombre: item.group.split('/')[0], id_medico: item.group.split('/')[1]}
-      })
-    })
+    for (let groupName in groups) {
+      myArray.push({group: groupName, values: groups[groupName]});
+    }
+    const data = JSON.stringify(myArray);
 
-  }
-
-  selectedOption(event: any) {
-    const selectedValue = event.option.value;
-    let selected = 0;
-    let selectedvalueArr: any = this.suppliesList.find((e, index) => {
-      if(e.descripcion == selectedValue){
-        return e;
-      }
-      return undefined;
+    this.insumosService.addItemsMasive(data).subscribe({
+      complete: () => {
+        this.disableSave = false;
+      },
+      next: (value) => {
+        if(value.newProcedures.length === 0){
+          Swal.fire({
+            title: "No se cargaron insumos.",
+            text: value.msg,
+            icon: "warning"
+          });
+        }
+        else if(value.existing.length === 0){
+          Swal.fire({
+            title: "Carga masiva exitosa",
+            text: "Todos los insumos fueron cargados.",
+            icon: "success"
+          });
+        }
+        else{
+          Swal.fire({
+            title: "Carga masiva exitosa con detalles",
+            text: `Algunos insumos no pudieron ser asignados ya que el folio del procedimiento ya existe favor de revisar los folios ${value.existing}.`,
+            icon: "warning"
+          });
+        }
+        
+      },
+      error(err) {
+        
+      },
     });
 
-    this.suppliesList.splice(selected,1);
 
-    selectedvalueArr && this.selectedtableData.push(selectedvalueArr)
-    this.dataSource = new MatTableDataSource(this.selectedtableData);
-    console.log(this.selectedtableData)
-
-
-    
+    this.showNotification(
+      'snackbar-success',
+      'Guardado Exitoso...!!!',
+      'top',
+      'right'
+    );
   }
 
-  private _filter(value: string): string[] {
-  const filterValue = value.toLowerCase();
-  return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-
-
-  saveData(){
-    Swal.fire('Insumo Agregados Exitosamente.');
-    // console.log(this.selectedtableData)
-    // let insumoForm = this.fb.group({
-    //   codigo: [ this.selectedtableData[0].codigo, Validators.required ],
-    //   descripcion: [ this.selectedtableData[0].descripcion, Validators.required],
-    //   cantidad: [0, Validators.required]
-    // });
-
-    // console.log(insumoForm.value)
-    // console.log(this.procedureForm.value)
-
-
-    // this.procedureForm.value.insumos.forEach( (item: any, index: any) => {
-    //   console.log(insumoForm.value.codigo, item.codigo)
-    //   console.log('no entro')
-    //   if(insumoForm.value.codigo != item.codigo || this.insumos.length == 0){
-    //     console.log('entro')
-    //     this.insumos.push(insumoForm);
-    //   }
-    // })
-    
-
-
-    // this.insumos.push(insumoForm);
-    
-    // console.log(this.procedureForm.value)
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 
 

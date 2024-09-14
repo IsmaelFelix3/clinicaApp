@@ -36,17 +36,23 @@ export class FormDialogComponent {
   showFechaCaducidad: boolean = false;
 
   itemForm: FormGroup = this.fb.group({
-      codigo: [, Validators.required ],
       descripcion: [, Validators.required ],
-      estado: [true, Validators.required ],
-      fechaAlta: [ new Date().toISOString(), Validators.required],
-      facturaCompra: [, Validators.required ],
-      perecedero: [, Validators.required ],
-      numeroLote: [, Validators.required ],
-      fechaCaducidad: [, Validators.required ],
+      activeIngredient: [],
+      laboratory: [],
+      commercialName: [],
+      dose: [],
       cantidadMinima: [, Validators.required ],
       cantidadMaxima: [, Validators.required ],
-      cantidadActual: [, Validators.required ]
+      cantidadActual: [, Validators.required ],
+      barCode: [],
+      purchaseBillNumber: [],
+      purchaseBillDate: [],
+      batchNumber: [, Validators.required ],
+      expirationDate: [, Validators.required ],
+      supplier: [],
+      SKU: [, Validators.required ],
+      fechaAlta: [ new Date().toISOString(), Validators.required],
+      status: [true, Validators.required ],
   });
 
   constructor( public dialogRef: MatDialogRef<FormDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -54,7 +60,7 @@ export class FormDialogComponent {
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
-      this.dialogTitle = data.item.codigo;
+      this.dialogTitle = data.item.sku;
       this.item = data.item;
       this.itemForm = this.createContactForm();
     } 
@@ -70,12 +76,12 @@ export class FormDialogComponent {
   createContactForm(): FormGroup {
     return this.fb.group({
       id_insumo: [ this.item.id_insumo, Validators.required ],
-      codigo: [ this.item.codigo, Validators.required ],
+      codigo: [ this.item.sku, Validators.required ],
       descripcion: [ this.item.descripcion, Validators.required ],
       estado: [ this.item.estado, Validators.required ],
-      fechaAlta: [ this.item.createdAt, Validators.required ],
-      facturaCompra: [ this.item.facturaCompra, Validators.required ],
-      perecedero: [ this.item.perecedero, Validators.required ],
+      fechaAlta: [ this.item.fechaAlta, Validators.required ],
+      facturaCompra: [ this.item.numeroFacturaCompra, Validators.required ],
+      perecedero: [ , Validators.required ],
       numeroLote: [ this.item.numeroLote, Validators.required ],
       fechaCaducidad: [ this.item.fechaCaducidad, Validators.required ],
       cantidadMinima: [ this.item.cantidadMinima, Validators.required ],
@@ -84,14 +90,6 @@ export class FormDialogComponent {
     });
   }
 
-  changePerecedero(){
-    if(this.itemForm.get('perecedero')?.value){
-      this.itemForm.get('fechaCaducidad')?.enable();
-    }
-    else{
-      this.itemForm.get('fechaCaducidad')?.disable();
-    }
-  }
 
   campoEsValido(campo: string){
     return this.itemForm.controls[campo].errors && this.itemForm.controls[campo].touched;

@@ -68,6 +68,10 @@ const routes: Routes = [
   {
     path: 'cliqProcedures',
     loadChildren: () => import('./cliqProceduresAdmin/cliq-procedures.module').then((m) => m.CliqProceduresModule)
+  },
+  {
+    path: 'configuration',
+    loadChildren: () => import('./configuration/configuration.module').then((m) => m.ConfigurationModule)
   }
 ];
 

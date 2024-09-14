@@ -9,30 +9,102 @@ export interface Insumos {
 }
 
 export interface Insumo {
-    id_insumo:   number;
-    codigo:      string;
+    id_insumo: number;
+    sku: string;
     descripcion: string;
-    estado:      boolean;
-    facturaCompra: string;
-    perecedero:  boolean;
-    numeroLote:  string;
-    fechaCaducidad: string;
+    estado: boolean;
+    numeroFacturaCompra: string;
+    numeroLote: string;
+    fechaCaducidad: Date;
     cantidadMinima: number;
     cantidadMaxima: number;
     cantidadActual: number;
-    createdAt:   string;
+    laboratorio: number;
+    dosis: string;
+    fechaFactura: Date;
+    codigoBarras: string;
+    proveedor: number;
+    nombreComercial: string;
+    modelo: string;
+    clasificacion: number;
+    nombreProducto: string;
+    categoria: number;
+    marca: number;
+    moneda: string;
+    unidadMedida: number;
+    precioVenta: number;
+    costo: number;
+    codigoSat: string;
+    tasaImpuesto: number;
+    informacionFarmaceutica: number;
+    fechaAlta: Date;
+}
+
+export interface InsumoExcel {
+    procedimiento: string;
+    sku: string;
+    descripcion: string;
+    estado: boolean;
+    numeroFacturaCompra: string;
+    numeroLote: string;
+    fechaCaducidad: Date;
+    cantidadMinima: number;
+    cantidadMaxima: number;
+    cantidadActual: number;
+    laboratorio: number;
+    dosis: string;
+    fechaFactura: Date;
+    codigoBarras: string;
+    proveedor: number;
+    nombreComercial: string;
+    modelo: string;
+    clasificacion: number;
+    nombreProducto: string;
+    categoria: number;
+    marca: number;
+    moneda: string;
+    unidadMedida: number;
+    precioVenta: number;
+    costo: number;
+    codigoSat: string;
+    tasaImpuesto: number;
+    informacionFarmaceutica: number;
+    fechaAlta: Date;
 }
 
 export interface InsumoPost {
-    codigo:      string;
+    sku: string;
     descripcion: string;
-    estado:      boolean;
-    fechaAlta:   string;
-    facturaCompra: string;
-    perecedero:  boolean;
-    numeroLote:  string;
-    fechaCaducidad: string;
+    estado: boolean;
+    numeroFacturaCompra: string;
+    numeroLote: string;
+    fechaCaducidad: Date;
     cantidadMinima: number;
     cantidadMaxima: number;
     cantidadActual: number;
+    laboratorio: number;
+    dosis: string;
+    fechaFactura: Date;
+    codigoBarras: string;
+    proveedor: number;
+    nombreComercial: string;
+    modelo: string;
+    clasificacion: number;
+    nombreProducto: string;
+    categoria: number;
+    marca: number;
+    moneda: string;
+    unidadMedida: number;
+    precioVenta: number;
+    costo: number;
+    codigoSat: string;
+    tasaImpuesto: number;
+    informacionFarmaceutica: number;
+    fechaAlta: Date;
+}
+
+export interface CargaMasivaReturn {
+    msg:           string;
+    newProcedures: string[];
+    existing:      string[];
 }

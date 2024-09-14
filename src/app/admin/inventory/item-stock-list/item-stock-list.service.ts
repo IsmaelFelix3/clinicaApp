@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ItemStockList } from './item-stock-list.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { GetInsumos, Insumo, InsumoPost } from 'app/interfaces/Insumo';
+import { CargaMasivaReturn, GetInsumos, Insumo, InsumoPost } from 'app/interfaces/Insumo';
 @Injectable()
 export class ItemStockListService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/itemStockList.json';
@@ -45,6 +45,11 @@ export class ItemStockListService extends UnsubscribeOnDestroyAdapter {
 
   addItem(item: InsumoPost){
     return this.httpClient.post('http://localhost:8000/api/insumos/postInsumo', item);
+  }
+
+  addItemsMasive(data: string){
+    console.log(data)
+    return this.httpClient.post<CargaMasivaReturn>('http://localhost:8000/api/insumos/postItemsMasive', data)
   }
 
   updateItem(item: Insumo){

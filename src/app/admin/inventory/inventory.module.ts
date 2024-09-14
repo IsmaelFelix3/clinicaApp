@@ -14,6 +14,7 @@ import { SharedModule } from '@shared';
 import { IssuedItemsComponent } from './issued-items/issued-items.component';
 import { EditItemComponent } from './item-stock-list/edit-item/edit-item.component';
 import { AddSuppliesComponent } from './item-stock-list/add-supplies/add-supplies.component';
+import { ItemStockComponent } from './item-stock/item-stock.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AddSuppliesComponent } from './item-stock-list/add-supplies/add-supplie
     IssuedItemDelete,
     EditItemComponent,
     AddSuppliesComponent,
+    ItemStockComponent,
   ],
   imports: [
     CommonModule,

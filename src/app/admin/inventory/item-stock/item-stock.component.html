@@ -1,0 +1,286 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Agendar Procedimiento'"></app-breadcrumb>
+      </div>
+      <form [formGroup]="itemStockListForm">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>{{dialogTitle}}</h2>
+            </div>
+            <div class="body">
+              <div class="example-container">
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>SKU</mat-label>
+                        <input matInput formControlName="sku" required>
+                        <mat-error *ngIf="campoEsValido('sku')">{{'Debe agregar el SKU'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Descripción</mat-label>
+                        <input matInput formControlName="descripcion" required>
+                        <mat-error *ngIf="campoEsValido('descripcion')">{{'Debe agregar la descripción'}}</mat-error>
+                    </mat-form-field>
+                    <!-- <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Paciente</mat-label>
+                        <mat-select formControlName="paciente">
+                            <mat-option *ngFor="let patient of patients" [value]="patient">
+                            {{patient.nombre + ' ' + patient.apellidos}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="campoEsValido('paciente')">{{'Debe seleccionar un paciente'}}</mat-error>
+                    </mat-form-field> -->
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Numero Factura</mat-label>
+                            <input matInput formControlName="numeroFacturaCompra" required>
+                        <mat-error *ngIf="campoEsValido('numeroFacturaCompra')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field  class="col-3" appearance="outline">
+                        <mat-label>Fecha Factura Compra</mat-label>
+                        <input matInput [matDatepickerFilter]="myFilter" (dateInput)="onDateChange($event)" formControlName="fechaFactura" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="campoEsValido('fechaFactura')">{{'Debe seleccionar una fecha'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field  class="col-3" appearance="outline">
+                        <mat-label>Fecha Caducidad</mat-label>
+                        <input matInput [matDatepickerFilter]="myFilter2" (dateInput)="onDateChange($event)" formControlName="fechaCaducidad" [matDatepicker]="picker2">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-error *ngIf="campoEsValido('fechaCaducidad')">{{'Debe seleccionar una fecha'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Cantidad Minima</mat-label>
+                            <input matInput formControlName="cantidadMinima" required>
+                        <mat-error *ngIf="campoEsValido('cantidadMinima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Cantidad Maxima</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                        <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Cantidad Actual</mat-label>
+                            <input matInput formControlName="cantidadActual" required>
+                        <mat-error *ngIf="campoEsValido('cantidadActual')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                     <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Laboratorio</mat-label>
+                        <mat-select formControlName="laboratorio">
+                            <mat-option *ngFor="let lab of labs" [value]="lab">
+                            {{lab.nombre_laboratorio }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Dosis</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                        <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Codigo Barras</mat-label>
+                            <input matInput formControlName="codigoBarras" required>
+                        <mat-error *ngIf="campoEsValido('codigoBarras')">{{'Debe ingresar codigo de barras'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Proveedor</mat-label>
+                        <mat-select formControlName="proveedor">
+                            <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+                            {{supplier.nombre_proveedor }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                    </mat-form-field>
+                    
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Nombre Comercial</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                        <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Modelo</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                        <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Nombre Producto</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                        <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Clasificacion</mat-label>
+                        <mat-select formControlName="proveedor">
+                            <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+                            {{supplier.nombre_proveedor }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Categoria</mat-label>
+                        <mat-select formControlName="proveedor">
+                            <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+                            {{supplier.nombre_proveedor }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Marca</mat-label>
+                        <mat-select formControlName="proveedor">
+                            <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+                            {{supplier.nombre_proveedor }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                    </mat-form-field>
+                    
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Unidad Medida</mat-label>
+                        <mat-select formControlName="proveedor">
+                            <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+                            {{supplier.nombre_proveedor }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                    </mat-form-field>
+                    
+                </div>
+
+                
+
+                <!-- <div *ngIf="isVisible" class="row">
+                    <label>Horario del procedimiento:</label>
+                    <div  class="col-xl-12 col-lg-12 col-md-8 col-sm-6 mb-3">
+                      <mat-button-toggle-group multiple="true" style="border: none;" formControlName="horario" name="horarios" aria-label="horarios" >
+                        <mat-button-toggle style="width: 6.2rem; border: solid 1px #e0e0e0" *ngFor="let horario of horariosLibres" [value]="horario.value" [disabled]="horario.isDisable">
+                          {{ horario.name }}
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    <mat-error *ngIf="campoEsValido('horario')">{{'Seleccionar un horario'}}</mat-error>
+                    </div>
+                  </div> -->
+              </div>
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="card">
+                <div class="header">
+                  <h2>Precio y costo</h2>
+                </div>
+                <div class="body">
+                    <div class="example-container">
+                      <div class="row">
+                        <mat-form-field class="col-3" appearance="outline">
+                            <mat-label>Precio Venta</mat-label>
+                                <input matInput formControlName="cantidadMaxima" required>
+                            <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="col-3" appearance="outline">
+                            <mat-label>Costo</mat-label>
+                                <input matInput formControlName="cantidadMaxima" required>
+                            <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="col-3" appearance="outline">
+                            <mat-label>Codigo SAT</mat-label>
+                                <input matInput formControlName="cantidadMaxima" required>
+                            <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="col-3" appearance="outline">
+                            <mat-label>Moneda</mat-label>
+                                <input matInput formControlName="cantidadMaxima" required>
+                            <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe ingresar numero de factura'}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="col-3" appearance="outline">
+                            <mat-label>Tasa Impuesto</mat-label>
+                            <mat-select formControlName="proveedor">
+                                <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+                                {{supplier.nombre_proveedor }}
+                                </mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                        </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="card">
+                <div class="header">
+                  <h2>Informacion Farmaceutica</h2>
+                </div>
+                <div class="body">
+                    <div class="example-container">
+                      <div class="row">
+                        
+                        <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Nombre Ingrediente Activo</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                            <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Denominacion Generica Producto</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                            <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Denominacion Distintiva Producto</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                            <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Datos Fabricantes</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                            <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-3" appearance="outline">
+                            <mat-label>Forma Farmaceutica</mat-label>
+                            <input matInput formControlName="cantidadMaxima" required>
+                            <!-- <mat-error *ngIf="campoEsValido('laboratorio')">{{'Debe seleccionar un laboratorio'}}</mat-error> -->
+                        </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-self-end">
+                    <div class="mb-3 me-3">
+                        <button type="button" mat-fab extended color="primary">
+                            <mat-icon>done</mat-icon>
+                            Crear Insumo
+                        </button>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+  </section>
+  

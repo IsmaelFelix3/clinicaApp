@@ -37,6 +37,9 @@
                     </button>
                   </div>
                 </li>
+                <li>
+                 
+                </li>
                 <li class="tbl-header-btn">
                   <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="Borrar">
                     <button mat-mini-fab color="warn">
@@ -95,7 +98,7 @@
                 </ng-container>
                 <ng-container matColumnDef="fechaCaducidad">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Caducidad</mat-header-cell>
-                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Fecha Caducidad:</span>{{row.fechaCaducidad | CustomDateTablePipe}}
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Fecha Caducidad:</span>{{row.fechaCaducidad }}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="cantidadActual">

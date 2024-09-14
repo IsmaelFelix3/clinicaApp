@@ -27,6 +27,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Insumo, Insumos } from 'app/interfaces/Insumo';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-item-stock-list',
   templateUrl: './item-stock-list.component.html',
@@ -79,37 +80,72 @@ export class ItemStockListComponent
     this.loadData();
   }
 
+  // onFileChange(event: any): void {
+  //   console.log(event)
+  //   const file = event.target.files[0];
+  //   const fileReader = new FileReader();
+
+  //   fileReader.onload = (e: any) => {
+  //     const arrayBuffer = e.target.result;
+  //     this.parseExcel(arrayBuffer);
+  //   };
+  //   fileReader.readAsArrayBuffer(file);
+  // }
+
+  // parseExcel(arrayBuffer: any): void {
+  //   const workbook = new ExcelJS.Workbook();
+  //   workbook.xlsx.load(arrayBuffer).then((workbook) => {
+  //     let jsonData: any[] = [];
+  //     workbook.eachSheet((worksheet, sheetId) => {
+  //       worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+  //         const headers: any = worksheet.getRow(1).values;
+  //         if(row.number != 1){
+  //           let rowData: any = {};
+  //           row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+  //             rowData[`${headers[colNumber]}`] = cell.value;            
+  //           });
+  //           jsonData.push(rowData);
+  //         }
+  //       });
+  //     });
+  
+  //     console.log(jsonData);
+  //   });
+  // }
+
   addSupply() {
-    let tempDirection: Direction;
-    if (localStorage.getItem('isRtl') === 'true') {
-      tempDirection = 'rtl';
-    } else {
-      tempDirection = 'ltr';
-    }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
-      data: {
-        itemStockList: this.itemStockList,
-        action: 'add',
-      },
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
-        this.exampleDatabase?.dataChange.value.unshift(
-          this.itemStockListService.getDialogData()
-        );
-        this.refresh();
-        this.refreshTable();
+    console.log(this.router)
+    this.router.navigateByUrl('/admin/inventory/item-stock');
+    // let tempDirection: Direction;
+    // if (localStorage.getItem('isRtl') === 'true') {
+    //   tempDirection = 'rtl';
+    // } else {
+    //   tempDirection = 'ltr';
+    // }
+    // const dialogRef = this.dialog.open(FormDialogComponent, {
+    //   data: {
+    //     itemStockList: this.itemStockList,
+    //     action: 'add',
+    //   },
+    //   direction: tempDirection,
+    // });
+    // this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+    //   if (result === 1) {
+    //     // After dialog is closed we're doing frontend updates
+    //     // For add we're just pushing a new row inside DataService
+    //     this.exampleDatabase?.dataChange.value.unshift(
+    //       this.itemStockListService.getDialogData()
+    //     );
+    //     this.refresh();
+    //     this.refreshTable();
         // this.showNotification(
         //   'snackbar-success',
         //   'Add Record Successfully...!!!',
         //   'bottom',
         //   'center'
         // );
-      }
-    });
+    //   }
+    // });
   }
 
   getStatus(status: boolean){

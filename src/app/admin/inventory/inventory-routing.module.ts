@@ -5,6 +5,7 @@ import { IssuedItemsComponent } from './issued-items/issued-items.component';
 import { ItemStockListComponent } from './item-stock-list/item-stock-list.component';
 import { EditItemComponent } from './item-stock-list/edit-item/edit-item.component';
 import { AddSuppliesComponent } from './item-stock-list/add-supplies/add-supplies.component';
+import { ItemStockComponent } from './item-stock/item-stock.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'issued-items',
     component: IssuedItemsComponent,
+  },
+  {
+    path: 'item-stock',
+    component: ItemStockComponent,
   },
   {
     path: 'edit-item',

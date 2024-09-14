@@ -98,7 +98,8 @@
         "ITEM-STOCK-LIST": "Stock de artículos",
         "SUPPLIES": "Insumos",
         "ISSUED-ITEMS": "Artículos emitidos",
-        "REQUEST-ITEMS": "Solicitud de Insumos",
+        "REQUEST-ITEMS": "Asignacion de Insumos",
+        "ITEMS-PROCEDURE-MASIVE-LOAD": "Carga Masiva Insumos/Procedimiento",
         "ADD-SUPPLIES": "Agregar Insumos"
       }
     },
@@ -151,6 +152,19 @@
     },
     "FORMATS": {
       "TEXT": "Formatos"
+    },
+    "SETTINGS": {
+      "TEXT": "Configuracion",
+      "LIST": {
+        "CATALOGS": "Catalogos",
+        "LABS": "Catalogo Laboratorios",
+        "SUPPLIERS": "Catalogo Proveedores",
+        "CLASIFICATIONS":"Catalogo Clasificaciones",
+        "CATEGORIES": "Catalogo Categorias",
+        "BRANDS": "Catalogo Marcas",
+        "METRIC-UNIT": "Catalogo Unidad Medida",
+        "TAXES-RATE":"Catalogo Tasa Impuestos"
+      }
     }
   }
 }

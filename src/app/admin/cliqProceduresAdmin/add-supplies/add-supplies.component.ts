@@ -22,6 +22,7 @@ export class AddSuppliesComponent {
   medico: string = '';
   paciente: string = '';
   quirofano: string = '';
+  nombreProcedimiento:  string = '';
   fecha: string = '';
 
   suppliesList: Insumo[] = [];
@@ -79,12 +80,12 @@ export class AddSuppliesComponent {
       map(value => this._filter(value))
     );
 
-    console.log(this.state)
     this.cliqProceduresService.getProcedure(this.state.id).subscribe( data => {
       console.log(data);
       this.medico = data.procedimiento['Medico.nombre'] + ' ' + data.procedimiento['Medico.apellidos'];
       this.paciente = data.procedimiento['Paciente.nombre'] + ' ' + data.procedimiento['Paciente.apellidos'];
       this.quirofano = data.procedimiento['Quirofano.nombre_quirofano'];
+      this.nombreProcedimiento = data.procedimiento['Catalogo_Procedimiento.nombre_procedimiento'];
       this.fecha = data.procedimiento.fecha_procedimiento_inicio.toString();
     });
 
