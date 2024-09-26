@@ -40,6 +40,46 @@ export interface Insumo {
     fechaAlta: Date;
 }
 
+export interface getHistorialInsumosProcedimiento {
+    historialInsumosProcedimiento: HistorialInsumosProcedimiento[];
+}
+
+export interface HistorialInsumosProcedimiento {
+    id:                           number;
+    procedimiento:                string;
+    sku:                          string;
+    descripcion:                  string;
+    numero_factura_compra:        null;
+    numero_lote:                  null;
+    fecha_caducidad:              null;
+    cantidad_actual:              null;
+    laboratorio:                  string;
+    dosis:                        string;
+    fecha_factura:                null;
+    codigo_barras:                null;
+    proveedor:                    string;
+    nombre_comercial:             null;
+    modelo:                       string;
+    clasificacion:                string;
+    nombre_producto:              null;
+    categoria:                    string;
+    marca:                        string;
+    moneda:                       string;
+    unidad_medida:                null;
+    precio_venta:                 null;
+    costo:                        string;
+    codigo_sat:                   null;
+    tasa_impuesto:                null;
+    nombre_ingrediente_activo:    string;
+    denominacion_generica_prod:   string;
+    denominacion_distintiva_prod: string;
+    datos_fabricante:             string;
+    forma_farmaceutica:           string;
+    fecha_alta:                   Date;
+    createdAt:                    Date;
+    updatedAt:                    Date;
+}
+
 export interface InsumoExcel {
     procedimiento: string;
     sku: string;

@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ItemStockList } from './item-stock-list.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
-import { CargaMasivaReturn, GetInsumos, Insumo, InsumoPost } from 'app/interfaces/Insumo';
+import { CargaMasivaReturn, getHistorialInsumosProcedimiento, GetInsumos, Insumo, InsumoPost } from 'app/interfaces/Insumo';
 @Injectable()
 export class ItemStockListService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = 'assets/data/itemStockList.json';
@@ -26,7 +26,6 @@ export class ItemStockListService extends UnsubscribeOnDestroyAdapter {
 
   /** CRUD METHODS */
   getAllItemStockLists(){
-
     // this.subs.sink = this.httpClient
     //   .get<IssuedItems[]>(this.API_URL)
     //   .subscribe({
@@ -41,6 +40,9 @@ export class ItemStockListService extends UnsubscribeOnDestroyAdapter {
     //   });
     //   this.dataChange.next(data);
     return this.httpClient.get<GetInsumos>('http://localhost:8000/api/insumos/getInsumos');
+  }
+  getAllItemsByProcedure(procedure: string){
+    return this.httpClient.get<getHistorialInsumosProcedimiento>(`http://localhost:8000/api/hip/${procedure}`);
   }
 
   addItem(item: InsumoPost){
