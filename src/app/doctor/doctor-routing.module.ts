@@ -14,6 +14,8 @@ import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.compo
 import { CurrentProceduresComponent } from './cliq-procedures/current-procedures/current-procedures.component';
 import { EditProcedureComponent } from './cliq-procedures/edit-procedure/edit-procedure.component';
 import { CalendarProceduresComponent } from './cliq-procedures/calendar-procedures/calendar-procedures.component';
+import { MedicalRecordComponent } from './patients/medical-record/medical-record.component';
+import { AddPatientDoctorComponent } from './patients/add-patient-doctor/add-patient-doctor.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -48,6 +50,10 @@ const routes: Routes = [
     component: MedicalRecordsComponent
   },
   {
+    path: 'medicalRecord',
+    component: MedicalRecordComponent
+  },
+  {
     path: 'newAppointment',
     component: NewAppoinmentComponent
   },
@@ -55,21 +61,25 @@ const routes: Routes = [
     path: 'calendar',
     component: CalendarComponent
   },
-  {
-    path: 'cliqProcedures',
-    component: CliqProceduresComponent
-  },
+  // {
+  //   path: 'cliqProcedures',
+  //   component: CliqProceduresComponent
+  // },
   {
     path: 'currentProcedures',
     component: CurrentProceduresComponent
   },
-  {
-    path: 'editProcedure',
-    component: EditProcedureComponent
-  },
+  // {
+  //   path: 'editProcedure',
+  //   component: EditProcedureComponent
+  // },
   {
     path: 'calendarProcedures',
     component: CalendarProceduresComponent
+  },
+  {
+    path: 'addPatientDoc',
+    component: AddPatientDoctorComponent
   },
   { path: '**', component: Page404Component },
 ];

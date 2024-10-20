@@ -10,6 +10,7 @@ import { z } from "zod";
 import { ConfigurationService } from 'app/services/configuration.service';
 import { AuthService } from '../../../core/service/auth.service';
 import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class NewAppoinmentComponent implements OnInit{
               public scheduleService:ScheduleServiceService,
               public configurationService: ConfigurationService,
               public authService: AuthService,
-              public doctorService: DoctorsService){
+              public doctorService: DoctorsService,
+              private router: Router){
   }
 
   ngOnInit(): void {
@@ -103,6 +105,7 @@ export class NewAppoinmentComponent implements OnInit{
       complete: () => {
         this.newAppoinmentForm.reset();        
         Swal.fire('Se agendo la cita con exito');
+        this.router.navigateByUrl('doctor/appointments');
       },
       error: (data) => {
         console.log(data);

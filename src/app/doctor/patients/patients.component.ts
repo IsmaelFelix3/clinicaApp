@@ -108,12 +108,13 @@ export class PatientsComponent implements OnInit{
   }
 
   detailsCall(row: any){
+    console.log(row)
     this.dialog.open(PatientDetailsComponent, {
       data: {
         action: 'informacionPaciente',
         details: row
       },
-      height: '75%',
+     
       width: '40%',
     });
   }

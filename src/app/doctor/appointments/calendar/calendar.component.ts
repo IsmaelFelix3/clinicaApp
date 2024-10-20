@@ -60,7 +60,7 @@ export class CalendarComponent {
     'email',
     'mobile',
     'disease',
-    'actions',
+    // 'actions',
   ];
   dialog: any;
 

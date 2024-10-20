@@ -23,13 +23,13 @@
             <div class="row pb-3">
                 <mat-form-field hideRequiredMarker class="col-6" appearance="fill">
                     <mat-label>Temperatura C°</mat-label>
-                    <input matInput formControlName="temperatura">
+                    <input type="number" matInput formControlName="temperatura">
                 </mat-form-field>
                 <br>
                 <mat-form-field class="col-6" appearance="fill">
                     <mat-label>Peso Kg</mat-label>
-                    <input matInput formControlName="peso_paciente">
-                    <!-- <mat-error *ngIf="campoEsValido('peso_paciente')">{{'Debe agregar el peso del paciente'}}</mat-error> -->
+                    <input type="number" matInput formControlName="peso_paciente">
+                    <mat-error *ngIf="campoEsValido('peso_paciente')">{{'Debe agregar el peso del paciente'}}</mat-error>
                 </mat-form-field>
                 <br>
             </div>
@@ -68,26 +68,30 @@
         <div class="example-container">
             <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Motivo Consulta</mat-label>
-            <input matInput formControlName="motivo_consulta">
-            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error> -->
+            <mat-select formControlName="motivo_consulta">
+                <mat-option *ngFor="let motivo of motivos" [value]="motivo">
+                  {{motivo}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Sintomas</mat-label>
             <textarea style="height: 5rem;" matInput formControlName="sintoma_principal"></textarea>
-            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+            <mat-error *ngIf="campoEsValido('sintoma_principal')">{{'Debe agregar sintomas'}}</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Diagnostico</mat-label>
                 <textarea matInput formControlName="diagnostico"></textarea>
-                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un diagnostico'}}</mat-error> -->
+                <mat-error *ngIf="campoEsValido('diagnostico')">{{'Debe agregar un diagnostico'}}</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Tratamiento</mat-label>
             <textarea style="height: 5rem;" matInput formControlName="tratamiento"></textarea>
-                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar tratamiento'}}</mat-error> -->
+                <mat-error *ngIf="campoEsValido('tratamiento')">{{'Debe agregar tratamiento'}}</mat-error>
             </mat-form-field>
             
         </div>

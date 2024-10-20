@@ -4,12 +4,12 @@
       <div class="editRowModal">
         <div class="modalHeader clearfix">
           <div class="modal-about contact-header">
-            <div class="contact-details-img">
+            <!-- <div class="contact-details-img">
               <img [src]='appointments.Paciente.nombre' alt="avatar">
-            </div>
+            </div> -->
             <div class="contact-details-heading">
-              <div class="contact-details-name mb-2">{{appointments.Paciente.nombre}}</div>
-              <div class="badge col-green">Patient</div>
+              <div class="contact-details-name mb-2">{{appointments.Paciente.nombre + ' ' + appointments.Paciente.apellidos}}</div>
+              <div class="badge col-green">Paciente</div>
             </div>
           </div>
         </div>
@@ -20,27 +20,27 @@
     </div>
     <div mat-dialog-content>
       <mat-card-content>
-        <div class="contact-details-field" matTooltip="Appointment Date & TIme" [matTooltipPosition]="'above'">
+        <div class="contact-details-field" matTooltip="Dia y hora de la cita" [matTooltipPosition]="'above'">
           <i class="material-icons-two-tone color-icon">event_note</i>
-          <div class="contact-detail-info"> {{appointments.fecha_cita | date: 'MMM d, y, h:mm:ss a'}}
+          <div class="contact-detail-info"> {{appointments.fecha_cita | CustomDateTablePipe}}
           </div>
         </div>
-        <div class="contact-details-field" matTooltip="Patient Email Address" [matTooltipPosition]="'above'">
+        <div class="contact-details-field" matTooltip="Correo paciente" [matTooltipPosition]="'above'">
           <i class="material-icons-two-tone color-icon">email</i>
           <div class="contact-detail-info"> {{appointments.Paciente.correo}}
           </div>
         </div>
-        <div class="contact-details-field" matTooltip="Patient Mobile Number" [matTooltipPosition]="'above'">
+        <div class="contact-details-field" matTooltip="Telefono paciente" [matTooltipPosition]="'above'">
           <i class="material-icons-two-tone color-icon">phonelink_ring</i>
           <div class="contact-detail-info"> {{appointments.Paciente.telefono}}
           </div>
         </div>
-        <div class="contact-details-field" matTooltip="Patient Address" [matTooltipPosition]="'above'">
+        <div class="contact-details-field" matTooltip="Direccion paciente" [matTooltipPosition]="'above'">
           <i class="material-icons-two-tone color-icon">location_on</i>
           <div class="contact-detail-info"> {{appointments.Paciente.calle_y_numero}}
           </div>
         </div>
-        <div class="contact-details-field" matTooltip="Patient Disease" [matTooltipPosition]="'above'">
+        <div class="contact-details-field" matTooltip="Motivo consulta" [matTooltipPosition]="'above'">
           <i class="material-icons-two-tone color-icon">healing</i>
           <div class="contact-detail-info"> {{appointments.motivo_consulta}}
           </div>
@@ -50,10 +50,10 @@
             <mat-icon>arrow_right_alt</mat-icon>
             Ir a cita
           </button>
-          <button mat-fab extended color="warn">
+          <!-- <button mat-fab extended color="warn">
             <mat-icon>notifications_active</mat-icon>
             Llamar Paciente
-          </button>
+          </button> -->
         </div>
       </mat-card-content>
     </div>

@@ -18,6 +18,8 @@ import { AppointmentsHistoryComponent } from '../appointments-history/appointmen
 
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { AuthService } from '../../../core/service/auth.service';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -29,6 +31,8 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 })
 export class AppointmentComponent implements OnInit, OnDestroy{
 
+  idAppointment: number = 0;
+
   // Form
   patientForm: UntypedFormGroup;
   patientDetails: Appointments = this.appointmentsService.currentAppointment;
@@ -36,6 +40,7 @@ export class AppointmentComponent implements OnInit, OnDestroy{
 
   constructor(utfb: UntypedFormBuilder, 
               private fb: FormBuilder, public router: Router, public appointmentsService: AppointmentsService, public dialog: MatDialog,
+              public authService: AuthService, private doctorService: DoctorsService
     ) {
     this.patientForm = utfb.group({
       nombre: [],
@@ -54,7 +59,7 @@ export class AppointmentComponent implements OnInit, OnDestroy{
     id_paciente: [, Validators.required],
     estatus: [, Validators.required],
     fecha_cita: [, Validators.required],
-    motivo_consulta: [, Validators.required],
+    motivo_consulta: [ {value: '', disabled: true} , Validators.required],
     sintoma_principal: [, Validators.required],
     peso_paciente: [, Validators.required],
     diagnostico: [, Validators.required],
@@ -76,6 +81,9 @@ export class AppointmentComponent implements OnInit, OnDestroy{
       this.router.navigateByUrl('doctor/appointments');
       return;
     }
+
+    this.idAppointment = this.patientDetails.id_cita;
+
     this.patientForm.get('nombre')?.setValue(this.patientDetails.Paciente.nombre);
     this.patientForm.get('apellidos')?.setValue(this.patientDetails.Paciente.apellidos);
     this.patientForm.get('direccion')?.setValue(this.patientDetails.Paciente.calle_y_numero + ' ' + this.patientDetails.Paciente.colonia);
@@ -108,6 +116,23 @@ export class AppointmentComponent implements OnInit, OnDestroy{
     this.appointmentForm.get('frecuencia_respiratoria')?.setValue('');
     this.appointmentForm.get('inspeccion_general')?.setValue('');
     this.appointmentForm.get('resultados_estudios_realizados')?.setValue('');
+
+    this.appointmentForm.get('motivo_consulta')?.setValue(this.patientDetails.motivo_consulta);
+
+    //If appointment is closed
+    if(this.patientDetails.estatus === 'Finalizada'){
+      this.appointmentForm.get('pulso')?.setValue(this.patientDetails.pulso != '0' ? this.patientDetails.pulso : '');
+      this.appointmentForm.get('presion_arterial')?.setValue(this.patientDetails.presion_arterial != '0' ? this.patientDetails.presion_arterial : '');
+      this.appointmentForm.get('temperatura')?.setValue(this.patientDetails.temperatura != '0' ? this.patientDetails.temperatura : '');
+      this.appointmentForm.get('frecuencia_cardiaca')?.setValue(this.patientDetails.frecuencia_cardiaca != '0' ? this.patientDetails.frecuencia_cardiaca : '');
+      this.appointmentForm.get('frecuencia_respiratoria')?.setValue(this.patientDetails.frecuencia_respiratoria != '0' ? this.patientDetails.frecuencia_respiratoria : '');
+      this.appointmentForm.get('inspeccion_general')?.setValue(this.patientDetails.inspeccion_general != '0' ? this.patientDetails.inspeccion_general : '');
+
+      this.appointmentForm.get('sintoma_principal')?.setValue(this.patientDetails.sintoma_principal != '0' ? this.patientDetails.sintoma_principal : '');
+      this.appointmentForm.get('diagnostico')?.setValue(this.patientDetails.diagnostico != '0' ? this.patientDetails.diagnostico : '');
+      this.appointmentForm.get('tratamiento')?.setValue(this.patientDetails.tratamiento != '0' ? this.patientDetails.tratamiento : '');
+      this.appointmentForm.get('peso_paciente')?.setValue(this.patientDetails.peso_paciente != '0' ? this.patientDetails.peso_paciente : '');
+    }
   }
 
   numberOnly(event: KeyboardEvent){
@@ -116,6 +141,10 @@ export class AppointmentComponent implements OnInit, OnDestroy{
       return false;
     }
     return true;
+  }
+
+  return(){
+    this.router.navigateByUrl('/doctor/appointments');
   }
 
   finalizarCita(){
@@ -136,9 +165,10 @@ export class AppointmentComponent implements OnInit, OnDestroy{
   }
 
   openMedicalRecord(){
+    // this.router.navigateByUrl('doctor/medicalRecord');
     this.dialog.open(MedicalRecordComponent, {
       height: '80%',
-      width: '60%',
+      width: '70%',
     });
   }
 
@@ -255,15 +285,25 @@ export class AppointmentComponent implements OnInit, OnDestroy{
   }
 
   lastAppoinment(){
+    console.log(this.authService.currentUserValue)
     const idPaciente = this.patientDetails.Paciente.id_paciente;
-    this.appointmentsService.getLastAppoinment(idPaciente).subscribe( data => {
-      let lastAppointment: any = data;
-      this.dialog.open(HistoricalAppoinmentComponent, {
-        data: {
-          lastAppointment
-        },
-        height: '90%',
-        width: '60%',
+    this.doctorService.getDoctorByEmail(this.authService.currentUserValue.userLogin.correo).subscribe( doctor => {
+      const idMedico = doctor.medico.id_medico
+      this.appointmentsService.getLastAppoinment(idPaciente, idMedico).subscribe( (data: any) => {
+        console.log(data.cita)
+        if(data.cita === undefined){
+          Swal.fire({ icon: 'info', title: data.msg });
+          return
+        }
+        console.log(data.cita.id_cita, this.idAppointment)
+        let lastAppointment: any = data;
+        this.dialog.open(HistoricalAppoinmentComponent, {
+          data: {
+            lastAppointment
+          },
+          height: '91%',
+          width: '60%',
+        });
       });
     });
   }

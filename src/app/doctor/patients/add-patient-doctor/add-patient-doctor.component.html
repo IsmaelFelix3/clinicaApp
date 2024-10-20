@@ -1,0 +1,112 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Pacientes'" [items]="[]" [active_item]="'Agregar Paciente'"></app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2><strong> Informacion Paciente</strong></h2>
+  
+            </div>
+            <div class="body">
+              <form class="m-4" [formGroup]="patientForm">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Nombre</mat-label>
+                      <input matInput formControlName="nombre" required>
+                      <mat-error *ngIf="patientForm.get('nombre')?.hasError('required')">
+                        Debe ingresar el nombre
+                      </mat-error>
+                      <mat-error *ngIf="patientForm.get('nombre')?.hasError('pattern')">
+                        Debe ingresar un nombre valido
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Apellidos</mat-label>
+                      <input matInput formControlName="apellidos">
+                      <mat-error *ngIf="patientForm.get('apellidos')?.hasError('required')">
+                        Debe ingresar los apellidos
+                      </mat-error>
+                      <mat-error *ngIf="patientForm.get('apellidos')?.hasError('pattern')">
+                        Debe ingresar apellidos validos
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Fecha Nacimiento</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="patientForm.get('fecha_nacimiento')?.hasError('required')">
+                        Favor de seleccionar la fecha de nacimiento
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Genero</mat-label>
+                      <mat-select formControlName="genero" required>
+                        <mat-option [value]="'Masculino'">
+                          Masculino
+                        </mat-option>
+                        <mat-option [value]="'Femenino'">
+                          Femenino
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="patientForm.get('genero')?.hasError('required')">
+                        Favor de seleccionar el genero
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                </div>
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-2" appearance="outline">
+                      <mat-label>Correo</mat-label>
+                      <input matInput formControlName="correo" type="email" [email]="true">
+                      <mat-error *ngIf="patientForm.get('correo')?.hasError('email')">
+                        Favor de ingresar un correo valido
+                      </mat-error>
+                      <mat-error *ngIf="patientForm.get('correo')?.hasError('required')">
+                        Favor de ingresar un correo
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-2" appearance="outline">
+                      <mat-label>Telefono</mat-label>
+                      <input matInput formControlName="telefono" maxlength="10" type="text">
+                      <mat-error *ngIf="patientForm.get('telefono')?.hasError('required')">
+                        Favor de ingresar el numero de telefono
+                      </mat-error>
+                      <mat-error *ngIf="patientForm.get('telefono')?.hasError('minlength')">
+                        Numero de telefono invalido
+                      </mat-error>
+                      <mat-error *ngIf="patientForm.get('telefono')?.hasError('maxlength')">
+                        Numero de telefono invalido
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button class="btn-space" mat-raised-button color="primary" (click)="guardarPaciente()">Guardar Paciente</button>
+                    <button type="button" mat-raised-button color="warn">Cancelar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

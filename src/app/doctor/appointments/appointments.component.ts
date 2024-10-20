@@ -43,7 +43,7 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     'email',
     'mobile',
     'disease',
-    'actions',
+    // 'actions',
   ];
   currentDate = new Date().toISOString();
   estatus: number = 1;
@@ -128,7 +128,7 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
         action: 'details',
       },
       direction: tempDirection,
-      height: '71%',
+      height: '73%',
       width: '35%',
     });
   }

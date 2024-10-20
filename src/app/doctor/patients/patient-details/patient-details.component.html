@@ -11,7 +11,7 @@
         </div>
         <hr class="light-hr">
         <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-          <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> {{patientDetails.municipio + ', ' + patientDetails.estado + ' ' + patientDetails.calle + ' ' + patientDetails.colonia}}</div>
+          <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> {{ direccion }}</div>
           <div><i class="fas fa-phone pt-3 psr-3"></i>{{patientDetails.telefono}}</div>
           <div><mat-icon class="pt-1 me-2" style="margin-left: -0.25rem;">email</mat-icon>{{ patientDetails.correo}}</div>
         </div>
@@ -45,7 +45,7 @@
           </div>
         </div>
         <div class="row align-self-end">
-            <div class="me-4 mb-3 gap-2" style="display: flex;">
+            <div class="me-4 gap-2" style="display: flex;">
                 <button (click)="openMedicalRecord()" mat-fab extended class="mat-success">
                     <mat-icon>topic</mat-icon>
                     Expediente Paciente

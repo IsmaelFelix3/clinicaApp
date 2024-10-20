@@ -49,12 +49,14 @@ export class AppointmentsService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = appointments;
   }
 
-  getLastAppoinment(idPaciente: number){
-    return this.httpClient.get(`http://localhost:8000/api/citas/lastAppoinment/${idPaciente}`);
+  getLastAppoinment(idPaciente: number, idMedico: number){
+    const params = new HttpParams().set('idPaciente', idPaciente).set('idMedico', idMedico);
+    return this.httpClient.get(`http://localhost:8000/api/citas/lastAppoinment/`, {params});
   }
 
-  getAppointmentsHistory(idPaciente: number){
-    return this.httpClient.get<History>(`http://localhost:8000/api/citas/appointmentsHistory/${idPaciente}`);
+  getAppointmentsHistory(idPaciente: number, idMedico: number){
+    const params = new HttpParams().set('idPaciente', idPaciente).set('idMedico', idMedico);
+    return this.httpClient.get<History>(`http://localhost:8000/api/citas/appointmentsHistory/`, {params});
   }
 
   addAppoinment(newAppoinment: NuevaCita){

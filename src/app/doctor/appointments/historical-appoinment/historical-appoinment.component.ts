@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { AppointmentsService } from '../appointments.service';
+import { ConfigurationService } from 'app/services/configuration.service';
 
 @Component({
   selector: 'app-historical-appoinment',
@@ -13,6 +14,7 @@ export class HistoricalAppoinmentComponent implements OnInit {
 
   isEditable: boolean = false;
   isHistory: boolean = false;
+  motivos: string[] = [];
 
   appointmentForm: FormGroup = this.fb.group({
     id_cita: [, Validators.required],
@@ -34,12 +36,15 @@ export class HistoricalAppoinmentComponent implements OnInit {
     inspeccion_general: []
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private appointmentsService: AppointmentsService, public dialog: MatDialog){
-
-  }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, 
+               private appointmentsService: AppointmentsService, public dialog: MatDialog,
+               private configurationService: ConfigurationService){}
 
   ngOnInit(): void {
     console.log(this.data)
+    this.configurationService.getMotivoConsulta().subscribe( data => {
+      this.motivos = data.motivoConsulta.map( element => element.motivo_consulta);
+    });
     this.appointmentForm.disable();
     if(this.data.action === 'history'){
       this.isHistory = true;
@@ -82,6 +87,10 @@ export class HistoricalAppoinmentComponent implements OnInit {
     }
   }
 
+  campoEsValido(campo: string){
+    return this.appointmentForm.controls[campo].errors && this.appointmentForm.controls[campo].touched;
+  }
+
   editable(){
     Swal.fire({
       title: '¿Desea editar la ultima cita?',
@@ -98,8 +107,13 @@ export class HistoricalAppoinmentComponent implements OnInit {
   }
 
   editAppointment(){
+    if(!this.appointmentForm.valid){
+      this.appointmentForm.markAllAsTouched();
+      return;
+    }
     if(this.data.action === 'history'){
       let idCita = this.data.cita.cita.id_cita;
+
       this.appointmentsService.updateAppointment(this.appointmentForm.value, idCita).subscribe({
         complete:() => { 
           Swal.fire('Guardado con exito');

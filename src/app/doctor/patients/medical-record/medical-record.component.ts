@@ -6,6 +6,7 @@ import { PatientsService } from 'app/doctor/patients.service';
 import { Expediente } from 'app/interfaces/Expediente.interface';
 import { Paciente, PacienteShort } from 'app/interfaces/Paciente.interface';
 import Swal from 'sweetalert2';
+import { PatientDetailsComponent } from '../patient-details/patient-details.component';
 
 export interface DialogData {
   id: number;
@@ -21,13 +22,14 @@ export interface DialogData {
 export class MedicalRecordComponent implements OnInit {
 
   patientDetail!: Paciente | PacienteShort;
+  isPatientMale: boolean = true;
 
   medicalRecordForm: FormGroup = this.fb.group({
     // General
-    idExpediente: [],
-    idPaciente: [],
-    fechaCreacionExpediente: [],
-    edadPaciente: [],
+    idExpediente: [{value: '',disabled: true}],
+    idPaciente: [{value: '',disabled: true}],
+    fechaCreacionExpediente: [{value: '',disabled: true}],
+    edadPaciente: [{value: '',disabled: true}],
     alergias: [],
     tipoSanguineo: [],
     idAntecedentesHeredoFamiliares: [],
@@ -95,17 +97,34 @@ export class MedicalRecordComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               public dialog: MatDialog){}
 
+  closeModal(){
+    this.dialog.closeAll()
+    if(this.data != null){
+      this.dialog.open(PatientDetailsComponent, {
+        data: {
+          details: this.data.details,
+          action: 'return'
+        },
+        width: '40%',
+      });
+    }
+  }
+
+  // 2023-08-31T22:19:31.000Z
+
   ngOnInit(): void {
-    console.log(this.data)
+
+   
+
     if(this.data !== null){
       this.patientDetail = this.data.details; 
+      this.isPatientMale = this.patientDetail.genero === 'Masculino' ? true : false ;
       let idExpediente = this.patientDetail.idExpediente;
       this.patientService.getMedicalRecordById(idExpediente).subscribe( (data: Expediente) => {
-          console.log(data);
           // General
           this.medicalRecordForm.get('idExpediente')?.setValue(data.expediente.id_expediente);
           this.medicalRecordForm.get('idPaciente')?.setValue(data.expediente.id_paciente);
-          this.medicalRecordForm.get('fechaCreacionExpediente')?.setValue(data.expediente.fecha_creacion_expediente);
+          this.medicalRecordForm.get('fechaCreacionExpediente')?.setValue(data.expediente.fecha_creacion_expediente.split('T')[0]);
           this.medicalRecordForm.get('edadPaciente')?.setValue( this.calculate_age(new Date(this.patientDetail.fecha_nacimiento)));
           this.medicalRecordForm.get('alergias')?.setValue(data.expediente.alergias);
           this.medicalRecordForm.get('idAntecedentesAndrologicos')?.setValue(data.expediente.id_antecedentes_andrologicos);
@@ -171,6 +190,7 @@ export class MedicalRecordComponent implements OnInit {
       return;
     }
       this.patientDetail = this.appoinmentService.currentAppointment.Paciente; 
+      this.isPatientMale = this.patientDetail.genero === 'Masculino' ? true : false ;
       console.log(this.patientDetail)
       let idExpediente = this.appoinmentService.currentAppointment.Paciente.id_expediente;
       this.patientService.getMedicalRecordById(idExpediente).subscribe( (data: Expediente) => {
@@ -178,7 +198,7 @@ export class MedicalRecordComponent implements OnInit {
           // General
           this.medicalRecordForm.get('idExpediente')?.setValue(data.expediente.id_expediente);
           this.medicalRecordForm.get('idPaciente')?.setValue(data.expediente.id_paciente);
-          this.medicalRecordForm.get('fechaCreacionExpediente')?.setValue(data.expediente.fecha_creacion_expediente);
+          this.medicalRecordForm.get('fechaCreacionExpediente')?.setValue(data.expediente.fecha_creacion_expediente.split('T')[0]);
           this.medicalRecordForm.get('edadPaciente')?.setValue( this.calculate_age(new Date(this.patientDetail.fecha_nacimiento)));
           this.medicalRecordForm.get('alergias')?.setValue(data.expediente.alergias);
           this.medicalRecordForm.get('idAntecedentesAndrologicos')?.setValue(data.expediente.id_antecedentes_andrologicos);
@@ -268,4 +288,10 @@ export class MedicalRecordComponent implements OnInit {
     var age_dt = new Date(diff_ms); 
     return Math.abs(age_dt.getUTCFullYear() - 1970);
   }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday and days before from being selected.
+    return day !== 0 && day !== 6 && d! > new Date();
+  };
 }

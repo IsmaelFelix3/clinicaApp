@@ -6,7 +6,7 @@ export interface Expediente {
 export interface ExpedienteClass {
     id_expediente:                             number;
     id_paciente:                               number;
-    fecha_creacion_expediente:                 Date;
+    fecha_creacion_expediente:                 string;
     edad_paciente:                             number;
     alergias:                                  string;
     tipo_sanguineo:                            string;
