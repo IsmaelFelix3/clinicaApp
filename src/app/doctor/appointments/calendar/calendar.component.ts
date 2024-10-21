@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormComponent } from '../form/form.component';
 import { Appointments } from '../appointments.model';
 import { Direction } from '@angular/cdk/bidi';
@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CitaResponse } from 'app/interfaces/Cita.interface';
 import { AuthService } from '../../../core/service/auth.service';
 import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-calendar',
@@ -22,6 +23,9 @@ export class CalendarComponent {
   calendarForm: FormGroup = this.fb.group({
     fecha: [,Validators.required]
   })
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   constructor(public fb: FormBuilder, public appoinmentsService: AppointmentsService, public authService: AuthService,public doctorService: DoctorsService){}
 
@@ -50,6 +54,7 @@ export class CalendarComponent {
       this.idMedico = doctor.medico.id_medico;
       this.appoinmentsService.postAppoinmentsByDateAndMedic(this.idMedico,date).subscribe(data => {
         this.dataSource = new MatTableDataSource(data.citas);
+        this.dataSource.paginator = this.paginator;
       });
     });
   }

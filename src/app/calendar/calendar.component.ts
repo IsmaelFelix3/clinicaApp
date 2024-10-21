@@ -19,6 +19,8 @@ import { Direction } from '@angular/cdk/bidi';
 import { CliqProceduresService } from '../services/cliq-procedures.service';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
+import { AuthService } from '../core/service/auth.service';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 
 @Component({
   selector: 'app-calendar',
@@ -34,19 +36,20 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
   calendarData!: Calendar;
   filterItems: string[] = [
     'procedimientos',
-    'mantenimiento',
-    'consultas',
-    'laboratorios'
+    // 'mantenimiento',
+    // 'consultas',
+    // 'laboratorios'
   ];
+  isDoctor: boolean = false;
 
   calendarEvents?: EventInput[];
   tempEvents?: EventInput[];
 
   public filters: Array<{ name: string; value: string; checked: boolean }> = [
     { name: 'procedimientos', value: 'Procedimientos', checked: true },
-    { name: 'mantenimiento', value: 'Mantenimientos', checked: true },
-    { name: 'consultas', value: 'Consultas', checked: true },
-    { name: 'laboratorios', value: 'Laboratorios', checked: true }
+    // { name: 'mantenimiento', value: 'Mantenimientos', checked: true },
+    // { name: 'consultas', value: 'Consultas', checked: true },
+    // { name: 'laboratorios', value: 'Laboratorios', checked: true }
   ];
 
   constructor(
@@ -54,7 +57,9 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
     private dialog: MatDialog,
     public calendarService: CalendarService,
     private snackBar: MatSnackBar,
-    private cliqProceduresService: CliqProceduresService
+    private cliqProceduresService: CliqProceduresService,
+    private authService: AuthService,
+    private doctorService: DoctorsService
   ) {
     super();
     this.dialogTitle = 'Agendar Evento';
@@ -64,11 +69,34 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
   }
 
   public ngOnInit(): void {
-    this.createCalendar();
+    if(this.authService.currentUserValue.userLogin.rol){
+      this.isDoctor = true;
+      this.createCalendarDoctor();
+    }else {
+      this.createCalendar();
+    }
+  }
+
+  createCalendarDoctor(){
+
+    const EmailUser = this.authService.currentUserValue.userLogin.correo;
+    let idMedico: number = 0;
+    console.log(EmailUser)
+
+    this.doctorService.getDoctorByEmail( EmailUser ).subscribe( doctor => {
+      idMedico = doctor.medico.id_medico;
+      this.cliqProceduresService.getProceduresDoctorFC(idMedico).subscribe( (Procedures: any) => {
+        console.log(Procedures)
+        this.calendarEvents = Procedures;
+        this.tempEvents = this.calendarEvents;
+        this.calendarOptions!.events = this.calendarEvents;
+      });
+    })
   }
 
   createCalendar(){
     this.cliqProceduresService.getProceduresMonth().subscribe( (Procedures: any) => {
+      console.log(Procedures)
       this.calendarEvents = Procedures;
       this.tempEvents = this.calendarEvents;
       this.calendarOptions!.events = this.calendarEvents;
@@ -78,7 +106,7 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
     buttonText: {
-      today: 'Actual',
+      today: 'Dia Actual',
       week: 'Semana',
       month: 'Mes',
       list: 'Lista',
@@ -100,11 +128,29 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    locale: esLocale
+    locale: esLocale,
+    // datesSet(arg) {
+    //   console.log('data ser')
+    // },
+    // customButtons: {
+    //   myButton: {
+    //     text: 'Siguiente',
+    //     click: () => {
+    //       console.log('click custom button')
+    //     }
+    //   }
+    // }
   };
+
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   handleDateSelect(selectInfo: DateSelectArg) {
+
+    if(this.isDoctor === true){
+      this.calendarOptions.select = () => {};
+      return;
+    }
+
     console.log(selectInfo)
     if(this.calendar){
       this.calendar.startDate =  selectInfo.start;
@@ -128,8 +174,8 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
         action: 'add',
       },
       direction: tempDirection,
-      width: '50rem',
-      height: '64%'
+      width: '50%',
+      height: '78%'
     });
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
@@ -237,8 +283,11 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
         data: {
           calendar: calendarData,
           action: 'edit',
+          isDoctor: this.isDoctor
         },
         direction: tempDirection,
+        width: '50%',
+        height: '78%'
       });
 
       this.subs.sink = dialogRef.afterClosed().subscribe((result) => {

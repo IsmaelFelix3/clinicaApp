@@ -11,7 +11,7 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <div mat-dialog-content>
+  <!-- <div mat-dialog-content> -->
     <form class="register-form m-4" [formGroup]="calendarForm">
       <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
@@ -86,24 +86,24 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div *ngIf="!showButtons" class="row">
         <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
           <div class="example-button-row">
             <button *ngIf="showSaveBtn" mat-raised-button color="primary" [type]="submit" [disabled]="!calendarForm.valid"
               (click)="confirmAdd()">Guardar</button>
               <button *ngIf="showEditBtn" mat-raised-button color="primary" [type]="submit" [disabled]="!calendarForm.valid"
               (click)="editEvent()">Editar</button>
-            <button mat-raised-button color="warn" (click)="dialogRef.close()" tabindex="-1">Cancel</button>
+            <button mat-raised-button color="warn" (click)="dialogRef.close()" tabindex="-1">Cancelar</button>
           </div>
         </div>
         <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
           <div class="example-button-row" *ngIf="showDeleteBtn">
-            <button mat-mini-fab aria-label color="warn" (click)="deleteEvent()">
+            <button mat-mini-fab aria-label color="warn" matTooltip="Eliminar" (click)="deleteEvent()">
               <mat-icon class="font-20">delete</mat-icon>
             </button>
           </div>
         </div>
       </div>
     </form>
-  </div>
+  <!-- </div> -->
 </div>

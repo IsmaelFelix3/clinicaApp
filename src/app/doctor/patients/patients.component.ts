@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PatientsService } from '../patients.service';
 import { PacienteShort } from 'app/interfaces/Paciente.interface';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
@@ -8,6 +8,7 @@ import { AuthService } from '../../core/service/auth.service';
 import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class PatientsComponent implements OnInit{
     'bloodType'
   ];
   patients: PacienteShort[] = [];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(public patientService: PatientsService, 
               public dialog: MatDialog, 
@@ -70,6 +72,7 @@ export class PatientsComponent implements OnInit{
             }
           });
           this.dataSource = new MatTableDataSource(this.patients);
+          this.dataSource.paginator = this.paginator;
         },
         error(err) {
           Swal.fire({ icon: 'error', title: 'Error', text: 'Error al obtener el listado de pacientes ' + err })

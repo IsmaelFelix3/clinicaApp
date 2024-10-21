@@ -32,13 +32,13 @@
                 <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
                  
                   <ng-container style="display: none;" matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+                    <mat-header-cell *matHeaderCellDef>Id
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">{{row.id_reserva}}</mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="quirofano">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Quirofano
+                    <mat-header-cell *matHeaderCellDef>Quirofano
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> 
                         <span class="mobile-label">Quirofano:</span> 
@@ -47,7 +47,7 @@
                   </ng-container>
                   
                   <ng-container matColumnDef="patient">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Paciente
+                    <mat-header-cell *matHeaderCellDef>Nombre Paciente
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span class="mobile-label">Nombre Paciente:</span> 
@@ -55,11 +55,11 @@
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="dateTime">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
+                    <mat-header-cell *matHeaderCellDef>Fecha y Hora
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                       <span class="mobile-label">Date & Time:</span> 
-                      {{ row.fecha_procedimiento | CustomDateTablePipe }}
+                      {{ row.fecha_procedimiento_inicio | CustomDateTablePipe }}
                     </mat-cell>
                   </ng-container>
                  
@@ -79,7 +79,7 @@
                   [style.display]="datosFuente.length === 0 ? '' : 'none'">
                   No results
                 </div>
-                <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
+                <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="10"
                   [pageSizeOptions]="[5, 10, 25, 100]">
                 </mat-paginator>
               </div>

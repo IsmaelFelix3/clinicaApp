@@ -62,6 +62,32 @@ export class CliqProceduresService {
     return this.http.get<GetProcedimientosTableRequestAdmin>(`${this.baseURL}${this.apiURL}/getAllProceduresCurrentDay/`);
   }
 
+  getProceduresDoctorFC(idMedico: number){
+    return this.http.get<GetProcedimientosCalendar>(`${this.baseURL}${this.apiURL}/getProceduresDoctorFC/${idMedico}`).pipe(
+      map( procedures =>
+        {
+            console.log(procedures)
+            let array = procedures.procedimientos.map( element => {
+            const userTimezoneOffset = new Date().getTimezoneOffset() * 60000;
+            const date1 = new Date(new Date(element.fecha_procedimiento_inicio).getTime() + userTimezoneOffset);
+            const date2 = new Date(new Date(element.fecha_procedimiento_fin).getTime() + userTimezoneOffset);
+
+            return {
+              idBooking: element.id_reserva,
+              title: element.Medico.apellidos + ' ' + element.Quirofano.nombre_quirofano,
+              start: date1,
+              end: date2,
+              className: element.Quirofano.color,
+              groupId: "Procedimientos",
+              details: `${ element.detalles }` 
+            }
+          })
+          return array;
+        }
+      )
+    )
+  }
+
   
   getProceduresMonth(){
     return this.http.get<GetProcedimientosCalendar>(`${this.baseURL}${this.apiURL}/getProceduresMonth/`).pipe(

@@ -52,11 +52,11 @@ export class CurrentProceduresComponent  {
   }
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
-  @ViewChild('filter', { static: true }) filter?: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu?: MatMenuTrigger;
+  // @ViewChild(MatSort, { static: true })
+  // sort!: MatSort;
+  // @ViewChild('filter', { static: true }) filter?: ElementRef;
+  // @ViewChild(MatMenuTrigger)
+  // contextMenu?: MatMenuTrigger;
   contextMenuPosition = { x: '0px', y: '0px' };
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class CurrentProceduresComponent  {
   }
 
   public loadData() {
-    const EmailUser = this.authService.currentUserValue.correo;
+    const EmailUser = this.authService.currentUserValue.userLogin.correo;
     let idMedico: number = 0;
     console.log(EmailUser)
 
@@ -79,6 +79,7 @@ export class CurrentProceduresComponent  {
         console.log(data,' Procedures')
         this.datosFuente = data.procedimientos.rows;
         this.dataSource = new MatTableDataSource(this.datosFuente)
+        this.dataSource.paginator = this.paginator;
   
         // this.datosFuente.forEach( procedimiento => {
         //   cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();

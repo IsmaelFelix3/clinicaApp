@@ -22,20 +22,21 @@
                 <!-- </li> -->
               </ul>
             </div>
-            <div class="right">
+            <!-- <div class="right">
               <ul class="tbl-export-btn">
                 <li>
                   <div class="export-button m-l-10" matTooltip="XLSX">
-                    <img src="assets/images/icons/xlsx.png" alt="" />
+                    <img src="assets/images/icons/xlsx.png" alt="" /> -->
                     <!-- <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" /> -->
-                  </div>
+                  <!-- </div>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
           <div class="body overflow-auto">
             <div class="responsive_table">
-              <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+              <!-- <mat-table #table [dataSource]="dataSource" matSort class="mat-cell"> -->
+              <mat-table #table [dataSource]="dataSource" class="mat-cell">
                 <!-- Checkbox Column -->
                 <!-- <ng-container matColumnDef="select">
                   <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
@@ -52,7 +53,8 @@
                 </ng-container> -->
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+                  <!-- <mat-header-cell *matHeaderCellDef mat-sort-header>Id -->
+                  <mat-header-cell *matHeaderCellDef>Id
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
                 </ng-container>
@@ -64,40 +66,40 @@
                   </mat-cell>
                 </ng-container> -->
                 <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Paciente
+                  <mat-header-cell *matHeaderCellDef>Nombre Paciente
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row"><span class="mobile-label">Patient Name:</span> {{ row.Paciente.nombre + ' ' + row.Paciente.apellidos }}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="dateTime">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
+                  <mat-header-cell *matHeaderCellDef>Fecha y Hora
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <span class="mobile-label">Date & Time:</span> {{ row.fecha_cita | CustomDateTablePipe }}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="mobile">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Celular
+                  <mat-header-cell *matHeaderCellDef>Celular
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row"> <span class="mobile-label">Mobile:</span> {{row.Paciente.telefono}}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="email">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Correo
+                  <mat-header-cell *matHeaderCellDef>Correo
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row"><span class="mobile-label">Email:</span> {{row.Paciente.correo}}
                   </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="address">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Address
+                  <mat-header-cell *matHeaderCellDef>Address
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row" class="column-nowrap"> <span
                       class="mobile-label">Address:</span>{{row.Paciente.calle_y_numero}}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="disease">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus
+                  <mat-header-cell *matHeaderCellDef>Estatus
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row" class="column-nowrap"> <span
                       class="mobile-label">Estatus:</span>
@@ -142,8 +144,8 @@
                 [style.display]="datosFuente.length === 0 ? '' : 'none'">
                 No results
               </div>
-              <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
-                [pageSizeOptions]="[5, 10, 25, 100]">
+              <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0"
+                [pageSizeOptions]="[5, 10]">
               </mat-paginator>
             </div>
           </div>

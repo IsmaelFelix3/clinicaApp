@@ -48,8 +48,6 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
   currentDate = new Date().toISOString();
   estatus: number = 1;
   exampleDatabase?: AppointmentsService;
-  // dataSource!: ExampleDataSource;
-  // dataSource: any;
   dataSource = new MatTableDataSource<Appointments>();
 
   datosFuente: Appointments[] = [];
@@ -67,13 +65,10 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     super();
     dataSource: new MatTableDataSource([]);
   }
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
-  @ViewChild('filter', { static: true }) filter?: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu?: MatMenuTrigger;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatSort, { static: true })  sort!: MatSort;
+  // @ViewChild('filter', { static: true }) filter?: ElementRef;
+  @ViewChild(MatMenuTrigger) contextMenu?: MatMenuTrigger;
   contextMenuPosition = { x: '0px', y: '0px' };
 
   ngOnInit() {
@@ -204,7 +199,8 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
       this.appointmentsService.getAllAppointmentss(idMedico).subscribe( (data: any) => {
         console.log(data,' appoinmyasd')
         this.datosFuente = data.citas;
-        this.dataSource = new MatTableDataSource(this.datosFuente)
+        this.dataSource = new MatTableDataSource(this.datosFuente);
+        this.dataSource.paginator =  this.paginator;
   
         this.datosFuente.forEach( cita => {
           cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();

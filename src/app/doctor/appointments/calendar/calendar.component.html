@@ -122,9 +122,9 @@
                           [style.display]="dataSource.filteredData.length === 0 ? '' : 'none'">
                           Sin resultados
                         </div>
-                        <!-- <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
-                          [pageSizeOptions]="[5, 10, 25, 100]">
-                        </mat-paginator> -->
+                        <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="5"
+                          [pageSizeOptions]="[5, 10]">
+                        </mat-paginator>
                       </div>
                     </div>
                   </div>

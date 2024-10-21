@@ -25,6 +25,7 @@ export interface DialogData {
   id: number;
   action: string;
   calendar: ProcedimientoEdit;
+  isDoctor: boolean;
 }
 
 @Component({
@@ -45,6 +46,7 @@ export class FormDialogComponent {
   showSaveBtn = true;
   showDeleteBtn = false;
   showEditBtn = false;
+  showButtons = true;
   constructor(
     public dialogRef: MatDialogRef<FormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -84,6 +86,11 @@ export class FormDialogComponent {
       this.showDeleteBtn = false;
     }
     this.calendarForm = this.createContactForm();
+    if(data.isDoctor === true){
+      this.showButtons = false;
+      this.calendarForm.disable();
+    }
+
   }
 
   ngOnInit(): void {
@@ -118,7 +125,7 @@ export class FormDialogComponent {
       startDate: [this.calendar.startDate, [Validators.required]],
       endDate: [this.calendar.endDate, [Validators.required]],
       status: [this.calendar.status, [Validators.required]],
-      details: [ this.calendar.details, [ Validators.required]]
+      details: [ this.calendar.details, []]
     });
   }
 
