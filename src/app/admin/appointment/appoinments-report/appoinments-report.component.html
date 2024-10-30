@@ -37,13 +37,15 @@
                                 <mat-datepicker #picker1></mat-datepicker>
                                 <mat-error *ngIf="campoEsValido('endDate')">{{'Debe seleccionar una fecha fin'}}</mat-error>
                             </mat-form-field>
-                            <div class="col-3">
-                                <mat-radio-group color="primary" formControlName="type" aria-label="Seleccione...">
-                                    <mat-radio-button  value="Primera Consulta">Primera Consulta</mat-radio-button>
-                                    <mat-radio-button value="Seguimiento">Seguimiento</mat-radio-button>
-                                  </mat-radio-group>
-                                  <mat-error *ngIf="campoEsValido('type')">{{'Seleccione tipo de busqueda'}}</mat-error>
-                            </div>
+                            <mat-form-field class="col-3" appearance="outline">
+                              <mat-label>Motivo Consulta</mat-label>
+                              <mat-select formControlName="type">
+                                <mat-option *ngFor="let motivo of motivos" [value]="motivo">
+                                  {{motivo}}
+                                </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="campoEsValido('type')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
+                            </mat-form-field>
                         </div>
                         <button class="btn-space" mat-raised-button (click)="search()"
                             color="primary">Buscar</button>
@@ -117,9 +119,9 @@
                           [style.display]="dataSource.filteredData.length === 0 ? '' : 'none'">
                           Sin resultados
                         </div>
-                        <!-- <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
+                        <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
                           [pageSizeOptions]="[5, 10, 25, 100]">
-                        </mat-paginator> -->
+                        </mat-paginator>
                       </div>
                     </div>
                   </div>

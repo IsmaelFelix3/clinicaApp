@@ -16,6 +16,7 @@ import { DoctorsService } from '../../doctors/alldoctors/doctors.service';
 import { Medico } from 'app/interfaces/Medico.interface';
 import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { ConfigurationService } from 'app/services/configuration.service';
 @Component({
   selector: 'app-bookappointment',
   templateUrl: './bookappointment.component.html',
@@ -28,7 +29,7 @@ export class BookappointmentComponent {
   selectedMedicId: number = 0;
   horariosLibres: any[] = [];
 
-  motivos = ['Consulta Medica','Seguimiento'];
+  motivos: string[] = [];
 
   newAppoinmentForm:FormGroup = this.fb.group({
     paciente: [,Validators.required],
@@ -38,10 +39,15 @@ export class BookappointmentComponent {
     motivoConsulta: [, Validators.required]
   });
 
-  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, public scheduleService:ScheduleServiceService, 
+  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, 
+              public configurationService: ConfigurationService,public scheduleService:ScheduleServiceService,  
               public doctorsService: DoctorsService, public router: Router ){}
 
   ngOnInit(): void {
+
+    this.configurationService.getMotivoConsulta().subscribe( data => {
+      this.motivos = data.motivoConsulta.map( element => element.motivo_consulta);
+    });
 
     this.newAppoinmentForm.get('paciente')?.disable();
     this.doctorsService.getAllDoctorss().subscribe( data => {

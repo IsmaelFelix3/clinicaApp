@@ -46,8 +46,8 @@ export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implem
     'medic',
     'email',
     'mobile',
-    'disease',
-    'actions',
+    'estatus',
+    // 'actions',
   ];
   currentDate = new Date().toISOString();
   estatus: number = 1;
@@ -68,10 +68,8 @@ export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implem
     super();
     dataSource: new MatTableDataSource([]);
   }
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild('filter', { static: true }) filter?: ElementRef;
   @ViewChild(MatMenuTrigger)
   contextMenu?: MatMenuTrigger;
@@ -167,6 +165,8 @@ export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implem
       this.datosFuente.forEach( cita => {
         cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
       });
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       console.log(this.datosFuente, 'datosFuente')
     });
     

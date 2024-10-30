@@ -15,13 +15,15 @@ import { PatientsService } from 'app/doctor/patients.service';
 import { PacienteShort, PacienteTableAdmin } from 'app/interfaces/Paciente.interface'; 
 import { CustomDateTablePipe } from 'app/helpers/custom-date-table.pipe';
 import { Router } from '@angular/router';
+import { fromEvent } from 'rxjs';
+import { UnsubscribeOnDestroyAdapter } from '@shared';
 
 @Component({
   selector: 'app-allpatients',
   templateUrl: './allpatients.component.html',
   styleUrls: ['./allpatients.component.scss'],
 })
-export class AllpatientsComponent implements OnInit
+export class AllpatientsComponent extends UnsubscribeOnDestroyAdapter implements OnInit
 {
   displayedColumns = [
     'idPaciente',
@@ -44,7 +46,9 @@ export class AllpatientsComponent implements OnInit
     public patientService: PatientsService,
     private snackBar: MatSnackBar,
     private router: Router
-  ) {}
+  ) {
+    super();
+  }
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true })
@@ -75,11 +79,21 @@ export class AllpatientsComponent implements OnInit
           }
         });
         this.dataSource = new MatTableDataSource(this.patients);
+        this.dataSource.paginator = this.paginator;
       },
       error: (err) => {
         
       },
     })
+
+    this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
+      () => {
+        if (!this.dataSource) {
+          return;
+        }
+        this.dataSource.filter = this.filter?.nativeElement.value;
+      }
+    );
   }
   
   calculate_age(dob: Date) { 

@@ -86,7 +86,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div *ngIf="!showButtons" class="row">
+      <div *ngIf="showButtons" class="row">
         <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
           <div class="example-button-row">
             <button *ngIf="showSaveBtn" mat-raised-button color="primary" [type]="submit" [disabled]="!calendarForm.valid"

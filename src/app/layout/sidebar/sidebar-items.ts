@@ -342,18 +342,18 @@ export const ROUTES: RouteInfo[] = [
         role: ['Admin'],
         submenu: [],
       },
-      {
-        path: 'admin/cliqProcedures/newProcedures',
-        title: 'MENUITEMS.DOCTOR.NEW-PROCEDURE',
-        iconType: '',
-        icon: 'add',
-        class: '',
-        groupTitle: false,
-        badge: '',
-        badgeClass: '',
-        role: ['Admin'],
-        submenu: [],
-      }
+      // {
+      //   path: 'admin/cliqProcedures/newProcedures',
+      //   title: 'MENUITEMS.DOCTOR.NEW-PROCEDURE',
+      //   iconType: '',
+      //   icon: 'add',
+      //   class: '',
+      //   groupTitle: false,
+      //   badge: '',
+      //   badgeClass: '',
+      //   role: ['Admin'],
+      //   submenu: [],
+      // }
     ],
   },
   {

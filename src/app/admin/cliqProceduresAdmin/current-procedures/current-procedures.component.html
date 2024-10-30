@@ -21,7 +21,7 @@
                 <ul class="tbl-export-btn">
                   <li>
                     <div class="export-button m-l-10" matTooltip="XLSX">
-                      <img src="assets/images/icons/xlsx.png" alt="" />
+                      <!-- <img src="assets/images/icons/xlsx.png" alt="" /> -->
                     </div>
                   </li>
                 </ul>
@@ -97,9 +97,9 @@
                     <!-- <button mat-icon-button (click)="redirect(row)" [matTooltip]="'Editar'" class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button> -->
-                    <button mat-icon-button (click)="addSupplies(row.id_reserva)" [matTooltip]="'Agregar Insumos'" class="tbl-action-btn">
+                    <!-- <button mat-icon-button (click)="addSupplies(row.id_reserva)" [matTooltip]="'Agregar Insumos'" class="tbl-action-btn">
                       <app-feather-icons [icon]="'plus-circle'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                    </button>
+                    </button> -->
                   </mat-cell>
                 </ng-container>
                   <mat-header-row *matHeaderRowDef="displayedColumns">
@@ -116,7 +116,7 @@
                   [style.display]="datosFuente.length === 0 ? '' : 'none'">
                   No results
                 </div>
-                <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
+                <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="5"
                   [pageSizeOptions]="[5, 10, 25, 100]">
                 </mat-paginator>
               </div>

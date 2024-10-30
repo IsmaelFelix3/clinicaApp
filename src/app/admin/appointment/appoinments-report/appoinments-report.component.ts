@@ -1,6 +1,6 @@
 import { Direction } from '@angular/cdk/bidi';
 import { formatDate } from '@angular/common';
-import { Component, LOCALE_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, LOCALE_ID, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -17,6 +17,8 @@ import { CliqProceduresService } from 'app/services/cliq-procedures.service';
 import Swal from 'sweetalert2';
 
 import localeEs from '@angular/common/locales/es-MX'
+import { ConfigurationService } from 'app/services/configuration.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-appoinments-report',
@@ -41,12 +43,24 @@ export class AppoinmentsReportComponent {
   minDate: Date = new Date();
   showTable: boolean = false;
   doctors: Medico[] = [];
+  motivos: string[] = [];
+
+ 
 
   constructor(public fb: FormBuilder, public appoinmentsService: AppointmentsService, 
               public authService: AuthService, public doctorService: DoctorsService,
-              public router: Router){}
+              public router: Router, public configurationService: ConfigurationService,
+              private cdr: ChangeDetectorRef,){
+                dataSource: new MatTableDataSource([]);
+              }
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(){
+
+    this.configurationService.getMotivoConsulta().subscribe( data => {
+      this.motivos = data.motivoConsulta.map( element => element.motivo_consulta);
+    });
     this.doctorService.getAllDoctorss().subscribe( doctors => {
       this.doctors = doctors.medicos;
     });
@@ -78,10 +92,14 @@ export class AppoinmentsReportComponent {
       this.appoinmentsService.getAppoinmentsByDateAndType(object).subscribe(data => {
         if( data.citas.rows.length != 0){
           this.datosFuente = data.citas.rows;
-          this.dataSource = new MatTableDataSource(this.datosFuente);
+          this.dataSource = new MatTableDataSource(this.datosFuente)
+          
           this.showTable = true;
           this.BtngenerarExcel = true;
         }
+        // aqui si entro el paginator y adentro del if no
+        this.cdr.detectChanges();
+        this.dataSource.paginator = this.paginator;
       });
   }
 
@@ -96,6 +114,7 @@ export class AppoinmentsReportComponent {
   campoEsValido(campo: string){
     return this.reportForm.controls[campo].errors && this.reportForm.controls[campo].touched;
   }
+  
 
   exportExcel(){
     // key name with space add in brackets

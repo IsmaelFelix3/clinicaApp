@@ -77,6 +77,7 @@ export class CurrentProceduresComponent {
       console.log(Procedures)
       this.datosFuente = Procedures.procedimientos.rows;
       this.dataSource = new MatTableDataSource(this.datosFuente);
+      this.dataSource.paginator = this.paginator;
     })
 
     // const EmailUser = this.authService.currentUserValue.correo;

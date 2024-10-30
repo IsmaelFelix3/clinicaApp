@@ -53,6 +53,7 @@ export class AlldoctorsComponent
   selection = new SelectionModel<Doctors>(true, []);
   index?: number;
   id?: number;
+  dataLength: number = 0;
   // doctors?: Doctors;
   constructor(
     public httpClient: HttpClient,
@@ -238,6 +239,8 @@ export class AlldoctorsComponent
           }
         });
         this.dataSource = new MatTableDataSource(this.doctors);
+        this.dataSource.paginator = this.paginator;
+        this.dataLength = this.doctors.length;
       },
       error: (err) => {
         

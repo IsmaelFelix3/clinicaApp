@@ -78,7 +78,6 @@ export interface AntecedentesPersonalesNoPatologico {
     fumador:                                   boolean;
     alcohol:                                   boolean;
     drogas:                                    boolean;
-    diabetes:                                  string;
     id_inmunizacion:                           number;
     otros:                                     string;
     createdAt:                                 Date;
@@ -105,6 +104,8 @@ export interface AntecedentesPersonalesPatologico {
     hospitalizaciones:                      Hospitalizaciones;
     antecedentes_quirurgicos:               AntecedentesQuirurgicos;
     otras_enfermedades:                     OtrasEnfermedades;
+    diabetes:                               string;
+    enfermedades_cronico_degenerativas:     string;
 }
 
 export interface AntecedentesQuirurgicos {

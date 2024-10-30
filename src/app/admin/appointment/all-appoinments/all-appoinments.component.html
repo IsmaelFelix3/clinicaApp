@@ -64,52 +64,52 @@
                 <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
                   
                   <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+                    <mat-header-cell *matHeaderCellDef>Id
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
                   </ng-container>
                   
                   <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Paciente
+                    <mat-header-cell *matHeaderCellDef>Nombre Paciente
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label">Patient Name:</span> {{ row.Paciente.nombre + ' ' + row.Paciente.apellidos }}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="dateTime">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
+                    <mat-header-cell *matHeaderCellDef>Fecha y Hora
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                       <span class="mobile-label">Date & Time:</span> {{ row.fecha_cita | CustomDateTablePipe }}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="medic">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Medico
+                    <mat-header-cell *matHeaderCellDef>Medico
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label">Medico:</span> {{ row.Medico.nombre + ' ' + row.Medico.apellidos }}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="mobile">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Celular
+                    <mat-header-cell *matHeaderCellDef>Celular
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"> <span class="mobile-label">Mobile:</span> {{row.Paciente.telefono}}
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="email">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Correo
+                    <mat-header-cell *matHeaderCellDef>Correo
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label">Email:</span> {{row.Paciente.correo}}
                     </mat-cell>
                   </ng-container>
   
                   <ng-container matColumnDef="address">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Address
+                    <mat-header-cell *matHeaderCellDef>Address
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row" class="column-nowrap"> <span
                         class="mobile-label">Address:</span>{{row.Paciente.calle_y_numero}}
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="disease">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus
+                  <ng-container matColumnDef="estatus">
+                    <mat-header-cell *matHeaderCellDef>Estatus
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row" class="column-nowrap"> <span
                         class="mobile-label">Estatus:</span>
@@ -118,27 +118,6 @@
                         </button>
                     </mat-cell>
                   </ng-container>
-                  <!-- actions -->
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell class="psl-3 tbl-col-width-per-10" *matHeaderCellDef>Acciones
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i=index;" class="psl-3 tbl-col-width-per-10">
-                      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                        <mat-icon>more_vert</mat-icon>
-                      </button>
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                          <i class="material-icons-two-tone align-middle msr-2">done</i>
-                          <span>Approve</span>
-                        </button>
-                        <button mat-menu-item>
-                          <i class="material-icons-two-tone align-middle msr-2">highlight_off</i>
-                          <span>Cancel</span>
-                        </button>
-                      </mat-menu>
-                    </mat-cell>
-                  </ng-container>
-  
                   <mat-header-row *matHeaderRowDef="displayedColumns">
                   </mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row.id_cita)" [style.cursor]="'pointer'" matRipple>

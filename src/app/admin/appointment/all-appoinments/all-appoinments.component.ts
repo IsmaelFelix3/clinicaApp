@@ -1,7 +1,7 @@
 import { Direction } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild, AfterContentInit, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,6 +16,7 @@ import { DoctorsService } from '../../doctors/alldoctors/doctors.service';
 import { Medico, Medicos } from 'app/interfaces/Medico.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CitaResponse } from 'app/interfaces/Cita.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-all-appoinments',
@@ -32,8 +33,8 @@ export class AllAppoinmentsComponent {
     'medic',
     'email',
     'mobile',
-    'disease',
-    'actions',
+    'estatus',
+    // 'actions',
   ];
   currentDate = new Date().toISOString();
   estatus: number = 1;
@@ -60,15 +61,15 @@ export class AllAppoinmentsComponent {
     public doctorsService: DoctorsService,
     private snackBar: MatSnackBar,
     public router: Router,
-    public fb:FormBuilder
+    public fb:FormBuilder,
+    private cdr: ChangeDetectorRef,
   ) {
     dataSource: new MatTableDataSource([]);
   }
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
-  @ViewChild('filter', { static: true }) filter?: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatSort, { static: true })
+  // sort!: MatSort;
+  // @ViewChild('filter', { static: true }) filter?: ElementRef;
   @ViewChild(MatMenuTrigger)
   contextMenu?: MatMenuTrigger;
   contextMenuPosition = { x: '0px', y: '0px' };
@@ -125,7 +126,18 @@ export class AllAppoinmentsComponent {
   }
 
   redirect(idCita: number){
-    this.router.navigateByUrl('admin/appointment/edit-appointment',{state: {idCita}});
+    Swal.fire({
+      title: "¿Desea editar cita?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3f51b5",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Editar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('admin/appointment/edit-appointment',{state: {idCita}});
+      }
+    });
   }
 
   showNotification(
@@ -167,11 +179,12 @@ export class AllAppoinmentsComponent {
         this.datosFuente = data.citas;
         console.log(this.datosFuente)
         this.dataSource = new MatTableDataSource(this.datosFuente)
+        this.cdr.detectChanges();
+        this.dataSource.paginator = this.paginator;
   
         this.datosFuente.forEach( cita => {
           cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
         });
-        console.log(this.datosFuente, 'datosFuente')
       
     });
   }

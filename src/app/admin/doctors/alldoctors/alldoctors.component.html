@@ -11,21 +11,21 @@
             <div class="left">
               <ul class="header-buttons-left ms-0">
                 <li class="tbl-title">
-                  <h2>Doctors</h2>
+                  <h2>Doctores</h2>
                 </li>
                 <li class="tbl-search-box">
                   <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                  <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                  <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
                     aria-label="Search box">
                 </li>
               </ul>
             </div>
-            <div class="right">
+            <!-- <div class="right">
               <ul class="tbl-export-btn">
                 <li class="tbl-header-btn">
-                  <div class="m-l-10" matTooltip="ADD">
+                  <div class="m-l-10" matTooltip="ADD"> -->
                     <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                    <button mat-mini-fab color="primary">
+                    <!-- <button mat-mini-fab color="primary">
 
                       <mat-icon class="col-white">add</mat-icon>
                     </button>
@@ -39,9 +39,9 @@
                   </div>
                 </li>
                 <li class="tbl-header-btn">
-                  <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE">
+                  <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE"> -->
                     <!-- <button mat-mini-fab color="warn" (click)="removeSelectedRows()"> -->
-                    <button mat-mini-fab color="warn">
+                    <!-- <button mat-mini-fab color="warn">
 
                       <mat-icon class="col-white">delete
                       </mat-icon>
@@ -49,14 +49,14 @@
                   </div>
                 </li>
                 <li>
-                  <div class="export-button m-l-10" matTooltip="XLSX">
+                  <div class="export-button m-l-10" matTooltip="XLSX"> -->
                     <!-- <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" /> -->
-                    <img src="assets/images/icons/xlsx.png" alt="" />
+                    <!-- <img src="assets/images/icons/xlsx.png" alt="" />
 
                   </div>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
           <div class="body overflow-auto">
             <div class="responsive_table">
@@ -126,11 +126,10 @@
                 <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
                 </mat-progress-spinner>
               </div>
-              <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results">
-                <!-- [style.display]="dataSource.renderedData.length === 0 ? '' : 'none'"> -->
-
-                No results
-              </div>
+              <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+              [style.display]="dataLength === 0 ? '' : 'none'">
+              No results
+            </div>
               <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 25, 100]">
               </mat-paginator>

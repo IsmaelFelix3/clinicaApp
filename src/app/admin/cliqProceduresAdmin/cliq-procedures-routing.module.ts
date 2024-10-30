@@ -10,10 +10,10 @@ import { FormatsComponent } from './formats/formats.component';
 import { AdmissionProcedureAdminComponent } from './admission-procedure-admin/admission-procedure-admin.component';
 
 const routes: Routes = [
-  {
-    path: "newProcedures",
-    component: NewProcedureComponent,
-  },
+  // {
+  //   path: "newProcedures",
+  //   component: NewProcedureComponent,
+  // },
   {
     path: "currentProcedures",
     component: CurrentProceduresComponent,

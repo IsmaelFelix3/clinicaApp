@@ -69,7 +69,7 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
   }
 
   public ngOnInit(): void {
-    if(this.authService.currentUserValue.userLogin.rol){
+    if(this.authService.currentUserValue.userLogin.rol === 'Doctor'){
       this.isDoctor = true;
       this.createCalendarDoctor();
     }else {

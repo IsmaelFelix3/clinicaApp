@@ -42,16 +42,17 @@ export class MedicalRecordComponent implements OnInit {
     enfermedadesInfantiles: [],
     secuelas: [],
     hospitalizacion: [],
+    diabetes: [],  
     quirurgicos: [],
     otrasEnfermedades: [],
     idHospitalizacion: [],
     idQuirurgicos: [],
     idOtrasEnfermedades: [],
+    enfermedadesCronicoDegenerativas: [],
     // Personales no Patologicos
     fumador: [],
     alcohol: [],
     drogas: [],
-    diabetes: [],  
     otros: [],
     inmunizacion: [], 
     idInmunizacion: [],
@@ -113,9 +114,6 @@ export class MedicalRecordComponent implements OnInit {
   // 2023-08-31T22:19:31.000Z
 
   ngOnInit(): void {
-
-   
-
     if(this.data !== null){
       this.patientDetail = this.data.details; 
       this.isPatientMale = this.patientDetail.genero === 'Masculino' ? true : false ;
@@ -139,6 +137,8 @@ export class MedicalRecordComponent implements OnInit {
           this.medicalRecordForm.get('enfermedadesInfantiles')?.setValue(data.expediente.Antecedentes_Personales_Patologico.enfermedades_infantiles);
           this.medicalRecordForm.get('secuelas')?.setValue(data.expediente.Antecedentes_Personales_Patologico.secuelas);
           this.medicalRecordForm.get('hospitalizacion')?.setValue(data.expediente.Antecedentes_Personales_Patologico.hospitalizaciones.descripcion_hospitalizacion);
+          this.medicalRecordForm.get('diabetes')?.setValue(data.expediente.Antecedentes_Personales_Patologico.diabetes);
+          this.medicalRecordForm.get('enfermedadesCronicoDegenerativas')?.setValue(data.expediente.Antecedentes_Personales_Patologico.enfermedades_cronico_degenerativas);
           this.medicalRecordForm.get('quirurgicos')?.setValue(data.expediente.Antecedentes_Personales_Patologico.antecedentes_quirurgicos.descripcion_antecedente_quirurgico);
           this.medicalRecordForm.get('otrasEnfermedades')?.setValue(data.expediente.Antecedentes_Personales_Patologico.otras_enfermedades.descripcion_otras_enfermedades);
           this.medicalRecordForm.get('idHospitalizacion')?.setValue(data.expediente.Antecedentes_Personales_Patologico.id_hospitalizacion);
@@ -148,7 +148,6 @@ export class MedicalRecordComponent implements OnInit {
           this.medicalRecordForm.get('fumador')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.fumador);
           this.medicalRecordForm.get('alcohol')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.alcohol);
           this.medicalRecordForm.get('drogas')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.drogas);
-          this.medicalRecordForm.get('diabetes')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.diabetes);
           this.medicalRecordForm.get('otros')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.otros);
           this.medicalRecordForm.get('inmunizacion')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.Inmunizaciones[0].descripcion_inmunizacion);
           this.medicalRecordForm.get('idInmunizacion')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.Inmunizaciones[0].id_inmunizacion);
@@ -212,16 +211,17 @@ export class MedicalRecordComponent implements OnInit {
           this.medicalRecordForm.get('enfermedadesInfantiles')?.setValue(data.expediente.Antecedentes_Personales_Patologico.enfermedades_infantiles);
           this.medicalRecordForm.get('secuelas')?.setValue(data.expediente.Antecedentes_Personales_Patologico.secuelas);
           this.medicalRecordForm.get('hospitalizacion')?.setValue(data.expediente.Antecedentes_Personales_Patologico.hospitalizaciones.descripcion_hospitalizacion);
+          this.medicalRecordForm.get('diabetes')?.setValue(data.expediente.Antecedentes_Personales_Patologico.diabetes);
           this.medicalRecordForm.get('quirurgicos')?.setValue(data.expediente.Antecedentes_Personales_Patologico.antecedentes_quirurgicos.descripcion_antecedente_quirurgico);
           this.medicalRecordForm.get('otrasEnfermedades')?.setValue(data.expediente.Antecedentes_Personales_Patologico.otras_enfermedades.descripcion_otras_enfermedades);
           this.medicalRecordForm.get('idHospitalizacion')?.setValue(data.expediente.Antecedentes_Personales_Patologico.id_hospitalizacion);
           this.medicalRecordForm.get('idOtrasEnfermedades')?.setValue(data.expediente.Antecedentes_Personales_Patologico.id_otras_enfermedades);
           this.medicalRecordForm.get('idQuirurgicos')?.setValue(data.expediente.Antecedentes_Personales_Patologico.id_antecedentes_quirurgicos);
+          this.medicalRecordForm.get('enfermedadesCronicoDegenerativas')?.setValue(data.expediente.Antecedentes_Personales_Patologico.enfermedades_cronico_degenerativas);
           // Personales no Patologicos
           this.medicalRecordForm.get('fumador')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.fumador);
           this.medicalRecordForm.get('alcohol')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.alcohol);
           this.medicalRecordForm.get('drogas')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.drogas);
-          this.medicalRecordForm.get('diabetes')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.diabetes);
           this.medicalRecordForm.get('otros')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.otros);
           this.medicalRecordForm.get('inmunizacion')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.Inmunizaciones[0].descripcion_inmunizacion);
           this.medicalRecordForm.get('idInmunizacion')?.setValue(data.expediente.Antecedentes_Personales_No_Patologico.Inmunizaciones[0].id_inmunizacion);

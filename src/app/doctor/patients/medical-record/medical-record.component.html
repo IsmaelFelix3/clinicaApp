@@ -72,14 +72,19 @@
                     </mat-tab>
                     <mat-tab label="Antecedentes Personales Patologicos">
                     <div class="row mt-4">
-                        <mat-form-field class="col-6" appearance="outline">
+                        <mat-form-field class="col-4" appearance="outline">
                             <mat-label>Enfermedades Infantiles</mat-label>
                             <textarea style="height: 2.5rem;" matInput formControlName="enfermedadesInfantiles"></textarea>
                             <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error> -->
                         </mat-form-field>
-                        <mat-form-field class="col-6" appearance="outline">
+                        <mat-form-field class="col-4" appearance="outline">
                             <mat-label>Secuelas</mat-label>
                             <textarea style="height: 2.5rem;" matInput formControlName="secuelas"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Diabetes</mat-label>
+                            <input style="height: 2.5rem;" matInput formControlName="diabetes">
                             <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                         </mat-form-field>
                         <mat-form-field class="col-6" appearance="outline">
@@ -95,6 +100,11 @@
                         <mat-form-field class="col-6" appearance="outline">
                             <mat-label>Otras Enfermedades</mat-label>
                             <textarea style="height: 2.5rem;" matInput formControlName="otrasEnfermedades"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Enfermedades Cronico Degenerativas</mat-label>
+                            <textarea style="height: 2.5rem;" matInput formControlName="enfermedadesCronicoDegenerativas"></textarea>
                             <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                         </mat-form-field>
                     </div>
@@ -116,11 +126,7 @@
                                     Drogas
                                 </mat-checkbox>
                             </div>
-                            <mat-form-field class="col-6" appearance="outline">
-                                <mat-label>Diabetes</mat-label>
-                                <input style="height: 2.5rem;" matInput formControlName="diabetes">
-                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
-                            </mat-form-field>
+                            
                         </div>
                         <div class="row mt-4">
                             <mat-form-field class="col-6" appearance="outline">
@@ -234,9 +240,9 @@
                             </mat-form-field>
                             <mat-form-field class="col-3" appearance="outline">
                                 <mat-label>Papanicolau</mat-label>
-                                <input matTooltip="Fecha Ultimo Papanicolau" matInput formControlName="papanicolau" [matDatepicker]="picker">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
+                                <input matTooltip="Fecha Ultimo Papanicolau" matInput formControlName="papanicolau" [matDatepicker]="picker2">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>
                             <mat-form-field class="col-3" appearance="outline">
                                 <mat-label>ETS</mat-label>
