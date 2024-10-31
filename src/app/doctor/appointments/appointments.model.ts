@@ -17,6 +17,8 @@ export interface Appointments {
   inspeccion_general: string;
   diagnostico: string;
   tratamiento: string;
+  pronostico: string;
+  evolucion:  string;
   createdAt: string;
   updatedAt: string;
   Paciente: {

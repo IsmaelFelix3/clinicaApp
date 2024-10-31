@@ -70,7 +70,9 @@ export class AppointmentComponent implements OnInit, OnDestroy{
     temperatura: [],
     frecuencia_cardiaca: [],
     frecuencia_respiratoria: [],
-    inspeccion_general: []
+    inspeccion_general: [],
+    pronostico: [],
+    evolucion: []
   });
 
   ngOnInit(): void {
@@ -132,6 +134,8 @@ export class AppointmentComponent implements OnInit, OnDestroy{
       this.appointmentForm.get('diagnostico')?.setValue(this.patientDetails.diagnostico != '0' ? this.patientDetails.diagnostico : '');
       this.appointmentForm.get('tratamiento')?.setValue(this.patientDetails.tratamiento != '0' ? this.patientDetails.tratamiento : '');
       this.appointmentForm.get('peso_paciente')?.setValue(this.patientDetails.peso_paciente != '0' ? this.patientDetails.peso_paciente : '');
+      this.appointmentForm.get('evolucion')?.setValue(this.patientDetails.evolucion != '0' ? this.patientDetails.evolucion : '');
+      this.appointmentForm.get('pronostico')?.setValue(this.patientDetails.pronostico != '0' ? this.patientDetails.pronostico : '');
     }
   }
 
