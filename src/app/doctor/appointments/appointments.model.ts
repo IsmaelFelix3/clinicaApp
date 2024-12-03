@@ -17,6 +17,8 @@ export interface Appointments {
   inspeccion_general: string;
   diagnostico: string;
   tratamiento: string;
+  pronostico: string;
+  evolucion:  string;
   createdAt: string;
   updatedAt: string;
   Paciente: {
@@ -45,5 +47,55 @@ export interface Appointments {
       updatedAt: string;
   }
 }
+
+export interface AppoinmentsCount{
+  msg: string;
+  citas: number;
+}
+
+export interface appointmentHistory {
+  idCita: number;
+  idPaciente: number;
+  peso: string | null;
+  sintomas: string | null;
+  diagnostico: string | null;
+  tratamiento: string | null;
+  motivoConsulta: string | null;
+  fechaCita: string;
+  estatus: string;
+  icon: string;
+}
+
+export interface History {
+  history: HistoryClass;
+}
+
+export interface HistoryClass {
+  count:        number;
+  rows: Appointment[];
+}
+
+export interface Appointment {
+  id_cita:                        number;
+  id_medico:                      number;
+  id_paciente:                    number;
+  estatus:                        string;
+  fecha_cita:                     Date;
+  motivo_consulta:                string;
+  sintoma_principal:              undefined | string;
+  resultados_estudios_realizados: undefined | string;
+  pulso:                          undefined | string;
+  presion_arterial:               undefined | string;
+  temperatura:                    undefined | string;
+  frecuencia_cardiaca:            undefined | string;
+  frecuencia_respiratoria:        undefined | string;
+  peso_paciente:                  undefined | string;
+  inspeccion_general:             undefined | string;
+  diagnostico:                    undefined | string;
+  tratamiento:                    undefined | string;
+  createdAt:                      Date;
+  updatedAt:                      Date;
+}
+
 
 

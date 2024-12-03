@@ -1,0 +1,202 @@
+<div class="card m-4">
+    <div class="content-block">
+      
+      <form [formGroup]="admissionForm">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <!-- <div class="card"> -->
+            <div class="header">
+              <h2>Formato de Admisión Digital</h2>
+            </div>
+            <div class="body">
+              <div class="example-container">
+                <div class="row container">
+                    <hr>
+                    <h4>Datos Paciente</h4>
+                    <hr>
+                </div>
+                <div class="row">
+                    <mat-form-field  class="col-3" appearance="outline">
+                        <mat-label>Unidad Medica</mat-label>
+                        <input formControlName="medicUnit" matInput required >
+                        <mat-error *ngIf="campoEsValido('medicUnit')">{{'Debe agregar unidad medica'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Nombre Paciente</mat-label>
+                        <input formControlName="patientName" matInput required>
+                        <mat-error *ngIf="campoEsValido('patientName')">{{'Debe agregar el nombre del paciente'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>CURP</mat-label>
+                        <input formControlName="patientCurp" matInput required>
+                        <mat-error *ngIf="campoEsValido('patientCurp')">{{'Debe agregar CURP'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Fecha Procedimiento</mat-label>
+                        <input matInput [matDatepickerFilter]="myFilter" formControlName="admissionDate" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="campoEsValido('admissionDate')">{{'Debe seleccionar una fecha'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Lugar Origen</mat-label>
+                        <input formControlName="placeOrigin" matInput >
+                        <mat-error *ngIf="campoEsValido('placeOrigin')">{{'Debe agregar lugar de origen'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Fecha Nacimiento</mat-label>
+                        <input formControlName="patientBirthdate" matInput required>
+                        <mat-error *ngIf="campoEsValido('patientBirthdate')">{{'Debe agregar fecha de nacimiento'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Sexo</mat-label>
+                        <input formControlName="sex" matInput required>
+                        <mat-error *ngIf="campoEsValido('sex')">{{'Debe seleccionar un sexo'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Grupo Etnico</mat-label>
+                        <input formControlName="etnicGroup" matInput >
+                        <mat-error *ngIf="campoEsValido('etnicGroup')">{{'Debe agregar grupo etnico'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Religion</mat-label>
+                        <input formControlName="religion" matInput >
+                        <mat-error *ngIf="campoEsValido('religion')">{{'Debe agregar religion'}}</mat-error>
+                    </mat-form-field>
+                    
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Estado Civil</mat-label>
+                        <input formControlName="civilStatus" matInput required>
+                        <mat-error *ngIf="campoEsValido('civilStatus')">{{'Debe agregar estado civil'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Ocupacion</mat-label>
+                        <input formControlName="ocupation" matInput >
+                        <mat-error *ngIf="campoEsValido('ocupation')">{{'Debe agregar ocupacion'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Escolaridad</mat-label>
+                        <input formControlName="scholarship" matInput >
+                        <mat-error *ngIf="campoEsValido('scholarship')">{{'Debe agregar escolaridad'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Telefono</mat-label>
+                        <input formControlName="phoneNumber" matInput required>
+                        <mat-error *ngIf="campoEsValido('phoneNumber')">{{'Debe agregar telefono'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Calle</mat-label>
+                        <input formControlName="street" matInput required>
+                        <mat-error *ngIf="campoEsValido('street')">{{'Debe agregar calle'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Numero</mat-label>
+                        <input formControlName="addressNumber" matInput required>
+                        <mat-error *ngIf="campoEsValido('addressNumber')">{{'Debe agregar numero'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Colonia</mat-label>
+                        <input formControlName="colony" matInput required>
+                        <mat-error *ngIf="campoEsValido('colony')">{{'Debe agregar la colonia'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Alcaldia o Municipio</mat-label>
+                        <input formControlName="municipality" matInput required>
+                        <mat-error *ngIf="campoEsValido('municipality')">{{'Debe agregar alcaldia o municipio'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Codigo Postal</mat-label>
+                        <input formControlName="postCode" matInput required>
+                        <mat-error *ngIf="campoEsValido('postCode')">{{'Debe agregar codigo postal'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row container">
+                    <hr>
+                    <h4>Datos del Responsable Del Paciente</h4>
+                    <hr>
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-4" appearance="outline">
+                        <mat-label>Nombre Completo</mat-label>
+                        <input formControlName="responsibleName" matInput required>
+                        <mat-error *ngIf="campoEsValido('responsibleName')">{{'Debe agregar nombre del responsable'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-4" appearance="outline">
+                        <mat-label>Calle</mat-label>
+                        <input formControlName="responsibleStreet" matInput required>
+                        <mat-error *ngIf="campoEsValido('responsibleStreet')">{{'Debe agregar calle del responsable'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Numero Int</mat-label>
+                        <input formControlName="responsibleAddressNumberInt" matInput required>
+                        <mat-error *ngIf="campoEsValido('responsibleAddressNumberInt')">{{'Debe agregar numero del responsable'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Numero Ext</mat-label>
+                        <input formControlName="responsibleAddressNumberExt" matInput required>
+                        <mat-error *ngIf="campoEsValido('responsibleAddressNumberExt')">{{'Debe agregar numero del responsable'}}</mat-error>
+                    </mat-form-field>
+                    
+                </div>
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Colonia</mat-label>
+                        <input formControlName="responsibleColony" matInput required>
+                        <mat-error *ngIf="campoEsValido('responsibleColony')">{{'Debe agregar colonia del responsable'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Alcaldia o Municipio</mat-label>
+                        <input formControlName="responsibleMunicipality" matInput required>
+                        <mat-error *ngIf="campoEsValido('responsibleMunicipality')">{{'Debe agregar municipio del responsable'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Codigo Postal</mat-label>
+                        <input formControlName="responsiblePostCode" matInput required>
+                        <mat-error *ngIf="campoEsValido('responsiblePostCode')">{{'Debe agregar codigo postal del responsable'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Telefono</mat-label>
+                        <input formControlName="responisblePhoneNumber" matInput required>
+                        <mat-error *ngIf="campoEsValido('responisblePhoneNumber')">{{'Debe agregar Telefono del responsable'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Parentezco</mat-label>
+                        <input formControlName="kinship" matInput required>
+                        <mat-error *ngIf="campoEsValido('kinship')">{{'Debe agregar parentezco'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <hr>
+                    <h4>Notas Adicionales</h4>
+                <hr>
+                <div class="row">
+                    <mat-form-field class="col-12" appearance="outline">
+                        <mat-label>Notas</mat-label>
+                        <textarea formControlName="additionalNotes" matInput >
+                        </textarea>
+                        <mat-error *ngIf="campoEsValido('additionalNotes')">{{'Debe agregar notas adicionales'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                
+              </div>
+              <div class="row ">
+                  <div class="mb-3 me-3 ">
+                      <button (click)="saveAdmission()" style="float: right;" type="button" mat-fab extended color="primary">
+                          <mat-icon>done</mat-icon>
+                          Guardar Formato
+                      </button>
+                  </div>
+              </div>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </form>
+    </div>
+</div>
+  

@@ -1,0 +1,83 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Editar Procedimiento'"></app-breadcrumb>
+      </div>
+      <form [formGroup]="procedureForm">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Editar Reserva</h2>
+            </div>
+            <div class="body">
+              <div class="example-container">
+                <div class="row">
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Medico</mat-label>
+                        <mat-select (selectionChange)="changeDoctor()" formControlName="medico">
+                            <mat-option *ngFor="let doctor of doctors" [value]="doctor.id_medico">
+                            {{doctor.nombre + ' ' + doctor.apellidos}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="campoEsValido('medico')">{{'Debe seleccionar un paciente'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Paciente</mat-label>
+                        <mat-select formControlName="paciente">
+                            <mat-option *ngFor="let patient of patients" [value]="patient.id_paciente">
+                            {{patient.nombre + ' ' + patient.apellidos}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="campoEsValido('paciente')">{{'Debe seleccionar un paciente'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-3" appearance="outline">
+                        <mat-label>Quirofano</mat-label>
+                        <mat-select (selectionChange)="cleanDate()" formControlName="quirofano">
+                            <mat-option *ngFor="let quirofano of quirofanos" [value]="quirofano.id_quirofano">
+                            {{quirofano.nombre_quirofano}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="campoEsValido('quirofano')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field  class="col-3" appearance="outline">
+                        <mat-label>Fecha Procedimiento</mat-label>
+                        <input matInput [matDatepickerFilter]="myFilter"  (dateInput)="onDateChange($event)" formControlName="fechaProcedimiento" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="campoEsValido('fechaProcedimiento')">{{'Debe seleccionar una fecha'}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="isVisible" class="row">
+                    <label>Horario del procedimiento:</label>
+                    <div  class="col-xl-12 col-lg-12 col-md-8 col-sm-6 mb-3">
+                      <mat-button-toggle-group style="border: none;" formControlName="horario" name="horarios" aria-label="horarios" >
+                        <mat-button-toggle style="width: 6.2rem; border: solid 1px #e0e0e0" *ngFor="let horario of horariosLibres" [value]="horario.value" [disabled]="horario.isDisable">
+                          {{ horario.name }}
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    <mat-error *ngIf="campoEsValido('horario')">{{'Seleccionar un horario'}}</mat-error>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="row align-self-end">
+                <div class="mb-3 me-3">
+                    <button (click)="editProcedure()" class="btn-space" type="button" mat-fab extended color="primary">
+                        <mat-icon>done</mat-icon>
+                        Editar Procedimiento
+                    </button>
+                    <button type="button" (click)="deleteProcedure()" mat-fab extended color="warn">
+                      <mat-icon>delete_outline</mat-icon>
+                      Eliminar Procedimiento
+                  </button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+  </section>
+  

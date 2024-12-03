@@ -1,74 +1,55 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Doctors } from './doctors.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
+import { Medico, MedicoByEmail, MedicoById, MedicoUpdate, Medicos } from 'app/interfaces/Medico.interface';
+import { AuthService } from '../../../core/service/auth.service';
+import { environment } from 'environments/environment';
 @Injectable()
 export class DoctorsService extends UnsubscribeOnDestroyAdapter {
+
+
   private readonly API_URL = 'assets/data/doctors.json';
+  urlApi: string = environment.api;
+  urlEndpoint: string = environment.medicosEndpoint;
   isTblLoading = true;
-  dataChange: BehaviorSubject<Doctors[]> = new BehaviorSubject<Doctors[]>([]);
+  dataChange: BehaviorSubject<Medico[]> = new BehaviorSubject<Medico[]>([]);
   // Temporarily stores data from dialogs
   dialogData!: Doctors;
   constructor(private httpClient: HttpClient) {
     super();
   }
-  get data(): Doctors[] {
+
+  get data(): Medico[] {
+    console.log('entro',this.dataChange)
     return this.dataChange.value;
   }
   getDialogData() {
     return this.dialogData;
   }
   /** CRUD METHODS */
-  getAllDoctorss(): void {
-    this.subs.sink = this.httpClient.get<Doctors[]>(this.API_URL).subscribe({
-      next: (data) => {
-        this.isTblLoading = false;
-        this.dataChange.next(data);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
-      },
-    });
+  getAllDoctorss(){
+    return this.httpClient.get<Medicos>(`${this.urlApi}${this.urlEndpoint}`);
   }
-  addDoctors(doctors: Doctors): void {
-    this.dialogData = doctors;
 
-    // this.httpClient.post(this.API_URL, doctors)
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.dialogData = doctors;
-    //     },
-    //     error: (error: HttpErrorResponse) => {
-    //        // error code here
-    //     },
-    //   });
+  getDoctorByEmail( correo: string ){
+    return this.httpClient.post<MedicoByEmail>(`${this.urlApi}${this.urlEndpoint}getMedicoByEmail`,{correo});
   }
-  updateDoctors(doctors: Doctors): void {
-    this.dialogData = doctors;
 
-    // this.httpClient.put(this.API_URL + doctors.id, doctors)
-    //     .subscribe({
-    //       next: (data) => {
-    //         this.dialogData = doctors;
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
+  getDoctorById(idMedico: number){
+    return this.httpClient.get<MedicoById>(`${this.urlApi}${this.urlEndpoint}${idMedico}`);
   }
-  deleteDoctors(id: number): void {
-    console.log(id);
 
-    // this.httpClient.delete(this.API_URL + id)
-    //     .subscribe({
-    //       next: (data) => {
-    //         console.log(id);
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
+  addDoctor(doctor: Medico){
+    return this.httpClient.post(`${this.urlApi}medicos`, doctor);
+  }
+
+  updateDoctor(doctor: MedicoUpdate, idMedico: number){
+    return this.httpClient.put(`${this.urlApi}${this.urlEndpoint}${idMedico}`, doctor);
+  }
+
+  deleteDoctor(idMedico: number){
+   return this.httpClient.delete(`${this.urlApi}${this.urlEndpoint}${idMedico}`);
   }
 }

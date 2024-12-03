@@ -1,53 +1,88 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PatientsService } from 'app/doctor/patients.service';
-import { MyErrorStateMatcher } from 'app/forms/form-controls/form-controls.component';
 import { Paciente } from 'app/interfaces/Paciente.interface';
 import Swal from 'sweetalert2';
 import { AppointmentsService } from '../appointments.service';
 import { ScheduleServiceService } from '../../../services/schedule-service.service';
+
+import { z } from "zod";
+import { ConfigurationService } from 'app/services/configuration.service';
+import { AuthService } from '../../../core/service/auth.service';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-new-appoinment',
   templateUrl: './new-appoinment.component.html',
   styleUrls: ['./new-appoinment.component.scss'],
+  providers: [DoctorsService, AuthService]
 })
 export class NewAppoinmentComponent implements OnInit{
   
 
   patients: Paciente[] = [];
   horariosLibres: any[] = [];
-
-  motivos = ['Consulta Medica','Seguimiento'];
+  idMedico: number = 0;
+  motivos: string[] = [];
 
   newAppoinmentForm:FormGroup = this.fb.group({
     paciente: [,Validators.required],
-    medico: [1001, Validators.required],
+    medico: [, Validators.required],
     fechaCita: [, Validators.required],
     horario: [,Validators.required], 
     motivoConsulta: [, Validators.required]
   });
 
-  constructor(public fb: FormBuilder, public patientsService: PatientsService, public appoinmentsService: AppointmentsService, public scheduleService:ScheduleServiceService){
+  constructor(public fb: FormBuilder, public patientsService: PatientsService, 
+              public appoinmentsService: AppointmentsService, 
+              public scheduleService:ScheduleServiceService,
+              public configurationService: ConfigurationService,
+              public authService: AuthService,
+              public doctorService: DoctorsService,
+              private router: Router){
   }
 
   ngOnInit(): void {
-    this.patientsService.getAllPatients().subscribe(data => {
-      this.patients = data.paciente;
+
+    console.log(this.authService.currentUserValue)
+    // const correoMedico = this.authService.currentUserValue.userLogin.correo;
+    const userLogin = JSON.parse(localStorage.getItem('currentUser')!)
+    const correoMedico = userLogin.correo;
+    this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
+      this.idMedico = doctor.medico.id_medico;
+      this.newAppoinmentForm.get('medico')?.setValue(this.idMedico);
+      this.patientsService.getAllPatients(this.idMedico).subscribe(data => {
+        this.patients = data.paciente;
+      });
     });
+
+    this.configurationService.getMotivoConsulta().subscribe( data => {
+      this.motivos = data.motivoConsulta.map( element => element.motivo_consulta);
+    });
+
   }
 
   saveAppoinment(){
-
+    console.log('click')
+    console.log(this.newAppoinmentForm)
     if(!this.newAppoinmentForm.valid){
       this.newAppoinmentForm.markAllAsTouched();
+
+      return;
+    }
+    console.log('clickdespues')
+   
+    const dateSchema = z.coerce.date();
+    type DateSchema = z.infer<typeof dateSchema>;
+
+    let fecha = new Date(this.newAppoinmentForm.get('fechaCita')?.value)
+    if(!dateSchema.safeParse(fecha).success){
+      Swal.fire({icon: 'error',title:'Error fecha invalida'});
       return;
     }
 
-
-    let fecha = new Date(this.newAppoinmentForm.get('fechaCita')?.value)
     let newFecha = fecha.setHours(this.newAppoinmentForm.get('horario')?.value);
 
     let date = new Date(new Date(newFecha).toISOString());
@@ -59,22 +94,24 @@ export class NewAppoinmentComponent implements OnInit{
     this.newAppoinmentForm.get('fechaCita')?.setValue(fechaFinal.toISOString());
     console.log(this.newAppoinmentForm.value);
 
-    // let object = {
-    //   fecha_cita: this.newAppoinmentForm.value.fechaCita,
-    //   id_medico: this.newAppoinmentForm.value.medico,
-    //   id_paciente: this.newAppoinmentForm.value.paciente.id_paciente,
-    //   motivo_consulta: this.newAppoinmentForm.value.motivoConsulta
-    // }
+    let object = {
+      fecha_cita: this.newAppoinmentForm.value.fechaCita,
+      id_medico: this.idMedico,
+      id_paciente: this.newAppoinmentForm.value.paciente.id_paciente,
+      motivo_consulta: this.newAppoinmentForm.value.motivoConsulta
+    }
 
-    // this.patientsService.addAppoinment(object).subscribe({
-    //   complete: () => {
-    //     this.newAppoinmentForm.reset();        
-    //     Swal.fire('Se agendo la cita con exito');
-    //   },
-    //   error(err) {
-    //     Swal.fire('Error al registrar la cita',err);
-    //   },
-    // });
+    this.appoinmentsService.addAppoinment(object).subscribe({
+      complete: () => {
+        this.newAppoinmentForm.reset();        
+        Swal.fire('Se agendo la cita con exito');
+        this.router.navigateByUrl('doctor/appointments');
+      },
+      error: (data) => {
+        console.log(data);
+        Swal.fire({icon: 'error',title:'Error al registrar la cita', text: data.msg});
+      },
+    });
   }
 
   onDateChange(event: any) {

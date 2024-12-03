@@ -2,7 +2,7 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Item Stock List'" [items]="['Inventory']" [active_item]="'Item Stock List'">
+      <app-breadcrumb [title]="'Insumos'" [items]="[]" [active_item]="'Listado de Insumos'">
       </app-breadcrumb>
     </div>
     <div class="row">
@@ -12,11 +12,11 @@
             <div class="left">
               <ul class="header-buttons-left ms-0">
                 <li class="tbl-title">
-                  <h2>Stock List</h2>
+                  <h2>Insumo</h2>
                 </li>
                 <li class="tbl-search-box">
                   <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                  <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                  <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
                     aria-label="Search box">
                 </li>
               </ul>
@@ -24,32 +24,35 @@
             <div class="right">
               <ul class="tbl-export-btn">
                 <li class="tbl-header-btn">
-                  <div class="m-l-10" matTooltip="ADD">
-                    <button mat-mini-fab color="primary" (click)="addNew()">
+                  <div class="m-l-10" matTooltip="Agregar">
+                    <button mat-mini-fab color="primary" (click)="addSupply()">
                       <mat-icon class="col-white">add</mat-icon>
                     </button>
                   </div>
                 </li>
                 <li class="tbl-header-btn">
-                  <div class="m-l-10" matTooltip="REFRESH">
+                  <div class="m-l-10" matTooltip="Refrescar">
                     <button mat-mini-fab color="primary" (click)="refresh()">
                       <mat-icon class="col-white">refresh</mat-icon>
                     </button>
                   </div>
                 </li>
+                <li>
+                 
+                </li>
                 <li class="tbl-header-btn">
-                  <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE">
-                    <button mat-mini-fab color="warn" (click)="removeSelectedRows()">
+                  <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="Borrar">
+                    <button mat-mini-fab color="warn">
                       <mat-icon class="col-white">delete
                       </mat-icon>
                     </button>
                   </div>
                 </li>
-                <li>
+                <!-- <li>
                   <div class="export-button m-l-10" matTooltip="XLSX">
                     <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" />
                   </div>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -57,11 +60,9 @@
             <div class="responsive_table">
               <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
                 <!-- Checkbox Column -->
-                <ng-container matColumnDef="select">
+                <!-- <ng-container matColumnDef="select">
                   <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
-                    <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
+                    <mat-checkbox [ngClass]="'tbl-checkbox'">
                     </mat-checkbox>
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'">
@@ -69,60 +70,94 @@
                       [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
                     </mat-checkbox>
                   </mat-cell>
-                </ng-container>
+                </ng-container> -->
                 <!-- ID Column -->
-                <ng-container matColumnDef="id">
+                <ng-container matColumnDef="id_insumo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-                  <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+                  <mat-cell *matCellDef="let row">{{row.id_insumo}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="i_name">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Item Name
+                <ng-container matColumnDef="codigo">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Codigo
                   </mat-header-cell>
-                  <mat-cell *matCellDef="let row"><span class="mobile-label">Item Name:</span> {{row.i_name}}</mat-cell>
+                  <mat-cell *matCellDef="let row"><span class="mobile-label">Codigo:</span> {{row.codigo}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="category">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
-                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Category:</span>{{row.category}}
+                <ng-container matColumnDef="descripcion">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Descripcíon</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Descripcíon:</span>{{row.descripcion}}
                   </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="qty">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'tbl-col-width-per-100'">Quantity
+                <ng-container matColumnDef="facturaCompra">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Factura Compra</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Factura Compra:</span>{{row.facturaCompra}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="numeroLote">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Numero Lote</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Numero Lote:</span>{{row.numeroLote}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaCaducidad">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Caducidad</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Fecha Caducidad:</span>{{row.fechaCaducidad }}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cantidadActual">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad Actual</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="mobile-label">Cantidad Actual:</span>{{row.cantidadActual}}
+                  </mat-cell>
+                </ng-container>
+                
+                <!-- <ng-container matColumnDef="estado">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Estado
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" class="column-nowrap">
+                    <span class="mobile-label">Estado:</span>
+                      <button mat-raised-button [ngClass]="getStatus(row.estado)">
+                        {{row.estado == true ? 'Activado' : 'Desactivado'}}
+                      </button>
+                  </mat-cell>
+                </ng-container> -->
+
+                <ng-container matColumnDef="fechaAlta">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'tbl-col-width-per-100'">Fecha Alta
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row"> <span class="truncate-text" [ngClass]="'tbl-col-width-per-80'"><span
-                        class="mobile-label">Quantity:</span>{{row.qty}}</span></mat-cell>
+                        class="mobile-label">Fecha Alta:</span>{{row.createdAt | date : "MM-dd-YYYY"}}</span></mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="date">
+                <!-- <ng-container matColumnDef="date">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Purchase Date</mat-header-cell>
                   <mat-cell *matCellDef="let row"> <span class="mobile-label">Purchase
                       Date:</span>{{row.date | date: 'MM/dd/yyyy'}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="price">
+                </ng-container> -->
+                <!-- <ng-container matColumnDef="price">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Price($)</mat-header-cell>
                   <mat-cell *matCellDef="let row"> <span class="mobile-label">Price:</span>{{row.price}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="details">
+                </ng-container> -->
+                <!-- <ng-container matColumnDef="details">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <span class="truncate-text"><span class="mobile-label">Details:</span>{{row.details}}</span>
                   </mat-cell>
-                </ng-container>
+                </ng-container> -->
                 <!-- actions -->
-                <ng-container matColumnDef="actions">
+                <!-- <ng-container matColumnDef="actions">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                    <button mat-icon-button (click)="$event.stopPropagation()" (click)="editCall(row)"
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0"> -->
+                    <!-- <button mat-icon-button (click)="$event.stopPropagation()" (click)="editCall(row)"
                       class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                    </button>
-                    <button mat-icon-button (click)="$event.stopPropagation()" (click)="deleteItem(row)"
+                    </button> -->
+                    <!-- <button mat-icon-button (click)="$event.stopPropagation()" (click)="deleteItem(row)"
                       class="tbl-action-btn">
                       <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                     </button>
                   </mat-cell>
-                </ng-container>
+                </ng-container> -->
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                <!-- <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)" -->
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row)"
+
                   [style.cursor]="'pointer'" matRipple>
                 </mat-row>
               </mat-table>
@@ -131,13 +166,13 @@
                 <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
                 </mat-progress-spinner>
               </div>
-              <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+              <!-- <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
                 [style.display]="dataSource.renderedData.length === 0 ? '' : 'none'">
                 No results
-              </div>
-              <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+              </div> -->
+              <!-- <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 25, 100]">
-              </mat-paginator>
+              </mat-paginator> -->
             </div>
           </div>
         </div>

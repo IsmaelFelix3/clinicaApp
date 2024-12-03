@@ -1,1 +1,34 @@
+table{
+    width: 100%;
+}
+.mat-column-idPaciente{
+    max-width: 5rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+}
 
+.mat-column-nombre{
+    width: 18rem;
+    text-align: left;
+}
+
+.mat-column-edad{
+    width: 3rem;
+    text-align: left;
+}
+
+.mat-column-correo{
+    width: 19rem;
+    text-align: left;
+}
+
+.mat-column-telefono{
+    width: 8rem;
+    text-align: left;
+}
+
+.mat-column-fechaRegistro{
+    width: 8rem;
+    text-align: left;
+}

@@ -16,7 +16,7 @@
                   </li>
                   <li class="tbl-search-box">
                     <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                    <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                    <input placeholder="Buscar" (keyup)="applyFilter($event)" type="text" #filter class="browser-default search-field"
                       aria-label="Search box">
                   </li>
                 </ul>
@@ -34,7 +34,7 @@
             </div>
             <div class="body overflow-auto">
               <div class="responsive_table">
-                <mat-table #table [dataSource]="patients" matSort class="mat-cell">
+                <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
                   <!-- Checkbox Column -->
                   <ng-container matColumnDef="select">
                     <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">

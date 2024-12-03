@@ -3,6 +3,8 @@ import { PatientsService } from '../patients.service';
 import { Paciente, PacienteShort, Pacientes } from 'app/interfaces/Paciente.interface';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { AuthService } from '../../core/service/auth.service';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 
 @Component({
   selector: 'app-medical-records',
@@ -12,10 +14,10 @@ import { Observable, map, startWith } from 'rxjs';
 export class MedicalRecordsComponent implements OnInit {
 
   patients: Paciente[] = [];
-
+  idMedico = 0;
   option:any;
 
-  constructor(public pacienteService: PatientsService){
+  constructor(public pacienteService: PatientsService, public authService:AuthService, public doctorService: DoctorsService){
 
   }
 
@@ -24,14 +26,19 @@ export class MedicalRecordsComponent implements OnInit {
   filteredOptions: Observable<string[]> | undefined;
 
   ngOnInit() {
-    this.pacienteService.getAllPatients().subscribe( data => {
-      
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value || '')),
-      );
 
-    });
+    const correoMedico = this.authService.currentUserValue.userLogin.correo;
+    this.doctorService.getDoctorByEmail(correoMedico).subscribe( doctor => {
+      this.idMedico = doctor.medico.id_medico;
+      this.pacienteService.getAllPatients(this.idMedico).subscribe( data => {
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value || '')),
+        );
+  
+      });
+    })
+
   }
 
   private _filter(value: string): string[] {

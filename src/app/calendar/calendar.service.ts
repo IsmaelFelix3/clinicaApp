@@ -35,7 +35,7 @@ export class CalendarService {
   }
 
   addUpdateCalendar(calendar: Calendar): void {
-    this.dialogData = calendar;
+    // this.dialogData = calendar;
   }
   deleteCalendar(calendar: Calendar): void {
     this.dialogData = calendar;

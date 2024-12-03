@@ -1,1 +1,60 @@
 
+table{
+    width: 100%;
+}
+.mat-column-idMedico {
+    max-width: 5rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+
+  .mat-column-nombre {
+    max-width: 15rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+
+  .mat-column-especialidad {
+    max-width: 12rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+
+  .mat-column-cedula {
+    max-width: 6rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+
+  .mat-column-correo {
+    max-width: 16rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+
+  .mat-column-telefono {
+    max-width: 8rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+
+  .mat-column-edificio {
+    max-width: 8rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+
+  .mat-column-piso {
+    max-width: 5rem;
+    // border-right: 1px solid currentColor;
+    // padding-right: 24px;
+    text-align: left;
+  }
+  

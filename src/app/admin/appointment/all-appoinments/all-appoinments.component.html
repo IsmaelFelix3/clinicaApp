@@ -1,0 +1,144 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Citas'" [items]="[]" [active_item]="'Todas las citas'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="card">
+            <div class="header">
+              <!-- <h2>Editar Cita</h2> -->
+            </div>
+            <div class="body">
+                <div class="example-container">
+                     <form [formGroup]="allAppoinmentsForm">
+                        <mat-form-field class="col-4 me-3" appearance="outline">
+                            <mat-label>Medico</mat-label>
+                            <mat-select formControlName="medico">
+                            <mat-option *ngFor="let medic of medics" [value]="medic.id_medico">
+                              {{medic.nombre + ' ' + medic.apellidos}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="campoEsValido('medico')">{{'Debe seleccionar un medico'}}</mat-error>
+                        </mat-form-field>
+                            <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Fecha</mat-label>
+                            <input matInput [matDatepickerFilter]="myFilter" [min]="minDate" formControlName="fecha" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="campoEsValido('fecha')">{{'Debe seleccionar una fecha'}}</mat-error>
+                        </mat-form-field>
+                        <button class="ms-4" mat-raised-button color="primary" (click)="search()">
+                            <mat-icon>search</mat-icon>
+                            Buscar
+                        </button>
+                  </form>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div *ngIf="isTableVisible" class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="materialTableHeader">
+              <div class="left">
+                <ul class="header-buttons-left ms-0">
+                  <li class="tbl-title">
+                    <h2>Citas</h2>
+                  </li>
+                </ul>
+              </div>
+              <div class="right">
+                <!-- <ul class="tbl-export-btn">
+                  <li>
+                    <div class="export-button m-l-10" matTooltip="XLSX">
+                      <img src="assets/images/icons/xlsx.png" alt="" />
+                    </div>
+                  </li>
+                </ul> -->
+              </div>
+            </div>
+            <div class="body overflow-auto">
+              <div class="responsive_table">
+                <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                  
+                  <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef>Id
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+                  </ng-container>
+                  
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef>Nombre Paciente
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Patient Name:</span> {{ row.Paciente.nombre + ' ' + row.Paciente.apellidos }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="dateTime">
+                    <mat-header-cell *matHeaderCellDef>Fecha y Hora
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <span class="mobile-label">Date & Time:</span> {{ row.fecha_cita | CustomDateTablePipe }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="medic">
+                    <mat-header-cell *matHeaderCellDef>Medico
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Medico:</span> {{ row.Medico.nombre + ' ' + row.Medico.apellidos }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="mobile">
+                    <mat-header-cell *matHeaderCellDef>Celular
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> <span class="mobile-label">Mobile:</span> {{row.Paciente.telefono}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef>Correo
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Email:</span> {{row.Paciente.correo}}
+                    </mat-cell>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="address">
+                    <mat-header-cell *matHeaderCellDef>Address
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" class="column-nowrap"> <span
+                        class="mobile-label">Address:</span>{{row.Paciente.calle_y_numero}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="estatus">
+                    <mat-header-cell *matHeaderCellDef>Estatus
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row" class="column-nowrap"> <span
+                        class="mobile-label">Estatus:</span>
+                        <button mat-raised-button [ngClass]="getStatus(row.estatus)">
+                          {{row.estatus}}
+                        </button>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns">
+                  </mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row.id_cita)" [style.cursor]="'pointer'" matRipple>
+                  </mat-row>
+                </mat-table>
+                <!-- Loading spinner -->
+                <div *ngIf="exampleDatabase?.isTblLoading" class="tbl-spinner">
+                  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                  </mat-progress-spinner>
+                </div>
+                <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+                  [style.display]="datosFuente.length === 0 ? '' : 'none'">
+                  No results
+                </div>
+                <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

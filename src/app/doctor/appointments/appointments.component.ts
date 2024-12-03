@@ -23,28 +23,33 @@ import {
   UnsubscribeOnDestroyAdapter,
 } from '@shared';
 import { formatDate } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../../core/service/auth.service';
+import { DoctorsService } from '../../admin/doctors/alldoctors/doctors.service';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.scss'],
+  providers: [DoctorsService]
 })
 export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   filterToggle = false;
   displayedColumns = [
-    'select',
+    // 'select',
     // 'img',
     'name',
     'dateTime',
     'email',
     'mobile',
     'disease',
-    'actions',
+    // 'actions',
   ];
   currentDate = new Date().toISOString();
   estatus: number = 1;
   exampleDatabase?: AppointmentsService;
-  dataSource!: ExampleDataSource;
+  dataSource = new MatTableDataSource<Appointments>();
+
   datosFuente: Appointments[] = [];
   selection = new SelectionModel<Appointments>(true, []);
   id?: number;
@@ -53,22 +58,24 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public appointmentsService: AppointmentsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public authService: AuthService,
+    public doctorService: DoctorsService
   ) {
     super();
+    dataSource: new MatTableDataSource([]);
   }
-  @ViewChild(MatPaginator, { static: true })
-  paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: true })
-  sort!: MatSort;
-  @ViewChild('filter', { static: true }) filter?: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu?: MatMenuTrigger;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatSort, { static: true })  sort!: MatSort;
+  // @ViewChild('filter', { static: true }) filter?: ElementRef;
+  @ViewChild(MatMenuTrigger) contextMenu?: MatMenuTrigger;
   contextMenuPosition = { x: '0px', y: '0px' };
 
   ngOnInit() {
     this.loadData();
   }
+
+
   refresh() {
     this.loadData();
   }
@@ -116,10 +123,12 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
         action: 'details',
       },
       direction: tempDirection,
-      height: '71%',
+      height: '73%',
       width: '35%',
     });
   }
+
+
   toggleStar(row: Appointments) {
     console.log(row);
   }
@@ -127,44 +136,44 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     this.paginator._changePageSize(this.paginator.pageSize);
   }
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.renderedData.length;
-    return numSelected === numRows;
-  }
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.renderedData.length;
+  //   return numSelected === numRows;
+  // }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.renderedData.forEach((row) =>
-          this.selection.select(row)
-        );
-  }
-  removeSelectedRows() {
-    const totalSelect = this.selection.selected.length;
-    this.selection.selected.forEach((item) => {
-      const index: number = this.dataSource.renderedData.findIndex(
-        (d) => d === item
-      );
-      // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
-      this.exampleDatabase?.dataChange.value.splice(index, 1);
-      this.refreshTable();
-      this.selection = new SelectionModel<Appointments>(true, []);
-    });
-    this.showNotification(
-      'snackbar-danger',
-      totalSelect + ' Record Delete Successfully...!!!',
-      'bottom',
-      'center'
-    );
-  }
+  // masterToggle() {
+  //   this.isAllSelected()
+  //     ? this.selection.clear()
+  //     : this.dataSource.renderedData.forEach((row) =>
+  //         this.selection.select(row)
+  //       );
+  // }
+  // removeSelectedRows() {
+  //   const totalSelect = this.selection.selected.length;
+  //   this.selection.selected.forEach((item) => {
+  //     const index: number = this.dataSource.renderedData.findIndex(
+  //       (d) => d === item
+  //     );
+  //     // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
+  //     this.exampleDatabase?.dataChange.value.splice(index, 1);
+  //     this.refreshTable();
+  //     this.selection = new SelectionModel<Appointments>(true, []);
+  //   });
+  //   this.showNotification(
+  //     'snackbar-danger',
+  //     totalSelect + ' Record Delete Successfully...!!!',
+  //     'bottom',
+  //     'center'
+  //   );
+  // }
 
   getStatus(status: string){
     if(status == 'En espera' ){
       return 'mat-primary';
     }
-    else if( status == 'En curso'){ 
+    else if( status == 'En curso'){
       return 'mat-success';
     }
     else{
@@ -180,21 +189,36 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     //   this.paginator,
     //   this.sort
     // );
-    this.appointmentsService.getAllAppointmentss().subscribe( (data: any) => {
-      this.datosFuente = data.citasActuales;
-      this.datosFuente.forEach( cita => {
-        cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
-      })
-      console.log(this.datosFuente, 'datosFuente')
+    const EmailUser = this.authService.currentUserValue.userLogin.correo;
+    let idMedico: number = 0;
+    console.log(EmailUser)
+
+    this.doctorService.getDoctorByEmail( EmailUser ).subscribe( doctor => {
+      idMedico = doctor.medico.id_medico;
+      console.log(idMedico)
+      this.appointmentsService.getAllAppointmentss(idMedico).subscribe( (data: any) => {
+        console.log(data,' appoinmyasd')
+        this.datosFuente = data.citas;
+        this.dataSource = new MatTableDataSource(this.datosFuente);
+        this.dataSource.paginator =  this.paginator;
+
+        // this.datosFuente.forEach( cita => {
+        //   cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
+        // })
+        console.log(this.datosFuente, 'datosFuente')
+      });
     });
-    this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
-      () => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter?.nativeElement.value;
-      }
-    );
+
+    // const idMedico = this.authService.currentUserValue.id_medico;
+
+    // this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
+    //   () => {
+    //     if (!this.dataSource) {
+    //       return;
+    //     }
+    //     this.dataSource.filter = this.filter?.nativeElement.value;
+    //   }
+    // );
   }
   // export table data in excel file
   // exportExcel() {
@@ -254,8 +278,9 @@ export class ExampleDataSource extends DataSource<Appointments> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllAppointmentss();
-    
+    // let idMedico = 1001
+    // this.exampleDatabase.getAllAppointmentss(idMedico);
+
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

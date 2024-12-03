@@ -12,77 +12,91 @@
     </button>
   </div>
   <div mat-dialog-content>
-    <form class="register-form m-4" [formGroup]="itemStockListForm" (ngSubmit)="submit">
+    <form class="register-form m-4" [formGroup]="itemForm">
       <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Item Name</mat-label>
-            <input matInput formControlName="i_name" required>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>badge</mat-icon>
-            <mat-error *ngIf="itemStockListForm.get('i_name')?.hasError('required')">
-              Item Name is required
-            </mat-error>
+            <mat-label>SKU</mat-label>
+            <input matInput formControlName="codigo" oninput="this.value = this.value.toUpperCase()">
+            <mat-error *ngIf="campoEsValido('codigo')">{{'Debe Ingresar el Codigo'}}</mat-error>
           </mat-form-field>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Category</mat-label>
-            <input matInput formControlName="category" required>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>category</mat-icon>
-            <mat-error *ngIf="itemStockListForm.get('category')?.hasError('required')">
-              Category is required
-            </mat-error>
+            <mat-label>Descripcion</mat-label>
+            <input matInput formControlName="descripcion" style="text-transform: uppercase;" >
+            <mat-error *ngIf="campoEsValido('descripcion')">{{'Debe Ingresar una Descripción'}}</mat-error>
           </mat-form-field>
         </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Factura Compra</mat-label>
+            <input matInput formControlName="facturaCompra" oninput="this.value = this.value.toUpperCase()">
+            <mat-error *ngIf="campoEsValido('facturaCompra')">{{'Debe Ingresar la Factura'}}</mat-error>
+          </mat-form-field>
+        </div>
+        
       </div>
       <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
+          <mat-label>Estado</mat-label>
+          <mat-radio-group color="primary" formControlName="estado" aria-label="Estado">
+            <mat-radio-button  [value]="true">Activo</mat-radio-button>
+            <mat-radio-button [value]="false">Desactivado</mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="campoEsValido('estado')">{{'Seleccione tipo de busqueda'}}</mat-error>
+        </div> -->
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Quantity</mat-label>
-            <input matInput formControlName="qty" type="number" required>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>tag</mat-icon>
-            <mat-error *ngIf="itemStockListForm.get('qty')?.hasError('required')">
-              Quantity is required
-            </mat-error>
+            <mat-label>Numero Lote</mat-label>
+            <input matInput formControlName="numeroLote" style="text-transform: uppercase;" >
+            <mat-error *ngIf="campoEsValido('numeroLote')">{{'Debe Ingresar Numero de Lote'}}</mat-error>
           </mat-form-field>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
+          <mat-label>Perecedero</mat-label>
+          <mat-error *ngIf="campoEsValido('perecedero')">{{'Debe Seleccionar una Opción'}}</mat-error>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Purchase date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-label>Fecha Caducidad</mat-label>
+            <input  matInput [matDatepicker]="picker" formControlName="fechaCaducidad">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="itemStockListForm.get('date')?.hasError('required')">
-              Please select date
-            </mat-error>
+            <mat-error *ngIf="campoEsValido('codigo')">{{'Debe seleccionar una fecha'}}</mat-error>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Price</mat-label>
-            <input matInput formControlName="price" type="number" required>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>attach_money</mat-icon>
-            <mat-error *ngIf="itemStockListForm.get('price')?.hasError('required')">
-              Price is required
-            </mat-error>
+            <mat-label>Cantidad Minima</mat-label>
+            <input type="number" matInput formControlName="cantidadMinima" style="text-transform: uppercase;" >
+            <mat-error *ngIf="campoEsValido('cantidadMinima')">{{'Debe Ingresar Cant. Minima'}}</mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="details"></textarea>
+            <mat-label>Cantidad Maxima</mat-label>
+            <input type="number" matInput formControlName="cantidadMaxima" style="text-transform: uppercase;" >
+            <mat-error *ngIf="campoEsValido('cantidadMaxima')">{{'Debe Ingresar Cant. Maxima'}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Cantidad Actual</mat-label>
+            <input type="number" matInput formControlName="cantidadActual" style="text-transform: uppercase;" >
+            <mat-error *ngIf="campoEsValido('cantidadActual')">{{'Debe Ingresar Cant. Actual'}}</mat-error>
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-4">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <div class="example-button-row">
-            <button mat-raised-button color="primary" [disabled]="!itemStockListForm.valid" [mat-dialog-close]="1"
-              (click)="confirmAdd()">Save</button>
+            <button *ngIf="data.action == 'edit'" mat-raised-button color="primary" [disabled]="!itemForm.valid" [mat-dialog-close]="1"
+              (click)="confirmEdit()">Editar</button>
+            <button *ngIf="data.action == 'add'" mat-raised-button color="primary" [disabled]="!itemForm.valid" [mat-dialog-close]="1"
+              (click)="confirmAdd()">Guardar</button>
             <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
           </div>
         </div>

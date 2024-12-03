@@ -1,0 +1,137 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Citas'" [items]="[]" [active_item]="'Calendario'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="card">
+            <div class="header">
+              <!-- <h2>Editar Cita</h2> -->
+            </div>
+            <div class="body">
+                <div class="example-container">
+                     <form [formGroup]="reportForm">
+                        <div class="row">
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Medico</mat-label>
+                                <mat-select formControlName="medico">
+                                    <mat-option *ngFor="let doctor of doctors" [value]="doctor.id_medico">
+                                    {{doctor.nombre + ' ' + doctor.apellidos}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="campoEsValido('medico')">{{'Debe seleccionar un Medico'}}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Fecha Inicio</mat-label>
+                                <input matInput formControlName="startDate" [matDatepicker]="picker">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="campoEsValido('startDate')">{{'Debe seleccionar una fecha inicio'}}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                                <mat-label>Fecha Fin</mat-label>
+                                <input matInput formControlName="endDate" [matDatepicker]="picker1">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                                <mat-error *ngIf="campoEsValido('endDate')">{{'Debe seleccionar una fecha fin'}}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="col-3" appearance="outline">
+                              <mat-label>Motivo Consulta</mat-label>
+                              <mat-select formControlName="type">
+                                <mat-option *ngFor="let motivo of motivos" [value]="motivo">
+                                  {{motivo}}
+                                </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="campoEsValido('type')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <button class="btn-space" mat-raised-button (click)="search()"
+                            color="primary">Buscar</button>
+                  </form>
+              </div>
+              <div *ngIf="showTable" class="row" style="margin-top: 15px;" >
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card">
+                    <div class="materialTableHeader">
+                      <div class="left">
+                        <ul class="header-buttons-left ms-0">
+                          <li class="tbl-title">
+                            <h2>Citas</h2>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="right">
+                        <ul class="tbl-export-btn">
+                          <li>
+                            <div class="export-button m-l-10" matTooltip="XLSX">
+                              <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" />
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="body overflow-auto">
+                      <div class="responsive_table">
+                        <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                            <ng-container matColumnDef="name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Paciente
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let row"><span class="mobile-label">Medico:</span> {{ row.Paciente.nombre + ' ' + row.Paciente.apellidos }}
+                                </mat-cell>
+                              </ng-container>
+                          
+                          <ng-container matColumnDef="motivo_consulta">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Motivo Consulta
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"><span class="mobile-label">Motivo Consulta:</span>
+                               {{row.motivo_consulta}}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="fecha">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <span class="mobile-label">Date & Time:</span> {{ row.fecha_cita | CustomDateTablePipe }}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> <span class="mobile-label">Estatus:</span> 
+                                <button mat-raised-button [ngClass]="getStatus(row.estatus)">
+                                    {{row.estatus}}
+                                  </button>
+                            </mat-cell>
+                          </ng-container>
+                          <mat-header-row *matHeaderRowDef="displayedColumns">
+                          </mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
+                          </mat-row>
+                        </mat-table>
+                        <!-- Loading spinner -->
+                        <div *ngIf="exampleDatabase?.isTblLoading" class="tbl-spinner">
+                          <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                          </mat-progress-spinner>
+                        </div>
+                        <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+                          [style.display]="dataSource.filteredData.length === 0 ? '' : 'none'">
+                          Sin resultados
+                        </div>
+                        <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0" [pageSize]="15"
+                          [pageSizeOptions]="[5, 10, 25, 100]">
+                        </mat-paginator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  
+  

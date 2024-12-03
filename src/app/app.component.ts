@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Event, Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { DoctorsService } from './admin/doctors/alldoctors/doctors.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [DoctorsService]
 })
 export class AppComponent {
   currentUrl!: string;

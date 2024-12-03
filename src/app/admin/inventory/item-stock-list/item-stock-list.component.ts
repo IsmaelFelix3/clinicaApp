@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ItemStockListService } from './item-stock-list.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -23,6 +23,10 @@ import {
   UnsubscribeOnDestroyAdapter,
 } from '@shared';
 import { formatDate } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
+import { Insumo, Insumos } from 'app/interfaces/Insumo';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-item-stock-list',
@@ -34,17 +38,19 @@ export class ItemStockListComponent
   implements OnInit
 {
   displayedColumns = [
-    'select',
-    'i_name',
-    'category',
-    'qty',
-    'date',
-    'price',
-    'details',
-    'actions',
+    // 'select',
+    // 'id_insumo',
+    'codigo',
+    'descripcion',
+    // 'estado',
+    'facturaCompra',
+    'numeroLote',
+    'fechaCaducidad',
+    'cantidadActual'
+    // 'actions',
   ];
   exampleDatabase?: ItemStockListService;
-  dataSource!: ExampleDataSource;
+  dataSource = new MatTableDataSource<Insumo>();
   selection = new SelectionModel<ItemStockList>(true, []);
   index?: number;
   id?: number;
@@ -52,8 +58,10 @@ export class ItemStockListComponent
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
+    public itemStockService: ItemStockListService,
     public itemStockListService: ItemStockListService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     super();
   }
@@ -62,45 +70,97 @@ export class ItemStockListComponent
   @ViewChild(MatSort, { static: true })
   sort!: MatSort;
   @ViewChild('filter', { static: true }) filter?: ElementRef;
+
   ngOnInit() {
     this.loadData();
   }
+
   refresh() {
+    console.log('entro')
     this.loadData();
   }
-  addNew() {
-    let tempDirection: Direction;
-    if (localStorage.getItem('isRtl') === 'true') {
-      tempDirection = 'rtl';
-    } else {
-      tempDirection = 'ltr';
-    }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
-      data: {
-        itemStockList: this.itemStockList,
-        action: 'add',
-      },
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
-        this.exampleDatabase?.dataChange.value.unshift(
-          this.itemStockListService.getDialogData()
-        );
-        this.refreshTable();
-        this.showNotification(
-          'snackbar-success',
-          'Add Record Successfully...!!!',
-          'bottom',
-          'center'
-        );
-      }
-    });
+
+  // onFileChange(event: any): void {
+  //   console.log(event)
+  //   const file = event.target.files[0];
+  //   const fileReader = new FileReader();
+
+  //   fileReader.onload = (e: any) => {
+  //     const arrayBuffer = e.target.result;
+  //     this.parseExcel(arrayBuffer);
+  //   };
+  //   fileReader.readAsArrayBuffer(file);
+  // }
+
+  // parseExcel(arrayBuffer: any): void {
+  //   const workbook = new ExcelJS.Workbook();
+  //   workbook.xlsx.load(arrayBuffer).then((workbook) => {
+  //     let jsonData: any[] = [];
+  //     workbook.eachSheet((worksheet, sheetId) => {
+  //       worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+  //         const headers: any = worksheet.getRow(1).values;
+  //         if(row.number != 1){
+  //           let rowData: any = {};
+  //           row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+  //             rowData[`${headers[colNumber]}`] = cell.value;            
+  //           });
+  //           jsonData.push(rowData);
+  //         }
+  //       });
+  //     });
+  
+  //     console.log(jsonData);
+  //   });
+  // }
+
+  addSupply() {
+    console.log(this.router)
+    this.router.navigateByUrl('/admin/inventory/item-stock');
+    // let tempDirection: Direction;
+    // if (localStorage.getItem('isRtl') === 'true') {
+    //   tempDirection = 'rtl';
+    // } else {
+    //   tempDirection = 'ltr';
+    // }
+    // const dialogRef = this.dialog.open(FormDialogComponent, {
+    //   data: {
+    //     itemStockList: this.itemStockList,
+    //     action: 'add',
+    //   },
+    //   direction: tempDirection,
+    // });
+    // this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+    //   if (result === 1) {
+    //     // After dialog is closed we're doing frontend updates
+    //     // For add we're just pushing a new row inside DataService
+    //     this.exampleDatabase?.dataChange.value.unshift(
+    //       this.itemStockListService.getDialogData()
+    //     );
+    //     this.refresh();
+    //     this.refreshTable();
+        // this.showNotification(
+        //   'snackbar-success',
+        //   'Add Record Successfully...!!!',
+        //   'bottom',
+        //   'center'
+        // );
+    //   }
+    // });
   }
+
+  getStatus(status: boolean){
+    // console.log('entrooooooooooooooooo')
+    if(status == true ){
+      return 'mat-primary';
+    }
+    else { 
+      return 'mat-warn';
+    }
+
+  }
+
   editCall(row: ItemStockList) {
-    this.id = row.id;
+    this.id = row.id_insumo;
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -109,35 +169,33 @@ export class ItemStockListComponent
     }
     const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
-        itemStockList: row,
+        item: row,
         action: 'edit',
       },
       direction: tempDirection,
     });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
-        // When using an edit things are little different, firstly we find record inside DataService by id
-        const foundIndex = this.exampleDatabase?.dataChange.value.findIndex(
-          (x) => x.id === this.id
-        );
-        // Then you update that record using data from dialogData (values you enetered)
-        if (foundIndex != null && this.exampleDatabase) {
-          this.exampleDatabase.dataChange.value[foundIndex] =
-            this.itemStockListService.getDialogData();
-          // And lastly refresh table
-          this.refreshTable();
-          this.showNotification(
-            'black',
-            'Edit Record Successfully...!!!',
-            'bottom',
-            'center'
-          );
-        }
-      }
-    });
+
+    // this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+    //   console.log(result)
+    //   console.log(this.exampleDatabase?.dataChange.value)
+    //   if (result === 1) {
+    //     // When using an edit things are little different, firstly we find record inside DataService by id
+    //     const foundIndex = this.exampleDatabase?.dataChange.value.findIndex(
+    //       (x) => x.id_insumo === this.id
+    //     );
+    //     console.log(foundIndex)
+    //     // Then you update that record using data from dialogData (values you enetered)
+    //     if (foundIndex != null && this.exampleDatabase) {
+    //       this.exampleDatabase.dataChange.value[foundIndex] =
+    //         this.itemStockListService.getDialogData();
+    //       // And lastly refresh table
+    //       this.refreshTable();
+    //     }
+    //   }
+    // });
   }
   deleteItem(row: ItemStockList) {
-    this.id = row.id;
+    this.id = row.id_insumo;
     let tempDirection: Direction;
     if (localStorage.getItem('isRtl') === 'true') {
       tempDirection = 'rtl';
@@ -151,66 +209,84 @@ export class ItemStockListComponent
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
         const foundIndex = this.exampleDatabase?.dataChange.value.findIndex(
-          (x) => x.id === this.id
+          (x) => x.id_insumo === this.id
         );
         // for delete we use splice in order to remove single object from DataService
         if (foundIndex != null && this.exampleDatabase) {
           this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
 
           this.refreshTable();
-          this.showNotification(
-            'snackbar-danger',
-            'Delete Record Successfully...!!!',
-            'bottom',
-            'center'
-          );
+          // this.showNotification(
+          //   'snackbar-danger',
+          //   'Delete Record Successfully...!!!',
+          //   'bottom',
+          //   'center'
+          // );
         }
       }
     });
   }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.renderedData.length;
-    return numSelected === numRows;
+
+  redirect(row: Insumo){
+    this.router.navigateByUrl('admin/inventory/edit-item',{state: {row}});
   }
 
+  private refreshTable() {
+    // this.paginator._changePageSize(this.paginator.pageSize);
+  }
+  /** Whether the number of selected elements matches the total number of rows. */
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.renderedData.length;
+  //   return numSelected === numRows;
+  // }
+
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.renderedData.forEach((row) =>
-          this.selection.select(row)
-        );
-  }
-  removeSelectedRows() {
-    const totalSelect = this.selection.selected.length;
-    this.selection.selected.forEach((item) => {
-      const index: number = this.dataSource.renderedData.findIndex(
-        (d) => d === item
-      );
-      // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
-      this.exampleDatabase?.dataChange.value.splice(index, 1);
-      this.refreshTable();
-      this.selection = new SelectionModel<ItemStockList>(true, []);
-    });
-    this.showNotification(
-      'snackbar-danger',
-      totalSelect + ' Record Delete Successfully...!!!',
-      'bottom',
-      'center'
-    );
-  }
+  // masterToggle() {
+  //   this.isAllSelected()
+  //     ? this.selection.clear()
+  //     : this.dataSource.renderedData.forEach((row) =>
+  //         this.selection.select(row)
+  //       );
+  // }
+  // removeSelectedRows() {
+  //   const totalSelect = this.selection.selected.length;
+  //   this.selection.selected.forEach((item) => {
+  //     const index: number = this.dataSource.renderedData.findIndex(
+  //       (d) => d === item
+  //     );
+  //     // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
+  //     this.exampleDatabase?.dataChange.value.splice(index, 1);
+  //     this.refreshTable();
+  //     this.selection = new SelectionModel<ItemStockList>(true, []);
+  //   });
+  //   this.showNotification(
+  //     'snackbar-danger',
+  //     totalSelect + ' Record Delete Successfully...!!!',
+  //     'bottom',
+  //     'center'
+  //   );
+  // }
   public loadData() {
-    this.exampleDatabase = new ItemStockListService(this.httpClient);
-    this.dataSource = new ExampleDataSource(
-      this.exampleDatabase,
-      this.paginator,
-      this.sort
-    );
+    // this.exampleDatabase = new ItemStockListService(this.httpClient);
+
+    this.itemStockService.getAllItemStockLists().subscribe({
+          next: (data) => {
+            console.log(data)
+            this.itemStockService.isTblLoading = false;
+            this.dataSource = new MatTableDataSource(data.insumos.rows);
+            this.itemStockService.dataChange.next(data.insumos.rows);
+          },
+          error: (error: HttpErrorResponse) => {
+            this.itemStockService.isTblLoading = false;
+            console.log(error.name + ' ' + error.message);
+          },
+        });
+    // this.dataSource = new ExampleDataSource(
+    //   this.exampleDatabase,
+    //   this.paginator,
+    //   this.sort
+    // );
     this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
       () => {
         if (!this.dataSource) {
@@ -224,13 +300,11 @@ export class ItemStockListComponent
   exportExcel() {
     // key name with space add in brackets
     const exportData: Partial<TableElement>[] =
-      this.dataSource.filteredData.map((x) => ({
-        'Item Name': x.i_name,
-        Category: x.category,
-        Quantity: x.qty,
-        'Purchase Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
-        Price: x.price,
-        Details: x.details,
+      this.dataSource.filteredData.map((x:any) => ({
+        'Codigo': x.codigo,
+        'Nombre': x.descripcion,
+        'Estado': x.estado,
+        'Fecha Alta': formatDate(new Date(x.date), 'yyyy-MM-dd', 'sp') || '',
       }));
 
     TableExportUtil.exportToExcel(exportData, 'excel');
@@ -247,104 +321,6 @@ export class ItemStockListComponent
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
-    });
-  }
-}
-export class ExampleDataSource extends DataSource<ItemStockList> {
-  filterChange = new BehaviorSubject('');
-  get filter(): string {
-    return this.filterChange.value;
-  }
-  set filter(filter: string) {
-    this.filterChange.next(filter);
-  }
-  filteredData: ItemStockList[] = [];
-  renderedData: ItemStockList[] = [];
-  constructor(
-    public exampleDatabase: ItemStockListService,
-    public paginator: MatPaginator,
-    public _sort: MatSort
-  ) {
-    super();
-    // Reset to the first page when the user changes the filter.
-    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
-  }
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<ItemStockList[]> {
-    // Listen for any changes in the base data, sorting, filtering, or pagination
-    const displayDataChanges = [
-      this.exampleDatabase.dataChange,
-      this._sort.sortChange,
-      this.filterChange,
-      this.paginator.page,
-    ];
-    this.exampleDatabase.getAllItemStockLists();
-    return merge(...displayDataChanges).pipe(
-      map(() => {
-        // Filter data
-        this.filteredData = this.exampleDatabase.data
-          .slice()
-          .filter((itemStockList: ItemStockList) => {
-            const searchStr = (
-              itemStockList.i_name +
-              itemStockList.category +
-              itemStockList.qty +
-              itemStockList.date +
-              itemStockList.price +
-              itemStockList.details
-            ).toLowerCase();
-            return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-          });
-        // Sort filtered data
-        const sortedData = this.sortData(this.filteredData.slice());
-        // Grab the page's slice of the filtered sorted data.
-        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        this.renderedData = sortedData.splice(
-          startIndex,
-          this.paginator.pageSize
-        );
-        return this.renderedData;
-      })
-    );
-  }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  disconnect() {}
-  /** Returns a sorted copy of the database data. */
-  sortData(data: ItemStockList[]): ItemStockList[] {
-    if (!this._sort.active || this._sort.direction === '') {
-      return data;
-    }
-    return data.sort((a, b) => {
-      let propertyA: number | string = '';
-      let propertyB: number | string = '';
-      switch (this._sort.active) {
-        case 'id':
-          [propertyA, propertyB] = [a.id, b.id];
-          break;
-        case 'i_name':
-          [propertyA, propertyB] = [a.i_name, b.i_name];
-          break;
-        case 'category':
-          [propertyA, propertyB] = [a.category, b.category];
-          break;
-        case 'qty':
-          [propertyA, propertyB] = [a.qty, b.qty];
-          break;
-        case 'date':
-          [propertyA, propertyB] = [a.date, b.date];
-          break;
-        case 'price':
-          [propertyA, propertyB] = [a.price, b.price];
-          break;
-        case 'details':
-          [propertyA, propertyB] = [a.details, b.details];
-          break;
-      }
-      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-      return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1)
-      );
     });
   }
 }

@@ -1,0 +1,49 @@
+    <div class="content-block m-3">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        
+        <!-- <div class="card"> -->
+          <div class="header">
+            <h2>
+              <strong>Historial de citas</strong>
+            </h2>
+            
+          </div>
+          <div class="body">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-10">
+                  <ul class="left-timeline">
+                    <li *ngFor="let cita of citas">
+                        <time class="left-time" [dateTime]="cita.fechaCita">
+                            <span class="hidden">{{ cita.fechaCita | CustomDateTablePipe }}</span>
+                            <span class="large">Now</span>
+                        </time>
+                      <div class="left-icon" style="color: grey !important; background: white !important;">
+                        <!-- <img src="assets/images/user/user1.jpg" alt=""> -->
+                        <mat-icon class="m-2">{{ cita.icon }}</mat-icon>
+                      </div>
+                      <div class="left-label"> 
+                        <h4>{{ cita.motivoConsulta }}</h4>
+                        
+                        <h5>{{ cita.diagnostico }}</h5>
+                        <p>
+                          {{ cita.sintomas }}
+                        </p>
+                        <p>
+                          {{ cita.tratamiento }}
+                        </p> 
+                        <button mat-raised-button color="primary" (click)="visualizarCita(cita.idCita)">
+                          Ir a cita
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+
+  

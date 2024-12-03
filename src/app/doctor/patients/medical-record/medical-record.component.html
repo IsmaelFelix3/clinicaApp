@@ -4,12 +4,24 @@
             <div class="editRowModal">
                 <div class="modalHeader clearfix">
                     <div class="modal-about contact-header">
-                    <div class="contact-details-img">
+                    <!-- <div class="contact-details-img">
                         <img src='' alt="avatar">
-                    </div>
+                    </div> -->
                     <div class="contact-details-heading">
-                        <div class="contact-details-name mb-3" style="overflow: unset;">{{patientDetail.nombre + ' ' + patientDetail.apellidos}}</div>
-                        <div class="badge col-green">Paciente</div>
+                        <div class="contact-details-name mb-3" style="overflow: unset;">
+                            <h2>Expediente Medico</h2> {{patientDetail.nombre + ' ' + patientDetail.apellidos}} 
+                            <!-- <div class="badge col-green">Paciente</div> -->
+                            
+                            <button mat-raised-button (click)="saveMedicalRecord()" color="primary">
+                                <mat-icon>done</mat-icon>
+                                Guardar
+                            </button> 
+                            <button class="ms-2" mat-raised-button (click)="closeModal()" color="warn">
+                                <mat-icon>arrow_back</mat-icon>
+                                Regresar
+                            </button>
+                        </div>
+                        <!-- <div class="badge col-green">Paciente</div> -->
                     </div>
                     </div>
                 </div>
@@ -19,23 +31,10 @@
 </div>
 
 <div class="col-xl-11 col-lg-11 col-md-12 col-sm-12 mx-auto">
-    <div class="card">
-      <div class="header">
-        <h2>Expediente Medico</h2>
-      </div>
-      <div class="body">
         <div class="example-container">
             <form [formGroup]="medicalRecordForm">
-                <mat-accordion>
-                    <mat-expansion-panel hideToggle>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                        General
-                        </mat-panel-title>
-                        <!-- <mat-panel-description>
-                        This is a summary of the content
-                        </mat-panel-description> -->
-                    </mat-expansion-panel-header>
+                <mat-tab-group [dynamicHeight]='true'>
+                    <mat-tab label="General">
                         <div class="row mt-4">
                             <mat-form-field class="col-2" appearance="outline">
                                 <mat-label>Expediente</mat-label>
@@ -49,7 +48,7 @@
                             </mat-form-field>
                             <mat-form-field class="col-3" appearance="outline">
                                 <mat-label>Fecha Expediente</mat-label>
-                                <input matInput formControlName="fechaCreacionExpediente">
+                                <input matInput type="text" formControlName="fechaCreacionExpediente">
                                 <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                             </mat-form-field>
                             <mat-form-field class="col-2" appearance="outline">
@@ -63,30 +62,29 @@
                                 <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                             </mat-form-field>
                         </div>
-                        <div class="row mt-4">
+                        <div class="row">
                             <mat-form-field class="col-12" appearance="outline">
                                 <mat-label>Alergias</mat-label>
                                 <textarea style="height: 2.5rem;" matInput formControlName="alergias"></textarea>
                                 <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error> -->
                             </mat-form-field>
                         </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel (opened)="true"
-                                        (closed)="false">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                        Antecedentes Personales Patologicos
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
+                    </mat-tab>
+                    <mat-tab label="Antecedentes Personales Patologicos">
                     <div class="row mt-4">
-                        <mat-form-field class="col-6" appearance="outline">
+                        <mat-form-field class="col-4" appearance="outline">
                             <mat-label>Enfermedades Infantiles</mat-label>
                             <textarea style="height: 2.5rem;" matInput formControlName="enfermedadesInfantiles"></textarea>
                             <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar un motivo de consulta'}}</mat-error> -->
                         </mat-form-field>
-                        <mat-form-field class="col-6" appearance="outline">
+                        <mat-form-field class="col-4" appearance="outline">
                             <mat-label>Secuelas</mat-label>
                             <textarea style="height: 2.5rem;" matInput formControlName="secuelas"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Diabetes</mat-label>
+                            <input style="height: 2.5rem;" matInput formControlName="diabetes">
                             <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                         </mat-form-field>
                         <mat-form-field class="col-6" appearance="outline">
@@ -104,18 +102,15 @@
                             <textarea style="height: 2.5rem;" matInput formControlName="otrasEnfermedades"></textarea>
                             <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                         </mat-form-field>
+                        <mat-form-field class="col-6" appearance="outline">
+                            <mat-label>Enfermedades Cronico Degenerativas</mat-label>
+                            <textarea style="height: 2.5rem;" matInput formControlName="enfermedadesCronicoDegenerativas"></textarea>
+                            <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
+                        </mat-form-field>
                     </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                            Antecedentes Personales No Patologicos
-                            </mat-panel-title>
-                            <!-- <mat-panel-description>
-                            This is a summary of the content
-                            </mat-panel-description> -->
-                        </mat-expansion-panel-header>
-                        <div class="row">
+                    </mat-tab>
+                    <mat-tab label=" Antecedentes Personales No Patologicos">
+                        <div class="row mt-4">
                             <div class="col-2">
                                 <mat-checkbox color="primary" labelPosition="before" formControlName="fumador">
                                     Fumador
@@ -131,11 +126,7 @@
                                     Drogas
                                 </mat-checkbox>
                             </div>
-                            <mat-form-field class="col-6" appearance="outline">
-                                <mat-label>Diabetes</mat-label>
-                                <input style="height: 2.5rem;" matInput formControlName="diabetes">
-                                <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
-                            </mat-form-field>
+                            
                         </div>
                         <div class="row mt-4">
                             <mat-form-field class="col-6" appearance="outline">
@@ -149,17 +140,10 @@
                                 <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                             </mat-form-field>
                         </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel hideToggle>
-                        <mat-expansion-panel-header>
-                        <mat-panel-title>
-                        Antecedentes Andrologicos
-                        </mat-panel-title>
-                            <!-- <mat-panel-description>
-                            This is a summary of the content
-                            </mat-panel-description> -->
-                        </mat-expansion-panel-header>
-                         <div class="row">
+                    </mat-tab>
+                    <mat-tab *ngIf="isPatientMale" label="Antecedentes Andrologicos">
+                        
+                         <div class="row mt-4">
                             <div class="col-2">
                                 <mat-checkbox color="primary" labelPosition="before" formControlName="circuncision">
                                     Circuncision
@@ -201,17 +185,9 @@
                                 <!-- <mat-error *ngIf="campoEsValido('motivo_consulta')">{{'Debe agregar sintomas'}}</mat-error> -->
                             </mat-form-field>
                         </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                            Antecedentes Gineco-Obstetricos
-                            </mat-panel-title>
-                            <!-- <mat-panel-description>
-                            This is a summary of the content
-                            </mat-panel-description> -->
-                        </mat-expansion-panel-header>
-                         <div class="row">
+                    </mat-tab>
+                    <mat-tab *ngIf="!isPatientMale" label="Antecedentes Gineco-Obstetricos">
+                         <div class="row mt-4">
                             <mat-form-field class="col-2" appearance="outline">
                                 <mat-label>Menarca</mat-label>
                                 <input matInput formControlName="menarca">
@@ -256,36 +232,30 @@
                             </mat-form-field>
                         </div>
                         <div class="row mt-2">
-                            <mat-form-field class="col-6" appearance="outline">
+                            <mat-form-field class="col-3" appearance="outline">
                                 <mat-label>FUM</mat-label>
-                                <input matTooltip="Fecha Ultima Menstruación" matInput formControlName="fechaUltimaMenstruacion">
+                                <input matTooltip="Fecha Ultima Menstruación" matInput formControlName="fechaUltimaMenstruacion" [matDatepicker]="picker">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
-                            <mat-form-field class="col-6" appearance="outline">
+                            <mat-form-field class="col-3" appearance="outline">
                                 <mat-label>Papanicolau</mat-label>
-                                <input matInput formControlName="papanicolau">
+                                <input matTooltip="Fecha Ultimo Papanicolau" matInput formControlName="papanicolau" [matDatepicker]="picker2">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>
-                        </div>
-                        <div class="row mt-2">
-                            <mat-form-field class="col-6" appearance="outline">
+                            <mat-form-field class="col-3" appearance="outline">
                                 <mat-label>ETS</mat-label>
                                 <input matTooltip="Enfermedad Transmision Sexual" matInput formControlName="etsGO">
                             </mat-form-field>
-                            <mat-form-field class="col-6" appearance="outline">
+                            <mat-form-field class="col-3" appearance="outline">
                                 <mat-label>Menopausia</mat-label>
                                 <input matInput formControlName="menopausia">
                             </mat-form-field>
                         </div>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                            Antecedentes Heredo Familiares
-                            </mat-panel-title>
-                            <!-- <mat-panel-description>
-                            This is a summary of the content
-                            </mat-panel-description> -->
-                        </mat-expansion-panel-header>
-                        <div class="row mt-2">
+                    </mat-tab>
+                    <mat-tab label="Antecedentes Heredo Familiares">
+                        <div class="row mt-4">
                             <div class="col-2">
                                 <mat-checkbox color="primary" labelPosition="before" formControlName="diabetesHF">
                                     Diabetes
@@ -332,21 +302,9 @@
                                 <input matInput formControlName="descripcionMalformaciones">
                             </mat-form-field>
                         </div>
-                    </mat-expansion-panel>
-                </mat-accordion>
+                    </mat-tab>
+                </mat-tab-group>
+                
             </form>
-        </div>
-      </div>
-      <div class="row align-self-end">
-          <div class="me-4 mb-3">
-              <button mat-fab extended color="primary">
-                  <mat-icon>done</mat-icon>
-                  Guardar
-              </button>
-          </div>
-      </div>
-    </div>
+        </div>  
   </div>
-
-
-  

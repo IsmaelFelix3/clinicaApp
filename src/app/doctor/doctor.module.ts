@@ -17,11 +17,23 @@ import { AppointmentsService } from './appointments/appointments.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
 import { AppointmentComponent } from './appointments/appointment/appointment.component';
-import { CustomDateTablePipe } from '../helpers/custom-date-table.pipe';
 import { MedicalRecordComponent } from './patients/medical-record/medical-record.component';
 import { PatientDetailsComponent } from './patients/patient-details/patient-details.component';
 import { MedicalRecordsComponent } from './medical-records/medical-records.component';
 import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoinment.component';
+import { HistoricalAppoinmentComponent } from './appointments/historical-appoinment/historical-appoinment.component';
+import { AppointmentsHistoryComponent } from './appointments/appointments-history/appointments-history.component';
+import { CalendarComponent } from './appointments/calendar/calendar.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { CliqProceduresComponent } from './cliq-procedures/cliq-procedures.component';
+import { CurrentProceduresComponent } from './cliq-procedures/current-procedures/current-procedures.component';
+import { EditProcedureComponent } from './cliq-procedures/edit-procedure/edit-procedure.component';
+import { CalendarProceduresComponent } from './cliq-procedures/calendar-procedures/calendar-procedures.component';
+import { AdmissionFormComponent } from './cliq-procedures/admission-form/admission-form.component';
+import { AddPatientDoctorComponent } from './patients/add-patient-doctor/add-patient-doctor.component';
+import { EvolutionNotesComponent } from './appointments/evolution-notes/evolution-notes.component';
+import { PostSurgicalNotesComponent } from './appointments/post-surgical-notes/post-surgical-notes.component';
+
 
 @NgModule({
   declarations: [
@@ -32,11 +44,23 @@ import { NewAppoinmentComponent } from './appointments/new-appoinment/new-appoin
     PatientsComponent,
     SettingsComponent,
     AppointmentComponent,
-    CustomDateTablePipe,
     MedicalRecordComponent,
     PatientDetailsComponent,
     MedicalRecordsComponent,
-    NewAppoinmentComponent
+    NewAppoinmentComponent,
+    HistoricalAppoinmentComponent,
+    AppointmentsHistoryComponent,
+    CalendarComponent,
+    PrescriptionsComponent,
+    CliqProceduresComponent,
+    CurrentProceduresComponent,
+    EditProcedureComponent,
+    CalendarProceduresComponent,
+    AdmissionFormComponent,
+    MedicalRecordComponent,
+    AddPatientDoctorComponent,
+    EvolutionNotesComponent,
+    PostSurgicalNotesComponent
   ],
   imports: [
     CommonModule,

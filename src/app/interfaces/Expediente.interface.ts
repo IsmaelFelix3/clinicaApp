@@ -6,7 +6,7 @@ export interface Expediente {
 export interface ExpedienteClass {
     id_expediente:                             number;
     id_paciente:                               number;
-    fecha_creacion_expediente:                 Date;
+    fecha_creacion_expediente:                 string;
     edad_paciente:                             number;
     alergias:                                  string;
     tipo_sanguineo:                            string;
@@ -78,8 +78,6 @@ export interface AntecedentesPersonalesNoPatologico {
     fumador:                                   boolean;
     alcohol:                                   boolean;
     drogas:                                    boolean;
-    tipo_sanguineo:                            string;
-    diabetes:                                  string;
     id_inmunizacion:                           number;
     otros:                                     string;
     createdAt:                                 Date;
@@ -106,6 +104,8 @@ export interface AntecedentesPersonalesPatologico {
     hospitalizaciones:                      Hospitalizaciones;
     antecedentes_quirurgicos:               AntecedentesQuirurgicos;
     otras_enfermedades:                     OtrasEnfermedades;
+    diabetes:                               string;
+    enfermedades_cronico_degenerativas:     string;
 }
 
 export interface AntecedentesQuirurgicos {

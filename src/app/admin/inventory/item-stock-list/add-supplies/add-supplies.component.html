@@ -1,0 +1,181 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Asignacion masiva de insumos por procedimientos'">
+        </app-breadcrumb>
+      </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+              <div class="header">
+                <h2>Asignación masiva de insumos por procedimientos</h2>
+              </div>
+              <div class="body">
+                  <div class="example-container">
+                    <div class="row">
+                      <div class="export-button m-l-10 image-upload" >
+                        <label for="uploadBtn">
+                           <img src="assets/images/icons/xlsx.png" matTooltip="Importar"/>
+                         </label>
+                        <input id="uploadBtn" accept=".xls, .xlsx" type="file" (change)="onFileChange($event)" 
+                        class="upload input-common"  required matTooltip="Importar" />
+                      </div>  
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div *ngIf="showTable" class="card">
+            <div class="materialTableHeader">
+              <div class="left">
+                <ul class="header-buttons-left ms-0">
+                  <li class="tbl-title">
+                    <h2>Listado Insumos</h2>
+                  </li>
+                  <li class="tbl-search-box">
+                    <label for="search-input">
+                    </label>
+                    <form>
+                      <!-- <mat-form-field class="example-full-width">
+                      <input placeholder="Insumo" type="text" aria-label="Search box" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOption($event)">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                      </mat-form-field> -->
+                    </form>
+                  </li>
+                </ul>
+              </div>
+              <div class="right">
+                <ul class="tbl-export-btn">
+                  <li>
+                    <div *ngIf="disableSave" class="export-button m-l-10" matTooltip="Guardar Listado Insumos">
+                      <button (click)="saveData()" class="btn-space" type="button" mat-fab extended color="primary">
+                        <mat-icon>task</mat-icon>
+                        Guardar Listado Insumos
+                    </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="body overflow-auto">
+              <!-- <div class="responsive_table"> -->
+              <div class="table-responsive">
+                <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                  <ng-container matColumnDef="procedimiento">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Procedimiento
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Procedimiento:</span> 
+                        {{row.procedimiento}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="numeroFacturaCompra">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Factura Compra
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Factura Compra:</span> 
+                        {{row.numeroFacturaCompra}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="sku">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sku
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Sku:</span> 
+                        {{row.sku}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombreProducto">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre producto
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Nombre producto:</span> 
+                        {{row.nombreProducto}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="descripcion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span class="mobile-label">Descripcion:</span> 
+                        {{ row.descripcion }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="numeroLote">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Lote
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Lote:</span> 
+                        {{row.numeroLote}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="fechaCaducidad">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Caducidad
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Fecha Caducidad:</span> 
+                        {{row.fechaCaducidad}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dosis">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dosis
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Dosis:</span> 
+                        {{row.dosis}}
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <ng-container matColumnDef="cantidadActual">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span class="mobile-label">Cantidad:</span> 
+                        {{ row.cantidadActual }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="unidadMedida">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Medida
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> 
+                        <span class="mobile-label">Unidad Medida:</span> 
+                        {{row.unidadMedida}}
+                    </mat-cell>
+                  </ng-container>
+                  
+                  <mat-header-row *matHeaderRowDef="displayedColumns">
+                  </mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"  [style.cursor]="'pointer'">
+                  </mat-row>
+                </mat-table>
+    
+                <!-- <div *ngIf="dataSource" class="no-results"
+                  [style.display]="dataSource.length === 0 ? '' : 'none'">
+                  No results
+                </div> -->
+                <mat-paginator #paginator [length]="dataLength" [pageIndex]="0"
+                  [pageSizeOptions]="[15, 25, 35, 50, 100]">
+                </mat-paginator> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  

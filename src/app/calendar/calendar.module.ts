@@ -28,5 +28,8 @@ import { SharedModule } from '@shared';
   ],
   declarations: [CalendarComponent, calFormComponent],
   providers: [CalendarService],
+  exports: [
+    CalendarComponent
+  ]
 })
 export class CalendarsModule {}

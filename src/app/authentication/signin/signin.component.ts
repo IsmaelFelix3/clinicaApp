@@ -7,10 +7,12 @@ import {
 } from '@angular/forms';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { AuthService, Role } from '@core';
+import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
+  providers: [DoctorsService]
 })
 export class SigninComponent
   extends UnsubscribeOnDestroyAdapter
@@ -25,47 +27,38 @@ export class SigninComponent
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private doctorService: DoctorsService
   ) {
     super();
   }
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ['admin@hospital.org', Validators.required],
-      password: ['admin@123', Validators.required],
+      correo: ['juan.perez@gmail.com', Validators.required],
+      password: ['Admin123', Validators.required],
     });
   }
-  get f() {
+  get loginForm() {
     return this.authForm.controls;
   }
-  adminSet() {
-    this.authForm.get('username')?.setValue('admin@hospital.org');
-    this.authForm.get('password')?.setValue('admin@123');
-  }
-  doctorSet() {
-    this.authForm.get('username')?.setValue('doctor@hospital.org');
-    this.authForm.get('password')?.setValue('doctor@123');
-  }
-  patientSet() {
-    this.authForm.get('username')?.setValue('patient@hospital.org');
-    this.authForm.get('password')?.setValue('patient@123');
-  }
+
   onSubmit() {
     this.submitted = true;
     this.loading = true;
     this.error = '';
+
     if (this.authForm.invalid) {
       this.error = 'Username and Password not valid !';
       return;
-    } else {
+    } 
+    else {
       this.subs.sink = this.authService
-        .login(this.f['username'].value, this.f['password'].value)
-        .subscribe({
+        .loginAdmin(this.loginForm['correo'].value, this.loginForm['password'].value).subscribe({
           next: (res) => {
             if (res) {
               setTimeout(() => {
-                const role = this.authService.currentUserValue.role;
+                const role = this.authService.currentUserValue.rol;
                 if (role === Role.All || role === Role.Admin) {
                   this.router.navigate(['/admin/dashboard/main']);
                 } else if (role === Role.Doctor) {
@@ -78,11 +71,13 @@ export class SigninComponent
                 this.loading = false;
               }, 1000);
             } else {
+              console.log('else')
               this.error = 'Invalid Login';
             }
           },
           error: (error) => {
-            this.error = error;
+            console.log(error)
+            this.error = error.msg;
             this.submitted = false;
             this.loading = false;
           },
