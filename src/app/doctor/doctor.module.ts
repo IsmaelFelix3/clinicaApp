@@ -31,6 +31,8 @@ import { EditProcedureComponent } from './cliq-procedures/edit-procedure/edit-pr
 import { CalendarProceduresComponent } from './cliq-procedures/calendar-procedures/calendar-procedures.component';
 import { AdmissionFormComponent } from './cliq-procedures/admission-form/admission-form.component';
 import { AddPatientDoctorComponent } from './patients/add-patient-doctor/add-patient-doctor.component';
+import { EvolutionNotesComponent } from './appointments/evolution-notes/evolution-notes.component';
+import { PostSurgicalNotesComponent } from './appointments/post-surgical-notes/post-surgical-notes.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import { AddPatientDoctorComponent } from './patients/add-patient-doctor/add-pat
     CalendarProceduresComponent,
     AdmissionFormComponent,
     MedicalRecordComponent,
-    AddPatientDoctorComponent
+    AddPatientDoctorComponent,
+    EvolutionNotesComponent,
+    PostSurgicalNotesComponent
   ],
   imports: [
     CommonModule,

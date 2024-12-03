@@ -173,7 +173,7 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     if(status == 'En espera' ){
       return 'mat-primary';
     }
-    else if( status == 'En curso'){ 
+    else if( status == 'En curso'){
       return 'mat-success';
     }
     else{
@@ -201,16 +201,16 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
         this.datosFuente = data.citas;
         this.dataSource = new MatTableDataSource(this.datosFuente);
         this.dataSource.paginator =  this.paginator;
-  
-        this.datosFuente.forEach( cita => {
-          cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
-        })
+
+        // this.datosFuente.forEach( cita => {
+        //   cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
+        // })
         console.log(this.datosFuente, 'datosFuente')
       });
     });
 
     // const idMedico = this.authService.currentUserValue.id_medico;
-    
+
     // this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
     //   () => {
     //     if (!this.dataSource) {
@@ -280,7 +280,7 @@ export class ExampleDataSource extends DataSource<Appointments> {
     ];
     // let idMedico = 1001
     // this.exampleDatabase.getAllAppointmentss(idMedico);
-    
+
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DeleteProcedure, GetProcedimiento, GetProcedimientosCalendar, GetProcedimientosRequestCount, GetProcedimientosTableRequest, GetProcedimientosTableRequestAdmin, ProcedimientoPost, ProcedimientosRequest } from 'app/interfaces/Procedimiento';
+import { environment } from 'environments/environment';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -8,8 +9,8 @@ import { map } from 'rxjs';
 })
 export class CliqProceduresService {
 
-  baseURL = 'http://localhost:8000/api/';
-  apiURL = 'procedimientos';
+  baseURL: string = environment.api;
+  apiURL: string = environment.cliqProceduresEndpoint;
 
   auxEvents: any[] = [];
 
@@ -30,7 +31,7 @@ export class CliqProceduresService {
   getProceduresCalendarDoctor(date: string, idMedico: number){
     return this.http.get<GetProcedimientosTableRequest>(`${this.baseURL}${this.apiURL}/getProceduresCalendarDoctor/${date}&${idMedico}`);
   }
-  
+
   getProceduresCalendarAdmin(date: string, idMedico: number){
     return this.http.get<GetProcedimientosTableRequestAdmin>(`${this.baseURL}${this.apiURL}/getProceduresCalendarAdmin/${date}&${idMedico}`);
   }
@@ -79,7 +80,7 @@ export class CliqProceduresService {
               end: date2,
               className: element.Quirofano.color,
               groupId: "Procedimientos",
-              details: `${ element.detalles }` 
+              details: `${ element.detalles }`
             }
           })
           return array;
@@ -88,7 +89,7 @@ export class CliqProceduresService {
     )
   }
 
-  
+
   getProceduresMonth(){
     return this.http.get<GetProcedimientosCalendar>(`${this.baseURL}${this.apiURL}/getProceduresMonth/`).pipe(
       map( procedures =>
@@ -106,7 +107,7 @@ export class CliqProceduresService {
               end: date2,
               className: element.Quirofano.color,
               groupId: "Procedimientos",
-              details: `${ element.detalles }` 
+              details: `${ element.detalles }`
             }
           })
           return array;

@@ -43,16 +43,24 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-5">
                       <div class="contact-details-field" style="margin-bottom: -3rem;margin-top: -2rem;gap:1rem;">
                         <button mat-fab extended class="mat-success" (click)="openMedicalRecord()">
-                            <mat-icon>topic</mat-icon>
-                            Expediente Paciente
+                          <mat-icon>topic</mat-icon>
+                          Expediente Paciente
                         </button>
                         <button (click)="lastAppoinment()" mat-fab extended color="primary">
-                            <mat-icon>assignment_return</mat-icon>
-                            Ultima Cita
+                          <mat-icon>assignment_return</mat-icon>
+                          Ultima Cita
                         </button>
                         <button (click)="history()" mat-fab extended color="primary">
-                            <mat-icon>history</mat-icon>
-                            Historial Citas
+                          <mat-icon>history</mat-icon>
+                          Historial Citas
+                        </button>
+                        <button (click)="history()" mat-fab extended color="primary">
+                          <mat-icon>format_list_bulleted</mat-icon>
+                          Notas de Evolución
+                        </button>
+                        <button (click)="history()" mat-fab extended color="primary">
+                          <mat-icon>medical_services</mat-icon>
+                          Notas Post Operatorias
                         </button>
                         <!-- <button mat-fab extended color="basic">
                             <mat-icon>description</mat-icon>
@@ -165,12 +173,12 @@
                   <textarea style="height: 5rem;" matInput formControlName="pronostico"></textarea>
                   <!-- <mat-error *ngIf="campoEsValido('pronostico')">{{'Debe agregar sintomas'}}</mat-error> -->
                 </mat-form-field>
-                
+
               </div>
             </div>
             <div class="row align-self-end">
                 <!-- <div class="mb-3">
-                    
+
                 </div> -->
                 <div class="d-flex gap-3 mb-3 me-3">
                   <button mat-fab extended color="secondary" (click)="return()">
