@@ -1,0 +1,169 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Facturación'" [items]="[]" [active_item]="'Crear Factura'">
+      </app-breadcrumb>
+    </div>
+    <form [formGroup]="billForm">
+      <div class="container-fluid pt-2 mb-5">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card border-secondary">
+                      <div class="card-body">
+                          <h4 class="card-title">Cliente</h4>
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label for="name">Nombre:</label>
+                                      <input type="text" class="form-control" formControlName="customerName" name="name" id="name" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="address">Dirección:</label>
+                                      <textarea class="form-control" formControlName="costumerAddress" name="address" id="address" row="3" required></textarea>
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="rfc">RFC:</label>
+                                    <input type="text" class="form-control" formControlName="rfc" name="email" id="email" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="taxRegime">Regimen Fiscal</label>
+                                  <input type="text" class="form-control" formControlName="taxRegime" name="taxRegime" id="taxRegime" required>
+                              </div>
+                            </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label for="postalCode">Codigo Postal</label>
+                                  <input type="number" class="form-control" formControlName="postalCode" name="postalCode" id="postalCode" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="usoCFDI">Uso CFDI</label>
+                                <input type="text" class="form-control" formControlName="usoCFDI" name="usoCFDI" id="usoCFDI" required>
+                              </div>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card border-secondary mt-2">
+                    <div class="card-body">
+                        <h4 class="card-title">Comprobante Fiscal</h4>
+                              <div class="row">
+                                  <div class="col-md-4">
+                                      <div class="form-group">
+                                          <label for="certificateNumber">Número de Certificado:</label>
+                                          <input type="text" class="form-control" formControlName="certificateNumber" name="certificateNumber" id="certificateNumber" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="voucherDate">Fecha Comprobante:</label>
+                                          <input type="text" class="form-control" formControlName="voucherDate" name="voucherDate" id="voucherDate" row="3" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="taxFolio">Folio Fiscal:</label>
+                                        <input type="text" class="form-control" formControlName="taxFolio" name="taxFolio" id="taxFolio" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="certificateSerialNumberSat">No. de Serie del Certificado del SAT:</label>
+                                      <input type="text" class="form-control" formControlName="certificateSerialNumberSat" name="certificateSerialNumberSat" id="certificateSerialNumberSat" required>
+                                  </div>
+                                </div>
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label for="certificationDateAndHour">Fecha y hora de certificación:</label>
+                                      <input type="number" class="form-control" formControlName="certificationDateAndHour" name="certificationDateAndHour" id="certificationDateAndHour" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="export">Exportacion:</label>
+                                    <input type="text" class="form-control" formControlName="export" name="export" id="export" required>
+                                  </div>
+                                  </div>
+
+                              </div>
+                          </div>
+                </div>
+
+                  <div class="card border-secondary mt-2">
+                      <div class="card-body">
+                          <!-- <h4 class="card-title d-flex justify-content-between">Order Details <button type="button"
+                                  class="btn btn-secondary" (click)="addProduct()">+</button></h4> -->
+                          <div class="row">
+                              <table class="table">
+                                  <thead>
+                                      <tr>
+                                          <th width="20%">ClaveProdServ</th>
+                                          <th width="15%">Cantidad</th>
+                                          <th width="15%">Clave Unidad</th>
+                                          <th width="20%">Descripcion</th>
+                                          <th width="15%">Precio Unitario</th>
+                                          <th width="15%">Importe</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                     <tr>
+                                          <td >
+                                              <input type="text" formControlName="claveProdServ" class="form-control" required>
+                                          </td>
+                                          <td>
+                                            <input type="text" formControlName="cantidad" class="form-control" required>
+                                          </td>
+                                          <td>
+                                            <input type="text" formControlName="ClaveUnidad" class="form-control" required>
+                                          </td>
+                                          <td>
+                                            <input type="text" formControlName="Descripcion" class="form-control" required>
+                                          </td>
+                                          <td>
+                                            <input type="text" formControlName="precioUnitario" class="form-control" required>
+                                          </td>
+                                          <td>
+                                            <input type="text" formControlName="importe" class="form-control" required>
+                                          </td>
+                                      </tr>
+                                      <!-- <tr *ngFor="let product of invoice.products; let i=index">
+                                          <td scope="row">
+                                              <input type="text" class="form-control" name="productName{{i}}"
+                                                  [ngClass]="{'is-invalid': invoiceForm.submitted && ProductName.invalid}"
+                                                  id="productName" [(ngModel)]="product.name" #ProductName="ngModel"
+                                                  required>
+                                          </td>
+                                          <td>
+                                              <input type="number" class="form-control" name="price{{i}}" id="price"
+                                                  [ngClass]="{'is-invalid': invoiceForm.submitted && ProductPrice.invalid}"
+                                                  [(ngModel)]="product.price" #ProductPrice="ngModel" required>
+                                          </td>
+                                          <td>
+                                              <input type="number" class="form-control" name="quantity{{i}}" id="quantity"
+                                                  [ngClass]="{'is-invalid': invoiceForm.submitted && ProductQty.invalid}"
+                                                  [(ngModel)]="product.qty" #ProductQty="ngModel" required>
+                                          </td>
+                                          <td>
+                                              {{product.price * product.qty || ''}}
+                                          </td>
+                                      </tr> -->
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+
+
+              </div>
+              <div class="col-md-4">
+                  <button type="button" class="btn btn-secondary btn-lg btn-block"
+                      (click)="generatePDF('download')">Download Invoice</button>
+                  <!-- <button type="button" class="btn btn-secondary btn-lg btn-block"
+                      (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
+                      Invoice</button>
+                  <button type="submit" class="btn btn-secondary btn-lg btn-block"
+                      (click)="invoiceForm.valid ? generatePDF() : ''">Open
+                      Invoice</button> -->
+              </div>
+          </div>
+      </div>
+    </form>
+  </div>
+</section>

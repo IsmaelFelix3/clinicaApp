@@ -33,6 +33,7 @@ import { AdmissionFormComponent } from './cliq-procedures/admission-form/admissi
 import { AddPatientDoctorComponent } from './patients/add-patient-doctor/add-patient-doctor.component';
 import { EvolutionNotesComponent } from './appointments/evolution-notes/evolution-notes.component';
 import { PostSurgicalNotesComponent } from './appointments/post-surgical-notes/post-surgical-notes.component';
+import { CreateBillComponent } from './billing/create-bill/create-bill.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { PostSurgicalNotesComponent } from './appointments/post-surgical-notes/p
     MedicalRecordComponent,
     AddPatientDoctorComponent,
     EvolutionNotesComponent,
-    PostSurgicalNotesComponent
+    PostSurgicalNotesComponent,
+    CreateBillComponent
   ],
   imports: [
     CommonModule,

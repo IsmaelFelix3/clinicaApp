@@ -16,6 +16,7 @@ import { EditProcedureComponent } from './cliq-procedures/edit-procedure/edit-pr
 import { CalendarProceduresComponent } from './cliq-procedures/calendar-procedures/calendar-procedures.component';
 import { MedicalRecordComponent } from './patients/medical-record/medical-record.component';
 import { AddPatientDoctorComponent } from './patients/add-patient-doctor/add-patient-doctor.component';
+import { CreateBillComponent } from './billing/create-bill/create-bill.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -80,6 +81,10 @@ const routes: Routes = [
   {
     path: 'addPatientDoc',
     component: AddPatientDoctorComponent
+  },
+  {
+    path: 'createBill',
+    component: CreateBillComponent
   },
   { path: '**', component: Page404Component },
 ];
