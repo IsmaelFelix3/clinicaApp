@@ -103,7 +103,7 @@
         "ADD-SUPPLIES": "Agregar Insumos"
       }
     },
-    "DOCTOR": {    
+    "DOCTOR": {
         "DASHBOARD": "Tablero",
         "APPOINTMENTS": "Agenda",
         "ALLAPPOINTMENTS": "Calendario",
@@ -118,9 +118,11 @@
         "TODAY-PROCEDURES": "Procedimientos de hoy",
         "CALENDAR-PROCEDURES": "Calendario",
         "NEW-PROCEDURE": "Agendar Quirofano",
-        "REPORTS": "Reportes"
+        "REPORTS": "Reportes",
+        "BILLING": "Facturación",
+        "GENERATEBILL": "Generar Factura"
     },
-    "PATIENT": {    
+    "PATIENT": {
       "TEXT": "Paciente",
       "DASHBOARD": "Tablero",
       "APPOINTMENTS": {
