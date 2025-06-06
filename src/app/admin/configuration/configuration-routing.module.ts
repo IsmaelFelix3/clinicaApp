@@ -8,6 +8,7 @@ import { LabsCatalogComponent } from './labs-catalog/labs-catalog.component';
 import { MetricUnitCatalogComponent } from './metric-unit-catalog/metric-unit-catalog.component';
 import { SuppliersCatalogComponent } from './suppliers-catalog/suppliers-catalog.component';
 import { TaxesRateCatalogComponent } from './taxes-rate-catalog/taxes-rate-catalog.component';
+import { ProcedureDetailsComponent } from './procedure-details/procedure-details.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'taxesRate',
     component: TaxesRateCatalogComponent,
+  },
+  {
+    path: 'procedureDetails',
+    component: ProcedureDetailsComponent
   },
   { path: '**', component: Page404Component },
 ];

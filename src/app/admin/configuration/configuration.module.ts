@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared';
 import { ComponentsModule } from '@shared/components/components.module';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
+import { ProcedureDetailsComponent } from './procedure-details/procedure-details.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ConfigurationRoutingModule } from './configuration-routing.module';
     LabsCatalogComponent,
     MetricUnitCatalogComponent,
     SuppliersCatalogComponent,
-    TaxesRateCatalogComponent
+    TaxesRateCatalogComponent,
+    ProcedureDetailsComponent
   ],
   imports: [
     CommonModule,

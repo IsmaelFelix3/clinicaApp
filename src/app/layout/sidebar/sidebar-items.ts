@@ -465,6 +465,18 @@ export const ROUTES: RouteInfo[] = [
       //     }
       //   ],
       // },
+        {
+        path: 'admin/configuration/procedureDetails',
+        title: 'MENUITEMS.SETTINGS.LIST.PROCEDUREDETAILS',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        role: [''],
+        submenu: [],
+      },
       {
         path: 'admin/configuration/labs',
         title: 'MENUITEMS.SETTINGS.LIST.LABS',

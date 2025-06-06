@@ -16,7 +16,8 @@ export const environment = {
   medicosEndpoint: 'medicos/',
   horariosEndpoint: 'horarios/',
   motivoConsultaEndpoint: 'motivoConsulta/',
-  quirofanosEndpoint: 'quirofanos/'
+  quirofanosEndpoint: 'quirofanos/',
+  procedureCatalogEndpoint: 'catalogoProcedimiento/'
 };
 
 /*

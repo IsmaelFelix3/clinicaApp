@@ -20,13 +20,13 @@ export class AddDoctorComponent {
       apellidos: [, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
       password: ['Admin123'],
-      especialidad: [, [Validators.required]],
-      cedula: [, [Validators.required]],
-      permiso_secre_salud: [, [Validators.required]],
+      especialidad: [, []],
+      cedula: [, []],
+      permiso_secre_salud: [, []],
       correo: [, [Validators.required, Validators.email, Validators.minLength(5)]],
-      id_edificio: [, [Validators.required]],
-      id_piso: [,[Validators.required]],
-      consultorio: [,[Validators.required]],
+      id_edificio: [, []],
+      id_piso: [,[]],
+      consultorio: [,[]],
       google: [false],
       rol: ['Medico'],
       fecha_registro: [new Date().toISOString()]
@@ -52,7 +52,7 @@ export class AddDoctorComponent {
       },
     })
   }
-  
+
   campoEsValido(campo: string){
     return (this.doctorForm.controls[campo].errors && this.doctorForm.controls[campo].touched);
   }

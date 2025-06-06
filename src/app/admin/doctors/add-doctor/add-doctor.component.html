@@ -70,14 +70,15 @@
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Cedula</mat-label>
-                    <input matInput formControlName="cedula" required>
-                    <mat-error *ngIf="campoEsValido('cedula')">{{'Debe ingresar la cedula profesional del medico'}}</mat-error>
+                    <input matInput formControlName="cedula">
+                    <!-- <mat-error *ngIf="campoEsValido('cedula')">{{'Debe ingresar la cedula profesional del medico'}}</mat-error> -->
                   </mat-form-field>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Especialidad</mat-label>
-                    <mat-select formControlName="especialidad" required>
+                     <input matInput formControlName="especialidad" required>
+                    <!-- <mat-select formControlName="especialidad" required>
                       <mat-option [value]="'1'">
                         Pediatria
                       </mat-option>
@@ -90,15 +91,15 @@
                       <mat-option [value]="'4'">
                         Psicologia
                       </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="campoEsValido('especialidad')">{{'Debe seleccionar la especialidad'}}</mat-error>
+                    </mat-select> -->
+                    <mat-error *ngIf="campoEsValido('especialidad')">{{'Debe ingresar una especialidad'}}</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Permiso Secretaria de Salud</mat-label>
                     <input matInput type="number" formControlName="permiso_secre_salud">
-                    <mat-error *ngIf="campoEsValido('permiso_secre_salud')">{{'Debe ingresar el permiso de la secretaria de salud'}}</mat-error>
+                    <!-- <mat-error *ngIf="campoEsValido('permiso_secre_salud')">{{'Debe ingresar el permiso de la secretaria de salud'}}</mat-error> -->
                   </mat-form-field>
                 </div>
               </div>
@@ -106,7 +107,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Edificio</mat-label>
-                    <mat-select formControlName="id_edificio" required>
+                    <mat-select formControlName="id_edificio">
                       <mat-option [value]="'1'">
                         Medica Juarez 1051
                       </mat-option>
@@ -117,35 +118,35 @@
                         Medica 901
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="campoEsValido('id_edificio')">{{'Debe seleccionar la clinica'}}</mat-error>
+                    <!-- <mat-error *ngIf="campoEsValido('id_edificio')">{{'Debe seleccionar la clinica'}}</mat-error> -->
                   </mat-form-field>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Piso</mat-label>
-                    <mat-select formControlName="id_piso" required>
-                      <mat-option [value]="'1'">
-                        Piso 1
+                    <mat-select formControlName="id_piso">
+                      <mat-option [value]="'N/A'">
+                        N/A
                       </mat-option>
                       <mat-option [value]="'2'">
                         Piso 2
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="campoEsValido('id_piso')">{{'Debe ingresar el piso'}}</mat-error>
+                    <!-- <mat-error *ngIf="campoEsValido('id_piso')">{{'Debe ingresar el piso'}}</mat-error> -->
                   </mat-form-field>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>No. Consultorio</mat-label>
                     <mat-select matInput formControlName="consultorio">
-                      <mat-option [value]="'101'">
-                        Consultorio 101
+                      <mat-option [value]="'N/A'">
+                        N/A
                       </mat-option>
                       <mat-option [value]="'102'">
                         Consultorio 102
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="campoEsValido('consultorio')">{{'Debe ingresar el consultorio'}}</mat-error>
+                    <!-- <mat-error *ngIf="campoEsValido('consultorio')">{{'Debe ingresar el consultorio'}}</mat-error> -->
                   </mat-form-field>
                 </div>
               </div>

@@ -165,7 +165,8 @@
         "CATEGORIES": "Catalogo Categorias",
         "BRANDS": "Catalogo Marcas",
         "METRIC-UNIT": "Catalogo Unidad Medida",
-        "TAXES-RATE":"Catalogo Tasa Impuestos"
+        "TAXES-RATE":"Catalogo Tasa Impuestos",
+        "PROCEDUREDETAILS": "Catalogo Procedimientos"
       }
     }
   }

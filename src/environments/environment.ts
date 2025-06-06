@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   // apiUrl: 'http://localhost:4200',
-  api: 'http://localhost:8000/api/',
+  api: 'https://clinicaappbackend-production.up.railway.app/api/',
   appoinmentsEndpoints: 'citas/',
   patientsEndpoints: 'pacientes/',
   medicalRecordEndpoint: 'expedientes/',
@@ -12,5 +12,6 @@ export const environment = {
   medicosEndpoint: 'medicos/',
   horariosEndpoint: 'horarios/',
   motivoConsultaEndpoint: 'motivoConsulta/',
-  quirofanosEndpoint: 'quirofanos/'
+  quirofanosEndpoint: 'quirofanos/',
+  procedureCatalogEndpoint: 'catalogoProcedimiento/'
 };

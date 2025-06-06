@@ -1,0 +1,72 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Catalogo Procedimientos'" [items]="[]" [active_item]="'Procedimientos'"></app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="materialTableHeader">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h2>Listado Procedimientos</h2>
+                </li>
+                <li class="tbl-search-box">
+                  <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                  <input placeholder="Buscar" type="text" #filter class="browser-default search-field"
+                    aria-label="Search box">
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="body overflow-auto">
+            <div class="responsive_table">
+              <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                <ng-container matColumnDef="id_procedimiento" style="width: 20px;">
+                  <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.id_procedimiento}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nombre_procedimiento">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let row" > <span
+                      class="mobile-label">Nombre:</span>{{row.nombre_procedimiento}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="especialidad">
+                  <mat-header-cell *matHeaderCellDef>Especialidad</mat-header-cell>
+                  <mat-cell *matCellDef="let row"><span class="mobile-label">Especialidad:</span> {{row.especialidad}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nombre_quirofano">
+                  <mat-header-cell *matHeaderCellDef>Quirofano</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span
+                    class="mobile-label">Quirofano:</span>{{row.nombre_quirofano}}</mat-cell>
+                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                <!-- <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)" -->
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row.idMedico)"
+                  [style.cursor]="'pointer'" matRipple>
+                </mat-row>
+              </mat-table>
+              <!-- Loading spinner -->
+              <div *ngIf="exampleDatabase?.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                </mat-progress-spinner>
+              </div>
+              <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
+              [style.display]="dataLength === 0 ? '' : 'none'">
+              No results
+            </div>
+              <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="7"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

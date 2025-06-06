@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       switch ( userRole ) {
         case 'Admin':
           this.adminService.getAdminByEmail(userEmail).subscribe( admin => {
-            userInfo = admin; 
+            userInfo = admin;
             this.userFullName = userInfo.admin.nombre + ' ' + userInfo.admin.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
             this.userImg = '../../../assets/images/clinics/901-200x200.png';
@@ -88,7 +88,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
           break;
         case 'Doctor':
           this.doctorService.getDoctorByEmail(userEmail).subscribe( doctor => {
-            userInfo = doctor; 
+            userInfo = doctor;
             this.userFullName = userInfo.medico.nombre + ' ' + userInfo.medico.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
             this.userImg = '../../../assets/images/clinics/901-200x200.png';
