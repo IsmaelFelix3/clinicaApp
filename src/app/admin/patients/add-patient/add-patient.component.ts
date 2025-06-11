@@ -26,11 +26,11 @@ export class AddPatientComponent {
               public doctorsService: DoctorsService
   ) {
     this.patientForm = this.fb.group({
-      nombre: [, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      apellidos: [,[Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      nombre: [, [Validators.required, Validators.pattern('[a-z A-Z]+')]],
+      apellidos: [,[Validators.required, Validators.pattern('[a-z A-Z]+')]],
       fecha_nacimiento: [, [Validators.required]],
       genero: [, [Validators.required]],
-      correo: [, 
+      correo: [,
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
       telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],

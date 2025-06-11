@@ -23,7 +23,7 @@ import Swal from 'sweetalert2';
 })
 export class CurrentProceduresComponent {
 
-  
+
   filterToggle = false;
   displayedColumns = [
     // 'id',
@@ -74,7 +74,7 @@ export class CurrentProceduresComponent {
   public loadData() {
 
     this.cliqProceduresService.getAllProceduresDay('Admin',new Date().toISOString()).subscribe( Procedures => {
-      console.log(Procedures)
+      console.log(Procedures.procedimientos.rows)
       this.datosFuente = Procedures.procedimientos.rows;
       this.dataSource = new MatTableDataSource(this.datosFuente);
       this.dataSource.paginator = this.paginator;
@@ -91,7 +91,7 @@ export class CurrentProceduresComponent {
     //     console.log(data,' Procedures')
     //     this.datosFuente = data.procedimientos.rows;
     //     this.dataSource = new MatTableDataSource(this.datosFuente)
-  
+
     //     // this.datosFuente.forEach( procedimiento => {
     //     //   cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
     //     // })
@@ -100,7 +100,7 @@ export class CurrentProceduresComponent {
     // });
 
     // const idMedico = this.authService.currentUserValue.id_medico;
-    
+
     // this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
     //   () => {
     //     if (!this.dataSource) {
@@ -151,7 +151,7 @@ export class CurrentProceduresComponent {
       },
       direction: tempDirection,
     });
-    
+
   }
   detailsCall(row: ProcedimientoTable) {
     console.log(row)
@@ -205,14 +205,14 @@ export class CurrentProceduresComponent {
   //     this.refreshTable();
   //     this.selection = new SelectionModel<Appointments>(true, []);
   //   });
-  //  
+  //
   // }
 
   getStatus(status: string){
     if(status == 'En espera' ){
       return 'mat-primary';
     }
-    else if( status == 'En curso'){ 
+    else if( status == 'En curso'){
       return 'mat-success';
     }
     else{
@@ -232,7 +232,7 @@ export class CurrentProceduresComponent {
       }
     })
   }
-  
+
   // export table data in excel file
   // exportExcel() {
   //   // key name with space add in brackets

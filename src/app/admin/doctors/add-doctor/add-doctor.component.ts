@@ -16,8 +16,8 @@ import { Router, Event } from '@angular/router';
 })
 export class AddDoctorComponent {
     doctorForm: FormGroup = this.fb.group({
-      nombre: [, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      apellidos: [, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      nombre: [, [Validators.required, Validators.pattern('[a-z A-Z]+')]],
+      apellidos: [, [Validators.required, Validators.pattern('[a-z A-Z]+')]],
       telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
       password: ['Admin123'],
       especialidad: [, []],
