@@ -12,6 +12,8 @@ import { SharedModule } from '@shared';
 import { ComponentsModule } from '@shared/components/components.module';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ProcedureDetailsComponent } from './procedure-details/procedure-details.component';
+import { EditProcedureDetailsComponent } from './procedure-details/edit-procedure-details/edit-procedure-details.component';
+import { AddProcedureDetailsComponent } from './procedure-details/add-procedure-details/add-procedure-details.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ProcedureDetailsComponent } from './procedure-details/procedure-details
     MetricUnitCatalogComponent,
     SuppliersCatalogComponent,
     TaxesRateCatalogComponent,
-    ProcedureDetailsComponent
+    ProcedureDetailsComponent,
+    EditProcedureDetailsComponent,
+    AddProcedureDetailsComponent
   ],
   imports: [
     CommonModule,

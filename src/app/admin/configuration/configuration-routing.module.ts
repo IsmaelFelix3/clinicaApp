@@ -9,6 +9,8 @@ import { MetricUnitCatalogComponent } from './metric-unit-catalog/metric-unit-ca
 import { SuppliersCatalogComponent } from './suppliers-catalog/suppliers-catalog.component';
 import { TaxesRateCatalogComponent } from './taxes-rate-catalog/taxes-rate-catalog.component';
 import { ProcedureDetailsComponent } from './procedure-details/procedure-details.component';
+import { EditProcedureDetailsComponent } from './procedure-details/edit-procedure-details/edit-procedure-details.component';
+import { AddProcedureDetailsComponent } from './procedure-details/add-procedure-details/add-procedure-details.component';
 
 const routes: Routes = [
   {
@@ -42,6 +44,14 @@ const routes: Routes = [
   {
     path: 'procedureDetails',
     component: ProcedureDetailsComponent
+  },
+  {
+    path: 'editProcedureDetails',
+    component: EditProcedureDetailsComponent
+  },
+  {
+    path: 'addProcedureDetails',
+    component: AddProcedureDetailsComponent
   },
   { path: '**', component: Page404Component },
 ];

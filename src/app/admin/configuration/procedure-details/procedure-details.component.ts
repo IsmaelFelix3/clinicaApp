@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Doctors } from 'app/admin/doctors/alldoctors/doctors.model';
 import { DoctorsService } from 'app/admin/doctors/alldoctors/doctors.service';
-import { CatalogoProcedimientos, ProcedimientoCatalogo, ProcedimientoCatalogoTable } from 'app/interfaces/CatalogoProcedimientos';
-import { MedicoTable } from 'app/interfaces/Medico.interface';
+import { ProcedimientoCatalogoTable } from 'app/interfaces/CatalogoProcedimientos';
 import { ProceduresCatalogService } from 'app/services/procedures-catalog.service';
 import { fromEvent } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -25,9 +24,10 @@ import Swal from 'sweetalert2';
 export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter implements OnInit {
  displayedColumns = [
     // 'select',
-    'id_procedimiento',
+    // 'id_procedimiento',
     'nombre_procedimiento',
     'especialidad',
+    'precioBase',
     'nombre_quirofano'
     // 'actions',
   ];
@@ -59,9 +59,12 @@ export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter impl
   refresh() {
     this.loadData();
   }
-  redirect(idMedico: any){
-      console.log(event)
-      this.router.navigateByUrl('admin/doctors/edit-doctor',{state: {id: idMedico}});
+  redirect(idProcedimiento: any){
+      this.router.navigateByUrl('admin/configuration/editProcedureDetails',{state: {id: idProcedimiento}});
+  }
+
+  addProcedure(){
+     this.router.navigateByUrl('admin/configuration/addProcedureDetails');
   }
 
   private refreshTable() {
@@ -69,23 +72,20 @@ export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter impl
   }
 
   public loadData() {
-    console.log('load data');
-    this.procedureCatalog.getProceduresByOperatingRoom(1001).subscribe({
+    this.procedureCatalog.getAllProceduresDetails().subscribe({
       complete: () => {
-
       },
       next: (value) => {
-        console.log(value)
         this.procedimientos = value.catalogoProcedimiento.rows.map( element => {
           return {
             id_procedimiento: element.id_procedimiento,
             especialidad: element.especialidad,
             nombre_procedimiento: element.nombre_procedimiento,
             quirofano: element.quirofano,
-            nombre_quirofano: element['Quirofano.nombre_quirofano']
+            nombre_quirofano: element['Quirofano.nombre_quirofano'],
+            precioBase: element.precioBase
           }
         });
-        console.log(this.procedimientos)
         this.dataSource = new MatTableDataSource(this.procedimientos);
         this.dataSource.paginator = this.paginator;
         this.dataLength = this.procedimientos.length;

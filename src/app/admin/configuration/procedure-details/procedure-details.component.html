@@ -20,6 +20,37 @@
                 </li>
               </ul>
             </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="Agregar">
+                    <button mat-mini-fab color="primary" (click)="addProcedure()">
+                      <mat-icon class="col-white">add</mat-icon>
+                    </button>
+                  </div>
+                </li>
+                <!-- <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="REFRESH">
+                    <button mat-mini-fab color="primary" (click)="refresh()">
+                      <mat-icon class="col-white">refresh</mat-icon>
+                    </button>
+                  </div>
+                </li> -->
+                <!-- <li class="tbl-header-btn">
+                  <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE">
+                    <button mat-mini-fab color="warn" >
+                      <mat-icon class="col-white">delete
+                      </mat-icon>
+                    </button>
+                  </div>
+                </li> -->
+                <!-- <li>
+                  <div class="export-button m-l-10" matTooltip="XLSX">
+                    <img src="assets/images/icons/xlsx.png" alt=""  />
+                  </div>
+                </li> -->
+              </ul>
+            </div>
           </div>
           <div class="body overflow-auto">
             <div class="responsive_table">
@@ -39,6 +70,11 @@
                   <mat-cell *matCellDef="let row"><span class="mobile-label">Especialidad:</span> {{row.especialidad}}
                   </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="precioBase">
+                  <mat-header-cell *matHeaderCellDef>Precio Base</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span
+                    class="mobile-label">Precio Base:</span>{{row.precioBase}}</mat-cell>
+                  </ng-container>
                 <ng-container matColumnDef="nombre_quirofano">
                   <mat-header-cell *matHeaderCellDef>Quirofano</mat-header-cell>
                   <mat-cell *matCellDef="let row"> <span
@@ -47,7 +83,7 @@
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)" -->
-                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row.idMedico)"
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="redirect(row.id_procedimiento)"
                   [style.cursor]="'pointer'" matRipple>
                 </mat-row>
               </mat-table>
