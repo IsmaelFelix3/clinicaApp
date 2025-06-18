@@ -108,13 +108,13 @@
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Edificio</mat-label>
                     <mat-select formControlName="id_edificio">
-                      <mat-option [value]="'1'">
+                      <mat-option [value]="1">
                         Medica Juarez 1051
                       </mat-option>
-                      <mat-option [value]="'2'">
+                      <mat-option [value]="2">
                         Torre 905
                       </mat-option>
-                      <mat-option [value]="'3'">
+                      <mat-option [value]="3">
                         Medica 901
                       </mat-option>
                     </mat-select>
@@ -125,11 +125,8 @@
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Piso</mat-label>
                     <mat-select formControlName="id_piso">
-                      <mat-option [value]="'N/A'">
+                      <mat-option [value]="0">
                         N/A
-                      </mat-option>
-                      <mat-option [value]="'2'">
-                        Piso 2
                       </mat-option>
                     </mat-select>
                     <!-- <mat-error *ngIf="campoEsValido('id_piso')">{{'Debe ingresar el piso'}}</mat-error> -->
@@ -139,11 +136,8 @@
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>No. Consultorio</mat-label>
                     <mat-select matInput formControlName="consultorio">
-                      <mat-option [value]="'N/A'">
+                      <mat-option [value]="0">
                         N/A
-                      </mat-option>
-                      <mat-option [value]="'102'">
-                        Consultorio 102
                       </mat-option>
                     </mat-select>
                     <!-- <mat-error *ngIf="campoEsValido('consultorio')">{{'Debe ingresar el consultorio'}}</mat-error> -->

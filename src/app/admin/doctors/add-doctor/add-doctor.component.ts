@@ -19,7 +19,7 @@ export class AddDoctorComponent {
       nombre: [, [Validators.required, Validators.pattern('[a-z A-Z]+')]],
       apellidos: [, [Validators.required, Validators.pattern('[a-z A-Z]+')]],
       telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-      password: ['Admin123'],
+      password: ['Doctor123'],
       especialidad: [, []],
       cedula: [, []],
       permiso_secre_salud: [, []],
