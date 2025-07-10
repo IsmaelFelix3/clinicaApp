@@ -26,7 +26,7 @@ export class EditPatientComponent implements OnInit {
       apellidos: [,[Validators.required]],
       fecha_nacimiento: [, [Validators.required]],
       genero: [, [Validators.required]],
-      correo: [, 
+      correo: [,
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
       telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
@@ -39,12 +39,10 @@ export class EditPatientComponent implements OnInit {
       this.router.navigateByUrl('admin/patients/all-patients');
       return;
     }
-
-    this.idPaciente = this.state.idPaciente;
+    this.idPaciente = this.state.idPaciente.idPaciente;
 
     this.patientService.getPatientById(this.idPaciente).subscribe({
       next: (value) => {
-        console.log(value)
         this.patientForm.get('nombre')?.setValue(value.paciente.nombre);
         this.patientForm.get('apellidos')?.setValue(value.paciente.apellidos);
         this.patientForm.get('fecha_nacimiento')?.setValue(value.paciente.fecha_nacimiento);
@@ -54,16 +52,15 @@ export class EditPatientComponent implements OnInit {
       },
     });
 
-    
+
   }
   editarPaciente() {
-    console.log(this.patientForm)
-    
+
     if(!this.patientForm.valid){
       this.patientForm.markAllAsTouched();
       return;
     }
-    
+
     this.patientService.editPatient(this.idPaciente,this.patientForm.value).subscribe({
       complete: () => {
         this.router.navigateByUrl('admin/patients/all-patients')

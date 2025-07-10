@@ -27,6 +27,7 @@ export class PatientsService {
   }
 
   getPatientById(idPaciente: number){
+    console.log(idPaciente)
     return this.http.get<PacienteEditResponse>(`${this.urlApi}${this.urlEndpoint}patientById/${idPaciente}`);
   }
 

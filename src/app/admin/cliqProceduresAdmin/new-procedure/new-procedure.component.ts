@@ -19,7 +19,7 @@ import { z } from 'zod';
 })
 export class NewProcedureComponent {
 
-  
+
   doctors: Medico[] = [];
   patients: Paciente[] = [];
   horariosLibres: any[] = [];
@@ -32,12 +32,12 @@ export class NewProcedureComponent {
     paciente: [,Validators.required],
     medico: [, Validators.required],
     fechaProcedimiento: [, Validators.required],
-    horario: [,Validators.required], 
+    horario: [,Validators.required],
     quirofano: [, Validators.required]
   });
 
   constructor(public fb: FormBuilder,
-              public patientsService: PatientsService, 
+              public patientsService: PatientsService,
               public authService: AuthService,
               public doctorService: DoctorsService,
               public quirofanosService: QuirofanosService,
@@ -65,7 +65,7 @@ export class NewProcedureComponent {
       this.procedureForm.markAllAsTouched();
       return;
     }
-   
+
     const dateSchema = z.coerce.date();
     type DateSchema = z.infer<typeof dateSchema>;
 
@@ -94,10 +94,12 @@ export class NewProcedureComponent {
       id_quirofano: this.procedureForm.value.quirofano
     }
 
+    console.log(object)
+
     this.cliqProceduresService.scheduleProcedure(object).subscribe({
       complete: () => {
-        this.procedureForm.reset();      
-        this.isVisible = false;  
+        this.procedureForm.reset();
+        this.isVisible = false;
         Swal.fire('Se agendo procedimiento con exito');
       },
       error: (data) => {
@@ -123,7 +125,7 @@ export class NewProcedureComponent {
       this.cliqProceduresService.getProceduresByDay(date, idQuirofano).subscribe( proceduresByDay => {
         let takenSlots = proceduresByDay.procedimientos.map( element => {
           let minutes = new Date(element.fecha_procedimiento_inicio).getUTCMinutes() == 0 ? '00' : '30';
-          return { horario: new Date(element.fecha_procedimiento_inicio).getUTCHours() + ':' + minutes } 
+          return { horario: new Date(element.fecha_procedimiento_inicio).getUTCHours() + ':' + minutes }
         });
         this.horariosQuirofanos.forEach( element => {
 

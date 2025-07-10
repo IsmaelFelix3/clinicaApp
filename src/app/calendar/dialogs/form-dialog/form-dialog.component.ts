@@ -58,7 +58,7 @@ export class FormDialogComponent {
     public proceduresCatalogService: ProceduresCatalogService,
     public cliqProcedureService: CliqProceduresService
   ) {
-    
+
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
@@ -137,7 +137,7 @@ export class FormDialogComponent {
     // this.calendarService.deleteCalendar(this.calendarForm.getRawValue());
     this.cliqProcedureService.deleteProcedure(this.calendar.idBooking).subscribe({
       complete: () => {
-        this.calendarForm.reset();      
+        this.calendarForm.reset();
         // Swal.fire('Se agendo procedimiento con exito');
       },
       error: (data) => {
@@ -163,10 +163,10 @@ export class FormDialogComponent {
     if(start < actualDate){
       Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: 'Fecha inicio debe ser mayor la fecha actual'});
     }
-
+    console.log(this.calendarForm.getRawValue())
     this.cliqProcedureService.scheduleProcedure(this.calendarForm.getRawValue()).subscribe({
       complete: () => {
-        this.calendarForm.reset();      
+        this.calendarForm.reset();
         Swal.fire('Se agendo procedimiento con exito');
       },
       error: (data) => {
@@ -201,7 +201,7 @@ export class FormDialogComponent {
 
     this.cliqProcedureService.editProcedure(this.calendarForm.getRawValue(), original.idBooking).subscribe({
       complete: () => {
-        this.calendarForm.reset();      
+        this.calendarForm.reset();
         Swal.fire('Se edito el procedimiento con exito');
       },
       error: (data) => {

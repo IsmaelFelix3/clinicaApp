@@ -12,7 +12,7 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { PatientsService } from 'app/doctor/patients.service';
-import { PacienteShort, PacienteTableAdmin } from 'app/interfaces/Paciente.interface'; 
+import { PacienteShort, PacienteTableAdmin } from 'app/interfaces/Paciente.interface';
 import { CustomDateTablePipe } from 'app/helpers/custom-date-table.pipe';
 import { Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
@@ -54,19 +54,18 @@ export class AllpatientsComponent extends UnsubscribeOnDestroyAdapter implements
   @ViewChild(MatSort, { static: true })
   sort!: MatSort;
   @ViewChild('filter', { static: true }) filter?: ElementRef;
-  
-  
+
+
   ngOnInit() {
     this.loadData();
   }
-  
+
   public loadData() {
     this.patientService.getAllPatientsAdmin().subscribe({
       complete: () => {
         this.isSpinnerActive = false;
       },
       next: (data) => {
-        console.log(data)
         this.patients = data.pacientes.map( element => {
           return {
             idPaciente: element.id_paciente,
@@ -82,7 +81,7 @@ export class AllpatientsComponent extends UnsubscribeOnDestroyAdapter implements
         this.dataSource.paginator = this.paginator;
       },
       error: (err) => {
-        
+
       },
     })
 
@@ -95,10 +94,10 @@ export class AllpatientsComponent extends UnsubscribeOnDestroyAdapter implements
       }
     );
   }
-  
-  calculate_age(dob: Date) { 
+
+  calculate_age(dob: Date) {
     var diff_ms = Date.now() - dob.getTime();
-    var age_dt = new Date(diff_ms); 
+    var age_dt = new Date(diff_ms);
     return Math.abs(age_dt.getUTCFullYear() - 1970);
   }
 

@@ -35,8 +35,8 @@ export class SigninComponent
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      correo: ['juan.perez@gmail.com', Validators.required],
-      password: ['Admin123', Validators.required],
+      correo: [, Validators.required],
+      password: [, Validators.required],
     });
   }
   get loginForm() {
@@ -51,7 +51,7 @@ export class SigninComponent
     if (this.authForm.invalid) {
       this.error = 'Username and Password not valid !';
       return;
-    } 
+    }
     else {
       this.subs.sink = this.authService
         .loginAdmin(this.loginForm['correo'].value, this.loginForm['password'].value).subscribe({
