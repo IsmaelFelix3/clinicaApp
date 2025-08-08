@@ -129,6 +129,7 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
     locale: esLocale,
+    nowIndicator: true,
     // datesSet(arg) {
     //   console.log('data ser')
     // },
@@ -180,28 +181,28 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 'submit') {
-        // console.log('click')
-        // this.calendarData = this.calendarService.getDialogData();
-        // console.log('entro')
-        // console.log(this.calendarData);
-        // this.calendarEvents = this.calendarEvents?.concat({
-        //   // add new event data. must create new array
-        //   idBooking: this.calendarData.idBooking,
-        //   doctor: this.calendarData.doctor,
-        //   patient: this.calendarData.patient,
-        //   operatingRoom: this.calendarData.operatingRoom,
-        //   procedure: this.calendarData.procedure,
-        //   start: this.calendarData.startDate,
-        //   end: this.calendarData.endDate,
-        //   // className: this.getClassNameValue(this.calendarData.category),
-        //   // groupId: this.calendarData.category,
-        //   status: this.calendarData.status,
-        // });
-        // console.log(this.calendarEvents)
-        // this.calendarOptions.events = this.calendarEvents;
+        console.log('click')
+        this.calendarData = this.calendarService.getDialogData();
+        console.log('entro')
+        console.log(this.calendarData);
+        this.calendarEvents = this.calendarEvents?.concat({
+          // add new event data. must create new array
+          idBooking: this.calendarData.idBooking,
+          doctor: this.calendarData.doctor,
+          patient: this.calendarData.patient,
+          operatingRoom: this.calendarData.operatingRoom,
+          procedure: this.calendarData.procedure,
+          start: this.calendarData.startDate,
+          end: this.calendarData.endDate,
+          // className: this.getClassNameValue(this.calendarData.category),
+          // groupId: this.calendarData.category,
+          status: this.calendarData.status,
+        });
+        console.log(this.calendarEvents)
+        this.calendarOptions.events = this.calendarEvents;
 
-        this.createCalendar();
 
+        //this.createCalendar();
         this.addCusForm.reset();
         this.showNotification(
           'snackbar-success',
@@ -254,10 +255,7 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
       // category: row.event.groupId,
       // details: row.event.extendedProps['details'],
     };
-    const userTimezoneOffset = new Date().getTimezoneOffset() * 60000;
     this.cliqProceduresService.getProcedure(calendarData.idBooking).subscribe( procedure => {
-      const date1 = new Date(new Date(procedure.procedimiento.fecha_procedimiento_inicio).getTime() + userTimezoneOffset);
-      const date2 = new Date(new Date(procedure.procedimiento.fecha_procedimiento_fin).getTime() + userTimezoneOffset);
       calendarData.doctorId = procedure.procedimiento['Medico.id_medico'];
       calendarData.patientId = procedure.procedimiento['Paciente.id_paciente'],
       calendarData.operatingRoomId = procedure.procedimiento['Quirofano.id_quirofano'],
@@ -266,8 +264,8 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
       calendarData.patientName = procedure.procedimiento['Paciente.nombre'] +  ' ' + procedure.procedimiento['Paciente.apellidos'],
       calendarData.procedureName = procedure.procedimiento['Catalogo_Procedimiento.nombre_procedimiento'],
       calendarData.operatingRoomName = procedure.procedimiento['Quirofano.nombre_quirofano'],
-      calendarData.startDate = date1,
-      calendarData.endDate = date2,
+      calendarData.startDate = procedure.procedimiento.fecha_procedimiento_inicio,
+      calendarData.endDate = procedure.procedimiento.fecha_procedimiento_fin,
       calendarData.details = procedure.procedimiento.detalles,
       calendarData.status = procedure.procedimiento.estatus;
 
@@ -324,9 +322,9 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
       });
 
     });
-    
 
-   
+
+
   }
 
   editEvent(eventIndex: number, calendarData: Calendar) {

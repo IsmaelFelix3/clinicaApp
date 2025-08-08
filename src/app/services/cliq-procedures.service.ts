@@ -103,8 +103,8 @@ export class CliqProceduresService {
             return {
               idBooking: element.id_reserva,
               title: element.Medico.apellidos + ' ' + element.Quirofano.nombre_quirofano,
-              start: date1,
-              end: date2,
+              start: new Date(element.fecha_procedimiento_inicio),
+              end: new Date(element.fecha_procedimiento_fin),
               className: element.Quirofano.color,
               groupId: "Procedimientos",
               details: `${ element.detalles }`

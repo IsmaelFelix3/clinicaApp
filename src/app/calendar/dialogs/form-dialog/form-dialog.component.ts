@@ -63,6 +63,10 @@ export class FormDialogComponent {
     this.action = data.action;
     if (this.action === 'edit') {
       this.dialogTitle = data.calendar.operatingRoomName + ' ' + data.calendar.doctorName;
+      console.log(new Date().getTimezoneOffset())
+      let offset = new Date().getTimezoneOffset()
+      console.log(new Date(new Date(data.calendar.startDate).getTime() + offset))
+      console.log(new Date(new Date(data.calendar.endDate).getTime() + offset))
       this.calendar = {
         idBooking: data.calendar.idBooking,
         doctor: data.calendar.doctorId,
@@ -153,16 +157,26 @@ export class FormDialogComponent {
 
   public confirmAdd(): void {
     const form = this.calendarForm.getRawValue();
-    const actualDate = new Date();
-    const start = new Date(form.startDate);
-    const end = new Date (form.endDate);
+    const actualDate = new Date(new Date().toUTCString()).getTime();
 
-    if( start >= end ){
+    const start = new Date(form.startDate).toUTCString();
+    const end = new Date(form.endDate).toUTCString();
+    console.log('----------------')
+    console.log(form)
+    console.log(start)
+    console.log(end)
+
+    const startToCompare = new Date(start).getTime();
+    const endToCompare = new Date(end).getTime();
+
+    if( startToCompare >= endToCompare ){
       Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: 'Fecha inicio debe ser menor a fecha fin'});
+      return;
     }
-    if(start < actualDate){
+    /*if(startToCompare < actualDate){
       Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: 'Fecha inicio debe ser mayor la fecha actual'});
-    }
+      return;
+    }*/
     console.log(this.calendarForm.getRawValue())
     this.cliqProcedureService.scheduleProcedure(this.calendarForm.getRawValue()).subscribe({
       complete: () => {
@@ -188,16 +202,26 @@ export class FormDialogComponent {
         return;
       }
 
-    const actualDate = new Date();
-    const start = new Date(form.startDate);
-    const end = new Date (form.endDate);
+    const actualDate = new Date(new Date().toUTCString()).getTime();
 
-    if( start >= end ){
+    const start = new Date(form.startDate).toUTCString();
+    const end = new Date(form.endDate).toUTCString();
+    console.log('----------------')
+    console.log(form)
+    console.log(start)
+    console.log(end)
+
+    const startToCompare = new Date(start).getTime();
+    const endToCompare = new Date(end).getTime();
+
+    if( startToCompare >= endToCompare ){
       Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: 'Fecha inicio debe ser menor a fecha fin'});
+      return;
     }
-    if(start < actualDate){
+    /*if(startToCompare < actualDate){
       Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: 'Fecha inicio debe ser mayor la fecha actual'});
-    }
+      return;
+    }*/
 
     this.cliqProcedureService.editProcedure(this.calendarForm.getRawValue(), original.idBooking).subscribe({
       complete: () => {
