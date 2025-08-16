@@ -12,34 +12,22 @@ export interface ProcedimientoCatalogo {
     id_procedimiento:         number;
     especialidad:             string;
     nombre_procedimiento:     string;
-    quirofano:                number;
-    // "Quirofano.id_quirofano":     number;
-    "Quirofano.nombre_quirofano": string;
-    // "Quirofano.tiempo_uso":       string;
-    // "Quirofano.color":            string;
-    // "Quirofano.createdAt":        null;
-    // "Quirofano.updatedAt":        null;
-    precioBase:               number;
+    "Catalogo_Especialidad.id_especialidad": number;
+    "Catalogo_Especialidad.nombre_especialidad": string;
 }
 
 export interface ProcedimientoCatalogoTable {
     id_procedimiento:         number;
     especialidad:             string;
     nombre_procedimiento:     string;
-    quirofano:                number;
-    nombre_quirofano:         string;
-    precioBase:               number;
 }
 
 export interface DetallesProcedimiento {
     id_procedimiento:     number;
     especialidad:         string;
     nombre_procedimiento: string;
-    quirofano:            number;
-    precioBase:           string;
     createdAt:            null;
     updatedAt:            null;
-    Quirofano:            Quirofano;
 }
 
 export interface Quirofano {
@@ -60,13 +48,9 @@ export interface DetallesProcedimientoUpdate {
     id_procedimiento:     number;
     especialidad:         string;
     nombre_procedimiento: string;
-    quirofano:            number;
-    precioBase:           string;
 }
 
 export interface DetallesProcedimientoPost {
     especialidad:         string;
     nombre_procedimiento: string;
-    quirofano:            number;
-    precioBase:           string;
 }

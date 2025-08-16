@@ -1,0 +1,133 @@
+<form class="m-4" [formGroup]="procedureForm">
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Insumos del procedimiento'">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Informacion del procedimiento</h2>
+            </div>
+            <div class="body">
+                <div class="example-container">
+
+                  <div class="row">
+                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Medico</mat-label>
+                        <input matInput formControlName="medico" required>
+                        <mat-error *ngIf="procedureForm.get('medico')?.hasError('required')">
+                          Debe ingresar el medico
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Paciente</mat-label>
+                        <input matInput formControlName="paciente">
+                        <mat-error *ngIf="procedureForm.get('paciente')?.hasError('required')">
+                          Debe ingresar al paciente
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Fecha Procedimiento</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fechaProcedimiento" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="procedureForm.get('fechaProcedimiento')?.hasError('required')">
+                          Favor de seleccionar la fecha del procedimiento
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Procedimiento</mat-label>
+                          <input matInput formControlName="procedimiento" maxlength="10" type="text">
+                          <mat-error *ngIf="procedureForm.get('procedimiento')?.hasError('required')">
+                          Debe ingresar el procedimiento
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Quirofano</mat-label>
+                          <mat-select  formControlName="quirofano">
+                              <mat-option *ngFor="let quirofano of quirofanos" [value]="quirofano.id_quirofano">
+                              {{quirofano.nombre_quirofano}}
+                              </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="campoEsValido('quirofano')">{{'Debe seleccionar el quirofano'}}</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Contabilidad</h2>
+            </div>
+            <div class="body">
+                <div class="example-container">
+                  <div class="row">
+
+                    <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Costo</mat-label>
+                        <input (keypress)="numberOnly($event)" matInput formControlName="costo" type="text">
+                        <mat-error *ngIf="campoEsValido('costo')">{{'Debe ingresar el costo del procedimiento'}}</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <mat-form-field class="col-xl-4 col-lg-4 col-md-4 col-sm-12" appearance="outline">
+                        <mat-label>Forma de Pago</mat-label>
+                        <mat-select formControlName="formaPago" required>
+                          <mat-option  *ngFor="let formaPago of formasPago" [value]="formaPago.id_forma_pago">
+                            {{ formaPago.nombre_forma_pago }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="procedureForm.get('formaPago')?.hasError('required')">
+                          Debe seleccionar la forma de pago
+                        </mat-error>
+                      </mat-form-field>
+                       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Banco</mat-label>
+                        <mat-select formControlName="banco" required>
+                          <mat-option  *ngFor="let banco of bancos" [value]="banco.id_banco">
+                            {{ banco.nombre_banco }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="campoEsValido('banco')">{{'Debe seleccionar el banco'}}</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <button class="btn-space" mat-raised-button color="primary" (click)="closeProcedure()">Cerrar Procedimiento</button>
+                      <button type="button" mat-raised-button color="warn">Cancelar</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

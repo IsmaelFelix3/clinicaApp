@@ -70,16 +70,6 @@
                   <mat-cell *matCellDef="let row"><span class="mobile-label">Especialidad:</span> {{row.especialidad}}
                   </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="precioBase">
-                  <mat-header-cell *matHeaderCellDef>Precio Base</mat-header-cell>
-                  <mat-cell *matCellDef="let row"> <span
-                    class="mobile-label">Precio Base:</span>{{row.precioBase}}</mat-cell>
-                  </ng-container>
-                <ng-container matColumnDef="nombre_quirofano">
-                  <mat-header-cell *matHeaderCellDef>Quirofano</mat-header-cell>
-                  <mat-cell *matCellDef="let row"> <span
-                    class="mobile-label">Quirofano:</span>{{row.nombre_quirofano}}</mat-cell>
-                  </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)" -->

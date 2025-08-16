@@ -13,5 +13,8 @@ export const environment = {
   horariosEndpoint: 'horarios/',
   motivoConsultaEndpoint: 'motivoConsulta/',
   quirofanosEndpoint: 'quirofanos/',
-  procedureCatalogEndpoint: 'catalogoProcedimiento/'
+  procedureCatalogEndpoint: 'catalogoProcedimiento/',
+  banksEndpoint: 'banks/',
+  paymentMethods: 'paymentMethods/',
+  specialtiesEndpoint: 'specialties/'
 };

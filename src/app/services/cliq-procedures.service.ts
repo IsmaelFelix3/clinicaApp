@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DeleteProcedure, GetProcedimiento, GetProcedimientosCalendar, GetProcedimientosRequestCount, GetProcedimientosTableRequest, GetProcedimientosTableRequestAdmin, ProcedimientoPost, ProcedimientosRequest } from 'app/interfaces/Procedimiento';
+import { AccountingProcedure, ClosedProcedureInformation } from 'app/interfaces/ProcedimientoContabilidad';
 import { environment } from 'environments/environment';
 import { map } from 'rxjs';
 
@@ -96,10 +97,6 @@ export class CliqProceduresService {
         {
             console.log(procedures)
             let array = procedures.procedimientos.map( element => {
-            const userTimezoneOffset = new Date().getTimezoneOffset() * 60000;
-            const date1 = new Date(new Date(element.fecha_procedimiento_inicio).getTime() + userTimezoneOffset);
-            const date2 = new Date(new Date(element.fecha_procedimiento_fin).getTime() + userTimezoneOffset);
-
             return {
               idBooking: element.id_reserva,
               title: element.Medico.apellidos + ' ' + element.Quirofano.nombre_quirofano,
@@ -115,4 +112,13 @@ export class CliqProceduresService {
       )
     )
   }
+
+  getAccountingProcedures(date: string){
+    return this.http.get<AccountingProcedure>(`${this.baseURL}${this.apiURL}/getAccountingProcedures/${date}`);
+  }
+
+  postAccountingProcedure(object: ClosedProcedureInformation){
+     return this.http.post<AccountingProcedure>(`${this.baseURL}${this.apiURL}/addAccountingProcedure/`, object);
+  }
+
 }

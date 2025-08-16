@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Quirofano } from 'app/interfaces/Procedimiento';
+import { Especialidad } from 'app/interfaces/Especialidad';
 import { ProceduresCatalogService } from 'app/services/procedures-catalog.service';
-import { QuirofanosService } from 'app/services/quirofanos.service';
+import { SpecialtiesService } from 'app/services/specialties.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,21 +13,17 @@ import Swal from 'sweetalert2';
 })
 export class AddProcedureDetailsComponent {
 
-  quirofanos: Quirofano[] = [];
+  specialties: Especialidad[] = [];
 
   procedureDetailsForm: FormGroup = this.fb.group({
     nombre_procedimiento: [, [Validators.required]],
-    especialidad: [, [Validators.required]],
-    precioBase: [, [Validators.required]],
-    quirofano: [, [Validators.required]],
-});
-  constructor(private fb: FormBuilder, private router: Router, public proceduresCatalog: ProceduresCatalogService, public quirofanosService: QuirofanosService){}
+    especialidad: [, [Validators.required]]
+  });
+
+  constructor(private fb: FormBuilder, private router: Router, public proceduresCatalog: ProceduresCatalogService, public specialtiesService: SpecialtiesService ){}
 
   ngOnInit(): void {
-      this.quirofanosService.getQuirofanos().subscribe(quirofanos => {
-      this.quirofanos = quirofanos.quirofanos.rows;
-    });
-
+    this.specialtiesService.getSpecialties().subscribe( data => this.specialties =  data.specialties.rows);
   }
 
   campoEsValido(campo: string){
@@ -35,8 +31,6 @@ export class AddProcedureDetailsComponent {
   }
 
   addProcedure() {
-    console.log('Form Value', this.procedureDetailsForm.value);
-    // console.log('Form Value', this.procedureDetailsForm);
     if(!this.procedureDetailsForm.valid){
       this.procedureDetailsForm.markAllAsTouched();
       return;
@@ -46,10 +40,11 @@ export class AddProcedureDetailsComponent {
         this.router.navigateByUrl('admin/configuration/procedureDetails');
       },
       next: (value) => {
-        Swal.fire({icon: 'success',title:'Se guardo correctamente'});
+        console.log(value)
+        Swal.fire({icon: 'success',title:'Se guardo el procedimiento correctamente'});
       },
       error: (error) => {
-        Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: error.msg});
+        Swal.fire({icon: 'error',title:'Error al guardar el procedimiento', text: error.msg});
       }
     })
   }

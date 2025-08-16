@@ -122,6 +122,12 @@
         "BILLING": "Facturación",
         "GENERATEBILL": "Generar Factura"
     },
+    "CLIQ-PROCEDURES": {
+      "TEXT": "Procedimientos CLIQ",
+      "LIST": {
+        "MASS-CREATION-PROCEDURE": "Carga Masiva Procedimientos"
+      }
+    },
     "PATIENT": {
       "TEXT": "Paciente",
       "DASHBOARD": "Tablero",
@@ -154,6 +160,14 @@
     },
     "FORMATS": {
       "TEXT": "Formatos"
+    },
+    "ACCOUNTING": {
+      "TEXT": "Contabilidad",
+      "LIST": {
+        "BANKS-CATALOG":"Catalogo Bancos",
+        "PAYMENT-METHOD-CATALOG":"Catalogo Formas de Pago",
+        "CLOSE-PROCEDURE":"Cerrar Procedimiento"
+      }
     },
     "SETTINGS": {
       "TEXT": "Configuracion",

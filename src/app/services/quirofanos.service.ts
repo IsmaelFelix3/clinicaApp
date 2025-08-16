@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { QuirofanosRequest, SchedulesOperatingRoomsRequest } from 'app/interfaces/Quirofanos.interface';
 import { environment } from 'environments/environment';
 
-
 const urlApi: string = environment.api;
 const urlEndpoint: string = environment.quirofanosEndpoint
 
@@ -11,9 +10,6 @@ const urlEndpoint: string = environment.quirofanosEndpoint
   providedIn: 'root'
 })
 export class QuirofanosService {
-
-  baseURL = 'http://localhost:8000/api/';
-  apiURL = 'quirofanos/';
 
   constructor(public http: HttpClient) { }
 

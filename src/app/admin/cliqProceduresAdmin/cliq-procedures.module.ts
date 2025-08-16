@@ -11,6 +11,8 @@ import { CalendarProceduresComponent } from './calendar-procedures/calendar-proc
 import { AddSuppliesComponent } from './add-supplies/add-supplies.component';
 import { FormatsComponent } from './formats/formats.component';
 import { AdmissionProcedureAdminComponent } from './admission-procedure-admin/admission-procedure-admin.component';
+import { MassCreationProceduresComponent } from './mass-creation-procedures/mass-creation-procedures.component';
+import { ItemStockListService } from '../inventory/item-stock-list/item-stock-list.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { AdmissionProcedureAdminComponent } from './admission-procedure-admin/ad
     CalendarProceduresComponent,
     AddSuppliesComponent,
     FormatsComponent,
-    AdmissionProcedureAdminComponent
+    AdmissionProcedureAdminComponent,
+    MassCreationProceduresComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +32,7 @@ import { AdmissionProcedureAdminComponent } from './admission-procedure-admin/ad
     SharedModule,
     CliqProceduresRoutingModule,
     ComponentsModule,
-  ]
+  ],
+  providers: [ItemStockListService]
 })
 export class CliqProceduresModule { }

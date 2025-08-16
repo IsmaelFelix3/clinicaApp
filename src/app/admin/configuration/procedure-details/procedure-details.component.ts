@@ -27,8 +27,7 @@ export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter impl
     // 'id_procedimiento',
     'nombre_procedimiento',
     'especialidad',
-    'precioBase',
-    'nombre_quirofano'
+    // 'nombre_quirofano'
     // 'actions',
   ];
   exampleDatabase?: DoctorsService;
@@ -79,11 +78,8 @@ export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter impl
         this.procedimientos = value.catalogoProcedimiento.rows.map( element => {
           return {
             id_procedimiento: element.id_procedimiento,
-            especialidad: element.especialidad,
+            especialidad: element['Catalogo_Especialidad.nombre_especialidad'],
             nombre_procedimiento: element.nombre_procedimiento,
-            quirofano: element.quirofano,
-            nombre_quirofano: element['Quirofano.nombre_quirofano'],
-            precioBase: element.precioBase
           }
         });
         this.dataSource = new MatTableDataSource(this.procedimientos);

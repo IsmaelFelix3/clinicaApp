@@ -8,6 +8,7 @@ import { EditProcedureComponent } from './edit-procedure/edit-procedure.componen
 import { AddSuppliesComponent } from './add-supplies/add-supplies.component';
 import { FormatsComponent } from './formats/formats.component';
 import { AdmissionProcedureAdminComponent } from './admission-procedure-admin/admission-procedure-admin.component';
+import { MassCreationProceduresComponent } from './mass-creation-procedures/mass-creation-procedures.component';
 
 const routes: Routes = [
   // {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: "admission",
     component: AdmissionProcedureAdminComponent
+  },
+  {
+    path: "massCreationProcedures",
+    component: MassCreationProceduresComponent
   },
   { path: "**", component: Page404Component },
 ];
