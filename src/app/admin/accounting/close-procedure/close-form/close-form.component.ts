@@ -24,6 +24,7 @@ export class CloseFormComponent {
   formasPago: FormaPago[] = [];
 
   procedureForm:FormGroup = this.fb.group({
+      serie: [, Validators.required],
       paciente: [,Validators.required],
       medico: [, Validators.required],
       fechaProcedimiento: [, Validators.required],
@@ -50,6 +51,7 @@ export class CloseFormComponent {
     this.paymentMethodService.getPaymentMethods().subscribe( paymentMethods => { this.formasPago = paymentMethods.formasPago.rows; })
 
     this.procedureForm.setValue({
+      serie: this.state.serie,
       paciente: this.state.Paciente.nombre + ' ' + this.state.Paciente.apellidos,
       medico: this.state.Medico.nombre + ' ' + this.state.Medico.apellidos,
       fechaProcedimiento: this.state.fecha_procedimiento_inicio,
@@ -59,7 +61,9 @@ export class CloseFormComponent {
       formaPago: this.state.Catalogo_Forma_Pago.id_forma_pago,
       procedimiento: this.state.Catalogo_Procedimiento.nombre_procedimiento
     });
+    console.log(this.procedureForm.value)
 
+    this.procedureForm.get('serie')?.disable();
     this.procedureForm.get('medico')?.disable();
     this.procedureForm.get('paciente')?.disable();
     this.procedureForm.get('fechaProcedimiento')?.disable();

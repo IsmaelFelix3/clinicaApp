@@ -14,8 +14,8 @@ export interface Row {
     id_medico:                  number;
     id_paciente:                number;
     id_quirofano:               number;
-    fecha_procedimiento_inicio: Date;
-    fecha_procedimiento_fin:    Date;
+    fecha_procedimiento_inicio: string;
+    fecha_procedimiento_fin:    string;
     id_procedimiento:           number;
     estatus:                    string;
     id_banco:                   number;

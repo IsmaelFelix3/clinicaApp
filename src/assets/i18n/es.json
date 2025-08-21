@@ -166,7 +166,7 @@
       "LIST": {
         "BANKS-CATALOG":"Catalogo Bancos",
         "PAYMENT-METHOD-CATALOG":"Catalogo Formas de Pago",
-        "CLOSE-PROCEDURE":"Cerrar Procedimiento"
+        "CLOSE-PROCEDURE":"Procedimientos"
       }
     },
     "SETTINGS": {

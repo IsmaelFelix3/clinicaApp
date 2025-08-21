@@ -25,15 +25,19 @@ import Swal from 'sweetalert2';
 })
 export class CloseProcedureComponent {
 
+  form: FormGroup = this.fb.group({
+    fecha:['', Validators.required],
+  })
 
   filterToggle = false;
+  isTableVisible: boolean = false;
   displayedColumns = [
-    // 'id',
+    'serie',
     'doctor',
     'patient',
-    'quirofano',
-    'dateTime',
     'typeProcedure',
+    'dateTime',
+    'quirofano',
     'costo',
     'actions'
   ];
@@ -41,6 +45,7 @@ export class CloseProcedureComponent {
   estatus: number = 1;
   //exampleDatabase?: AppointmentsService;
   dataSource = new MatTableDataSource<Row>();
+  minDate: Date = new Date();
 
   datosFuente: Row[] = [];
   selection = new SelectionModel<Row>(true, []);
@@ -51,7 +56,9 @@ export class CloseProcedureComponent {
     public cliqProceduresService: CliqProceduresService,
     //public authService: AuthService,
     //public doctorService: DoctorsService,
-    public router: Router
+    public router: Router,
+    public fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {
     // super();
     dataSource: new MatTableDataSource([]);
@@ -72,6 +79,40 @@ export class CloseProcedureComponent {
   refresh() {
     this.loadData();
   }
+
+  search(){
+    if(!this.form.valid){
+      this.form.markAllAsTouched();
+      return;
+    }
+    let fecha = new Date(this.form.value.fecha).toUTCString();
+    this.cliqProceduresService.getAccountingProcedures(fecha).subscribe( data => {
+      console.log(data,'click');
+      this.isTableVisible = true;
+
+        this.datosFuente = data.procedimientos.rows;
+        console.log(this.datosFuente)
+        this.dataSource = new MatTableDataSource(this.datosFuente)
+        this.cdr.detectChanges();
+        this.dataSource.paginator = this.paginator;
+
+        // this.datosFuente.forEach( cita => {
+        //   cita.fecha_procedimiento_inicio = cita.fecha_procedimiento_inicio;
+        // });
+
+    });
+  }
+
+  campoEsValido(campo: string){
+    return this.form.controls[campo].errors && this.form.controls[campo].touched;
+  }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday and days before from being selected.
+    return day !== 0 && day !== 7;
+
+  };
 
   public loadData() {
 
@@ -113,7 +154,7 @@ export class CloseProcedureComponent {
     // );
   }
 
-  admission(row: Row){
+  closeProcedure(row: Row){
     Swal.fire({
       title: `¿Desea iniciar el proceso de cierre?`,
       showDenyButton: true,

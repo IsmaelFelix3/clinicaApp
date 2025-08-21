@@ -5,6 +5,30 @@
         <app-breadcrumb [title]="'Procedimientos CLIQ'" [items]="[]" [active_item]="'Procedimientos de hoy'">
         </app-breadcrumb>
       </div>
+       <div class="row">
+        <div class="card">
+            <div class="header">
+              <!-- <h2>Editar Cita</h2> -->
+            </div>
+            <div class="body">
+                <div class="example-container">
+                     <form [formGroup]="form">
+                            <mat-form-field class="col-4" appearance="outline">
+                            <mat-label>Fecha</mat-label>
+                            <input matInput [matDatepickerFilter]="myFilter" formControlName="fecha" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="campoEsValido('fecha')">{{'Debe seleccionar una fecha'}}</mat-error>
+                        </mat-form-field>
+                        <button class="ms-4" mat-raised-button color="primary" (click)="search()">
+                            <mat-icon>search</mat-icon>
+                            Buscar
+                        </button>
+                  </form>
+              </div>
+            </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
@@ -12,7 +36,7 @@
               <div class="left">
                 <ul class="header-buttons-left ms-0">
                   <li class="tbl-title">
-                    <h2>Citas</h2>
+                    <h2>Procedimientos</h2>
                   </li>
 
                 </ul>
@@ -31,10 +55,10 @@
               <div class="responsive_table">
                 <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
 
-                  <ng-container style="display: none;" matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id
+                  <ng-container style="display: none;" matColumnDef="serie">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Serie
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.id_reserva}}</mat-cell>
+                    <mat-cell *matCellDef="let row">{{row.serie}}</mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="quirofano">
@@ -84,14 +108,14 @@
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                       <span class="mobile-label">Date & Time:</span>
-                      {{ row.fecha_procedimiento_inicio | CustomDateTablePipe }}
+                      {{ row.fecha_procedimiento_inicio | date: 'dd/MM/yyyy hh:mm:ss' }}
                     </mat-cell>
                   </ng-container>
                    <!-- actions -->
                 <ng-container matColumnDef="actions">
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Acciones</mat-header-cell>
                   <mat-cell *matCellDef="let row;" class="pr-0">
-                    <button mat-icon-button (click)="admission(row)" [matTooltip]="'Cerrar'" class="tbl-action-btn">
+                    <button mat-icon-button (click)="closeProcedure(row)" [matTooltip]="'Cerrar'" class="tbl-action-btn">
                       <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
                     <!-- <button mat-icon-button (click)="redirect(row)" [matTooltip]="'Editar'" class="tbl-action-btn">

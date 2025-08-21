@@ -121,4 +121,8 @@ export class CliqProceduresService {
      return this.http.post<AccountingProcedure>(`${this.baseURL}${this.apiURL}/addAccountingProcedure/`, object);
   }
 
+  postMassCreationProcedures(object: any){
+     return this.http.post<AccountingProcedure>(`${this.baseURL}${this.apiURL}/postProceduresMasive/`, object);
+  }
+
 }

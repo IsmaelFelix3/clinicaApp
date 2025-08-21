@@ -9,6 +9,10 @@ import { ItemStockListService } from 'app/admin/inventory/item-stock-list/item-s
 import { InsumoExcel } from 'app/interfaces/Insumo';
 import Swal from 'sweetalert2';
 import * as ExcelJS from 'exceljs';
+import { CliqProceduresService } from 'app/services/cliq-procedures.service';
+import { Medico } from 'app/interfaces/Medico.interface';
+import { ProcedimientoCatalogo } from 'app/interfaces/CatalogoProcedimientos';
+import { ProceduresCatalogService } from 'app/services/procedures-catalog.service';
 
 @Component({
   selector: 'app-mass-creation-procedures',
@@ -18,8 +22,12 @@ import * as ExcelJS from 'exceljs';
 export class MassCreationProceduresComponent {
 
 
+    doctors: Medico[] = [];
+    procedures: ProcedimientoCatalogo [] = [];
+
     fecha: string = '';
     jsonData: any[] = [];
+    result: any[] = [];
     showTable: boolean = false;
     showResults: boolean = false;
     dataSource!: MatTableDataSource<InsumoExcel>;
@@ -27,21 +35,25 @@ export class MassCreationProceduresComponent {
     disableSave: boolean = true;
 
     displayedColumns = [
-      'folio',
+      'serie',
       'nombrePaciente',
-      'Procedimiento',
       'nombreDoctor',
-      'FechaRegistro',
-      'formaPago',
-      'costo',
-      'quirofano'
+      'procedimiento',
+      'fechaInicio',
+      // 'formaPago',
+      // 'costo',
+      // 'quirofano',
+      // 'estatus'
     ];
 
 
     constructor(private router: Router, private insumosService: ItemStockListService,
                 public fb: FormBuilder, public doctorService: DoctorsService,
                 private cdr: ChangeDetectorRef,
-                private snackBar: MatSnackBar, ){}
+                private snackBar: MatSnackBar,
+                public cliqProceduresService: CliqProceduresService,
+                public doctorsService: DoctorsService,
+                public catalogoProcedimientos: ProceduresCatalogService ){}
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -58,6 +70,7 @@ export class MassCreationProceduresComponent {
     }
 
     parseExcel(arrayBuffer: any): void {
+
       this.jsonData = [];
       const workbook = new ExcelJS.Workbook();
       workbook.xlsx.load(arrayBuffer).then((workbook) => {
@@ -76,74 +89,59 @@ export class MassCreationProceduresComponent {
           });
         });
 
-        this.showTable = true;
-        this.dataLength = this.jsonData.length;
-        this.dataSource = new MatTableDataSource(this.jsonData);
-        this.cdr.detectChanges();
-        this.dataSource.paginator = this.paginator;
+      this.doctorService.getAllDoctorss().subscribe( data => {
+        this.doctors = data.medicos;
+        this.catalogoProcedimientos.getAllProceduresDetails().subscribe( data => {
+          this.procedures = data.catalogoProcedimiento.rows;
+          this.result = this.jsonData.map( element => {
+            console.log(element)
+            let doctor = this.doctors.filter( item => item.id_medico == element.doctor);
+            let procedure = this.procedures.filter( item => item.id_procedimiento == element.procedimiento);
+            return {
+              serie: element.serie,
+              nombre_paciente: element.nombre_paciente,
+              apellidos_paciente: element.apellidos_paciente,
+              procedimiento: procedure[0].nombre_procedimiento,
+              doctor: doctor[0].nombre + ' ' + doctor[0].apellidos,
+              fecha_procedimiento_inicio: element.fecha_procedimiento_inicio,
+              fecha_procedimiento_fin: element.fecha_procedimiento_fin,
+              forma_pago: element.forma_pago,
+              costo: element.costo,
+              banco: element.banco,
+              quirofano: element.quirofano
+            }
+          });
+            this.showTable = true;
+            this.dataLength = this.result.length;
+            console.log(this.result)
+            this.dataSource = new MatTableDataSource(this.result);
+            this.cdr.detectChanges();
+            this.dataSource.paginator = this.paginator;
+        });
+      });
       });
     }
 
     saveData(){
 
       console.log(this.jsonData)
-
-      // let groups: any = {};
-
-      // for (let i = 0; i < this.jsonData.length; i++) {
-      //     let groupName = this.jsonData[i].procedimiento;
-      //     if (!groups[groupName]) {
-      //       groups[groupName] = [];
-      //     }
-      //       groups[groupName].push(this.jsonData[i]);
-      // }
-      //   let myArray = [];
-
-      // for (let groupName in groups) {
-      //   myArray.push({group: groupName, values: groups[groupName]});
-      // }
-      // const data = JSON.stringify(myArray);
-
-      // this.insumosService.addItemsMasive(data).subscribe({
-      //   complete: () => {
-      //     this.disableSave = false;
-      //   },
-      //   next: (value) => {
-      //     if(value.newProcedures.length === 0){
-      //       Swal.fire({
-      //         title: "No se cargaron procedimientos.",
-      //         text: value.msg,
-      //         icon: "warning"
-      //       });
-      //     }
-      //     else if(value.existing.length === 0){
-      //       Swal.fire({
-      //         title: "Carga masiva exitosa",
-      //         text: "Todos los procedimientos fueron cargados.",
-      //         icon: "success"
-      //       });
-      //     }
-      //     else{
-      //       Swal.fire({
-      //         title: "Carga masiva exitosa con detalles",
-      //         text: `Algunos procedimientos no pudieron ser asignados ya que el folio del procedimiento ya existe favor de revisar los folios ${value.existing}.`,
-      //         icon: "warning"
-      //       });
-      //     }
-
-      //   },
-      //   error(err) {
-
-      //   },
-      // });
-
-
-      // this.showNotification(
-      //   'snackbar-success',
-      //   'Guardado Exitoso...!!!',
-      //   'top',
-      //   'right'
-      // );
+      this.cliqProceduresService.postMassCreationProcedures( JSON.stringify(this.jsonData )).subscribe({
+        complete: () => {
+          this.disableSave = false;
+        },
+        next: (value) => {
+          Swal.fire({
+            title: "Guardado Exitoso",
+            icon: "success"
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            title: "Error al guardar consulte con el administrador",
+            icon: "warning"
+          });
+        },
+      })
     }
 
     showNotification(

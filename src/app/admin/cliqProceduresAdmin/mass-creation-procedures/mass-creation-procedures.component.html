@@ -59,110 +59,99 @@
             </div>
             <div class="body overflow-auto">
               <!-- <div class="responsive_table"> -->
-              <!-- <div class="table-responsive">
+              <div class="table-responsive">
                 <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
-                  <ng-container matColumnDef="procedimiento">
+                  <ng-container matColumnDef="serie">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Serie
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <span class="mobile-label">Serie:</span>
+                        {{row.serie}}
+                    </mat-cell>
+                  </ng-container>
+                   <ng-container matColumnDef="procedimiento">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Procedimiento
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <span class="mobile-label">Procedimiento:</span>
-                        {{row.folio}}
+                        {{row.procedimiento}}
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="numeroFacturaCompra">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Factura Compra
+                  <ng-container matColumnDef="nombrePaciente">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Paciente
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Factura Compra:</span>
-                        {{row.numeroFacturaCompra}}
+                        <span class="mobile-label">Paciente:</span>
+                        {{row.nombre_paciente + ' ' + row.apellidos_paciente}}
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="sku">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sku
+                  <ng-container matColumnDef="nombreDoctor">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Medico
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Sku:</span>
-                        {{row.sku}}
+                        <span class="mobile-label">Medico:</span>
+                        {{row.doctor}}
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="nombreProducto">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre producto
+                  <ng-container matColumnDef="fechaInicio">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Nombre producto:</span>
-                        {{row.nombreProducto}}
+                        <span class="mobile-label">Fecha:</span>
+                        {{row.fecha_procedimiento_inicio}}
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="descripcion">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion
+                  <!--<ng-container matColumnDef="estatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Descripcion:</span>
-                        {{ row.descripcion }}
+                        <span class="mobile-label">Estatus:</span>
+                        {{ row.estatus }}
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="numeroLote">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Lote
+                  <ng-container matColumnDef="costo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Costo
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Lote:</span>
-                        {{row.numeroLote}}
+                        <span class="mobile-label">Costo:</span>
+                        {{row.costo}}
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="fechaCaducidad">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Caducidad
+                  <ng-container matColumnDef="formaPago">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Forma Pago
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Fecha Caducidad:</span>
-                        {{row.fechaCaducidad}}
+                        <span class="mobile-label">Forma Pago:</span>
+                        {{row.formaPago}}
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="dosis">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dosis
+                  <ng-container matColumnDef="quirofano">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Quirofano
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Dosis:</span>
-                        {{row.dosis}}
+                        <span class="mobile-label">Quirofano:</span>
+                        {{row.quirofano}}
                     </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="cantidadActual">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Cantidad:</span>
-                        {{ row.cantidadActual }}
-                    </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="unidadMedida">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Medida
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                        <span class="mobile-label">Unidad Medida:</span>
-                        {{row.unidadMedida}}
-                    </mat-cell>
-                  </ng-container>
-
+                  </ng-container> -->
                   <mat-header-row *matHeaderRowDef="displayedColumns">
                   </mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;"  [style.cursor]="'pointer'">
                   </mat-row>
-                </mat-table> -->
+                </mat-table>
 
                 <!-- <div *ngIf="dataSource" class="no-results"
                   [style.display]="dataSource.length === 0 ? '' : 'none'">
                   No results
                 </div> -->
-                <!-- <mat-paginator #paginator [length]="dataLength" [pageIndex]="0"
+                <mat-paginator #paginator [length]="dataLength" [pageIndex]="0"
                   [pageSizeOptions]="[15, 25, 35, 50, 100]">
                 </mat-paginator>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
