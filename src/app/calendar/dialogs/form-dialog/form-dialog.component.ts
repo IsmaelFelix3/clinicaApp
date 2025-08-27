@@ -132,7 +132,7 @@ export class FormDialogComponent {
 
   createContactForm(): FormGroup {
     return this.fb.group({
-      serie: [this.calendar.serie, [Validators.required,Validators.pattern(/^PC-PRM00\d\d\d$/i)]],
+      serie: [this.calendar.serie, [Validators.required,Validators.pattern(/^PC-PRM00[0-9]+$/i)]],
       patient: [this.calendar.patient, [Validators.required]],
       doctor: [this.calendar.doctor, [Validators.required]],
       procedure: [this.calendar.procedure, [Validators.required]],

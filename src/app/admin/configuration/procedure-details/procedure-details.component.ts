@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter implements OnInit {
  displayedColumns = [
     // 'select',
-    // 'id_procedimiento',
+    'id_procedimiento',
     'nombre_procedimiento',
     'especialidad',
     // 'nombre_quirofano'

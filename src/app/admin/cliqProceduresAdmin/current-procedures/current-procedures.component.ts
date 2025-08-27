@@ -73,7 +73,7 @@ export class CurrentProceduresComponent {
 
   public loadData() {
 
-    this.cliqProceduresService.getAllProceduresDay('Admin',new Date().toISOString()).subscribe( Procedures => {
+    this.cliqProceduresService.getAllProceduresDay('Admin',new Date().toUTCString()).subscribe( Procedures => {
       console.log(Procedures.procedimientos.rows)
       this.datosFuente = Procedures.procedimientos.rows;
       this.dataSource = new MatTableDataSource(this.datosFuente);
