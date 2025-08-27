@@ -5,6 +5,7 @@ import { PaymentMethodsCatalogComponent } from './payment-methods-catalog/paymen
 import { CloseProcedureComponent } from './close-procedure/close-procedure.component';
 import { Page404Component } from 'app/authentication/page404/page404.component';
 import { CloseFormComponent } from './close-procedure/close-form/close-form.component';
+import { BalanceComponent } from './balance/balance.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: "closeForm",
     component: CloseFormComponent,
+  },
+  {
+    path: "balance",
+    component: BalanceComponent,
   },
   { path: "**", component: Page404Component },
 ]

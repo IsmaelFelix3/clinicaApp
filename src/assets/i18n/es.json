@@ -166,7 +166,8 @@
       "LIST": {
         "BANKS-CATALOG":"Catalogo Bancos",
         "PAYMENT-METHOD-CATALOG":"Catalogo Formas de Pago",
-        "CLOSE-PROCEDURE":"Procedimientos"
+        "CLOSE-PROCEDURE":"Procedimientos",
+        "BALANCE": "Balance"
       }
     },
     "SETTINGS": {
@@ -180,7 +181,8 @@
         "BRANDS": "Catalogo Marcas",
         "METRIC-UNIT": "Catalogo Unidad Medida",
         "TAXES-RATE":"Catalogo Tasa Impuestos",
-        "PROCEDUREDETAILS": "Catalogo Procedimientos"
+        "PROCEDUREDETAILS": "Catalogo Procedimientos",
+        "SPECIALTIES":"Catalogo Especialidades"
       }
     }
   }

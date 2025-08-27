@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@shared';
 import { ComponentsModule } from '@shared/components/components.module';
 import { CloseFormComponent } from './close-procedure/close-form/close-form.component';
+import { BalanceComponent } from './balance/balance.component';
+import { ChartsModule } from 'app/charts/charts.module';
 
 
 
@@ -18,6 +20,7 @@ import { CloseFormComponent } from './close-procedure/close-form/close-form.comp
     PaymentMethodsCatalogComponent,
     CloseProcedureComponent,
     CloseFormComponent,
+    BalanceComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import { CloseFormComponent } from './close-procedure/close-form/close-form.comp
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    ChartsModule
   ]
 })
 export class AccountingModule { }

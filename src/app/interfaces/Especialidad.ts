@@ -11,4 +11,15 @@ export interface Specialties {
 export interface Especialidad {
     id_especialidad:     number;
     nombre_especialidad: string;
+    createdAt:           string;
+    updatedAt:           string;
+}
+
+export interface EspecialidadPost {
+    nombre_especialidad: string;
+}
+
+export interface EspecialidadById {
+    msg:          string
+    specialty:    Especialidad;
 }

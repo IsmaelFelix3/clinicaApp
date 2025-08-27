@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IncomeProcedures } from 'app/interfaces/IncomeProcedures';
 import { DeleteProcedure, GetProcedimiento, GetProcedimientosCalendar, GetProcedimientosRequestCount, GetProcedimientosTableRequest, GetProcedimientosTableRequestAdmin, ProcedimientoPost, ProcedimientosRequest } from 'app/interfaces/Procedimiento';
 import { AccountingProcedure, ClosedProcedureInformation } from 'app/interfaces/ProcedimientoContabilidad';
 import { environment } from 'environments/environment';
@@ -123,6 +124,10 @@ export class CliqProceduresService {
 
   postMassCreationProcedures(object: any){
      return this.http.post<AccountingProcedure>(`${this.baseURL}${this.apiURL}/postProceduresMasive/`, object);
+  }
+
+  getPIByOR(start: string,end: string){
+    return this.http.get<IncomeProcedures>(`${this.baseURL}${this.apiURL}/getPIByOR/${start}&${end}`);
   }
 
 }

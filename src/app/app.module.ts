@@ -25,6 +25,8 @@ import {
 
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ThousandSeparatorDirective } from './directives/thousand-separator.directive';
+import { AllowInputDirective } from './directives/allow-input.directive';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -40,6 +42,8 @@ export function createTranslateLoader(http: HttpClient) {
     RightSidebarComponent,
     AuthLayoutComponent,
     MainLayoutComponent,
+    ThousandSeparatorDirective,
+    AllowInputDirective,
   ],
   imports: [
     BrowserModule,

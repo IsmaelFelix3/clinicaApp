@@ -11,6 +11,9 @@ import { TaxesRateCatalogComponent } from './taxes-rate-catalog/taxes-rate-catal
 import { ProcedureDetailsComponent } from './procedure-details/procedure-details.component';
 import { EditProcedureDetailsComponent } from './procedure-details/edit-procedure-details/edit-procedure-details.component';
 import { AddProcedureDetailsComponent } from './procedure-details/add-procedure-details/add-procedure-details.component';
+import { SpecialtiesCatalogComponent } from './specialties-catalog/specialties-catalog.component';
+import { AddSpecialtyComponent } from './specialties-catalog/add-specialty/add-specialty.component';
+import { EditSpecialtyComponent } from './specialties-catalog/edit-specialty/edit-specialty.component';
 
 const routes: Routes = [
   {
@@ -52,6 +55,18 @@ const routes: Routes = [
   {
     path: 'addProcedureDetails',
     component: AddProcedureDetailsComponent
+  },
+  {
+    path: 'specialtiesCtl',
+    component: SpecialtiesCatalogComponent
+  },
+  {
+    path: 'addSpecialty',
+    component: AddSpecialtyComponent
+  },
+  {
+    path: 'editSpecialty',
+    component: EditSpecialtyComponent
   },
   { path: '**', component: Page404Component },
 ];

@@ -89,11 +89,11 @@ const routes: Routes = [
       //   loadChildren: () =>
       //     import('./tables/tables.module').then((m) => m.TablesModule),
       // },
-      // {
-      //   path: 'charts',
-      //   loadChildren: () =>
-      //     import('./charts/charts.module').then((m) => m.ChartsModule),
-      // },
+      {
+        path: 'charts',
+        loadChildren: () =>
+          import('./charts/charts.module').then((m) => m.ChartsModule),
+      },
       // {
       //   path: 'timeline',
       //   loadChildren: () =>
