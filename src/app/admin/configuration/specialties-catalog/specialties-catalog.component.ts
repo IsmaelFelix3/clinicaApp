@@ -145,7 +145,7 @@ export class SpecialtiesCatalogComponent extends UnsubscribeOnDestroyAdapter imp
                   this.refresh();
                 },
                 error: (data) => {
-                  Swal.fire({icon: 'error',title:'Error al editar procedimiento', text: data.msg});
+                  Swal.fire({icon: 'error',title:'Error al eliminar el registro', text: data.msg});
                   this.loadData();
                 },
               })

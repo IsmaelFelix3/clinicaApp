@@ -11,4 +11,12 @@ export interface FormasPago {
 export interface FormaPago {
     id_forma_pago:     number;
     nombre_forma_pago: string;
+    estado:            boolean;
+    createdAt:         string;
+    updatedAt:         string;
+}
+
+export interface FormaPagoById{
+    msg:              string;
+    formaPago:        FormaPago
 }

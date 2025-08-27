@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BancoRequest } from 'app/interfaces/Banco';
+import { Banco, BancoAdd, BancoById, BancoRequest } from 'app/interfaces/Banco';
 import { environment } from 'environments/environment';
 
 const urlApi: string = environment.api;
@@ -15,6 +15,22 @@ export class BankService {
 
     getBanks(){
       return this.http.get<BancoRequest>(`${urlApi}${urlEndpoint}getBanks`);
+    }
+
+    getBankById(id: number){
+      return this.http.get<BancoById>(`${urlApi}${urlEndpoint}getBankById/${id}`);
+    }
+
+    addBank(body: BancoAdd){
+      return this.http.post(`${urlApi}${urlEndpoint}postBank`,body);
+    }
+
+    editBank(body: Banco){
+      return this.http.post(`${urlApi}${urlEndpoint}editBank`, body);
+    }
+
+    deleteBank(id: number){
+      return this.http.delete(`${urlApi}${urlEndpoint}deleteBank/${id}`);
     }
 
 }

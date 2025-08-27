@@ -11,6 +11,10 @@ import { ComponentsModule } from '@shared/components/components.module';
 import { CloseFormComponent } from './close-procedure/close-form/close-form.component';
 import { BalanceComponent } from './balance/balance.component';
 import { ChartsModule } from 'app/charts/charts.module';
+import { EditBankComponent } from './banks-catalog/edit-bank/edit-bank.component';
+import { AddBankComponent } from './banks-catalog/add-bank/add-bank.component';
+import { AddPaymentMethodComponent } from './payment-methods-catalog/add-payment-method/add-payment-method.component';
+import { EditPaymentMethodComponent } from './payment-methods-catalog/edit-payment-method/edit-payment-method.component';
 
 
 
@@ -21,6 +25,10 @@ import { ChartsModule } from 'app/charts/charts.module';
     CloseProcedureComponent,
     CloseFormComponent,
     BalanceComponent,
+    EditBankComponent,
+    AddBankComponent,
+    AddPaymentMethodComponent,
+    EditPaymentMethodComponent,
   ],
   imports: [
     CommonModule,
