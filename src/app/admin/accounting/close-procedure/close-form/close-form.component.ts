@@ -96,6 +96,7 @@ export class CloseFormComponent {
       id_banco: this.procedureForm.value.banco,
       id_quirofano: this.procedureForm.value.quirofano,
       id_forma_pago: this.procedureForm.value.formaPago,
+      estatus: 'Procedimiento Cerrado'
     }
 
     this.cliqProcedureService.postAccountingProcedure(closedProcedure).subscribe({

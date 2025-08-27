@@ -251,23 +251,26 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
       startDate: new Date(),
       endDate: new Date(),
       details: '',
-      status: ''
+      status: '',
+      serie: ''
       // category: row.event.groupId,
       // details: row.event.extendedProps['details'],
     };
     this.cliqProceduresService.getProcedure(calendarData.idBooking).subscribe( procedure => {
+      console.log(procedure, 'aqui')
       calendarData.doctorId = procedure.procedimiento['Medico.id_medico'];
-      calendarData.patientId = procedure.procedimiento['Paciente.id_paciente'],
-      calendarData.operatingRoomId = procedure.procedimiento['Quirofano.id_quirofano'],
-      calendarData.procedureId = procedure.procedimiento['Catalogo_Procedimiento.id_procedimiento'],
-      calendarData.doctorName = procedure.procedimiento['Medico.nombre'] +  ' ' + procedure.procedimiento['Medico.apellidos'],
-      calendarData.patientName = procedure.procedimiento['Paciente.nombre'] +  ' ' + procedure.procedimiento['Paciente.apellidos'],
-      calendarData.procedureName = procedure.procedimiento['Catalogo_Procedimiento.nombre_procedimiento'],
-      calendarData.operatingRoomName = procedure.procedimiento['Quirofano.nombre_quirofano'],
-      calendarData.startDate = procedure.procedimiento.fecha_procedimiento_inicio,
-      calendarData.endDate = procedure.procedimiento.fecha_procedimiento_fin,
-      calendarData.details = procedure.procedimiento.detalles,
+      calendarData.patientId = procedure.procedimiento['Paciente.id_paciente'];
+      calendarData.operatingRoomId = procedure.procedimiento['Quirofano.id_quirofano'];
+      calendarData.procedureId = procedure.procedimiento['Catalogo_Procedimiento.id_procedimiento'];
+      calendarData.doctorName = procedure.procedimiento['Medico.nombre'] +  ' ' + procedure.procedimiento['Medico.apellidos'];
+      calendarData.patientName = procedure.procedimiento['Paciente.nombre'] +  ' ' + procedure.procedimiento['Paciente.apellidos'];
+      calendarData.procedureName = procedure.procedimiento['Catalogo_Procedimiento.nombre_procedimiento'];
+      calendarData.operatingRoomName = procedure.procedimiento['Quirofano.nombre_quirofano'];
+      calendarData.startDate = procedure.procedimiento.fecha_procedimiento_inicio;
+      calendarData.endDate = procedure.procedimiento.fecha_procedimiento_fin;
+      calendarData.details = procedure.procedimiento.detalles;
       calendarData.status = procedure.procedimiento.estatus;
+      calendarData.serie = procedure.procedimiento.serie;
 
       console.log(calendarData)
 

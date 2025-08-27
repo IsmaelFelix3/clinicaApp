@@ -1,5 +1,6 @@
 import { formatDate } from '@angular/common';
 export class Calendar {
+  serie: string;
   idBooking: number;
   doctor: number;
   patient: number;
@@ -12,6 +13,7 @@ export class Calendar {
 
   constructor(calendar: Calendar) {
     {
+      this.serie = calendar.serie || '';
       this.idBooking = calendar.idBooking || 0;
       this.procedure = calendar.procedure || 1;
       this.patient = calendar.patient || 0;
@@ -19,7 +21,7 @@ export class Calendar {
       this.operatingRoom = calendar.operatingRoom || 0;
       this.startDate = new Date();
       this.endDate = new Date();
-      this.status = calendar.status || 'Procedimiento Agendado';
+      this.status = calendar.status || 'Procedimiento Registrado';
       this.details = calendar.details || '';
     }
   }

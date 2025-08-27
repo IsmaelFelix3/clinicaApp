@@ -33,7 +33,7 @@ export class CurrentProceduresComponent {
     'dateTime',
     'typeProcedure',
     'estatus',
-    'actions'
+    // 'actions'
   ];
   currentDate = new Date().toISOString();
   estatus: number = 1;

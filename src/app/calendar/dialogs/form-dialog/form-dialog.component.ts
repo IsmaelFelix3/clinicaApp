@@ -19,7 +19,8 @@ import { ProceduresCatalogService } from 'app/services/procedures-catalog.servic
 import { ProcedimientoCatalogo } from 'app/interfaces/CatalogoProcedimientos';
 import { CliqProceduresService } from 'app/services/cliq-procedures.service';
 import Swal from 'sweetalert2';
-import { ProcedimientoPostReturn } from '../../../interfaces/Procedimiento';
+import { Especialidad } from 'app/interfaces/Especialidad';
+import { SpecialtiesService } from 'app/services/specialties.service';
 
 export interface DialogData {
   id: number;
@@ -42,6 +43,7 @@ export class FormDialogComponent {
   doctors: Medico[] = [];
   patients: Paciente[] = [];
   operatingRooms: Quirofano[] = [];
+  specialties: Especialidad[] = [];
   proceduresCatalog: ProcedimientoCatalogo[] = [];
   showSaveBtn = true;
   showDeleteBtn = false;
@@ -56,18 +58,16 @@ export class FormDialogComponent {
     public patientService: PatientsService,
     public operatingRoomService: QuirofanosService,
     public proceduresCatalogService: ProceduresCatalogService,
-    public cliqProcedureService: CliqProceduresService
+    public cliqProcedureService: CliqProceduresService,
+    public specialtiesService: SpecialtiesService
   ) {
 
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
       this.dialogTitle = data.calendar.operatingRoomName + ' ' + data.calendar.doctorName;
-      console.log(new Date().getTimezoneOffset())
-      let offset = new Date().getTimezoneOffset()
-      console.log(new Date(new Date(data.calendar.startDate).getTime() + offset))
-      console.log(new Date(new Date(data.calendar.endDate).getTime() + offset))
       this.calendar = {
+        serie: data.calendar.serie,
         idBooking: data.calendar.idBooking,
         doctor: data.calendar.doctorId,
         patient: data.calendar.patientId,
@@ -82,7 +82,7 @@ export class FormDialogComponent {
       this.showDeleteBtn = true;
       this.showEditBtn = true
     } else {
-      this.dialogTitle = 'Nueva Reserva';
+      this.dialogTitle = 'Registrar Procedimiento';
       const blankObject = {} as Calendar;
       this.calendar = new Calendar(blankObject);
       this.calendar.startDate = data.calendar.startDate;
@@ -102,9 +102,19 @@ export class FormDialogComponent {
     //Add 'implements OnInit' to the class.
     this.doctorService.getAllDoctorss().subscribe( doctors => this.doctors = doctors.medicos );
     this.operatingRoomService.getQuirofanos().subscribe( operatingRooms => this.operatingRooms = operatingRooms.quirofanos.rows );
+    this.specialtiesService.getSpecialties().subscribe( specialties => this.specialties =  specialties.specialties.rows );
     if(this.data.action === 'edit'){
+      console.log(this.calendar.procedure)
       this.patientService.getAllPatients(this.calendar.doctor).subscribe( patients => this.patients = patients.paciente );
-      this.proceduresCatalogService.getAllPatients(this.calendar.operatingRoom).subscribe( prodecures => this.proceduresCatalog = prodecures.catalogoProcedimiento.rows );
+      this.proceduresCatalogService.getProcedureConfigurationDetails(this.calendar.procedure).subscribe( procedure => {
+        console.log(procedure)
+        let idSpecialty = parseInt(procedure.detallesProcedimiento.especialidad);
+        this.calendarForm.get('specialty')?.setValue(idSpecialty)
+        this.proceduresCatalogService.getProceduresBySpecialtyId(idSpecialty).subscribe( procedures =>  {
+          this.proceduresCatalog =  procedures.catalogoProcedimiento.rows
+        } );
+
+      } );
     }
   }
 
@@ -115,13 +125,14 @@ export class FormDialogComponent {
     });
   }
 
-  getProceduresByOperatingRoom(){
-    const operatingRoomId = this.calendarForm.value.operatingRoom;
-    this.proceduresCatalogService.getAllPatients(operatingRoomId).subscribe( prodecures => this.proceduresCatalog = prodecures.catalogoProcedimiento.rows )
+  getProceduresBySpecialtyId(){
+    const specialtyId = this.calendarForm.value.specialty;
+    this.proceduresCatalogService.getProceduresBySpecialtyId(specialtyId).subscribe( prodecures => this.proceduresCatalog = prodecures.catalogoProcedimiento.rows )
   }
 
   createContactForm(): FormGroup {
     return this.fb.group({
+      serie: [this.calendar.serie, [Validators.required,Validators.pattern(/^PC-PRM00\d\d\d$/i)]],
       patient: [this.calendar.patient, [Validators.required]],
       doctor: [this.calendar.doctor, [Validators.required]],
       procedure: [this.calendar.procedure, [Validators.required]],
@@ -129,7 +140,8 @@ export class FormDialogComponent {
       startDate: [this.calendar.startDate, [Validators.required]],
       endDate: [this.calendar.endDate, [Validators.required]],
       status: [this.calendar.status, [Validators.required]],
-      details: [ this.calendar.details, []]
+      details: [ this.calendar.details, []],
+      specialty: [, [Validators.required]]
     });
   }
 
@@ -156,15 +168,13 @@ export class FormDialogComponent {
   }
 
   public confirmAdd(): void {
+    console.log(this.calendarForm.getRawValue())
     const form = this.calendarForm.getRawValue();
     const actualDate = new Date(new Date().toUTCString()).getTime();
 
     const start = new Date(form.startDate).toUTCString();
     const end = new Date(form.endDate).toUTCString();
-    console.log('----------------')
-    console.log(form)
-    console.log(start)
-    console.log(end)
+
 
     const startToCompare = new Date(start).getTime();
     const endToCompare = new Date(end).getTime();
@@ -177,7 +187,7 @@ export class FormDialogComponent {
       Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: 'Fecha inicio debe ser mayor la fecha actual'});
       return;
     }*/
-    console.log(this.calendarForm.getRawValue())
+    this.calendarForm.get('serie')?.setValue(this.calendarForm.value.serie.toUpperCase());
     this.cliqProcedureService.scheduleProcedure(this.calendarForm.getRawValue()).subscribe({
       complete: () => {
         this.calendarForm.reset();
@@ -206,10 +216,7 @@ export class FormDialogComponent {
 
     const start = new Date(form.startDate).toUTCString();
     const end = new Date(form.endDate).toUTCString();
-    console.log('----------------')
-    console.log(form)
-    console.log(start)
-    console.log(end)
+
 
     const startToCompare = new Date(start).getTime();
     const endToCompare = new Date(end).getTime();
@@ -222,7 +229,7 @@ export class FormDialogComponent {
       Swal.fire({icon: 'error',title:'Error al editar el procedimiento', text: 'Fecha inicio debe ser mayor la fecha actual'});
       return;
     }*/
-
+    this.calendarForm.get('serie')?.setValue(this.calendarForm.value.serie.toUpperCase());
     this.cliqProcedureService.editProcedure(this.calendarForm.getRawValue(), original.idBooking).subscribe({
       complete: () => {
         this.calendarForm.reset();

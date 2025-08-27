@@ -13,8 +13,8 @@ export class ProceduresCatalogService {
 
   constructor(public http: HttpClient) { }
 
-  getAllPatients(operatingRoomId: number){
-    return this.http.get<CatalogoProcedimientos>(`${urlApi}${urlEndpoint}getProceduresCatalogByOperatingRoom/${operatingRoomId}`);
+  getProceduresBySpecialtyId(specialtyId: number){
+    return this.http.get<CatalogoProcedimientos>(`${urlApi}${urlEndpoint}getProceduresBySpecialty/${specialtyId}`);
   }
 
   getAllProceduresDetails(){

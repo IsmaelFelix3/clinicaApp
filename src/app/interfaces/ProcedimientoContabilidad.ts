@@ -67,4 +67,5 @@ export interface ClosedProcedureInformation {
   id_forma_pago:     number;
   id_reserva:    number;
   id_quirofano:     number;
+  estatus:          string;
 }

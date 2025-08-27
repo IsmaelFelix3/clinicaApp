@@ -130,6 +130,7 @@ export interface GetProcedimiento {
 }
 
 export interface ProcedimientoInformation {
+    serie:                                         string;
     fecha_procedimiento_inicio:                    Date;
     fecha_procedimiento_fin:                       Date;
     estatus:                                       string;
@@ -147,6 +148,7 @@ export interface ProcedimientoInformation {
 }
 
 export interface ProcedimientoEdit{
+    serie:             string;
     idBooking:         number;
     doctorId:          number;
     patientId:         number;
