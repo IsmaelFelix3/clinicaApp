@@ -1,5 +1,5 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { CalendarService } from '../../calendar.service';
 import {
   UntypedFormControl,
@@ -59,7 +59,8 @@ export class FormDialogComponent {
     public operatingRoomService: QuirofanosService,
     public proceduresCatalogService: ProceduresCatalogService,
     public cliqProcedureService: CliqProceduresService,
-    public specialtiesService: SpecialtiesService
+    public specialtiesService: SpecialtiesService,
+    private cd: ChangeDetectorRef
   ) {
 
     // Set the defaults

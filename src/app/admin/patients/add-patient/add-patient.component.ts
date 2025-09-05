@@ -31,7 +31,7 @@ export class AddPatientComponent {
       fecha_nacimiento: [, [Validators.required]],
       genero: [, [Validators.required]],
       correo: [,
-        [Validators.required, Validators.email, Validators.minLength(5)],
+        [ Validators.email, Validators.minLength(5)],
       ],
       telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
       google: [false],

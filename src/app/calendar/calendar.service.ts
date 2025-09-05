@@ -26,6 +26,7 @@ export class CalendarService {
     return this.dataChange.value;
   }
   getDialogData() {
+    console.log(this.dialogData)
     return this.dialogData;
   }
   getAllCalendars(): Observable<Calendar[]> {

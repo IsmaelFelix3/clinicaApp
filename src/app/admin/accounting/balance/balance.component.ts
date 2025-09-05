@@ -10,32 +10,32 @@ import { Chart } from 'chart.js/dist';
 export interface PeriodicElement {
   gasto: string;
   importe: number;
-
+  isDivisible: boolean
 }
 
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {gasto: 'Renta Todo Incluido 5to Piso', importe: 0},
-  {gasto: 'Mantenimiento 5to Piso 901', importe: 0},
-  {gasto: 'Poliza fumigación', importe: 82680},
-  {gasto: 'Seguro inmueble', importe: 0},
-  {gasto: 'Póliza RPBI', importe: 0},
-  {gasto: 'Papeleria', importe: 1500},
-  {gasto: 'Lavanderia', importe: 5100},
-  {gasto: 'INFRA', importe: 4000},
-  {gasto: 'Luz', importe: 12500},
-  {gasto: 'Medicamentos', importe: 42464.60},
-  {gasto: 'Insumos (mercancia + gasto gral)', importe: 96024.73},
-  {gasto: 'Agua, Café, galletas, refrescos', importe: 1500},
-  {gasto: 'MKT Cristina', importe: 3500},
-  {gasto: 'Publicidad Pagada', importe: 14000},
-  {gasto: 'Arrendamiento Equipos', importe: 11624.91},
-  {gasto: 'Sueldos (incluye administración)', importe: 149221.10},
-  {gasto: 'IMSS, RCV, INFONAVIT, Imp nomina', importe: 35294.71},
-  {gasto: 'Honorarios anestesia', importe: 0},
-  {gasto: 'Honorarios enfermeria extra', importe: 0},
-  {gasto: 'ISR', importe: 0},
-  {gasto: 'IVA', importe: 0},
+  {gasto: 'Renta Todo Incluido 5to Piso*', importe: 0, isDivisible: true},
+  {gasto: 'Mantenimiento 5to Piso 901*', importe: 0, isDivisible: true},
+  {gasto: 'Poliza fumigación*', importe: 82680, isDivisible: true},
+  {gasto: 'Seguro inmueble*', importe: 0, isDivisible: true},
+  {gasto: 'Póliza RPBI*', importe: 0, isDivisible: true},
+  {gasto: 'Papeleria', importe: 1500, isDivisible: false},
+  {gasto: 'Lavanderia', importe: 5100, isDivisible: false},
+  {gasto: 'INFRA', importe: 4000, isDivisible: false},
+  {gasto: 'Luz', importe: 12500, isDivisible: false},
+  {gasto: 'Medicamentos', importe: 42464.60, isDivisible: false},
+  {gasto: 'Insumos (mercancia + gasto gral)', importe: 96024.73, isDivisible: false},
+  {gasto: 'Agua, Café, galletas, refrescos', importe: 1500, isDivisible: false},
+  {gasto: 'MKT Cristina*', importe: 3500, isDivisible: true},
+  {gasto: 'Publicidad Pagada*', importe: 14000, isDivisible: true},
+  {gasto: 'Arrendamiento Equipos*', importe: 11624.91, isDivisible: true},
+  {gasto: 'Sueldos (incluye administración)*', importe: 149221.10, isDivisible: true},
+  {gasto: 'IMSS, RCV, INFONAVIT, Imp nomina*', importe: 35294.71, isDivisible: true},
+  {gasto: 'Honorarios anestesia', importe: 0, isDivisible: false},
+  {gasto: 'Honorarios enfermeria extra', importe: 0, isDivisible: false},
+  {gasto: 'ISR', importe: 0, isDivisible: false},
+  {gasto: 'IVA', importe: 0, isDivisible: false},
 ];
 
 @Component({
@@ -58,6 +58,7 @@ export class BalanceComponent {
   proceduresForm!: FormGroup;
   dataSource = new MatTableDataSource<any>();
   dataSource2 = new MatTableDataSource<any>();
+  daysCount: number = 0;
 
    form: FormGroup = this.fb.group({
       start:['', Validators.required],
@@ -93,6 +94,7 @@ export class BalanceComponent {
               VORows: this.fb.array(ELEMENT_DATA.map(val => this.fb.group({
                 gasto: new FormControl(val.gasto),
                 importe: new FormControl(val.importe),
+                isDivisible: new FormControl(val.isDivisible),
               })
               )) //end of fb array
             }); // end of form group cretation
@@ -110,13 +112,17 @@ export class BalanceComponent {
     console.log(this.proceduresForm.value)
 
     this.totalGastos = this.VOForm.value.VORows.reduce((accumulator: any, currentValue: any) => {
+      console.log(currentValue)
+      if(currentValue.isDivisible){
+        return accumulator + (parseFloat(currentValue.importe) / this.daysCount)
+      }
       return accumulator + parseFloat(currentValue.importe)
     },0);
 
     this.totalIngresos = this.proceduresForm.value.operatingRoomsRows.reduce((accumulator: any, currentValue: any) => {
       return accumulator + parseFloat(currentValue.importe)
     },0);
-
+    console.log(this.totalGastos)
     this.balance = this.totalIngresos - this.totalGastos;
     this.showBalance = true;
   }
@@ -144,8 +150,8 @@ export class BalanceComponent {
     let newStart =  new Date(Date.UTC(new Date(start).getUTCFullYear(),new Date(start).getUTCMonth(),new Date(start).getUTCDate(),0,0,0)).toUTCString();;
     let newFecha = new Date(Date.UTC(new Date(end).getUTCFullYear(),new Date(end).getUTCMonth(),new Date(end).getUTCDate(),23,59,59)).toUTCString();
 
-    let diff = this.calculateDays(start, end)
-    console.log(diff)
+    this.daysCount = this.calculateDays(start, end)
+    console.log(this.daysCount)
 
     this.cliqProceduresService.getPIByOR(newStart, newFecha).subscribe( data => {
       console.log(data)
