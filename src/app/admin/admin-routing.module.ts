@@ -76,6 +76,10 @@ const routes: Routes = [
   {
     path: 'accounting',
     loadChildren: () => import('./accounting/accounting.module').then((m) => m.AccountingModule)
+  },
+  {
+    path: 'accessLog',
+    loadChildren: () => import('./access-log/access-log.module').then( (m) => m.AccessLogModule )
   }
 ];
 

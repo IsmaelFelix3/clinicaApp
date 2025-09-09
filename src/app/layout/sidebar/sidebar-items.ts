@@ -308,7 +308,19 @@ export const ROUTES: RouteInfo[] = [
     ],
   },
   {
-    path: '',
+  path: '/admin/accessLog/buildingLog',
+  title: 'MENUITEMS.LOG.TEXT',
+  iconType: 'material-icons-two-tone',
+  icon: 'article',
+  class: '',
+  groupTitle: false,
+  badge: '',
+  badgeClass: '',
+  role: ['Admin'],
+  submenu: []
+  },
+  {
+    path: 'admin/accounting/balance',
     title: 'MENUITEMS.DOCTOR.CLIQPROCEDURES',
     iconType: 'material-icons-two-tone',
     icon: 'emergency',
@@ -1105,31 +1117,31 @@ export const ROUTES: RouteInfo[] = [
       // }
     ],
   },
-  {
-    path: '',
-    title: 'MENUITEMS.DOCTOR.BILLING',
-    iconType: 'material-icons-two-tone',
-    icon: 'request_quote',
-    class: 'menu-toggle',
-    groupTitle: false,
-    badge: '',
-    badgeClass: '',
-    role: ['Doctor'],
-    submenu: [
-      {
-        path: '/doctor/createBill',
-        title: 'MENUITEMS.DOCTOR.GENERATEBILL',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        groupTitle: false,
-        badge: '',
-        badgeClass: '',
-        role: ['Doctor'],
-        submenu: [],
-      }
-    ],
-  },
+  // {
+  //   path: '',
+  //   title: 'MENUITEMS.DOCTOR.BILLING',
+  //   iconType: 'material-icons-two-tone',
+  //   icon: 'request_quote',
+  //   class: 'menu-toggle',
+  //   groupTitle: false,
+  //   badge: '',
+  //   badgeClass: '',
+  //   role: ['Doctor'],
+  //   submenu: [
+  //     {
+  //       path: '/doctor/createBill',
+  //       title: 'MENUITEMS.DOCTOR.GENERATEBILL',
+  //       iconType: '',
+  //       icon: '',
+  //       class: 'ml-menu',
+  //       groupTitle: false,
+  //       badge: '',
+  //       badgeClass: '',
+  //       role: ['Doctor'],
+  //       submenu: [],
+  //     }
+  //   ],
+  // },
   // {
   //   path: '/doctor/settings',
   //   title: 'MENUITEMS.DOCTOR.SETTINGS',
