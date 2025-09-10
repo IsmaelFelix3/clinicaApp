@@ -40,6 +40,7 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
     // 'img',
     'name',
     'dateTime',
+    'time',
     'email',
     'mobile',
     'disease',
@@ -182,13 +183,6 @@ export class AppointmentsComponent extends UnsubscribeOnDestroyAdapter implement
   }
   public loadData() {
 
-    // this.exampleDatabase = new AppointmentsService(this.httpClient);
-
-    // this.dataSource = new ExampleDataSource(
-    //   this.exampleDatabase,
-    //   this.paginator,
-    //   this.sort
-    // );
     const EmailUser = this.authService.currentUserValue.userLogin.correo;
     let idMedico: number = 0;
     console.log(EmailUser)

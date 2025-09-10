@@ -5,6 +5,7 @@ export interface Appointments {
   id_paciente: number;
   estatus: string;
   fecha_cita: string;
+  hora_cita: string;
   motivo_consulta: string;
   sintoma_principal: string;
   resultados_estudios_realizados: string;

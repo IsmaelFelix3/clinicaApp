@@ -72,10 +72,17 @@
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="dateTime">
-                  <mat-header-cell *matHeaderCellDef>Fecha y Hora
+                  <mat-header-cell *matHeaderCellDef>Fecha
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row">
-                    <span class="mobile-label">Date & Time:</span> {{ row.fecha_cita | CustomDateTablePipe }}
+                    <span class="mobile-label">Date:</span> {{ row.fecha_cita | CustomDateTablePipe}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="time">
+                  <mat-header-cell *matHeaderCellDef>Hora
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <span class="mobile-label">Time:</span> {{ row.hora_cita  + ':00 - ' + (row.hora_cita + 1) + ':00'}}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="mobile">
@@ -142,7 +149,7 @@
               </div>
               <div *ngIf="!exampleDatabase?.isTblLoading" class="no-results"
                 [style.display]="datosFuente.length === 0 ? '' : 'none'">
-                No results
+                Sin resultados
               </div>
               <mat-paginator #paginator [length]="datosFuente.length" [pageIndex]="0"
                 [pageSizeOptions]="[5, 10]">

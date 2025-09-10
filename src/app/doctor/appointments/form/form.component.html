@@ -24,6 +24,8 @@
           <i class="material-icons-two-tone color-icon">event_note</i>
           <div class="contact-detail-info"> {{appointments.fecha_cita | CustomDateTablePipe}}
           </div>
+          <div class="contact-detail-info"> {{appointments.hora_cita + ':00' + '-' + (appointments.hora_cita + 1) +':00' }}
+          </div>
         </div>
         <div class="contact-details-field" matTooltip="Correo paciente" [matTooltipPosition]="'above'">
           <i class="material-icons-two-tone color-icon">email</i>

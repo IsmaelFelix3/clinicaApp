@@ -9,13 +9,14 @@ export class CustomDateTablePipe implements PipeTransform {
 
   transform(value: string ): string {
     let date = new Date(value).toISOString();
-        let hour = date.split('T')[1].substring(0,5);
+        // let hour = date.split('T')[1].substring(0,5);
         let fecha = date.split('T')[0];
-        let day = fecha.split('-')[2];
-        let month = parseInt(fecha.split('-')[1]);
+        let year = fecha.substring(0,4)
+        let month = parseInt(fecha.substring(5,7))
+        let day = fecha.substring(8,10)
         let strMont = this.monthArray[month-1];
         // let year = fecha.split('-')[0];
-        return `${  parseInt(hour) - 7} ${strMont}/${day}`;
+        return `${day}/${strMont}/${year}`;
   }
 
 }
