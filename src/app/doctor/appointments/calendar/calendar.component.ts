@@ -39,10 +39,10 @@ export class CalendarComponent {
     const day = (d || new Date()).getDay();
     // Prevent Saturday and Sunday and days before from being selected.
     return day !== 0 && day !== 6;
-  
+
   };
 
-  onDateChange(event: any) { 
+  onDateChange(event: any) {
     this.showTable = true;
     const date = new Date(event.value).toISOString();
     console.log(this.authService.currentUserValue)
@@ -62,6 +62,7 @@ export class CalendarComponent {
   displayedColumns = [
     'name',
     'dateTime',
+    'time',
     'email',
     'mobile',
     'disease',
@@ -95,7 +96,7 @@ export class CalendarComponent {
     if(status == 'En espera' ){
       return 'mat-primary';
     }
-    else if( status == 'En curso'){ 
+    else if( status == 'En curso'){
       return 'mat-success';
     }
     else{

@@ -37,13 +37,13 @@
                     <div class="body overflow-auto">
                       <div class="responsive_table">
                         <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
-                          
+
                           <ng-container matColumnDef="id">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Id
                             </mat-header-cell>
                             <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
                           </ng-container>
-                          
+
                           <ng-container matColumnDef="name">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Paciente
                             </mat-header-cell>
@@ -51,10 +51,17 @@
                             </mat-cell>
                           </ng-container>
                           <ng-container matColumnDef="dateTime">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha y Hora
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha
                             </mat-header-cell>
                             <mat-cell *matCellDef="let row">
-                              <span class="mobile-label">Date & Time:</span> {{ row.fecha_cita | CustomDateTablePipe }}
+                              <span class="mobile-label">Date:</span> {{ row.fecha_cita | CustomDateTablePipe }}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="time">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Hora
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <span class="mobile-label">Time:</span> {{ row.hora_cita + ':00 - ' + (row.hora_cita + 1) + ':00' }}
                             </mat-cell>
                           </ng-container>
                           <ng-container matColumnDef="mobile">
@@ -69,7 +76,7 @@
                             <mat-cell *matCellDef="let row"><span class="mobile-label">Email:</span> {{row.Paciente.correo}}
                             </mat-cell>
                           </ng-container>
-          
+
                           <ng-container matColumnDef="address">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Address
                             </mat-header-cell>
@@ -107,7 +114,7 @@
                               </mat-menu>
                             </mat-cell>
                           </ng-container> -->
-          
+
                           <mat-header-row *matHeaderRowDef="displayedColumns">
                           </mat-header-row>
                           <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
@@ -133,8 +140,7 @@
             </div>
         </div>
       </div>
-      
+
     </div>
   </section>
-  
-  
+
