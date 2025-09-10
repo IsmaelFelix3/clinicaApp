@@ -42,6 +42,10 @@ export class AddPatientDoctorComponent {
       return;
     }
 
+    this.patientForm.get('nombre')?.setValue(this.patientForm.value.nombre.toUpperCase());
+    this.patientForm.get('apellidos')?.setValue(this.patientForm.value.apellidos.toUpperCase());
+
+
     this.patientForm.get('medico')?.setValue([this.authService.currentUserValue.userLogin.correo]);
     console.log(this.patientForm.value)
 

@@ -38,11 +38,12 @@ import { Router } from '@angular/router';
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, AppointmentsService],
 })
 export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implements OnInit{
- 
+
   filterToggle = false;
   displayedColumns = [
     'name',
     'dateTime',
+    'time',
     'medic',
     'email',
     'mobile',
@@ -142,7 +143,7 @@ export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implem
     if(status == 'En espera' ){
       return 'mat-primary';
     }
-    else if( status == 'En curso'){ 
+    else if( status == 'En curso'){
       return 'mat-success';
     }
     else{
@@ -159,17 +160,15 @@ export class ViewappointmentComponent extends UnsubscribeOnDestroyAdapter implem
     //   this.sort
     // );
     this.appointmentsService.getAllAppoinmentsAdmin().subscribe( (data: any) => {
-      this.datosFuente = data.citasActuales;
+      console.log(data)
+      this.datosFuente = data.citas;
       this.dataSource = new MatTableDataSource(this.datosFuente)
 
-      this.datosFuente.forEach( cita => {
-        cita.fecha_cita = new Date(cita.fecha_cita).toLocaleString();
-      });
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log(this.datosFuente, 'datosFuente')
     });
-    
+
   }
 
   redirect(idCita: number){

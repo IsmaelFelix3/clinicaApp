@@ -73,7 +73,14 @@
                   <mat-header-cell *matHeaderCellDef>Fecha y Hora
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row">
-                    <span class="mobile-label">Date & Time:</span> {{ row.fecha_cita | CustomDateTablePipe }}
+                    <span class="mobile-label">Date:</span> {{ row.fecha_cita | CustomDateTablePipe }}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="time">
+                  <mat-header-cell *matHeaderCellDef>Hora
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <span class="mobile-label">Time:</span> {{ row.hora_cita }}
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="medic">
