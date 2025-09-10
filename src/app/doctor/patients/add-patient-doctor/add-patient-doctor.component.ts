@@ -14,8 +14,8 @@ export class AddPatientDoctorComponent {
 
   patientForm: FormGroup;
 
-  constructor( private fb: FormBuilder, 
-               private patientService: PatientsService, 
+  constructor( private fb: FormBuilder,
+               private patientService: PatientsService,
                private router: Router,
                private authService: AuthService){
     this.patientForm = this.fb.group({
@@ -23,10 +23,10 @@ export class AddPatientDoctorComponent {
       apellidos: [,[Validators.required, Validators.pattern('[a-zA-Z]+')]],
       fecha_nacimiento: [, [Validators.required]],
       genero: [, [Validators.required]],
-      correo: [, 
-        [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+      correo: [,
+        [, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
       ],
-      telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+      telefono: [, [, Validators.maxLength(10), Validators.minLength(10)]],
       google: [false],
       rol: ['Paciente'],
       password: ['Admin123'],

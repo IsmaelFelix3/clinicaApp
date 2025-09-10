@@ -9,7 +9,7 @@
           <div class="card">
             <div class="header">
               <h2><strong> Informacion Paciente</strong></h2>
-  
+
             </div>
             <div class="body">
               <form class="m-4" [formGroup]="patientForm">
@@ -65,34 +65,34 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-  
+
                 </div>
                 <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-2" appearance="outline">
                       <mat-label>Correo</mat-label>
                       <input matInput formControlName="correo" type="email" [email]="true">
-                      <mat-error *ngIf="patientForm.get('correo')?.hasError('email')">
+                      <!-- <mat-error *ngIf="patientForm.get('correo')?.hasError('email')">
                         Favor de ingresar un correo valido
-                      </mat-error>
-                      <mat-error *ngIf="patientForm.get('correo')?.hasError('required')">
+                      </mat-error> -->
+                      <!-- <mat-error *ngIf="patientForm.get('correo')?.hasError('required')">
                         Favor de ingresar un correo
-                      </mat-error>
+                      </mat-error> -->
                     </mat-form-field>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-2" appearance="outline">
                       <mat-label>Telefono</mat-label>
                       <input matInput formControlName="telefono" maxlength="10" type="text">
-                      <mat-error *ngIf="patientForm.get('telefono')?.hasError('required')">
+                      <!-- <mat-error *ngIf="patientForm.get('telefono')?.hasError('required')">
                         Favor de ingresar el numero de telefono
-                      </mat-error>
-                      <mat-error *ngIf="patientForm.get('telefono')?.hasError('minlength')">
+                      </mat-error> -->
+                      <!-- <mat-error *ngIf="patientForm.get('telefono')?.hasError('minlength')">
                         Numero de telefono invalido
                       </mat-error>
                       <mat-error *ngIf="patientForm.get('telefono')?.hasError('maxlength')">
                         Numero de telefono invalido
-                      </mat-error>
+                      </mat-error> -->
                     </mat-form-field>
                   </div>
                 </div>
@@ -109,4 +109,3 @@
       </div>
     </div>
   </section>
-  

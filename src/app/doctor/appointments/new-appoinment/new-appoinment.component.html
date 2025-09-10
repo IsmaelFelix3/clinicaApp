@@ -24,7 +24,7 @@
                    <mat-error *ngIf="campoEsValido('paciente')">{{'Debe seleccionar un paciente'}}</mat-error>
                     </mat-form-field>
                     <!-- <mat-form-field class="example-full-width" appearance="outline"> -->
-                    <div class="col-6">
+                    <div class="col-3">
                         <!-- <h6>Fecha Cita</h6> -->
                         <!-- <p>Prevent Saturday and Sunday from being selected</p> -->
                         <mat-form-field class="example-full-width">
@@ -35,6 +35,15 @@
                             <mat-error *ngIf="campoEsValido('fechaCita')">{{'Debe seleccionar una fecha'}}</mat-error>
                         </mat-form-field>
                     </div>
+                    <mat-form-field class="col-3" appearance="outline">
+                    <mat-label>Motivo Consulta</mat-label>
+                    <mat-select formControlName="motivoConsulta">
+                      <mat-option *ngFor="let motivo of motivos" [value]="motivo">
+                        {{motivo}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="campoEsValido('motivoConsulta')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
+                  </mat-form-field>
 
                 </div>
                 <div class="row">
@@ -48,15 +57,7 @@
                     <mat-error *ngIf="campoEsValido('horario')">{{'Seleccionar un horario'}}</mat-error>
                     </div>
                   </div>
-                <mat-form-field class="col-4" appearance="outline">
-                    <mat-label>Motivo Consulta</mat-label>
-                    <mat-select formControlName="motivoConsulta">
-                      <mat-option *ngFor="let motivo of motivos" [value]="motivo">
-                        {{motivo}}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="campoEsValido('motivoConsulta')">{{'Debe seleccionar el motivo de la consulta'}}</mat-error>
-                  </mat-form-field>
+
               </div>
             </div>
             <div class="row align-self-end">
@@ -73,4 +74,3 @@
     </form>
     </div>
   </section>
-  
