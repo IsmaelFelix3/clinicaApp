@@ -91,11 +91,15 @@
                 </ng-container>
                 <ng-container matColumnDef="edificio">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Edificio</mat-header-cell>
-                  <mat-cell *matCellDef="let row"><span class="mobile-label">Edificio:</span> {{row.idEdificio}}</mat-cell>
+                  <mat-cell *matCellDef="let row"><span class="mobile-label">Edificio:</span> {{row.nombreEdificio}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="piso">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Piso</mat-header-cell>
-                  <mat-cell *matCellDef="let row"><span class="mobile-label">Piso:</span> {{row.idPiso}}</mat-cell>
+                  <mat-cell *matCellDef="let row"><span class="mobile-label">Piso:</span> {{row.piso}}</mat-cell>
+                </ng-container>
+                 <ng-container matColumnDef="consultorio">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Consultorio</mat-header-cell>
+                  <mat-cell *matCellDef="let row"><span class="mobile-label">Consultorio:</span> {{row.consultorio}}</mat-cell>
                 </ng-container>
                 <!-- <ng-container matColumnDef="date">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Joining Date</mat-header-cell>

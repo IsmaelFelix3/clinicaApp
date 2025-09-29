@@ -9,6 +9,12 @@ import {
   Validators,
 } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { PisoElement } from 'app/interfaces/Piso';
+import { ConsultorioElement } from 'app/interfaces/Consultorio';
+import { EdificioElement } from 'app/interfaces/Edificio';
+import { FloorsService } from 'app/services/floors.service';
+import { ConsultingRoomService } from 'app/services/consulting-room.service';
+import { BuildingService } from 'app/services/building.service';
 @Component({
   selector: 'app-edit-doctor',
   templateUrl: './edit-doctor.component.html',
@@ -18,45 +24,83 @@ export class EditDoctorComponent implements OnInit {
 
   state: any = {};
   idMedico: number = 0;
+  pisos: PisoElement[] = [];
+  consultorios: ConsultorioElement[] = [];
+  edificios: EdificioElement[] = [];
 
   doctorForm: FormGroup = this.fb.group({
     nombre: [, [Validators.required]],
     apellidos: [, [Validators.required]],
     telefono: [, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-    especialidad: [, [Validators.required]],
-    cedula: [, [Validators.required]],
-    permiso_secre_salud: [, [Validators.required]],
+    especialidad: [, []],
+    cedula: [, []],
+    permiso_secre_salud: [, []],
     correo: [, [Validators.required, Validators.email, Validators.minLength(5)]],
     id_edificio: [, [Validators.required]],
     id_piso: [,[Validators.required]],
-    consultorio: [,[Validators.required]],
+    id_consultorio: [,[Validators.required]],
 });
-  constructor(private fb: FormBuilder, private router: Router, public doctorService: DoctorsService) {
+  constructor(private fb: FormBuilder, private router: Router, public doctorService: DoctorsService, public buildingService: BuildingService,
+    public floorService: FloorsService, public consultingRoom: ConsultingRoomService){
     this.state = this.router.getCurrentNavigation()?.extras.state;
   }
- 
+
+   getFloors(){
+    console.log('entro')
+    const edificioId = this.doctorForm.value.id_edificio;
+    this.floorService.getFloorsByBuildingId(edificioId).subscribe( floors => {
+      this.pisos = floors.pisos.rows
+    });
+  }
+
+  getConsultingRooms(){
+    const pisoId = this.doctorForm.value.id_piso;
+    this.consultingRoom.getConsultingRoomByFloorId(pisoId).subscribe( consultingRooms => {
+      this.consultorios = consultingRooms.consultorios.rows
+    });
+  }
+
+
 
   ngOnInit(): void {
+
     if(this.state == undefined){
       this.router.navigateByUrl('admin/doctors/allDoctors');
       return;
     }
+
     console.log(this.state)
     this.idMedico = this.state.id;
-    this.doctorService.getDoctorById(this.idMedico).subscribe({
-      next: (value) => {
-        this.doctorForm.get('nombre')?.setValue(value.medico.nombre);
-        this.doctorForm.get('apellidos')?.setValue(value.medico.apellidos);
-        this.doctorForm.get('telefono')?.setValue(value.medico.telefono);
-        this.doctorForm.get('especialidad')?.setValue(value.medico.especialidad);
-        this.doctorForm.get('cedula')?.setValue(value.medico.cedula);
-        this.doctorForm.get('permiso_secre_salud')?.setValue(value.medico.permiso_secre_salud);
-        this.doctorForm.get('correo')?.setValue(value.medico.correo);
-        this.doctorForm.get('id_edificio')?.setValue(value.medico.id_edificio);
-        this.doctorForm.get('id_piso')?.setValue(value.medico.id_piso);
-        this.doctorForm.get('consultorio')?.setValue(value.medico.consultorio);
-      },
+    this.doctorService.getDoctorById(this.idMedico).subscribe(medico => {
+
+      this.buildingService.getRecords().subscribe( buildings => {
+        this.edificios = buildings.edificios;
+
+      });
+      this.consultingRoom.getRecords().subscribe( consultingRooms => {
+        console.log(consultingRooms);
+        this.consultorios = consultingRooms.consultorios.rows;
+        console.log(this.consultorios);
+      });
+      this.floorService.getRecords().subscribe( floors => this.pisos = floors.pisos.rows );
+
+      this.doctorForm.get('nombre')?.setValue(medico.medico.nombre);
+      this.doctorForm.get('apellidos')?.setValue(medico.medico.apellidos);
+      this.doctorForm.get('telefono')?.setValue(medico.medico.telefono);
+      this.doctorForm.get('especialidad')?.setValue(medico.medico.especialidad);
+      this.doctorForm.get('cedula')?.setValue(medico.medico.cedula);
+      this.doctorForm.get('permiso_secre_salud')?.setValue(medico.medico.permiso_secre_salud);
+      this.doctorForm.get('correo')?.setValue(medico.medico.correo);
+      this.doctorForm.get('id_edificio')?.setValue(medico.medico.id_edificio);
+      this.doctorForm.get('id_piso')?.setValue(medico.medico.id_piso);
+      this.doctorForm.get('id_consultorio')?.setValue(medico.medico.id_consultorio);
+
+
+
+      console.log(this.edificios)
+      console.log(this.doctorForm.value)
     });
+
   }
 
   campoEsValido(campo: string){
@@ -113,5 +157,5 @@ export class EditDoctorComponent implements OnInit {
       }
     })
   }
-  
+
 }

@@ -16,5 +16,9 @@ export const environment = {
   procedureCatalogEndpoint: 'catalogoProcedimiento/',
   banksEndpoint: 'banks/',
   paymentMethods: 'paymentMethods/',
-  specialtiesEndpoint: 'specialties/'
+  specialtiesEndpoint: 'specialties/',
+  buildingLogEndpoint: 'buildingLog/',
+  consultingRoomEndpoint: 'consultingRoom/',
+  floorsEndpoint: 'pisos/',
+  buildingEndpoint: 'edificios/'
 };

@@ -27,10 +27,29 @@ export interface Medico {
     rol:                 string;
     telefono:            string;
     password:            string;
-    consultorio:         string;
+    id_consultorio:         string;
     fecha_registro:      Date;
     createdAt:           Date;
     updatedAt:           Date;
+    Consultorio:         Consultorio | null;
+    Edificio:            Edificio | null;
+    Piso:                Piso | null;
+}
+
+
+export interface Consultorio {
+    id_consultorio:          number;
+    descripcion_consultorio: string;
+}
+
+export interface Edificio {
+    id_edificio: number;
+    nombre:      string;
+}
+
+export interface Piso {
+    id_piso:          number;
+    descripcion_piso: string;
 }
 
 export interface MedicoTable {
@@ -57,7 +76,7 @@ export interface MedicoUpdate {
     id_edificio:         number;
     id_piso:             number;
     telefono:            string;
-    consultorio:         string;
+    id_consultorio:         string;
 }
 
 export interface MedicoShort {

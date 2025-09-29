@@ -10,7 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Banco } from 'app/interfaces/Banco';
-import { BankService } from 'app/services/bank.service';
+import { Registro } from 'app/interfaces/Bitacora';
+import { BuildingLogService } from 'app/services/building-log.service';
 import { fromEvent } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -22,25 +23,28 @@ import Swal from 'sweetalert2';
 export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
     displayedColumns = [
-      'id_banco',
-      'nombre_banco',
-      'actions',
+      'type',
+      'name',
+      'companion',
+      'motive',
+      'medic',
+      'entrance',
+      'exit',
+      'actions'
     ];
 
-    dataSource = new MatTableDataSource<Banco>();
-    banks: Banco[] = [];
+    dataSource = new MatTableDataSource<Registro>();
+    records: Registro[] = [];
     selection = new SelectionModel<any>(true, []);
-    index?: number;
     id!: number;
-    ambulanceList?: any;
     dataLength: number = 0;
     constructor(
       public httpClient: HttpClient,
       public dialog: MatDialog,
-      public banksServcie: BankService,
+      public buildingLogService: BuildingLogService,
       private snackBar: MatSnackBar,
       public router: Router
-    ) {
+    ){
         super();
     }
     @ViewChild(MatPaginator, { static: true })
@@ -61,12 +65,11 @@ export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements
       } else {
         tempDirection = 'ltr';
       }
-      this.router.navigateByUrl('admin/accounting/addBank');
-
+      this.router.navigateByUrl('admin/accessLog/addBuildingLog');
 
     }
     editCall(row: any) {
-        this.router.navigateByUrl('admin/accounting/editBank',{state: {id: row.id_banco}});
+        this.router.navigateByUrl('admin/accessLog/editBank',{state: {id: row.id_banco}});
     }
 
     deleteItem(row: Banco) {
@@ -82,23 +85,23 @@ export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements
             confirmButtonText: "Si, Eliminar"
           }).then((result) => {
             if (result.isConfirmed) {
-              this.banksServcie.deleteBank(this.id).subscribe({
-                next: (value) => {
-                  this.showNotification(
-                    'snackbar-danger',
-                    'Registro Eliminado Exitosamente...!!!',
-                    'top',
-                    'end'
-                  );
-                },
-                complete: () => {
-                  this.refresh();
-                },
-                error: (data) => {
-                  Swal.fire({icon: 'error',title:'Error al eliminar el registro', text: data.msg});
-                  this.loadData();
-                },
-              })
+              // this.banksServcie.deleteBank(this.id).subscribe({
+              //   next: (value) => {
+              //     this.showNotification(
+              //       'snackbar-danger',
+              //       'Registro Eliminado Exitosamente...!!!',
+              //       'top',
+              //       'end'
+              //     );
+              //   },
+              //   complete: () => {
+              //     this.refresh();
+              //   },
+              //   error: (data) => {
+              //     Swal.fire({icon: 'error',title:'Error al eliminar el registro', text: data.msg});
+              //     this.loadData();
+              //   },
+              // })
             }
           });
     }
@@ -108,14 +111,15 @@ export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements
 
 
     public loadData() {
-      this.banksServcie.getBanks().subscribe({
+      this.buildingLogService.getRecords().subscribe({
             complete: () => {
             },
             next: (value) => {
-              this.banks = value.bancos.rows;
-              this.dataSource = new MatTableDataSource(this.banks);
+              console.log(value)
+              this.records = value.registros.rows;
+              this.dataSource = new MatTableDataSource(this.records);
               this.dataSource.paginator = this.paginator;
-              this.dataLength = this.banks.length;
+              this.dataLength = this.records.length;
             },
             error: (err) => {
 

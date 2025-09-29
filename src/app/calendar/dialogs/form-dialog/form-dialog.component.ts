@@ -99,23 +99,19 @@ export class FormDialogComponent {
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+
     this.doctorService.getAllDoctorss().subscribe( doctors => this.doctors = doctors.medicos );
     this.operatingRoomService.getQuirofanos().subscribe( operatingRooms => this.operatingRooms = operatingRooms.quirofanos.rows );
     this.specialtiesService.getSpecialties().subscribe( specialties => this.specialties =  specialties.specialties.rows );
     if(this.data.action === 'edit'){
-      console.log(this.calendar.procedure)
       this.patientService.getAllPatients(this.calendar.doctor).subscribe( patients => this.patients = patients.paciente );
       this.proceduresCatalogService.getProcedureConfigurationDetails(this.calendar.procedure).subscribe( procedure => {
-        console.log(procedure)
         let idSpecialty = parseInt(procedure.detallesProcedimiento.especialidad);
         this.calendarForm.get('specialty')?.setValue(idSpecialty)
         this.proceduresCatalogService.getProceduresBySpecialtyId(idSpecialty).subscribe( procedures =>  {
           this.proceduresCatalog =  procedures.catalogoProcedimiento.rows
-        } );
-
-      } );
+        });
+      });
     }
   }
 
@@ -207,7 +203,7 @@ export class FormDialogComponent {
 
     const original = this.calendar;
     const form = this.calendarForm.getRawValue();
-    if(original.doctor == form.doctor && original.patient == form.patient && original.details == form.details && original.endDate == form.endDate &&
+    if(original.serie == form.serie && original.doctor == form.doctor && original.patient == form.patient && original.details == form.details && original.endDate == form.endDate &&
        original.startDate == form.startDate && original.operatingRoom == form.operatingRoom && original.procedure == form.procedure && original.status == form.status){
         Swal.fire({icon: 'info', text: 'No se han registrado cambios'});
         return;

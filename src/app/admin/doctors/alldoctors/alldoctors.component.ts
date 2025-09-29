@@ -45,6 +45,7 @@ export class AlldoctorsComponent
     'telefono',
     'edificio',
     'piso',
+    'consultorio'
     // 'actions',
   ];
   exampleDatabase?: DoctorsService;
@@ -220,7 +221,7 @@ export class AlldoctorsComponent
     console.log('load data');
     this.doctorsService.getAllDoctorss().subscribe({
       complete: () => {
-        
+
       },
       next: (value) => {
         console.log(value)
@@ -235,7 +236,10 @@ export class AlldoctorsComponent
             permisoSecreSalud: element.permiso_secre_salud,
             idEdificio: element.id_edificio,
             idPiso: element.id_piso,
-            telefono: element.telefono
+            telefono: element.telefono,
+            nombreEdificio: element.Edificio?.nombre,
+            piso: element.Piso?.descripcion_piso,
+            consultorio: element.Consultorio?.descripcion_consultorio
           }
         });
         this.dataSource = new MatTableDataSource(this.doctors);
@@ -243,7 +247,7 @@ export class AlldoctorsComponent
         this.dataLength = this.doctors.length;
       },
       error: (err) => {
-        
+
       },
     });
     // this.exampleDatabase = new DoctorsService(this.httpClient);

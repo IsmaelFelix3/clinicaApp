@@ -2,7 +2,7 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'Catalogo Bancos'" [items]="['Ambulance']" [active_item]="'Bancos'">
+        <app-breadcrumb [title]="'Bitacora'" [active_item]="'Listado'">
         </app-breadcrumb>
       </div>
       <div class="row">
@@ -12,7 +12,7 @@
               <div class="left">
                 <ul class="header-buttons-left ms-0">
                   <li class="tbl-title">
-                    <h2>Bitacora</h2>
+                    <h2>Listado</h2>
                   </li>
                   <li class="tbl-search-box">
                     <label for="search-input"><i class="material-icons search-icon">search</i></label>
@@ -58,13 +58,38 @@
                     </mat-cell> -->
                   </ng-container>
                   <!-- ID Column -->
-                  <ng-container matColumnDef="id_banco">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.id_banco}}</mat-cell>
+                  <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.tipo_ingreso}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="nombre_banco">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Banco</mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label">Vehicle No:</span> {{row.nombre_banco}}
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Nombre:</span> {{row.nombre_ingreso}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="companion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Acompañante</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Acompañante:</span> {{row.nombre_acompanante}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="motive">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Motivo</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Motivo:</span> {{row.motivo_ingreso}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="medic">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Medico</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Medico:</span> {{row.medico}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="entrance">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Entrada</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Entrada:</span> {{row.hora_entrada}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="exit">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Salida</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Salida:</span> {{row.hora_salida}}
                     </mat-cell>
                   </ng-container>
                   <!-- actions -->
