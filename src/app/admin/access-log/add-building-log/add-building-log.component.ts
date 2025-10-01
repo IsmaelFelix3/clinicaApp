@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class AddBuildingLogComponent {
 
-    types: string[] = ['EMPLEADO','PACIENTE']
+    types: string[] = ['EMPLEADO','PACIENTE','VISITA PERSONAL']
     doctors: Medico[] =[];
     isEmpleado: boolean =  false;
 
@@ -22,7 +22,7 @@ export class AddBuildingLogComponent {
     accessLogForm: FormGroup = this.fb.group({
       tipo_ingreso: [, [Validators.required]],
       nombre_ingreso: [,[Validators.required]],
-      nombre_acompanante: [,[Validators.required]],
+      nombre_acompanante: [,[]],
       motivo_ingreso: [,[Validators.required]],
       medico: [,[Validators.required]],
       fecha: [,Validators.required],
