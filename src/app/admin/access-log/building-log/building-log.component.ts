@@ -28,6 +28,7 @@ export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements
       'companion',
       'motive',
       'medic',
+      'date',
       'entrance',
       'exit',
       'actions'
@@ -69,11 +70,12 @@ export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements
 
     }
     editCall(row: any) {
-        this.router.navigateByUrl('admin/accessLog/editBank',{state: {id: row.id_banco}});
+      console.log(row)
+        this.router.navigateByUrl('admin/accessLog/editBuildingLog',{state: {id: row.id}});
     }
 
-    deleteItem(row: Banco) {
-    this.id = row.id_banco;
+    deleteItem(row: Registro) {
+    this.id = row.id;
       console.log(row)
         Swal.fire({
             title: "¿Desea eliminar este registro?",
@@ -85,23 +87,23 @@ export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements
             confirmButtonText: "Si, Eliminar"
           }).then((result) => {
             if (result.isConfirmed) {
-              // this.banksServcie.deleteBank(this.id).subscribe({
-              //   next: (value) => {
-              //     this.showNotification(
-              //       'snackbar-danger',
-              //       'Registro Eliminado Exitosamente...!!!',
-              //       'top',
-              //       'end'
-              //     );
-              //   },
-              //   complete: () => {
-              //     this.refresh();
-              //   },
-              //   error: (data) => {
-              //     Swal.fire({icon: 'error',title:'Error al eliminar el registro', text: data.msg});
-              //     this.loadData();
-              //   },
-              // })
+              this.buildingLogService.deleteBuildingLog(this.id).subscribe({
+                next: (value) => {
+                  this.showNotification(
+                    'snackbar-success',
+                    'Registro Eliminado Exitosamente...!!!',
+                    'top',
+                    'end'
+                  );
+                },
+                complete: () => {
+                  this.refresh();
+                },
+                error: (data) => {
+                  Swal.fire({icon: 'error',title:'Error al eliminar el registro', text: data.msg});
+                  this.loadData();
+                },
+              })
             }
           });
     }

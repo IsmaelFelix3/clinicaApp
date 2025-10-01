@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BuildingLogRecordsRequest } from 'app/interfaces/Bitacora';
+import { BuildingLogRecordsRequest, Registro, RegistroEdit, RegistroPost } from 'app/interfaces/Bitacora';
 import { environment } from 'environments/environment';
 
 const urlApi: string = environment.api;
@@ -17,20 +17,20 @@ export class BuildingLogService {
         return this.http.get<BuildingLogRecordsRequest>(`${urlApi}${urlEndpoint}getBitadoraRecords`);
       }
 
-      // getBankById(id: number){
-      //   return this.http.get<BancoById>(`${urlApi}${urlEndpoint}getBankById/${id}`);
-      // }
+      getBuildingLogById(id: number){
+        return this.http.get<RegistroEdit>(`${urlApi}${urlEndpoint}getRecordById/${id}`);
+      }
 
-      // addBank(body: BancoAdd){
-      //   return this.http.post(`${urlApi}${urlEndpoint}postBank`,body);
-      // }
+      addBuildingLog(body: RegistroPost){
+        return this.http.post(`${urlApi}${urlEndpoint}postBitacoraRecord`,body);
+      }
 
-      // editBank(body: Banco){
-      //   return this.http.post(`${urlApi}${urlEndpoint}editBank`, body);
-      // }
+      editBuildingLog(body: RegistroEdit){
+        return this.http.post(`${urlApi}${urlEndpoint}editRecord`, body);
+      }
 
-      // deleteBank(id: number){
-      //   return this.http.delete(`${urlApi}${urlEndpoint}deleteBank/${id}`);
-      // }
+      deleteBuildingLog(id: number){
+        return this.http.delete(`${urlApi}${urlEndpoint}deleteRecord/${id}`);
+      }
 
 }

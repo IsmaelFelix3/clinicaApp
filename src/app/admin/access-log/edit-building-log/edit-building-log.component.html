@@ -2,13 +2,13 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Bitacora'" [items]="[]" [active_item]="'Nuevo registro'"></app-breadcrumb>
+      <app-breadcrumb [title]="'Bitacora'" [items]="[]" [active_item]="'Editar registro'"></app-breadcrumb>
     </div>
     <div class="row clearfix">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="card">
           <div class="header">
-            <h2>Nuevo registro</h2>
+            <h2>Editar registro</h2>
           </div>
           <div class="body">
             <form class="mx-4" [formGroup]="accessLogForm">
@@ -60,15 +60,22 @@
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Entrada (Ejemplo: 12:00)</mat-label>
+                    <mat-label>Entrada (Ejemplo: 12:00 AM)</mat-label>
                     <input matInput formControlName="hora_entrada" required>
                     <mat-error *ngIf="campoEsValido('hora_entrada')">{{'Debe ingresar la hora de entrada'}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Salida (Ejemplo: 12:00 AM)</mat-label>
+                    <input matInput formControlName="hora_salida" required>
+                    <mat-error *ngIf="campoEsValido('hora_salida')">{{'Debe ingresar la hora de salida'}}</mat-error>
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                  <button class="btn-space" mat-raised-button color="primary" (click)="addProcedure()">Guardar</button>
+                  <button class="btn-space" mat-raised-button color="primary" (click)="addProcedure()">Guardar Cambios</button>
                   <button type="button" mat-raised-button color="warn" (click)="return()">Cancel</button>
                 </div>
               </div>

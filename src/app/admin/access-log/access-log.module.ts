@@ -7,11 +7,13 @@ import { ComponentsModule } from '@shared/components/components.module';
 import { BuildingLogComponent } from './building-log/building-log.component';
 import { AccessLogRoutingModule } from './access-log-routing.module';
 import { AddBuildingLogComponent } from './add-building-log/add-building-log.component';
+import { EditBuildingLogComponent } from './edit-building-log/edit-building-log.component';
 
 @NgModule({
   declarations: [
     BuildingLogComponent,
-    AddBuildingLogComponent
+    AddBuildingLogComponent,
+    EditBuildingLogComponent
   ],
   imports: [
     CommonModule,

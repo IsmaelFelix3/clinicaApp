@@ -82,6 +82,11 @@
                     <mat-cell *matCellDef="let row"><span class="mobile-label">Medico:</span> {{row.medico}}
                     </mat-cell>
                   </ng-container>
+                   <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Fecha:</span> {{row.fecha}}
+                    </mat-cell>
+                  </ng-container>
                   <ng-container matColumnDef="entrance">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Entrada</mat-header-cell>
                     <mat-cell *matCellDef="let row"><span class="mobile-label">Entrada:</span> {{row.hora_entrada}}
