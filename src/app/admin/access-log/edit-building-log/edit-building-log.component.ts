@@ -47,7 +47,7 @@ export class EditBuildingLogComponent {
 
     this.buildingLogService.getBuildingLogById(this.id).subscribe( data =>{
       console.log(data.registro.tipo_ingreso)
-      this.isEmpleado = data.registro.tipo_ingreso === 'EMPLEADO' ? true : false;
+      this.isEmpleado = data.registro.tipo_ingreso === 'EMPLEADO' || data.registro.tipo_ingreso === 'MEDICO CONSULTA' ? true : false;
       this.accessLogForm.get('id')?.setValue(this.id);
       this.accessLogForm.get('tipo_ingreso')?.setValue(data.registro.tipo_ingreso);
       this.accessLogForm.get('nombre_ingreso')?.setValue(data.registro.nombre_ingreso);
@@ -74,7 +74,7 @@ export class EditBuildingLogComponent {
 
   addProcedure() {
 
-        if(this.accessLogForm.get('type')?.value === 'EMPLEADO'){
+        if(this.accessLogForm.get('type')?.value === 'EMPLEADO' || this.accessLogForm.value.tipo_ingreso === 'MEDICO CONSULTA'){
           this.accessLogForm.get('acompanante')?.setValue('N/A');
           this.accessLogForm.get('motivo')?.setValue('N/A');
           this.accessLogForm.get('medico')?.setValue(0);

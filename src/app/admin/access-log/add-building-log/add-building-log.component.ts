@@ -54,7 +54,7 @@ export class AddBuildingLogComponent {
 
     addProcedure() {
 
-      if(this.accessLogForm.get('tipo_ingreso')?.value === 'EMPLEADO'){
+      if(this.accessLogForm.get('tipo_ingreso')?.value === 'EMPLEADO' || this.accessLogForm.value.tipo_ingreso === 'MEDICO CONSULTA'){
         this.accessLogForm.get('nombre_acompanante')?.setValue('N/A');
         this.accessLogForm.get('motivo_ingreso')?.setValue('N/A');
         this.accessLogForm.get('medico')?.setValue(0);
