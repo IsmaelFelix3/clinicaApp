@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class EditBuildingLogComponent {
 
-  types: string[] = ['EMPLEADO','PACIENTE','VISITA PERSONAL','REPRESENTANTE MEDICO','TRABAJADOR EXTERNO','ANESTESIOLOGO', 'MEDICO AYUDANTE']
+  types: string[] = ['EMPLEADO','PACIENTE', 'MEDICO CONSULTA','ANESTESIOLOGO', 'MEDICO AYUDANTE','REPRESENTANTE MEDICO','TRABAJADOR EXTERNO','VISITA PERSONAL']
   doctors: Medico[] =[];
   isEmpleado: boolean =  false;
   state: any = {}
@@ -67,7 +67,7 @@ export class EditBuildingLogComponent {
 
     getType(){
       this.isEmpleado = false;
-      if(this.accessLogForm.value.tipo_ingreso === 'EMPLEADO'){
+       if(this.accessLogForm.value.tipo_ingreso === 'EMPLEADO' || this.accessLogForm.value.tipo_ingreso === 'MEDICO CONSULTA'){
         this.isEmpleado = true;
       }
     }
