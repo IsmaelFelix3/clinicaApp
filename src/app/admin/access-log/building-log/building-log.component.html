@@ -79,7 +79,7 @@
                   </ng-container>
                   <ng-container matColumnDef="medic">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Medico</mat-header-cell>
-                    <mat-cell *matCellDef="let row"><span class="mobile-label">Medico:</span> {{row.medico}}
+                    <mat-cell *matCellDef="let row"><span class="mobile-label">Medico:</span> {{row.medico === 0 ? 'N/A' : row.Medico.apellidos + ' ' + row.Medico.nombre }}
                     </mat-cell>
                   </ng-container>
                    <ng-container matColumnDef="date">

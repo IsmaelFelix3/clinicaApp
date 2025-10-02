@@ -20,6 +20,7 @@ export interface Registro {
     hora_salida:        string;
     updatedAt:          Date;
     createdAt:          Date;
+    Medico:             Medico | null;
 }
 
 export interface RegistroPost {
@@ -59,6 +60,12 @@ export interface Registro {
     medico: number;
     count:  number;
     fecha:  Date;
+}
+
+export interface Medico {
+    id_medico: number;
+    nombre:    string;
+    apellidos: string;
 }
 
 
