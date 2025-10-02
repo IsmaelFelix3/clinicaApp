@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class AddBuildingLogComponent {
 
-    types: string[] = ['EMPLEADO','PACIENTE','VISITA PERSONAL']
+    types: string[] = ['EMPLEADO','PACIENTE','VISITA PERSONAL','REPRESENTANTE MEDICO','TRABAJADOR EXTERNO','ANESTESIOLOGO', 'MEDICO AYUDANTE']
     doctors: Medico[] =[];
     isEmpleado: boolean =  false;
 
@@ -63,10 +63,10 @@ export class AddBuildingLogComponent {
         this.accessLogForm.get('motivo_ingreso')?.setValue(this.accessLogForm.value.motivo_ingreso.toUpperCase());
       }
 
-      const day = new Date().getUTCDate();
-      const month = new Date().getUTCMonth();
-      const year = new Date().getUTCFullYear();
-      const fecha = new Date(year, month, day).toUTCString();
+      const day = new Date().getDate();
+      const month = new Date().getMonth();
+      const year = new Date().getFullYear();
+      const fecha = new Date(year, month, day);
       this.accessLogForm.get('nombre_ingreso')?.setValue(this.accessLogForm.value.nombre_ingreso.toUpperCase());
       this.accessLogForm.get('fecha')?.setValue(fecha);
 

@@ -187,6 +187,12 @@
     },
     "LOG": {
       "TEXT": "Bitácora"
+    },
+    "REPORTS": {
+      "TEXT": "Reportes",
+      "LIST": {
+        "BUILDING-LOG-REPORT": "Reporte Bitacora"
+      }
     }
   }
 }

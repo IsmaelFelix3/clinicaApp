@@ -80,6 +80,10 @@ const routes: Routes = [
   {
     path: 'accessLog',
     loadChildren: () => import('./access-log/access-log.module').then( (m) => m.AccessLogModule )
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./reports/reports-routing.module').then( (m) => m.ReportsRoutingModule )
   }
 ];
 

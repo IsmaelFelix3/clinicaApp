@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class EditBuildingLogComponent {
 
-  types: string[] = ['EMPLEADO','PACIENTE']
+  types: string[] = ['EMPLEADO','PACIENTE','VISITA PERSONAL','REPRESENTANTE MEDICO','TRABAJADOR EXTERNO','ANESTESIOLOGO', 'MEDICO AYUDANTE']
   doctors: Medico[] =[];
   isEmpleado: boolean =  false;
   state: any = {}

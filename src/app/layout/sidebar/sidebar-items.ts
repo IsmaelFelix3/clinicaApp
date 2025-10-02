@@ -320,6 +320,31 @@ export const ROUTES: RouteInfo[] = [
   submenu: []
   },
   {
+  path: '',
+  title: 'MENUITEMS.REPORTS.TEXT',
+  iconType: 'material-icons-two-tone',
+  icon: 'assignment',
+  class: 'menu-toggle',
+  groupTitle: false,
+  badge: '',
+  badgeClass: '',
+  role: ['Admin'],
+  submenu: [
+     {
+        path: '/admin/reports/buildingLogReport',
+        title: 'MENUITEMS.REPORTS.LIST.BUILDING-LOG-REPORT',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        role: [''],
+        submenu: [],
+      },
+  ]
+  },
+  {
     path: 'admin/accounting/balance',
     title: 'MENUITEMS.DOCTOR.CLIQPROCEDURES',
     iconType: 'material-icons-two-tone',

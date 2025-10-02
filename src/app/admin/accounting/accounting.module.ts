@@ -16,8 +16,6 @@ import { AddBankComponent } from './banks-catalog/add-bank/add-bank.component';
 import { AddPaymentMethodComponent } from './payment-methods-catalog/add-payment-method/add-payment-method.component';
 import { EditPaymentMethodComponent } from './payment-methods-catalog/edit-payment-method/edit-payment-method.component';
 
-
-
 @NgModule({
   declarations: [
     BanksCatalogComponent,

@@ -50,4 +50,15 @@ export interface RegistroEdit {
 
 }
 
+export interface BuildingLogReport {
+    msg:       string;
+    registros: Registro[];
+}
+
+export interface Registro {
+    medico: number;
+    count:  number;
+    fecha:  Date;
+}
+
 

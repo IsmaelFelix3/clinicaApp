@@ -114,7 +114,7 @@ export class BalanceComponent {
     this.totalGastos = this.VOForm.value.VORows.reduce((accumulator: any, currentValue: any) => {
       console.log(currentValue)
       if(currentValue.isDivisible){
-        return accumulator + (parseFloat(currentValue.importe) / this.daysCount)
+        return accumulator + ((parseFloat(currentValue.importe) / 30 ) * this.daysCount)
       }
       return accumulator + parseFloat(currentValue.importe)
     },0);
@@ -143,8 +143,6 @@ export class BalanceComponent {
 }
 
   search(){
-
-
     let start = this.form.value.start;
     let end = this.form.value.end;
     let newStart =  new Date(Date.UTC(new Date(start).getUTCFullYear(),new Date(start).getUTCMonth(),new Date(start).getUTCDate(),0,0,0)).toUTCString();;
