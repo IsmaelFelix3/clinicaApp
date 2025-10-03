@@ -6,7 +6,6 @@ import { SharedModule } from '@shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '@shared/components/components.module';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -15,7 +14,7 @@ import { ComponentsModule } from '@shared/components/components.module';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule
-  ]
+    ComponentsModule,
+  ],
 })
 export class ReportsModule { }

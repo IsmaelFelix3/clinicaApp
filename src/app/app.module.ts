@@ -61,7 +61,8 @@ export function createTranslateLoader(http: HttpClient) {
     LoadingBarRouterModule,
     // core & shared
     CoreModule,
-    SharedModule,
+    SharedModule
+
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

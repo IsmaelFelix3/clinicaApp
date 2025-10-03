@@ -38,4 +38,9 @@ export class BuildingLogService {
     return this.http.get<BuildingLogReport>(`${urlApi}${urlEndpoint}getBuildingLogReport/${start}&${end}`);
   }
 
+  getBuildingLogReportTotal(start: string, end: string){
+    console.log(start, end)
+    return this.http.get<BuildingLogReport>(`${urlApi}${urlEndpoint}getBuildingLogReportTotal/${start}&${end}`);
+  }
+
 }

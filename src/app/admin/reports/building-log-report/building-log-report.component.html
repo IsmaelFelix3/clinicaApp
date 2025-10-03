@@ -34,11 +34,11 @@
         </div>
       </div> -->
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
           <div class="card">
-            <div>
-              <h2 style="background-color: #144464;color: white; margin-bottom: 0px;">Procedimientos CLIQ S.A. de C.V.</h2>
-            </div>
+            <div style="background-color: #144464;" class="header">
+            <h2 style="color:white;">Registro de Pacientes</h2>
+          </div>
 
             <!-- <div class="materialTableHeader" style="background-color: #144464;">
               <div class="center">
@@ -53,20 +53,28 @@
               <form [formGroup]="VOForm" autocomplete="off">
                 <ng-container formArrayName="VORows">
                   <table #table mat-table [dataSource]="dataSource">
-                    <!-- gasto Column -->
-                    <ng-container matColumnDef="gasto">
-                    <th mat-header-cell *matHeaderCellDef>Gasto</th>
+                    <!-- medico Column -->
+                    <ng-container matColumnDef="doctor">
+                    <th mat-header-cell *matHeaderCellDef>Doctor</th>
                     <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
-                      <input style="width: 230px;border: none;" matInput type="text" formControlName="gasto" [readonly]="true"/>
+                      <input style="width: 280px;border: none;" matInput type="text" formControlName="medico" [readonly]="true"/>
                     </td>
                     </ng-container>
-                    <!-- importe Column -->
-                    <ng-container matColumnDef="importe">
-                      <th mat-header-cell *matHeaderCellDef>Importe</th>
+                    <!-- consultorio Column -->
+                    <ng-container matColumnDef="consultorio">
+                    <th mat-header-cell *matHeaderCellDef>Consultorio</th>
+                    <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                      <input style="width: 150px;border: none;" matInput type="text" formControlName="consultorio" [readonly]="true"/>
+                    </td>
+                    </ng-container>
+                    <!-- cantidad Column -->
+                    <ng-container matColumnDef="total">
+                      <th mat-header-cell *matHeaderCellDef>Total</th>
                       <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
-                      <input style="width: 90px;border: none;" matInput type="number" formControlName="importe"/>
+                      <input style="width: 90px;border: none;" matInput type="number" formControlName="cantidad"/>
                     </td>
                     </ng-container>
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -76,21 +84,32 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <div class="card" *ngIf="showIngresos">
-            <div class="table-responsive">
+        <div *ngIf="showChart"  class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="col-lg-12">
+               <div style="background-color: #144464;" class="header">
+            <h2 style="color:white;">Total Visitas {{totalVisitas}}</h2>
+            </div>
+          <div class="body">
+            <div class="recent-report__chart">
+              <canvas style="height: 33rem;" baseChart class="chart" [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+              </canvas>
+            </div>
+          </div>
+            </div>
+            <!-- <div class="table-responsive">
               <form [formGroup]="proceduresForm" autocomplete="off">
                 <ng-container formArrayName="operatingRoomsRows">
-                  <table #table mat-table [dataSource]="dataSource2">
+                  <table #table mat-table [dataSource]="dataSource2"> -->
                     <!-- gasto Column -->
-                    <ng-container matColumnDef="ingreso">
+                    <!-- <ng-container matColumnDef="ingreso">
                     <th mat-header-cell *matHeaderCellDef>Ingreso</th>
                     <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
                       <input style="width: 230px;border: none;" matInput type="text" formControlName="ingreso" [readonly]="true"/>
                     </td>
-                    </ng-container>
+                    </ng-container> -->
                     <!-- importe Column -->
-                    <ng-container matColumnDef="importe">
+                    <!-- <ng-container matColumnDef="importe">
                       <th mat-header-cell *matHeaderCellDef>Importe</th>
                       <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
                         {{element.get('importe').value | currency}}
@@ -102,30 +121,10 @@
                   </table>
                 </ng-container>
               </form>
-            </div>
-
-
-
+            </div> -->
           </div>
-           <div class="card" *ngIf="showBalance">
-              <div class="materialTableHeader">
-                 <table>
-                  <tr>
-                    <th>Gastos</th>
-                    <td>{{totalGastos | currency}}</td>
-                  </tr>
-                  <tr>
-                    <th>Ingresos</th>
-                    <td>{{totalIngresos | currency}}</td>
-                  </tr>
-                  <tr>
-                    <th>Balance</th>
-                    <td>{{balance | currency}}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <button *ngIf="showIngresos" button mat-raised-button color="primary" (click)="calculate()">Calcular Balance</button>
+
+            <!-- <button *ngIf="showIngresos" button mat-raised-button color="primary" (click)="calculate()">Calcular Balance</button> -->
         </div>
           <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card">
@@ -141,6 +140,20 @@
               </div>
             </div>
           </div> -->
+      </div>
+       <div *ngIf="showChart" class="col-lg-12">
+        <div class="card">
+          <div style="background-color: #144464;" class="header">
+            <h2 style="color:white;">Pacientes por dia</h2>
+          </div>
+          <div class="body">
+            <div class="recent-report__chart">
+              <canvas baseChart class="chart" [data]="barChartData" [options]="barChartOptions"
+                [plugins]="barChartPlugins" [type]="barChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

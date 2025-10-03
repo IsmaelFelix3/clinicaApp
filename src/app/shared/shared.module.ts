@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { MaterialModule } from "./material.module";
 import { FeatherIconsModule } from "./components/feather-icons/feather-icons.module";
 import { CustomDateTablePipe } from "app/helpers/custom-date-table.pipe";
+import { ChartsModule } from "app/charts/charts.module";
 @NgModule({
   declarations: [ CustomDateTablePipe ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
