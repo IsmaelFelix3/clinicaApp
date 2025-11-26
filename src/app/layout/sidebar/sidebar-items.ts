@@ -403,18 +403,18 @@ export const ROUTES: RouteInfo[] = [
         role: ['Admin'],
         submenu: [],
       },
-      {
-        path: 'admin/cliqProcedures/massCreationProcedures',
-        title: 'MENUITEMS.CLIQ-PROCEDURES.LIST.MASS-CREATION-PROCEDURE',
-        iconType: '',
-        icon: '',
-        class: '',
-        groupTitle: false,
-        badge: '',
-        badgeClass: '',
-        role: ['Admin'],
-        submenu: [],
-      }
+      // {
+      //   path: 'admin/cliqProcedures/massCreationProcedures',
+      //   title: 'MENUITEMS.CLIQ-PROCEDURES.LIST.MASS-CREATION-PROCEDURE',
+      //   iconType: '',
+      //   icon: '',
+      //   class: '',
+      //   groupTitle: false,
+      //   badge: '',
+      //   badgeClass: '',
+      //   role: ['SuperAdmin'],
+      //   submenu: [],
+      // }
       // {
       //   path: 'admin/cliqProcedures/newProcedures',
       //   title: 'MENUITEMS.DOCTOR.NEW-PROCEDURE',
