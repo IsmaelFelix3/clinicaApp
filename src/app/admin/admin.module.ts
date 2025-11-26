@@ -7,11 +7,13 @@ import { ChartsModule } from "app/charts/charts.module";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { NgChartsModule } from "ng2-charts";
+import { AcumulativeProceduresReportComponent } from "./reports/acumulative-procedures-report/acumulative-procedures-report.component";
 
 @NgModule({
   declarations: [
-    BuildingLogReportComponent
+    BuildingLogReportComponent,
+    AcumulativeProceduresReportComponent
   ],
-  imports: [CommonModule, AdminRoutingModule,SharedModule,ChartsModule,NgChartsModule],
+  imports: [CommonModule, AdminRoutingModule,SharedModule,ChartsModule,NgChartsModule,],
 })
 export class AdminModule {}

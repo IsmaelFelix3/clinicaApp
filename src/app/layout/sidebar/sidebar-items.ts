@@ -1,7 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
   {
-    path: '',
+    path: '/admin/dashboard/main',
     title: 'MENUITEMS.MAIN.TEXT',
     iconType: '',
     icon: '',
@@ -9,7 +9,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: true,
     badge: '',
     badgeClass: '',
-    role: ['All'],
+    role: [''],
     submenu: [],
   },
 
@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: ['SuperAdmin'],
     submenu: [
       // {
       //   path: '/admin/dashboard/main',
@@ -84,7 +84,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: ['Admin','SuperAdmin'],
     submenu: [
       {
         path: '/admin/appointment/viewAppointment',
@@ -133,7 +133,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: ['Admin','SuperAdmin'],
     submenu: [
       {
         path: '/admin/doctors/allDoctors',
@@ -255,7 +255,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: ['Admin', 'SuperAdmin'],
     submenu: [
       {
         path: '/admin/patients/all-patients',
@@ -316,7 +316,7 @@ export const ROUTES: RouteInfo[] = [
   groupTitle: false,
   badge: '',
   badgeClass: '',
-  role: ['Admin'],
+  role: ['Admin','SuperAdmin'],
   submenu: []
   },
   {
@@ -328,7 +328,7 @@ export const ROUTES: RouteInfo[] = [
   groupTitle: false,
   badge: '',
   badgeClass: '',
-  role: ['Admin'],
+  role: ['Admin','SuperAdmin'],
   submenu: [
      {
         path: '/admin/reports/buildingLogReport',
@@ -342,6 +342,18 @@ export const ROUTES: RouteInfo[] = [
         role: [''],
         submenu: [],
       },
+      {
+      path: '/admin/reports/acumulativeProceduresReport',
+      title: 'MENUITEMS.REPORTS.LIST.ACUMULATIVE-PROCEDURES-REPORT',
+      iconType: '',
+      icon: '',
+      class: 'ml-menu',
+      groupTitle: false,
+      badge: '',
+      badgeClass: '',
+      role: [''],
+      submenu: [],
+    },
   ]
   },
   {
@@ -353,7 +365,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: ['Admin', 'SuperAdmin'],
     submenu: [
       {
         path: 'admin/cliqProcedures/currentProcedures',
@@ -426,7 +438,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: ['Admin', 'SuperAdmin'],
     submenu: [
       {
         path: 'admin/accounting/closeProcedure',
@@ -548,7 +560,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    role: ['Admin'],
+    role: ['Admin','SuperAdmin'],
     submenu: [
       // {
       //   path: '',

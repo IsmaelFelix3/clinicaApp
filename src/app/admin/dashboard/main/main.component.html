@@ -5,6 +5,94 @@
       <app-breadcrumb [title]="'Tablero'" [items]="[]" [active_item]="'Informacion General'"></app-breadcrumb>
     </div>
     <!-- Widgets -->
+     <div class="row">
+       <form [formGroup]="form">
+
+                  <mat-form-field class="col-3 me-2" appearance="outline">
+                    <mat-label>Fecha Inicio</mat-label>
+                    <input matInput  formControlName="start" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker startView="year" #picker></mat-datepicker>
+                    <!-- <mat-error *ngIf="campoEsValido('start')">{{'Debe seleccionar una fecha de inicio'}}</mat-error> -->
+                  </mat-form-field>
+
+                   <mat-form-field class="col-3" appearance="outline">
+                    <mat-label>Fecha Fin</mat-label>
+                    <input matInput  formControlName="end" [matDatepicker]="picker2">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker startView="year" #picker2></mat-datepicker>
+                    <!-- <mat-error *ngIf="campoEsValido('end')">{{'Debe seleccionar una fecha fin'}}</mat-error> -->
+                  </mat-form-field>
+                  <button class="ms-4" mat-raised-button color="primary" >
+                      <mat-icon>search</mat-icon>
+                      Buscar
+                  </button>
+              </form>
+     </div>
+     <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+       <div class="card">
+         <div style="background-color: #144464;" class="header">
+           <h2 style="color:white;">Ingresos por Quirofano Mensual</h2>
+         </div>
+         <div class="body">
+           <div class="recent-report__chart">
+             <!-- <canvas baseChart class="chart" [data]="barChartData" [options]="barChartOptions"
+               [plugins]="barChartPlugins" [type]="barChartType">
+             </canvas> -->
+           </div>
+         </div>
+       </div>
+     </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+       <div class="card">
+         <div style="background-color: #144464;" class="header">
+           <h2 style="color:white;">Ingresos por Quirofano Acumulado Anual</h2>
+         </div>
+         <div class="body">
+           <div class="recent-report__chart">
+             <canvas baseChart class="chart" [data]="barChartData" [options]="barChartOptions"
+               [plugins]="barChartPlugins" [type]="barChartType">
+             </canvas>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+       <div class="card">
+         <div style="background-color: #144464;" class="header">
+           <h2 style="color:white;">Procedimientos Realizados por Quirofano Acumulado Anual</h2>
+         </div>
+         <div class="body">
+           <div class="recent-report__chart">
+             <canvas baseChart class="chart" [data]="barChartData2" [options]="barChartOptions2"
+               [plugins]="barChartPlugins2" [type]="barChartType2">
+             </canvas>
+           </div>
+         </div>
+       </div>
+     </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="card">
+          <div style="background-color: #144464;" class="header">
+            <h2 style="color:white;">Ingresos Mensuales</h2>
+          </div>
+          <table class="table table-striped">
+            <tr *ngFor="let item of information">
+              <td>{{"Ingresos Cobrados en" + " " + item.month}}</td>
+              <td>{{item.income | currency}}</td>
+            </tr>
+            <tr>
+              <td>Total: </td>
+              <td>{{total | currency}}</td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
     <div class="row">
       <!-- <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="card card-size img-circle user-img-circle card-statistic-2">
@@ -23,32 +111,32 @@
           </div>
         </div>
       </div> -->
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="image">
           <img src='../../../assets/images/clinics/SQ.JPG' class="img-circle user-img-circle card-size" alt="User Image" />
           <button class="btn-space example-full-width" mat-raised-button color="primary" style="width:13rem;margin-top:1rem;" >Citas: 360</button>
           </div>
-      </div>
+      </div> -->
       <!-- <div class="col-xl-1 col-lg-6 col-md-6 col-sm-6 col-xs-12">
       </div> -->
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="image">
           <img src='../../../assets/images/clinics/905-200x200.png' class="img-circle user-img-circle card-size" alt="User Image" />
           <button class="btn-space example-full-width" mat-raised-button color="primary" style="width:13rem;margin-top:1rem;" >Citas: 120</button>
           </div>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      </div> -->
+      <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="image">
           <img src='../../../assets/images/clinics/medica-juarez-200x200.png' class="img-circle user-img-circle card-size" alt="User Image" />
           <button class="btn-space example-full-width" mat-raised-button color="primary" style="width:13rem;margin-top:1rem;" >Citas: 120</button>
           </div>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="image">
+      </div> -->
+      <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12"> -->
+        <!-- <div class="image">
           <img src='../../../assets/images/clinics/901-200x200.png' class="img-circle user-img-circle card-size" alt="User Image" />
           <button class="btn-space example-full-width" mat-raised-button color="primary" style="width:13rem;margin-top:1rem;" >Citas: 120</button>
 
-        </div>
+        </div> -->
         <!-- <div style="background-image: url(../../../../assets/images/clinics/901-200x200.png); height: 100px; width: 100px;" class="card card-statistic-2">
           <div class="clearfix">
             <div class="card-icon shadow-primary bg-blue">
@@ -64,12 +152,12 @@
             </div>
           </div>
         </div> -->
-      </div>
+      <!-- </div> -->
     </div>
     <!-- #END# Widgets -->
   </div>
 </section>
-<!-- 
+<!--
 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
   <div class="card card-statistic-2">
     <div class="clearfix">

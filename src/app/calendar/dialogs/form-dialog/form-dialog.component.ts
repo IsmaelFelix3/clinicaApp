@@ -185,6 +185,7 @@ export class FormDialogComponent {
       return;
     }*/
     this.calendarForm.get('serie')?.setValue(this.calendarForm.value.serie.toUpperCase());
+
     this.cliqProcedureService.scheduleProcedure(this.calendarForm.getRawValue()).subscribe({
       complete: () => {
         this.calendarForm.reset();
@@ -227,6 +228,7 @@ export class FormDialogComponent {
       return;
     }*/
     this.calendarForm.get('serie')?.setValue(this.calendarForm.value.serie.toUpperCase());
+     console.log(this.calendarForm.getRawValue())
     this.cliqProcedureService.editProcedure(this.calendarForm.getRawValue(), original.idBooking).subscribe({
       complete: () => {
         this.calendarForm.reset();

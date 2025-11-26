@@ -55,9 +55,15 @@
           <div class="body overflow-auto">
             <div class="responsive_table">
               <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
-                <ng-container matColumnDef="id_procedimiento" style="width: 20px;">
+                <ng-container matColumnDef="id_procedimiento">
                   <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.id_procedimiento}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="folio">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef>Folio</mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let row" > <span
+                      class="mobile-label">Nombre:</span>{{row.folio}}
+                  </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="nombre_procedimiento">
                   <mat-header-cell mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>

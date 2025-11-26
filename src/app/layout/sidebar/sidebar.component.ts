@@ -77,12 +77,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
       console.log(userRole, 'userRole')
 
       switch ( userRole ) {
+         case 'SuperAdmin':
+          this.adminService.getAdminByEmail(userEmail).subscribe( admin => {
+            userInfo = admin;
+            this.userFullName = userInfo.admin.nombre + ' ' + userInfo.admin.apellidos;
+            // this.userImg = this.authService.currentUserValue.img;
+            this.userImg = '../../../assets/images/clinics/medica901Logo';
+            this.authService.currentUserSubject.next(this.authService.currentUserValue)
+          });
+          break;
         case 'Admin':
           this.adminService.getAdminByEmail(userEmail).subscribe( admin => {
             userInfo = admin;
             this.userFullName = userInfo.admin.nombre + ' ' + userInfo.admin.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
-            this.userImg = '../../../assets/images/clinics/901-200x200.png';
+            this.userImg = '../../../assets/images/clinics/medica901Logo';
             this.authService.currentUserSubject.next(this.authService.currentUserValue)
           });
           break;
@@ -101,7 +110,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
       this.sidebarItems = ROUTES.filter(
         (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf('All') !== -1
       );
-      if (userRole === Role.Admin) {
+      if (userRole === Role.SuperAdmin) {
+        this.userType = Role.SuperAdmin;
+      } else if (userRole === Role.Admin) {
         this.userType = Role.Admin;
       } else if (userRole === Role.Patient) {
         this.userType = Role.Patient;

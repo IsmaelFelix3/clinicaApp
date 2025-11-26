@@ -17,7 +17,8 @@ export class AddProcedureDetailsComponent {
 
   procedureDetailsForm: FormGroup = this.fb.group({
     nombre_procedimiento: [, [Validators.required]],
-    especialidad: [, [Validators.required]]
+    especialidad: [, [Validators.required]],
+    folio: [, [Validators.required]]
   });
 
   constructor(private fb: FormBuilder, private router: Router, public proceduresCatalog: ProceduresCatalogService, public specialtiesService: SpecialtiesService ){}

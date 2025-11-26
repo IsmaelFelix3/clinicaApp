@@ -7,12 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '@shared/components/components.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     ReportsRoutingModule,
     SharedModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
   ],

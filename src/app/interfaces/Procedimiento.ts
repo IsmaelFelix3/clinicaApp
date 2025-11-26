@@ -174,3 +174,53 @@ export interface ProcedimientoPostReturn {
     estatus:             string;
     detalles:            string;
 }
+
+export interface PostTotalProcedimientoByIdReport {
+  start: string;
+  end: string;
+  procedimiento: number;
+}
+
+export interface TotalProceduresMonthsByIDReportResponse {
+    msg:    string;
+    result: Result[];
+}
+
+export interface Result {
+    total: Total[];
+    month: string;
+}
+
+export interface Total {
+    count:                  number;
+    Catalogo_Procedimiento: CatalogoProcedimiento;
+}
+
+export interface CatalogoProcedimiento {
+    nombre_procedimiento: string;
+}
+
+
+export interface TotalProceduresByMonth {
+    msg:    string;
+    result: Result[];
+}
+
+export interface Result {
+    total: Total[];
+    month: string;
+}
+
+export interface Total {
+    id_quirofano: number;
+    count:        number;
+    Quirofano:    Quirofano;
+}
+
+export interface Quirofano {
+    id_quirofano:     number;
+    nombre_quirofano: string;
+}
+
+
+

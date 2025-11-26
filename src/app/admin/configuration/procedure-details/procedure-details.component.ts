@@ -25,6 +25,7 @@ export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter impl
  displayedColumns = [
     // 'select',
     'id_procedimiento',
+    'folio',
     'nombre_procedimiento',
     'especialidad',
     // 'nombre_quirofano'
@@ -80,6 +81,7 @@ export class ProcedureDetailsComponent  extends UnsubscribeOnDestroyAdapter impl
             id_procedimiento: element.id_procedimiento,
             especialidad: element['Catalogo_Especialidad.nombre_especialidad'],
             nombre_procedimiento: element.nombre_procedimiento,
+            folio: element.folio
           }
         });
         this.dataSource = new MatTableDataSource(this.procedimientos);

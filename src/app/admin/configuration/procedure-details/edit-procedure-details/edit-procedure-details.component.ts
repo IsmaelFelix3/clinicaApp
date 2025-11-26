@@ -18,6 +18,7 @@ export class EditProcedureDetailsComponent {
       id_procedimiento: [, [Validators.required]],
       nombre_procedimiento: [, [Validators.required]],
       especialidad: [, [Validators.required]],
+      folio: [, [Validators.required]],
   });
     constructor(private fb: FormBuilder, private router: Router, public proceduresCatalog: ProceduresCatalogService ) {
       this.state = this.router.getCurrentNavigation()?.extras.state;
@@ -36,6 +37,7 @@ export class EditProcedureDetailsComponent {
           this.procedureDetailsForm.get('id_procedimiento')?.setValue(value.detallesProcedimiento.id_procedimiento);
           this.procedureDetailsForm.get('nombre_procedimiento')?.setValue(value.detallesProcedimiento.nombre_procedimiento);
           this.procedureDetailsForm.get('especialidad')?.setValue(value.detallesProcedimiento.especialidad);
+          this.procedureDetailsForm.get('folio')?.setValue(value.detallesProcedimiento.folio);
         },
       });
     }

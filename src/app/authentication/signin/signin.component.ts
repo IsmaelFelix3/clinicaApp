@@ -60,11 +60,14 @@ export class SigninComponent
               setTimeout(() => {
                 const role = this.authService.currentUserValue.rol;
                 if (role === Role.All || role === Role.Admin) {
-                  this.router.navigate(['/admin/dashboard/main']);
+                  this.router.navigate(['/admin/accessLog/buildingLog']);
                 } else if (role === Role.Doctor) {
                   this.router.navigate(['/doctor/dashboard']);
                 } else if (role === Role.Patient) {
                   this.router.navigate(['/patient/dashboard']);
+                }
+                else if (role === Role.SuperAdmin) {
+                  this.router.navigate(['/admin/dashboard/main']);
                 } else {
                   this.router.navigate(['/authentication/signin']);
                 }

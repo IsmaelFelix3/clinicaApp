@@ -46,6 +46,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class BalanceComponent {
 
   totalGastos: number = 0
+  totalGastoAlDia:number = 0
   totalIngresos: number = 0
   balance: number = 0
   showIngresos: boolean =  false;
@@ -114,7 +115,7 @@ export class BalanceComponent {
     this.totalGastos = this.VOForm.value.VORows.reduce((accumulator: any, currentValue: any) => {
       console.log(currentValue)
       if(currentValue.isDivisible){
-        return accumulator + ((parseFloat(currentValue.importe) / 30 ) * this.daysCount)
+        return accumulator + ((parseFloat(currentValue.importe)))
       }
       return accumulator + parseFloat(currentValue.importe)
     },0);
@@ -123,7 +124,9 @@ export class BalanceComponent {
       return accumulator + parseFloat(currentValue.importe)
     },0);
     console.log(this.totalGastos)
-    this.balance = this.totalIngresos - this.totalGastos;
+    console.log(this.daysCount)
+    this.totalGastoAlDia = (this.totalGastos  / this.daysInMonth(new Date().getMonth()+1, new Date().getFullYear())) * this.daysCount;
+    this.balance = this.totalIngresos - (this.totalGastos  / this.daysInMonth(new Date().getMonth()+1, new Date().getFullYear())) * this.daysCount;
     this.showBalance = true;
   }
 
@@ -140,8 +143,11 @@ export class BalanceComponent {
     let timeDifference = end - start;
     let daysDifference = timeDifference / (1000 * 3600 * 24);
     return daysDifference + 1;
-}
+  }
 
+ daysInMonth (month: number, year: number) { // Use 1 for January, 2 for February, etc.
+  return new Date(year, month, 0).getDate();
+}
   search(){
     let start = this.form.value.start;
     let end = this.form.value.end;

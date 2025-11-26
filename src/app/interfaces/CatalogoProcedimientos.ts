@@ -12,6 +12,7 @@ export interface ProcedimientoCatalogo {
     id_procedimiento:         number;
     especialidad:             string;
     nombre_procedimiento:     string;
+    folio:                    string;
     "Catalogo_Especialidad.id_especialidad": number;
     "Catalogo_Especialidad.nombre_especialidad": string;
 }
@@ -20,12 +21,14 @@ export interface ProcedimientoCatalogoTable {
     id_procedimiento:         number;
     especialidad:             string;
     nombre_procedimiento:     string;
+    folio:                    string;
 }
 
 export interface DetallesProcedimiento {
     id_procedimiento:     number;
     especialidad:         string;
     nombre_procedimiento: string;
+    folio:                string;
     createdAt:            null;
     updatedAt:            null;
 }
@@ -48,9 +51,11 @@ export interface DetallesProcedimientoUpdate {
     id_procedimiento:     number;
     especialidad:         string;
     nombre_procedimiento: string;
+    folio:                string;
 }
 
 export interface DetallesProcedimientoPost {
     especialidad:         string;
     nombre_procedimiento: string;
+    folio:                string
 }

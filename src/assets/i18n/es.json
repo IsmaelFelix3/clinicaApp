@@ -4,7 +4,7 @@
       "TEXT": "Principal"
     },
     "DASHBOARD": {
-      "TEXT": "Tablero",
+      "TEXT": "Reporte de Ingresos",
       "LIST": {
         "DASHBOARD1": "Información General",
         "DASHBOARD2": "Tablero 2",
@@ -191,7 +191,8 @@
     "REPORTS": {
       "TEXT": "Reportes",
       "LIST": {
-        "BUILDING-LOG-REPORT": "Reporte Bitacora"
+        "BUILDING-LOG-REPORT": "Reporte Bitacora",
+        "ACUMULATIVE-PROCEDURES-REPORT": "Reporte Acumulado de Procedimientos"
       }
     }
   }

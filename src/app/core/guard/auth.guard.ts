@@ -18,6 +18,7 @@ export class AuthGuard implements CanMatch, CanActivate {
         console.log('es autenticado ',isAuthenticated)
       }),
       tap( isAuthenticated => {
+        console.log(isAuthenticated)
         if(!isAuthenticated){
           console.log('isAuthenticated False')
           this.router.navigate(['/authentication/signin']);
@@ -32,7 +33,7 @@ export class AuthGuard implements CanMatch, CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     console.log('can activate')
     const token = localStorage.getItem('token');
-    
+
     if(!token) return false;
 
     return this.checkAuthStatus();
@@ -41,10 +42,10 @@ export class AuthGuard implements CanMatch, CanActivate {
   canMatch( route: Route, segments: UrlSegment[]): boolean | Observable<boolean> {
     console.log('can match')
     const token = localStorage.getItem('token');
-    
+
     if(!token) return false;
 
     return this.checkAuthStatus();
   }
-  
+
 }
