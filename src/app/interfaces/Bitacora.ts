@@ -8,6 +8,11 @@ export interface Registros {
     rows:  Registro[];
 }
 
+export interface RegistrosReport {
+    count: number;
+    rows:  RegistroReport[];
+}
+
 export interface Registro {
     id:                 number;
     tipo_ingreso:       string;
@@ -21,6 +26,23 @@ export interface Registro {
     updatedAt:          Date;
     createdAt:          Date;
     Medico:             Medico | null;
+}
+
+export interface RegistroReport {
+    id:                 number;
+    tipo_ingreso:       string;
+    nombre_ingreso:     string;
+    nombre_acompanante: string;
+    motivo_ingreso:     string;
+    medico:             number;
+    fecha:              Date;
+    hora_entrada:       string;
+    hora_salida:        string;
+    updatedAt:          Date;
+    createdAt:          Date;
+    nombre:             string;
+    apellidos:          string;
+    id_medico:          number;
 }
 
 export interface RegistroPost {

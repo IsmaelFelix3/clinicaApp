@@ -343,6 +343,18 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
+        path: '/admin/reports/searchLog',
+        title: 'MENUITEMS.REPORTS.LIST.SEARCH-LOG',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        role: [''],
+        submenu: [],
+      },
+      {
       path: '/admin/reports/acumulativeProceduresReport',
       title: 'MENUITEMS.REPORTS.LIST.ACUMULATIVE-PROCEDURES-REPORT',
       iconType: '',

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BuildingLogRecordsRequest, BuildingLogReport, Registro, RegistroEdit, RegistroPost } from 'app/interfaces/Bitacora';
+import { BuildingLogRecordsRequest, BuildingLogReport, RegistroEdit, RegistroPost, RegistrosReport } from 'app/interfaces/Bitacora';
 import { environment } from 'environments/environment';
 
 const urlApi: string = environment.api;
@@ -41,6 +41,11 @@ export class BuildingLogService {
   getBuildingLogReportTotal(start: string, end: string){
     console.log(start, end)
     return this.http.get<BuildingLogReport>(`${urlApi}${urlEndpoint}getBuildingLogReportTotal/${start}&${end}`);
+  }
+
+  getBuildingLogByDay(start: string, ){
+    console.log(start)
+    return this.http.get<RegistrosReport>(`${urlApi}${urlEndpoint}getBuildingLogByDay/${start}`);
   }
 
 }

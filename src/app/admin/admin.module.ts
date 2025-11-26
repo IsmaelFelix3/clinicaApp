@@ -8,11 +8,13 @@ import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { NgChartsModule } from "ng2-charts";
 import { AcumulativeProceduresReportComponent } from "./reports/acumulative-procedures-report/acumulative-procedures-report.component";
+import { SearchLogComponent } from "./reports/search-log/search-log.component";
 
 @NgModule({
   declarations: [
     BuildingLogReportComponent,
-    AcumulativeProceduresReportComponent
+    AcumulativeProceduresReportComponent,
+    SearchLogComponent
   ],
   imports: [CommonModule, AdminRoutingModule,SharedModule,ChartsModule,NgChartsModule,],
 })

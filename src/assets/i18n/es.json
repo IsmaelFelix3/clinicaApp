@@ -192,7 +192,8 @@
       "TEXT": "Reportes",
       "LIST": {
         "BUILDING-LOG-REPORT": "Reporte Bitacora",
-        "ACUMULATIVE-PROCEDURES-REPORT": "Reporte Acumulado de Procedimientos"
+        "ACUMULATIVE-PROCEDURES-REPORT": "Reporte Acumulado de Procedimientos",
+        "SEARCH-LOG": "Buscar Bitacora"
       }
     }
   }

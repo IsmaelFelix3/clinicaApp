@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from 'app/doctor/dashboard/dashboard.component';
 import { BuildingLogReportComponent } from './building-log-report/building-log-report.component';
 import { AcumulativeProceduresReportComponent } from './acumulative-procedures-report/acumulative-procedures-report.component';
+import { SearchLogComponent } from './search-log/search-log.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: "acumulativeProceduresReport",
     component: AcumulativeProceduresReportComponent
+  },
+  {
+    path: "searchLog",
+    component: SearchLogComponent
   },
   { path: "**", component: DashboardComponent },
 ];

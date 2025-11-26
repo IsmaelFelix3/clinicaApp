@@ -5,6 +5,7 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { SharedModule } from '@shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '@shared/components/components.module';
+import { SearchLogComponent } from './search-log/search-log.component';
 
 @NgModule({
   declarations: [
