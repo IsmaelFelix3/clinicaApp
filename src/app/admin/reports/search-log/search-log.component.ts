@@ -6,7 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { RegistroReport } from 'app/interfaces/Bitacora';
 import { BuildingLogService } from 'app/services/building-log.service';
 import { fromEvent } from 'rxjs';
-import { UnsubscribeOnDestroyAdapter } from '@shared';
+import { TableElement, TableExportUtil, UnsubscribeOnDestroyAdapter } from '@shared';
+import { formatDate } from '@angular/common';
+import { ReportsService } from 'app/services/reports.service';
 
 
 
@@ -38,7 +40,7 @@ export class SearchLogComponent extends UnsubscribeOnDestroyAdapter {
   sort!: MatSort;
   @ViewChild('filter', { static: true }) filter?: ElementRef;
 
-  constructor(public fb: FormBuilder, public buildingLogService: BuildingLogService){
+  constructor(public fb: FormBuilder, public buildingLogService: BuildingLogService, public reportsServices: ReportsService){
     super();
   }
 
@@ -52,6 +54,22 @@ export class SearchLogComponent extends UnsubscribeOnDestroyAdapter {
     return day !== 0 && day !== 7;
 
   };
+
+  exportExcel() {
+      // key name with space add in brackets
+      const exportData: Partial<TableElement>[] =
+        this.dataSource.filteredData.map((x) => ({
+          'Tipo': x.tipo_ingreso,
+          'Nombre': x.nombre_ingreso,
+          'Acompañante': x.nombre_acompanante,
+          'Motivo': x.motivo_ingreso,
+          'Medico': x.id_medico == null ? 'N/A' : x.nombre + ' ' + x.apellidos ,
+          'Fecha': x.fecha.toString(),
+          'Entrada': x.hora_entrada,
+          'Salida': x.hora_salida,
+        }));
+      TableExportUtil.exportToExcel(exportData, 'excel');
+    }
 
   campoEsValido(campo: string){
     return this.form.controls[campo].errors && this.form.controls[campo].touched;

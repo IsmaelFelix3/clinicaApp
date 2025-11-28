@@ -6,41 +6,11 @@
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="card">
           <div style="background-color: #144464;" class="header">
-             <div class="export-button m-l-10 image-upload" >
-                        <label for="uploadBtn">
-                           <img src="assets/images/icons/xlsx.png" matTooltip="Exportar"/>
-                         </label>
-
-                      </div>
-            <h2 style="color:white;">Reporte Acumulado de Procedimientos</h2>
-          </div>
-          <div>
-            <table>
-              <tbody>
-                <tr>
-                  <!-- <th *ngFor="let col of columns;">{{col}}</th> -->
-                  <th *ngFor="let col of monthsColumns;">{{col}}</th>
-
-                </tr>
-                <!-- <tr *ngFor="let row of data">
-                  <td *ngFor="let item of row">{{item[0].Catalogo_Procedimiento.nombre_procedimiento}}</td> -->
-                  <!-- <td>{{row.data.}}</td>
-                  <td>{{row.cantidad}}</td> -->
-                <!-- </tr> -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <div class="card">
-          <div style="background-color: #144464;" class="header">
             <h2 style="color:white;">Filtros</h2>
           </div>
            <div class="mt-3">
               <form [formGroup]="form">
-
-                  <mat-form-field class="col-3 me-2" appearance="outline">
+                  <mat-form-field class="col-3 ms-3" appearance="outline">
                     <mat-label>Fecha Inicio</mat-label>
                     <input matInput  formControlName="start" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -48,7 +18,7 @@
                     <!-- <mat-error *ngIf="campoEsValido('start')">{{'Debe seleccionar una fecha de inicio'}}</mat-error> -->
                   </mat-form-field>
 
-                   <mat-form-field class="col-3" appearance="outline">
+                   <mat-form-field class="col-3 ms-3" appearance="outline">
                     <mat-label>Fecha Fin</mat-label>
                     <input matInput  formControlName="end" [matDatepicker]="picker2">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -70,7 +40,8 @@
               </form>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
           <div class="card">
             <div style="background-color: #144464;" class="header">
                 <h2 style="color:white;">Resultado</h2>
@@ -85,7 +56,46 @@
               </table>
           </div>
         </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div style="background-color: #144464;" class="header">
+             <div class="export-button m-l-10 image-upload" >
+                        <label for="uploadBtn">
+                           <img src="assets/images/icons/xlsx.png" matTooltip="Exportar"/>
+                         </label>
+                      </div>
+            <h2 style="color:white;">Reporte Acumulado de Procedimientos</h2>
+          </div>
+          <div>
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th *ngFor="let col of monthsColumns;">{{col}}</th>
+                </tr>
+                <tr *ngFor="let row of array">
+                  <td>{{row.procedure}}</td>
+                  <td>{{row.acumulado}}</td>
+                  <td>{{row.enero}}</td>
+                  <td>{{row.febrero}}</td>
+                  <td>{{row.marzo}}</td>
+                  <td>{{row.abril}}</td>
+                  <td>{{row.mayo}}</td>
+                  <td>{{row.junio}}</td>
+                  <td>{{row.julio}}</td>
+                  <td>{{row.agosto}}</td>
+                  <td>{{row.septiembre}}</td>
+                  <td>{{row.octubre}}</td>
+                  <td>{{row.noviembre}}</td>
+                  <td>{{row.diciembre}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </section>

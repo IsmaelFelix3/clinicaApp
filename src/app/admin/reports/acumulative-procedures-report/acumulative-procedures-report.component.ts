@@ -27,6 +27,116 @@ export class AcumulativeProceduresReportComponent {
   showIngresos: boolean =  false;
   showTable: boolean =  false;
 
+  months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
+]
+
+  testData = [
+    {
+        "name": "ENDOSCOPIA",
+        "data": [
+            {
+                "month": "Enero",
+                "count": 28
+            },
+            {
+                "month": "Febrero",
+                "count": 35
+            },
+            {
+                "month": "Marzo",
+                "count": 37
+            },
+            {
+                "month": "Abril",
+                "count": 33
+            },
+            {
+                "month": "Mayo",
+                "count": 32
+            },
+            {
+                "month": "Junio",
+                "count": 29
+            },
+            {
+                "month": "Julio",
+                "count": 37
+            },
+            {
+                "month": "Agosto",
+                "count": 21
+            },
+            {
+                "month": "Septiembre",
+                "count": 22
+            },
+            {
+                "month": "Octubre",
+                "count": 27
+            },
+            {
+                "month": "Noviembre",
+                "count": 10
+            }
+        ]
+    },
+    {
+        "name": "RINOSEPTUMPLASTIA",
+        "data": [
+            {
+                "month": "Enero",
+                "count": 5
+            },
+            {
+                "month": "Febrero",
+                "count": 1
+            },
+            {
+                "month": "Marzo",
+                "count": 4
+            },
+            {
+                "month": "Abril",
+                "count": 6
+            },
+            {
+                "month": "Mayo",
+                "count": 1
+            },
+            {
+                "month": "Junio",
+                "count": 5
+            },
+            {
+                "month": "Julio",
+                "count": 10
+            },
+            {
+                "month": "Agosto",
+                "count": 3
+            },
+            {
+                "month": "Noviembre",
+                "count": 1
+            }
+        ]
+    }
+  ]
+
+  array:any []= [];
+
   proceduresByMonth:  proceduresTable[]= [];
 
   proceduresCatalog: ProcedimientoCatalogo[] = [];
@@ -35,7 +145,7 @@ export class AcumulativeProceduresReportComponent {
   columnsSearch = ['Mes','Cantidad'];
 
   data: any= []
-  monthsColumns: any = []
+  monthsColumns: string [] = ['Procedimiento','Acumulado','Enero','Febrero','Marzo','Abril', 'Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
 
   constructor(private fb: FormBuilder,private _formBuilder: FormBuilder, private cliqProceduresService: CliqProceduresService,
               private buildingLogService: BuildingLogService, private cdr: ChangeDetectorRef, public proceduresCatalogService: ProceduresCatalogService ){}
@@ -57,6 +167,8 @@ export class AcumulativeProceduresReportComponent {
 
   ngOnInit(){
 
+  // console.log(this.array)
+
     this.cliqProceduresService.getAcumulativeProceduresReport().subscribe(data => {
       console.log(data)
       let groups: any = {};
@@ -75,7 +187,7 @@ export class AcumulativeProceduresReportComponent {
         myArray.push({group: groupName, values: groups[groupName][0]});
       }
       console.log(myArray)
-      this.monthsColumns = myArray.map(element => element.group);
+      // this.monthsColumns = myArray.map(element => element.group);
       console.log(this.monthsColumns)
       myArray.forEach( (element: { values: any[]; group: any; }) => {
       element.values.map(item => {
@@ -93,27 +205,73 @@ export class AcumulativeProceduresReportComponent {
       console.log(groups2)
       let names = Object.keys(groups2);
       console.log(names)
+
+
       this.data = names.map(element => {
         return {name: element, data: groups2[element]};
       });
 
       console.log(this.data)
-      let final = []
       for(let index = 0; index < this.data.length; index++){
-        let monthData = []
-        for(let i = 0; i < this.monthsColumns.length; i++){
-          if(this.data[index].data[i] != undefined ){
-            if(this.data[index].data[i].month == this.monthsColumns[i]){
-              monthData.push(this.data[index].data[i]);
-            }
+        let object = {
+          procedure: this.data[index].name,
+          acumulado: 0,
+          enero: 0,
+          febrero: 0,
+          marzo: 0,
+          abril:0,
+          mayo: 0,
+          junio: 0,
+          julio: 0,
+          agosto: 0,
+          septiembre: 0,
+          octubre: 0,
+          noviembre: 0,
+          diciembre: 0
+        }
+        for(let indexItem = 0; indexItem < this.months.length; indexItem++){
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].count){
+            object.acumulado = object.acumulado + this.data[index].data[indexItem].count;
           }
-          else{
-            monthData.push({month: this.monthsColumns[i], count: 0})
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Enero'){
+              object.enero = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Febrero'){
+              object.febrero = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Marzo'){
+              object.marzo = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Abril'){
+              object.abril = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Mayo'){
+              object.mayo = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Junio'){
+              object.junio = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Julio'){
+              object.julio = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Agosto'){
+              object.agosto = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Septiembre'){
+              object.septiembre = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Octubre'){
+              object.octubre = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Noviembre'){
+              object.noviembre = this.data[index].data[indexItem].count;
+          }
+          if(this.data[index].data[indexItem] && this.data[index].data[indexItem].month == 'Diciembre'){
+              object.diciembre = this.data[index].data[indexItem].count;
           }
         }
-        final.push({ name: this.data[index].name, data: monthData})
+        this.array.push(object)
       }
-      console.log(final)
     });
 
     this.proceduresCatalogService.getAllProceduresDetails().subscribe( data => {
