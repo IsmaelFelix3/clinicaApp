@@ -82,7 +82,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
             userInfo = admin;
             this.userFullName = userInfo.admin.nombre + ' ' + userInfo.admin.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
-            this.userImg = '../../../assets/images/clinics/medica901Logo';
+            this.userImg = '../../../assets/images/clinics/medica901Logo.jpg';
             this.authService.currentUserSubject.next(this.authService.currentUserValue)
           });
           break;
@@ -91,7 +91,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
             userInfo = admin;
             this.userFullName = userInfo.admin.nombre + ' ' + userInfo.admin.apellidos;
             // this.userImg = this.authService.currentUserValue.img;
-            this.userImg = '../../../assets/images/clinics/medica901Logo';
+            this.userImg = '../../../assets/images/clinics/medica901Logo.jpg';
             this.authService.currentUserSubject.next(this.authService.currentUserValue)
           });
           break;

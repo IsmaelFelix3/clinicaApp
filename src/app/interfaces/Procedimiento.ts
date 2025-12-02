@@ -222,5 +222,23 @@ export interface Quirofano {
     nombre_quirofano: string;
 }
 
+export interface TotalProceduresByDates {
+    msg:   string;
+    total: Total[];
+}
+
+export interface Total {
+    id_quirofano: number;
+    total_income: string;
+    count:        number;
+    Quirofano:    Quirofano;
+}
+
+export interface Quirofano {
+    id_quirofano:     number;
+    nombre_quirofano: string;
+}
+
+
 
 

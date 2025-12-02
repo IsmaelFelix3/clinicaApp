@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IncomeProcedures } from 'app/interfaces/IncomeProcedures';
-import { DeleteProcedure, GetProcedimiento, GetProcedimientosCalendar, GetProcedimientosRequestCount, GetProcedimientosTableRequest, GetProcedimientosTableRequestAdmin, PostTotalProcedimientoByIdReport, ProcedimientoPost, ProcedimientosRequest, TotalProceduresByMonth, TotalProceduresMonthsByIDReportResponse } from 'app/interfaces/Procedimiento';
+import { DeleteProcedure, GetProcedimiento, GetProcedimientosCalendar, GetProcedimientosRequestCount, GetProcedimientosTableRequest, GetProcedimientosTableRequestAdmin, PostTotalProcedimientoByIdReport, ProcedimientoPost, ProcedimientosRequest, TotalProceduresByDates, TotalProceduresByMonth, TotalProceduresMonthsByIDReportResponse } from 'app/interfaces/Procedimiento';
 import { AccountingProcedure, ClosedProcedureInformation } from 'app/interfaces/ProcedimientoContabilidad';
 import { AcumulativeReport, CountProceduresOR, IncomeProcedureMonthReport, IncomeProcedureOR } from 'app/interfaces/Report';
 import { environment } from 'environments/environment';
@@ -151,9 +151,12 @@ export class CliqProceduresService {
     return this.http.post<TotalProceduresMonthsByIDReportResponse>(`${this.baseURL}${this.apiURL}/getTotalMonthProceduresByIdReport/`,body);
   }
 
-  getTotalProceduresByDateGroupMonths(start: string, end: string){
-    return this.http.get<TotalProceduresByMonth>(`${this.baseURL}${this.apiURL}/getTotalProceduresByOperatingRoomByDates/${start}&${end}`);
-
+  getProceduresReportByDates(start: string, end: string){
+     return this.http.get<TotalProceduresByDates>(`${this.baseURL}${this.apiURL}/getTotalProceduresByOperatingRoomByDates/${start}&${end}`);
   }
+
+  // getTotalProceduresByDateGroupMonths(start: string, end: string){
+  //   return this.http.get<TotalProceduresByMonth>(`${this.baseURL}${this.apiURL}/getTotalProceduresByOperatingRoomByDates/${start}&${end}`);
+  // }
 
 }

@@ -5,8 +5,6 @@ import { ProcedimientoCatalogo } from 'app/interfaces/CatalogoProcedimientos';
 import { BuildingLogService } from 'app/services/building-log.service';
 import { CliqProceduresService } from 'app/services/cliq-procedures.service';
 import { ProceduresCatalogService } from 'app/services/procedures-catalog.service';
-import { ProceduresTypeService } from 'app/services/procedures-type.service';
-import { ChartConfiguration, ChartType, ChartData } from 'chart.js';
 
 interface proceduresTable {
   procedimiento:  string,
@@ -42,99 +40,6 @@ export class AcumulativeProceduresReportComponent {
     "Diciembre"
 ]
 
-  testData = [
-    {
-        "name": "ENDOSCOPIA",
-        "data": [
-            {
-                "month": "Enero",
-                "count": 28
-            },
-            {
-                "month": "Febrero",
-                "count": 35
-            },
-            {
-                "month": "Marzo",
-                "count": 37
-            },
-            {
-                "month": "Abril",
-                "count": 33
-            },
-            {
-                "month": "Mayo",
-                "count": 32
-            },
-            {
-                "month": "Junio",
-                "count": 29
-            },
-            {
-                "month": "Julio",
-                "count": 37
-            },
-            {
-                "month": "Agosto",
-                "count": 21
-            },
-            {
-                "month": "Septiembre",
-                "count": 22
-            },
-            {
-                "month": "Octubre",
-                "count": 27
-            },
-            {
-                "month": "Noviembre",
-                "count": 10
-            }
-        ]
-    },
-    {
-        "name": "RINOSEPTUMPLASTIA",
-        "data": [
-            {
-                "month": "Enero",
-                "count": 5
-            },
-            {
-                "month": "Febrero",
-                "count": 1
-            },
-            {
-                "month": "Marzo",
-                "count": 4
-            },
-            {
-                "month": "Abril",
-                "count": 6
-            },
-            {
-                "month": "Mayo",
-                "count": 1
-            },
-            {
-                "month": "Junio",
-                "count": 5
-            },
-            {
-                "month": "Julio",
-                "count": 10
-            },
-            {
-                "month": "Agosto",
-                "count": 3
-            },
-            {
-                "month": "Noviembre",
-                "count": 1
-            }
-        ]
-    }
-  ]
-
   array:any []= [];
 
   proceduresByMonth:  proceduresTable[]= [];
@@ -149,8 +54,8 @@ export class AcumulativeProceduresReportComponent {
 
   constructor(private fb: FormBuilder,private _formBuilder: FormBuilder, private cliqProceduresService: CliqProceduresService,
               private buildingLogService: BuildingLogService, private cdr: ChangeDetectorRef, public proceduresCatalogService: ProceduresCatalogService ){}
-  VOForm!: FormGroup;
-  proceduresForm!: FormGroup;
+  // VOForm!: FormGroup;
+  // proceduresForm!: FormGroup;
   dataSource = new MatTableDataSource<any>();
   dataSource2 = new MatTableDataSource<any>();
   daysCount: number = 0;
@@ -280,7 +185,7 @@ export class AcumulativeProceduresReportComponent {
 
   }
 
-  displayedColumns: string[] = ['doctor', 'consultorio', 'cantidad'];
+  // displayedColumns: string[] = ['doctor', 'consultorio', 'cantidad'];
 
   // calculate(){
   //   console.log(this.VOForm.value)
