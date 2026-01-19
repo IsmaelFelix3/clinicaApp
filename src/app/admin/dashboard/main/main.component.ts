@@ -49,6 +49,8 @@ export class MainComponent implements OnInit {
   showIngresos: boolean =  false;
   showTable: boolean =  false;
 
+  totalIncome: number = 0;
+
   months = [
     "Enero",
     "Febrero",
@@ -339,6 +341,9 @@ export class MainComponent implements OnInit {
     const end = this.form.value.end;
     this.cliqProceduresService.getProceduresReportByDates(start,end).subscribe( data => {
       console.log(data)
+      data.total.forEach(element => {
+        this.totalIncome =  parseFloat(this.totalIncome + element.total_income);
+      })
       this.tableByDates = data.total;
     })
   }

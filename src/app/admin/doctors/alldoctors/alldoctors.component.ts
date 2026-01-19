@@ -183,6 +183,20 @@ export class AlldoctorsComponent
   private refreshTable() {
     this.paginator?._changePageSize(this.paginator?.pageSize);
   }
+
+   exportExcel() {
+      // key name with space add in brackets
+      const exportData: Partial<TableElement>[] =
+        this.dataSource.filteredData.map((x) => ({
+          'Nombre': x.nombre + ' ' + x.apellidos ,
+          'Especialidad': x.especialidad,
+          'Cedula': x.cedula == null ? 'N/A' : x.cedula,
+          'Correo': x.correo == null ? 'N/A' : x.correo,
+          'Telefono': x.telefono == null ? 'N/A' : x.telefono ,
+
+        }));
+      TableExportUtil.exportToExcel(exportData, 'excel');
+    }
   /** Whether the number of selected elements matches the total number of rows. */
   // isAllSelected() {
   //   const numSelected = this.selection.selected.length;
