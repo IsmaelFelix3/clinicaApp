@@ -98,6 +98,7 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
     this.cliqProceduresService.getProceduresMonth().subscribe( (Procedures: any) => {
       console.log(Procedures)
       this.calendarEvents = Procedures;
+      console.log(this.calendarEvents)
       this.tempEvents = this.calendarEvents;
       this.calendarOptions!.events = this.calendarEvents;
     });
@@ -141,6 +142,7 @@ export class CalendarComponent extends UnsubscribeOnDestroyAdapter implements On
     //     }
     //   }
     // }
+
   };
 
 

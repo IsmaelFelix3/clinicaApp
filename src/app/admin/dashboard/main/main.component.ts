@@ -286,6 +286,7 @@ export class MainComponent implements OnInit {
     // })
 
     this.cliqProceduresService.getIncomesProceduresByMonth().subscribe( data => {
+      console.log(data)
       data.result.forEach((element,index) => {
         this.total =  this.total + parseFloat(element[0].total_income);
         this.information.push({ month: this.months[index],income: element[0].total_income});

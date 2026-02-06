@@ -45,10 +45,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class BalanceComponent {
 
-  totalGastos: number = 0
-  totalGastoAlDia:number = 0
-  totalIngresos: number = 0
-  balance: number = 0
+  totalGastos: number = 0;
+  totalGastoAlDia:number = 0;
+  totalGastosAlMomento: number = 0;
+  totalIngresos: number = 0;
+  daysMonth: number = 0;
+  balance: number = 0;
   showIngresos: boolean =  false;
   showBalance: boolean =  false;
 
@@ -125,8 +127,12 @@ export class BalanceComponent {
     },0);
     console.log(this.totalGastos)
     console.log(this.daysCount)
-    this.totalGastoAlDia = (this.totalGastos  / this.daysInMonth(new Date().getMonth()+1, new Date().getFullYear())) * this.daysCount;
-    this.balance = this.totalIngresos - (this.totalGastos  / this.daysInMonth(new Date().getMonth()+1, new Date().getFullYear())) * this.daysCount;
+    this.daysMonth = this.daysInMonth(new Date(this.form.get('start')?.value).getMonth()+1, new Date(this.form.get('start')?.value).getFullYear());
+    this.totalGastosAlMomento = (this.totalGastos  / this.daysMonth) * this.daysCount;
+    this.totalGastoAlDia = (this.totalGastos  /  this.daysMonth);
+    console.log(this.totalGastoAlDia)
+    console.log( this.daysMonth)
+    this.balance = this.totalIngresos - (this.totalGastos  /  this.daysMonth) * this.daysCount;
     this.showBalance = true;
   }
 
@@ -145,7 +151,8 @@ export class BalanceComponent {
     return daysDifference + 1;
   }
 
- daysInMonth (month: number, year: number) { // Use 1 for January, 2 for February, etc.
+ daysInMonth (month: number, year: number) {
+  console.log(month, year)// Use 1 for January, 2 for February, etc.
   return new Date(year, month, 0).getDate();
 }
   search(){
