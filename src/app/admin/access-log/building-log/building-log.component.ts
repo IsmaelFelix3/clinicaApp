@@ -8,7 +8,7 @@ import { MatSnackBar, MatSnackBarVerticalPosition, MatSnackBarHorizontalPosition
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { UnsubscribeOnDestroyAdapter } from '@shared';
+import { TableElement, TableExportUtil, UnsubscribeOnDestroyAdapter } from '@shared';
 import { Banco } from 'app/interfaces/Banco';
 import { Registro } from 'app/interfaces/Bitacora';
 import { BuildingLogService } from 'app/services/building-log.service';
@@ -110,6 +110,22 @@ export class BuildingLogComponent extends UnsubscribeOnDestroyAdapter implements
     private refreshTable() {
       this.paginator._changePageSize(this.paginator.pageSize);
     }
+
+    exportExcel() {
+          // key name with space add in brackets
+          const exportData: Partial<TableElement>[] =
+            this.dataSource.filteredData.map((x) => ({
+              'Tipo': x.tipo_ingreso,
+              'Nombre': x.nombre_ingreso,
+              'Acompañante': x.nombre_acompanante,
+              'Motivo': x.motivo_ingreso,
+              'Medico': x.medico,
+              'Fecha': x.fecha.toString(),
+              'Entrada': x.hora_entrada,
+              'Salida': x.hora_salida,
+            }));
+          TableExportUtil.exportToExcel(exportData, 'excel');
+        }
 
 
     public loadData() {
